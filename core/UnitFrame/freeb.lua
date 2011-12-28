@@ -107,7 +107,6 @@ UIDropDownMenu_Initialize(dropdown, init, 'MENU')
 local createBackdrop = function(parent, anchor) 
     local frame = CreateFrame("Frame", nil, parent)
     frame:SetFrameStrata("LOW")
-
     if pixelborder then
         frame:SetAllPoints(anchor)
         frame:SetBackdrop(backdrop2)
@@ -116,11 +115,10 @@ local createBackdrop = function(parent, anchor)
         frame:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", 4, -4)
         frame:SetBackdrop(frameBD)
     end
-
-    frame:SetBackdropColor(0, 0, 0, 0.8)
+    frame:SetBackdropColor(41/255, 36/255, 33/255, 0.9)
     frame:SetBackdropBorderColor(0, 0, 0)
-
     return frame
+	
 end
 ns.backdrop = createBackdrop
 

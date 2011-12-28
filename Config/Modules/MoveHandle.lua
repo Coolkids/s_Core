@@ -20,6 +20,7 @@ function Module.LoadSettings()
 		["ClassCD"] = {"CENTER","UIParent","CENTER", 415, -380},
 		["Threat"] = {"CENTER","UIParent","CENTER", -225, -133},
 		["Reminder"] = {"BOTTOMRIGHT","UIParent","BOTTOMRIGHT", -52, 211},
+		["Class"] = {"CENTER", "UIParent", "CENTER", -150, 150},
 	}
 	if not MoveHandleDB then MoveHandleDB = {} end
 	for key, value in pairs(Default) do

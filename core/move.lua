@@ -37,6 +37,10 @@ local Reminder = CreateFrame("Frame", Reminder, UIParent)
 Reminder:SetWidth(M["RaidBuffSize"]) 
 Reminder:SetHeight(M["RaidBuffSize"]) 
 Reminder:SetPoint(unpack(C["Reminder"]))
+local Class = CreateFrame("Frame", Reminder, UIParent) 
+Class:SetWidth(M["ClassBuffSize"]) 
+Class:SetHeight(M["ClassBuffSize"]) 
+Class:SetPoint(unpack(C["Class"]))
 
 	MoveHandle.Castbarplay = S.MakeMoveHandle(Castbarplay, "玩家施法条", "PlayerCastbar")
 	MoveHandle.Castbartarget = S.MakeMoveHandle(Castbartarget, "目标施法条", "TargetCastbar")
@@ -46,5 +50,6 @@ Reminder:SetPoint(unpack(C["Reminder"]))
 	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, "内置CD监视", "ClassCD")
 	MoveHandle.Threat = S.MakeMoveHandle(Threat, "仇恨监视", "Threat")
 	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "缺少药剂buff提示", "Reminder")
+	MoveHandle.Class = S.MakeMoveHandle(Class, "缺少药剂buff提示", "Class")
 	
 end

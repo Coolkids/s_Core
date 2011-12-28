@@ -148,13 +148,7 @@ DB.bars = {
  
  
 
---头像
-DB.UFont, DB.Ufontsize, DB.Ufontflag = ChatFrame1:GetFont(), 15, "THINOUTLINE" 
-DB.Uheight, DB.Uwidth = 25, 240
-DB.Uscale = 1.0
-DB.Uhpheight = .75 -- .70 - .95 
-DB.Ubossframes = true
-DB.Uportraits = false
+
 
 	
 

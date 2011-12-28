@@ -102,6 +102,8 @@ local ClassBuffList = {
 			[1] = {
 				  588, -- 心灵之火
 				73413, -- 心灵意志
+				15286, -- 吸血鬼拥抱
+				15473, -- 暗影形态
 			},		
 		},
 	},	
@@ -340,7 +342,7 @@ local function OnEvent_ACTIVE_TALENT_GROUP_CHANGED(event, ...)
 		Button.Text = S.MakeFontString(Button, 10)
 		Button.Text:SetPoint("TOP", Button, "BOTTOM", 0, -10)
 		if key == 1 then
-			Button:SetPoint(unpack(DB.ClassBuffPos))
+			Button:SetPoint(unpack(MoveHandleDB["Class"]))
 		else
 			Button:SetPoint("LEFT", BuffFrame[key-1], "RIGHT", ReminderDB.ClassBuffSpace, 0)
 		end
