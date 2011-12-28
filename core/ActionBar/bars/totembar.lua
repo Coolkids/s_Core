@@ -1,9 +1,11 @@
 local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("totembar", "AceEvent-3.0")
 local barDB = DB.bars.totembar
-function Module:OnInitialize()
-C = ActionBarDB
+
+
   if DB.MyClass == "SHAMAN" then
+  function Module:OnInitialize()
+	C = ActionBarDB
     local f = _G['MultiCastActionBarFrame']
     local bar = CreateFrame("Frame","rABS_TotemBar",UIParent,"SecureHandlerStateTemplate")
     bar:SetWidth(f:GetWidth())
@@ -11,6 +13,7 @@ C = ActionBarDB
     bar:SetPoint(C["totembar"].a1,C["totembar"].af,C["totembar"].a2,C["totembar"].x,C["totembar"].y)
     bar:SetScale(C["TotemBarSacle"])
     DB.applyDragFunctionality(bar,barDB.userplaced,barDB.locked)
+	
     bar:SetAttribute("_onstate-vis", [[
       if not newstate then return end
       if newstate == "show" then

@@ -4,7 +4,8 @@ local barDB = DB.bars.bar1
   local bar = CreateFrame("Frame","rABS_MultiBarBottomLeft",UIParent, "SecureHandlerStateTemplate")
 function Module:OnInitialize()
 C = ActionBarDB
-  if C["Bar2Layout"] == 1 then
+
+  if C["Bar2Layout"] == 2 then
     bar:SetWidth(C["ButtonSize"]*6+C["ButtonSpacing"]*5)
     bar:SetHeight(C["ButtonSize"]*2+C["ButtonSpacing"])
   else  
@@ -27,7 +28,7 @@ C = ActionBarDB
   DB.applyDragFunctionality(bar,barDB.userplaced,barDB.locked)
 
   MultiBarBottomLeft:SetParent(bar)
-  
+
   for i=1, 12 do
     local button = _G["MultiBarBottomLeftButton"..i]
     button:SetSize(C["ButtonSize"], C["ButtonSize"])
@@ -65,4 +66,4 @@ C = ActionBarDB
       pb:HookScript("OnLeave", function(self) lighton(0) end)
     end    
 end
-end
+ end 

@@ -51,8 +51,8 @@ function Module.BuildGUI()
 					type = "range", order = 3,
 					name = "字体大小：", desc = "输入字体大小",
 					min = 10, max = 22, step = 1,
-					get = function() return ActionBarDB.FontSize end,
-					set = function(_, value) ActionBarDB.FontSize = value end,
+					get = function() return TooltipDB.FontSize end,
+					set = function(_, value) TooltipDB.FontSize = value end,
 				},
 				HideTitles = {
 					type = "toggle",

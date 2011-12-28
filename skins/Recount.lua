@@ -1,6 +1,7 @@
 ﻿local S, _, _, DB = unpack(select(2, ...))
-if DB.SkinRecount ~= true then return end
+
 if not IsAddOnLoaded("Recount") then return end
+if not SkinDB.EnableRecountSkin then return end 
 local Recount = _G.Recount
 Mod_AddonSkins = CreateFrame("Frame")
 local Mod_AddonSkins = Mod_AddonSkins

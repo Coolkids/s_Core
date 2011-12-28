@@ -3,6 +3,7 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("petbar ", "Ac
 local barDB = DB.bars.petbar 
 function Module:OnInitialize()
  C = ActionBarDB 
+
     local num = NUM_PET_ACTION_SLOTS
     
     local bar = CreateFrame("Frame","rABS_PetBar",UIParent, "SecureHandlerStateTemplate")
@@ -18,7 +19,7 @@ function Module:OnInitialize()
     bar:SetScale(C["PetBarSacle"])
   
     DB.applyDragFunctionality(bar,barDB.userplaced,barDB.locked)
-  
+
     PetActionBarFrame:SetParent(bar)
     PetActionBarFrame:EnableMouse(false)
 PetBarUpdate = function(self, event)
@@ -140,4 +141,4 @@ PetActionBarFrame.showgrid = 1
 		PetActionBar_UpdateCooldowns()
 	end
 end)
-end
+  end 

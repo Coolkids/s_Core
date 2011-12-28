@@ -4,6 +4,7 @@ local barDB = DB.bars.vehicleexit
   local bar = CreateFrame("Frame","rABS_VehicleExit",UIParent, "SecureHandlerStateTemplate")
 function Module:OnInitialize()
 C = ActionBarDB
+
   bar:SetHeight(C["ButtonSize"])
   bar:SetWidth(C["ButtonSize"])
   bar:SetPoint(C["vehicleexit"].a1,C["vehicleexit"].af,C["vehicleexit"].a2,C["vehicleexit"].x,C["vehicleexit"].y)
@@ -16,7 +17,7 @@ C = ActionBarDB
   bar:SetScale(1)
 
   DB.applyDragFunctionality(bar,barDB.userplaced,barDB.locked)
-
+end
   local veb = CreateFrame("BUTTON", nil, bar, "SecureHandlerClickTemplate");
   veb:SetAllPoints(bar)
   veb:RegisterForClicks("AnyUp")
@@ -25,4 +26,4 @@ C = ActionBarDB
   veb:SetHighlightTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Down")
   veb:SetScript("OnClick", function(self) VehicleExit() end)
   RegisterStateDriver(veb, "visibility", "[target=vehicle,exists] show;hide")
-  end
+  

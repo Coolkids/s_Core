@@ -12,6 +12,7 @@ DB.Button = Media.."Button"
 DB.GlowTex = Media.."glowTex"
 DB.Statusbar = Media.."Statusbar7"
 DB.barinset = 10
+DB.bfont = MediaPath.."ROADWAY.ttf"
 DB.backdrop = { 
     bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
     edgeFile = "",
@@ -25,14 +26,7 @@ DB.backdrop = {
       bottom = -DB.barinset,
     },
   }
--- Buff设置
- DB.auratex = MediaPath.."iconborder" 
- DB.bfont = MediaPath.."ROADWAY.ttf"
- DB.backdrop_texture = MediaPath.."backdrop"
- DB.backdrop_edge_texture = MediaPath.."backdrop_edge"
- DB.biconsize = 36 									-- 大小
- DB.timefontsize = 17									-- 时间数字大小
- DB.countfontsize = 16								-- 堆叠层数数字大小
+
 -- 聊天设置
 DB.AutoApply = false									--聊天设置锁定		
 DB.def_position = {"BOTTOMLEFT",UIParent,"BOTTOMLEFT",20,30} -- Chat Frame position
@@ -66,11 +60,8 @@ DB.Arrow = Media.."Arrow"
 --背包
 DB.bgFile = "Interface\\Tooltips\\UI-Tooltip-Background"
 DB.edgeFile = Media.."glowTex5"
---DB.Solid = Media.."Solid"
 DB.bagScale = 1.1 		
 
---AuraWatch
-DB.AWStatusbar = Media.."Statusbar7"
 --动作条
 
 DB.bars = {
@@ -191,14 +182,7 @@ DB.AutoUIscale = false  -- 自动设定UI缩放
 DB.LockUIscale = true --锁定UI缩放
 DB.Autoinvite = false  --自动邀请
 DB.INVITE_WORD = "SunUI"  --自动邀请关键字(请在""里面填写)
---皮肤
-DB.SkinDBM = true  --DBM皮肤
-DB.SkinOmen = true --Omen皮肤
-DB.SkinPallyPower = true  --PallyPower皮肤
-DB.SkinBigWigs = true  --BigWigs
-DB.SkinQuartz = true --Quartz
-DB.SkinRecount = true --Recount
-DB.SkinSkada = true --Skada
+
 --內置CD
 DB.ClassCDOpen = true
 DB.ClassCDDirection = down   --  down or up

@@ -4,6 +4,7 @@ local barDB = DB.bars.extrabar
   local bar = CreateFrame("Frame","rABS_ExtraActionBar",UIParent,"SecureHandlerStateTemplate")
   function Module:OnInitialize()
   C = ActionBarDB
+
   bar:SetSize(C["ButtonSize"],C["ButtonSize"])
   bar:SetPoint(C["extrabar"].a1,C["extrabar"].af,C["extrabar"].a2,C["extrabar"].x,C["extrabar"].y)
   bar:SetHitRectInsets(-DB.barinset, -DB.barinset, -DB.barinset, -DB.barinset)
@@ -44,5 +45,4 @@ local barDB = DB.bars.extrabar
       self:Hide()
     end
   end)
-
-end
+  end

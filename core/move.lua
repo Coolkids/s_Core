@@ -4,6 +4,7 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("castbarmove")
 function Module:OnInitialize()
 C=MoveHandleDB
 L=ThreatDB
+M=ReminderDB
 local Castbarplay = CreateFrame("Frame", Castbarplay, UIParent) 
 Castbarplay:SetWidth(460) 
 Castbarplay:SetHeight(10) 
@@ -32,6 +33,10 @@ local Threat = CreateFrame("Frame", Threat, UIParent)
 Threat:SetWidth(L["ThreatBarWidth"]) 
 Threat:SetHeight(6) 
 Threat:SetPoint(unpack(C["Threat"]))
+local Reminder = CreateFrame("Frame", Reminder, UIParent) 
+Reminder:SetWidth(M["RaidBuffSize"]) 
+Reminder:SetHeight(M["RaidBuffSize"]) 
+Reminder:SetPoint(unpack(C["Reminder"]))
 
 	MoveHandle.Castbarplay = S.MakeMoveHandle(Castbarplay, "玩家施法条", "PlayerCastbar")
 	MoveHandle.Castbartarget = S.MakeMoveHandle(Castbartarget, "目标施法条", "TargetCastbar")
@@ -40,5 +45,6 @@ Threat:SetPoint(unpack(C["Threat"]))
 	MoveHandle.ShadowPet = S.MakeMoveHandle(ShadowPet, "暗影魔计时条", "ShadowPet")
 	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, "内置CD监视", "ClassCD")
 	MoveHandle.Threat = S.MakeMoveHandle(Threat, "仇恨监视", "Threat")
+	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "缺少药剂buff提示", "Reminder")
 	
 end

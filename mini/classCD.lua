@@ -153,12 +153,13 @@ local sformat = string.format
 local floor = math.floor
 local timer = 0
 local bars = {}
+function Module:OnInitialize()
+C=MoveHandleDB
 
 local ClassCDAnchor = CreateFrame("Frame", "ClassCDAnchor", UIParent)
 
 ClassCDAnchor:SetSize(140, 20)
-function Module:OnInitialize()
-C=MoveHandleDB
+
 ClassCDAnchor:SetPoint(unpack(C["ClassCD"]))
 end
 local FormatTime = function(time)

@@ -1,7 +1,7 @@
 ﻿local S, _, _, DB = unpack(select(2, ...))
-if DB.SkinSkada ~= true then return end
-if not Skada then return end
 
+if not Skada then return end
+if not SkinDB.EnableSkadaSkin then return end
 local function CreateBackdrop(f, t, tex)
 	if f.backdrop then return end
 	

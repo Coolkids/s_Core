@@ -1,12 +1,9 @@
-﻿----------------
---  命名空间  --
-----------------
-
-local _, SR = ...
-local cfg = SR.RDConfig
-
-
-cfg.ClassBuffList = {
+﻿-- Engines
+local S, C, L, DB = unpack(select(2, ...))
+local Core = LibStub("AceAddon-3.0"):GetAddon("Core")
+local Module = Core:NewModule("ClassBuffReminder", "AceEvent-3.0")
+local ClassBuff, BuffFrame = {}, {}
+local ClassBuffList = {
 	["DRUID"] = {
 		-- 平衡
 		[1] = {
@@ -21,7 +18,6 @@ cfg.ClassBuffList = {
 			
 		},
 	},
-	
 	["MAGE"] = {
 		-- 奥术
 		[1] = {
@@ -50,8 +46,7 @@ cfg.ClassBuffList = {
 				30482, -- 熔岩护甲	
 			},			
 		},
-	},
-	
+	},	
 	["HUNTER"] = {
 		-- 野兽控制
 		[1] = {
@@ -83,8 +78,7 @@ cfg.ClassBuffList = {
 				82661, -- 灵狐守护
 			},			
 		},
-	},
-	
+	},	
 	["PRIEST"] = {
 		-- 戒律
 		[1] = {
@@ -108,17 +102,9 @@ cfg.ClassBuffList = {
 			[1] = {
 				  588, -- 心灵之火
 				73413, -- 心灵意志
-					},		
-			[2] = {
-				  15286, --  (xixue)
-					},	
-			[3] = {
-				 15473, -- 暗影形态
-					},	
+			},		
 		},
-	},
-				
-	
+	},	
 	["ROGUE"] = {
 		-- 刺杀
 		[1] = {
@@ -132,8 +118,7 @@ cfg.ClassBuffList = {
 		[3] = {
 			
 		},
-	},
-	
+	},	
 	["SHAMAN"] = {
 		-- 元素战斗
 		[1] = {
@@ -159,8 +144,7 @@ cfg.ClassBuffList = {
 				   324, -- 闪电之盾
 			},			
 		},
-	},
-	
+	},	
 	["PALADIN"] = {
 		-- 神圣
 		[1] = {
@@ -217,8 +201,7 @@ cfg.ClassBuffList = {
 				19891, -- 抗性光环
 			},			
 		},
-	},
-	
+	},	
 	["WARLOCK"] = {
 		-- 痛苦
 		[1] = {
@@ -244,8 +227,7 @@ cfg.ClassBuffList = {
 				   687, -- 魔甲术
 			},			
 		},
-	},
-	
+	},	
 	["DEATHKNIGHT"] = {
 		-- 鲜血
 		[1] = {
@@ -291,8 +273,7 @@ cfg.ClassBuffList = {
 				93435, -- 勇气咆哮		
 			},				
 		},
-	},
-	
+	},	
 	["WARRIOR"] = {
 		-- 武器
 		[1] = {
@@ -328,4 +309,94 @@ cfg.ClassBuffList = {
 	},
 }
 
-SR.RDConfig.ClassBuffList = cfg.ClassBuffList
+local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
+	for _, value in pairs(BuffFrame) do value:SetAlpha(0) end
+	local i = 0
+	for key, value in pairs(ClassBuff) do
+		local flag = 0
+		for _, temp in pairs(value) do
+			local Name, _, Icon = select(1, GetSpellInfo(temp))
+			if UnitAura("player", Name) then flag = 1 end
+		end
+		if flag == 0 then
+			local Name, _, Icon = select(1, GetSpellInfo(value[1]))
+			i = i + 1
+			BuffFrame[i].Icon:SetTexture(Icon)
+			BuffFrame[i].Icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
+			BuffFrame[i].Text:SetText(format("缺少：%s", Name))
+			BuffFrame[i]:SetAlpha(1)
+		end
+	end
+end
+local function OnEvent_ACTIVE_TALENT_GROUP_CHANGED(event, ...)
+	ClassBuff = ClassBuffList[DB.MyClass][GetPrimaryTalentTree() or 1]
+	for key, value in pairs(ClassBuff) do
+		local Button = CreateFrame("Frame", nil, UIParent)
+		Button:SetSize(ReminderDB.ClassBuffSize, ReminderDB.ClassBuffSize)
+		Button.Shadow = S.MakeShadow(Button, 3)
+		Button.Icon = Button:CreateTexture(nil, "ARTWORK")
+		Button.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		Button.Icon:SetAllPoints()
+		Button.Text = S.MakeFontString(Button, 10)
+		Button.Text:SetPoint("TOP", Button, "BOTTOM", 0, -10)
+		if key == 1 then
+			Button:SetPoint(unpack(DB.ClassBuffPos))
+		else
+			Button:SetPoint("LEFT", BuffFrame[key-1], "RIGHT", ReminderDB.ClassBuffSpace, 0)
+		end
+		Button:SetAlpha(0)	
+		tinsert(BuffFrame, Button)
+	end
+end
+local function OnEvent_PLAYER_REGEN_DISABLED(event, ...)
+	for _, value in pairs(BuffFrame) do
+		value:SetAlpha(0)
+	end
+	local i = 0
+	for key, value in pairs(ClassBuff) do
+		local flag = 0
+		for _, temp in pairs(value) do
+			local Name, _, Icon = select(1, GetSpellInfo(temp))
+			if UnitAura("player", Name) then flag = 1 end
+		end
+		if flag == 0 then
+			local Name, _, Icon = select(1, GetSpellInfo(value[1]))
+			i = i + 1
+			BuffFrame[i].Icon:SetTexture(Icon)
+			BuffFrame[i].Icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
+			BuffFrame[i].Text:SetText(format("缺少：%s", Name))
+			BuffFrame[i]:SetAlpha(1)
+		end
+	end
+	if i ~= 0 and ReminderDB.ClassBuffSound then PlaySoundFile(DB.Warning) end
+end
+local function OnEvent_UNIT_AURA(event, unit, ...)
+	if unit ~= "player" then return end
+	for _, value in pairs(BuffFrame) do value:SetAlpha(0) end
+	local i = 0
+	for key, value in pairs(ClassBuff) do
+		local flag = 0
+		for _, temp in pairs(value) do
+			local Name, _, Icon = select(1, GetSpellInfo(temp))
+			if UnitAura("player", Name) then flag = 1 end
+		end
+		if flag == 0 then
+			local Name, _, Icon = select(1, GetSpellInfo(value[1]))
+			i = i + 1
+			BuffFrame[i].Icon:SetTexture(Icon)
+			BuffFrame[i].Icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
+			BuffFrame[i].Text:SetText(format("缺少：%s", Name))
+			BuffFrame[i]:SetAlpha(1)
+		end
+	end
+end
+
+function Module:OnEnable()
+	if not ReminderDB.ShowClassBuff then return end
+	OnEvent_ACTIVE_TALENT_GROUP_CHANGED()
+	Module:RegisterEvent("UNIT_AURA", OnEvent_UNIT_AURA)
+	Module:RegisterEvent("PLAYER_REGEN_DISABLED", OnEvent_PLAYER_REGEN_DISABLED)
+	Module:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", OnEvent_ACTIVE_TALENT_GROUP_CHANGED)
+	Module:RegisterEvent("PLAYER_ENTERING_WORLD", OnEvent_PLAYER_ENTERING_WORLD)
+end
+

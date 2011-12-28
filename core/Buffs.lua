@@ -1,7 +1,7 @@
 ﻿-- Engines
 local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Buff")
-local IconPerRow = 12
+local IconPerRow = 16
 local BuffPos, DebuffPos = nil, nil
 local tinsert, _G, tsort = tinsert, _G, table.sort
 local BuffTable = {["Time"] = {}, ["None"] = {}}

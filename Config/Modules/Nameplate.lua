@@ -9,13 +9,12 @@ local Module = DB["Modules"]["Nameplate"]
 -- LoadSettings
 function Module.LoadSettings()
 	local Default = {
-		["Fontsize"] = 10,						-- 姓名板字体大小
-		["HPHeight"] = 5,						-- 姓名板血条高度
+		["Fontsize"] = 14,						-- 姓名板字体大小
+		["HPHeight"] = 6,						-- 姓名板血条高度
 		["HPWidth"] = 120,						-- 姓名板血条宽度
 		["CastBarIconSize"] = 20,				-- 姓名板施法条图标大小
 		["CastBarHeight"] = 5,					-- 姓名板施法条高度
-		["CastBarWidth"] = 100,					-- 姓名板施法条宽度
-		["CombatToggle"] = true,				-- 进入/离开战斗自动开启/关闭姓名板
+		["CastBarWidth"] = 120,					-- 姓名板施法条宽度
 	}
 	if not NameplateDB then NameplateDB = {} end
 	for key, value in pairs(Default) do
@@ -83,14 +82,6 @@ function Module.BuildGUI()
 					order = 6,
 					get = function() return tostring(NameplateDB.CastBarWidth) end,
 					set = function(_, value) NameplateDB.CastBarWidth = tonumber(value) end,
-				},
-				CombatToggle = {
-					type = "toggle",
-					name = "进入/离开战斗自动开启/关闭姓名板",
-					width = "double",
-					order = 7,
-					get = function() return NameplateDB.CombatToggle end,
-					set = function(_, value) NameplateDB.CombatToggle = value end,
 				},
 			}
 		}

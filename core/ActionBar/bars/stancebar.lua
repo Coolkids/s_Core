@@ -3,6 +3,7 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("stancebar", "
 local barDB = DB.bars.totembar  
 function Module:OnInitialize()
 C = ActionBarDB  
+
     local num = NUM_SHAPESHIFT_SLOTS
     
     local bar = CreateFrame("Frame","rABS_StanceBar",UIParent, "SecureHandlerStateTemplate")
@@ -18,7 +19,7 @@ C = ActionBarDB
     bar:SetScale(C["StanceBarSacle"])
   
     DB.applyDragFunctionality(bar,barDB.userplaced,barDB.locked)
-  
+
     ShapeshiftBarFrame:SetParent(bar)
     ShapeshiftBarFrame:EnableMouse(false)
     
@@ -39,7 +40,7 @@ C = ActionBarDB
     end
     hooksecurefunc("ShapeshiftBar_Update", rABS_MoveShapeshift);
     
-    
+ end     
     if barDB.showonmouseover then    
       local function lighton(alpha)
         if ShapeshiftBarFrame:IsShown() then
@@ -59,5 +60,3 @@ C = ActionBarDB
         pb:HookScript("OnLeave", function(self) lighton(0) end)
       end    
     end
-  
-  end 

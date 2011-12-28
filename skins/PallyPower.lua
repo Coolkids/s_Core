@@ -1,9 +1,9 @@
 local S, _, _, DB = unpack(select(2, ...))
-if DB.SkinPallyPower ~= true then return end
 local PPSkin = CreateFrame("Frame")
 PPSkin:RegisterEvent("PLAYER_LOGIN")
 PPSkin:SetScript("OnEvent", function(self, event, addon)
 	if IsAddOnLoaded("PallyPower") then
+		if not SkinDB.EnablePallyPowerSkin then return end
 		local _G = _G
 		local _, frame, tex, settings
 		local one = 1

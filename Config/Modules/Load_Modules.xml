@@ -2,7 +2,6 @@
 
 	<Script file = "ActionBar.lua"/>
 	<Script file = "Buff.lua"/>
-	<Script file = "ClassTimer.lua"/>
 	<Script file = "MoveHandle.lua"/>
 	<Script file = "Nameplate.lua"/>
 	<Script file = "Reminder.lua"/>

@@ -261,7 +261,7 @@ SlashCmdList.SRAuraWatch = function(msg)
 			TestFlag = false
 			Event:SetScript("OnUpdate", nil)
 			for _, value in pairs(Aura) do
-				for i = 1, MaxFrame do
+				--[[for i = 1, MaxFrame do
 					if value[i] then
 						value[i]:SetScript("OnUpdate", nil)
 						value[i]:Show()	
@@ -271,7 +271,7 @@ SlashCmdList.SRAuraWatch = function(msg)
 					if value[i].Time then value[i].Time:SetText("59.59") end
 					if value[i].Statusbar then value[i].Statusbar:SetValue(1) end
 					if value[i].Spellname then value[i].Spellname:SetText("变形术") end				
-				end
+				end--]]
 				value[1].MoveHandle:Show()
 			end
 		else

@@ -1,5 +1,6 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file ="TheBurningTrade\localization-zhTW.lua"/>
+	<Script file ="TheBurningTrade\localization-zhCN.lua"/>
 	<Script file ="TheBurningTrade\TheBurningTrade.lua"/>
 	<Script file ="RETabBinder\RETabBinder.lua"/>
 	<Include file ="RETabBinder\RETabBinder.xml"/>
@@ -11,7 +12,6 @@
 	<Script file ="MBB\localization-zhTW.lua"/>
 	<Script file ="MBB\localization-zhCN.lua"/>
 	<Include file="MBB\MBB.xml"/>
-	<Include file ="Reminder\Load_Reminder.xml"/>
 	<Include file ="Ratings\load.xml"/>
 	<Script file ="sh\sh.lua"/>
 	<Script file ="AddonManager.lua"/>

@@ -8,6 +8,7 @@
 	<Script file = "API.lua"/>
 	<Script file = "..\cfg.lua"/>
 	<Include file="bags\load.xml"/>
+	<Script file = "move.lua"/>
 	<Script file = "Buffs.lua"/>
 	<Script file = "Chat.lua"/>
 	<Script file = "caelNamePlates.lua"/>
@@ -21,6 +22,7 @@
 	<Include file="UnitFrame\load.xml"/>
 	<Script file="oUF_MovableFrames\movable.lua"/>
 	<Include file="AuraWatch\Load.xml"/>
+	<Include file="Reminder\Load.xml"/>
 	
 
 	

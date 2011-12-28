@@ -1,33 +1,36 @@
-local _, _, _, DB = unpack(select(2, ...))
-
 local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
+local S, C, L, DB = unpack(select(2, ...))
+local Core = LibStub("AceAddon-3.0"):GetAddon("Core")
+local Module = Core:NewModule("UnitFrame")
 
+function Module:OnInitialize()
+C = UnitFrameDB
 local mediaPath = "Interface\\AddOns\\s_Core\\media\\"
 local texture = mediaPath.."Cabaret"   --Cabaret原材质
-local font, fontsize, fontflag = DB.UFont, DB.Ufontsize, DB.Ufontflag
+local font, fontsize, fontflag = DB.Font, C["FontSize"], "THINOUTLINE"
 
 local movtex = mediaPath.."mouseover"
 local thrtex = mediaPath.."threat"
 local glowTex = mediaPath.."glowTex"
 local buttonTex = mediaPath.."buttontex"
-local height, width = DB.Uheight, DB.Uwidth
-local scale = DB.Uscale
-local hpheight = DB.Uhpheight 
+local height, width = C["Height"], C["Width"]
+local scale = C["Scale"]
+local hpheight = C["PowerHeight"]
 
 local overrideBlizzbuffs = false
-local castbars = false            -- disable castbars
-local auras = true               -- disable all auras
-local bossframes = DB.Ubossframes
+local castbars = false           
+local auras = true               
+
+local bossframes = C["Bossframes"]
 local auraborders = false
 
-local classColorbars = false
-local powerColor = true
-local powerClass = false
+local classColorbars = C["ClassColorbars"]
+local powerColor = C["PowerColor"]
+local powerClass = C["PowerClass"]
 
-local portraits = DB.Uportraits
-local onlyShowPlayer = false -- only show player debuffs on target
-
+local portraits = C["Portraits"]
+local onlyShowPlayer = C["OnlyShowPlayer"] 
 local pixelborder = false
 if overrideBlizzbuffs then
     BuffFrame:Hide()
@@ -1336,4 +1339,5 @@ SpellRange = function(self)
 		insideAlpha = 1, --范围内的透明度
 		outsideAlpha = 0.3}	 --范围外的透明度
 	end
+end
 end

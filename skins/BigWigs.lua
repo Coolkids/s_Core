@@ -1,5 +1,6 @@
 local S, _, _, DB = unpack(select(2, ...))
-if DB.SkinBigWigs ~= true then return end
+if not IsAddOnLoaded("BigWigs") then return end
+if not SkinDB.EnableBigWigsSkin then return end
 ----------------------------------------
 local classcolor = false	-- classcolored bars
 local drawshadow = true		-- shadows around frames.

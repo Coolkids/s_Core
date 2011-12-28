@@ -5,7 +5,6 @@
 	<Script file="Reputation.lua"/>
 	<Script file="swing.lua"/>
 	<Script file="CastBar.lua"/>
-	<Script file="castmove.lua"/>
 	<Script file="RaidDebuffs.lua"/>
 	<Script file="BarFader.lua"/>
 	

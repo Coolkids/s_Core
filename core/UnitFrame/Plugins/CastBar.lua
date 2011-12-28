@@ -23,12 +23,9 @@ local NameFont = DB.Font --法術名稱字體
 local NumbFont = DB.Font -- 法術數字字體
 
 -- 各個法術條的位置
-local player_castpos = DB.player_castpos
-local target_castpos = DB.target_castpos
-local focus_castpos = DB.focus_castpos
-local pet_castpos = DB.pet_castpos
-local other_castpos = DB.other_castpos
-
+function Module:OnInitialize()
+C=MoveHandleDB
+end
 --- ----------------------------------
 --> Function
 --- ----------------------------------
@@ -226,10 +223,10 @@ end
 --> Create CastBar
 --- ----------------------------------
 
-function Module:OnInitialize()
+
 function CreateCastBar(f, unit)
 
-C=MoveHandleDB
+
 	s = CreateFrame("StatusBar", "oUF_Castbar"..f.unit, f)--"oUF_Castbar"..f.mystyle
 	s:SetHeight(10) -- 高度
 	s:SetWidth(460) -- 寬度
@@ -338,7 +335,6 @@ C=MoveHandleDB
     f.Castbar.Time = t
     f.Castbar.Icon = i
     f.Castbar.Spark = sp
-end
 end
 --- ----------------------------------
 --> End

@@ -9,12 +9,13 @@ local sformat = string.format
 local floor = math.floor
 local timer = 0
 local bars = {}
+function Module:OnInitialize()
+C=MoveHandleDB
 
 local PRIESTAnchor = CreateFrame("Frame", "PRIESTAnchor", UIParent)
 
 PRIESTAnchor:SetSize(140, 20)
-function Module:OnInitialize()
-C=MoveHandleDB
+
 PRIESTAnchor:SetPoint(unpack(C["ShadowPet"]))
 end
 local FormatTime = function(time)

@@ -1,6 +1,7 @@
 ﻿local S, _, _, DB = unpack(select(2, ...))
-if DB.SkinQuartz ~= true then return end
+
 if not IsAddOnLoaded("Quartz") then return end
+if not SkinDB.EnableQuartzSkin then return end
 local Q3 = LibStub("AceAddon-3.0"):GetAddon("Quartz3")
 if not Q3 then return end
 Mod_AddonSkins = CreateFrame("Frame")

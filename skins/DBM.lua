@@ -5,7 +5,7 @@ local Event = CreateFrame("Frame")
 Event:RegisterEvent("PLAYER_LOGIN")
 Event:SetScript("OnEvent", function()
 	if IsAddOnLoaded("DBM-Core") then
-		if DB.SkinDBM ~= true then return end
+		if not SkinDB.EnableDBMSkin then return end
 		hooksecurefunc(DBT, "CreateBar", function(self)
 			for bar in self:GetBarIterator() do
 				if not bar.injected then

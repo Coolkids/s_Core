@@ -3,6 +3,7 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Tooltips")
 local _, ns = ...
 function Module:OnInitialize()
 C=TooltipDB
+
 local cfg = {
     font = DB.Font,
     fontsize = C["FontSize"],
@@ -33,6 +34,7 @@ local cfg = {
     colorborderClass = false,           
     combathide = C["HideInCombat"],                 
 }
+
 local classification = {
     elite = "+",
     rare = " 稀有",

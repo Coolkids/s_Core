@@ -4,6 +4,7 @@ local barDB = DB.bars.bar4
   local bar = CreateFrame("Frame","rABS_MultiBarRight",UIParent, "SecureHandlerStateTemplate")
   function Module:OnInitialize()
   C = ActionBarDB
+
   bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
   bar:SetWidth(C["ButtonSize"])
   bar:SetPoint(C["bar4"].a1,C["bar4"].af,C["bar4"].a2,C["bar4"].x,C["bar4"].y)
@@ -18,7 +19,7 @@ local barDB = DB.bars.bar4
   DB.applyDragFunctionality(bar,barDB.userplaced,barDB.locked)
 
   MultiBarRight:SetParent(bar)
-  
+
   for i=1, 12 do
     local button = _G["MultiBarRightButton"..i]
     button:ClearAllPoints()
@@ -30,7 +31,7 @@ local barDB = DB.bars.bar4
       button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
     end
   end
-  
+     end 
   if barDB.showonmouseover then    
     local function lighton(alpha)
       if MultiBarRight:IsShown() then
@@ -50,4 +51,3 @@ local barDB = DB.bars.bar4
       pb:HookScript("OnLeave", function(self) lighton(0) end)
     end    
   end
- end

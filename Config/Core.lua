@@ -51,7 +51,6 @@ DB["Config"] = {
 				SlashCmdList.rabs("unlock")
 				SlashCmdList.SRAuraWatch("test")
 				SlashCmdList.OUF_MOVABLEFRAMES()
-				SlashCmdList.NUGRUNNING("unlock")
 				for _, value in pairs(MoveHandle) do value:Show() end
 			end		
 		end,
@@ -65,7 +64,6 @@ DB["Config"] = {
 				SlashCmdList.rabs("lock")
 				SlashCmdList.SRAuraWatch("test")
 				SlashCmdList.OUF_MOVABLEFRAMES()
-				SlashCmdList.NUGRUNNING("lock")
 				for _, value in pairs(MoveHandle) do value:Hide() end
 			end
 		end,

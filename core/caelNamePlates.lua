@@ -1,6 +1,9 @@
-local _, _, _, DB = unpack(select(2, ...))
+local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("NamePlates")
 if DB.caelNamePlatesOpen ~= true then return end
 
+function Module:OnInitialize()
+	C = NameplateDB
 
 local caelNamePlates = CreateFrame("Frame", nil, UIParent)
 caelNamePlates:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
@@ -8,7 +11,7 @@ caelNamePlates:SetScript("OnEvent", function(self, event, ...) self[event](self,
 local barTexture = [=[Interface\Addons\s_Core\media\normTex]=]
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
 local glowTexture = [=[Interface\Addons\s_Core\media\glowTex]=]
-local font, fontSize, fontOutline = STANDARD_TEXT_FONT, 14, "OUTLINE"
+local font, fontSize, fontOutline = STANDARD_TEXT_FONT, C["Fontsize"], "OUTLINE"
 local backdrop = {
 		edgeFile = glowTexture, edgeSize = 5,
 		insets = {left = 3, right = 3, top = 3, bottom = 3}
@@ -83,13 +86,13 @@ local UpdateFrame = function(self)
 
 	self.healthBar:ClearAllPoints()
 	self.healthBar:SetPoint("CENTER", self.healthBar:GetParent())
-	self.healthBar:SetHeight(6)
-	self.healthBar:SetWidth(120)
+	self.healthBar:SetHeight(C["HPHeight"])
+	self.healthBar:SetWidth(C["HPWidth"])
 	
 	self.castBar:ClearAllPoints()
 	self.castBar:SetPoint("TOP", self.healthBar, "BOTTOM", 0, -4)
-	self.castBar:SetHeight(5)
-	self.castBar:SetWidth(120)
+	self.castBar:SetHeight(C["CastBarHeight"])
+	self.castBar:SetWidth(C["CastBarWidth"])
 
 	self.highlight:ClearAllPoints()
 	self.highlight:SetAllPoints(self.healthBar)
@@ -294,3 +297,4 @@ local OnUpdate = function(self, elapsed)
 end
 
 caelNamePlates:SetScript("OnUpdate", OnUpdate)
+end

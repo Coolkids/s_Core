@@ -1,6 +1,7 @@
 ﻿local S, _, _, DB = unpack(select(2, ...))
-if DB.SkinOmen ~= true then return end
+
 if IsAddOnLoaded("Omen") then 
+if not SkinDB.EnableOmenSkin then return end
 local Omen = LibStub("AceAddon-3.0"):GetAddon("Omen")
 
 Mod_AddonSkins:RegisterSkin("Omen",function(Skin, skin, Layout, layout, config)
