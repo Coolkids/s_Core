@@ -115,7 +115,7 @@ local createBackdrop = function(parent, anchor)
         frame:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", 4, -4)
         frame:SetBackdrop(frameBD)
     end
-    frame:SetBackdropColor(41/255, 36/255, 33/255, 0.9)
+    frame:SetBackdropColor(41/255, 36/255, 33/255, 1)
     frame:SetBackdropBorderColor(0, 0, 0)
     return frame
 	
@@ -409,15 +409,15 @@ local OnLeave = function(self)
 end
 
 -- mouseover highlight
-local UnitFrame_OnEnter = function(self)
+--[[local UnitFrame_OnEnter = function(self)
 	UnitFrame_OnEnter(self)
 	self.Mouseover:Show()	
-end
+end--]]
 
-local UnitFrame_OnLeave = function(self)
+--[[local UnitFrame_OnLeave = function(self)
 	UnitFrame_OnLeave(self)
 	self.Mouseover:Hide()
-end
+end--]]
 
 -- threat highlight
 local function updateThreatStatus(self, event, u)
@@ -470,7 +470,8 @@ local func = function(self, unit)
         hp.colorReaction = true
         hpbg.multiplier = .2
     else
-        hpbg:SetVertexColor(.3,.3,.3)
+        --hpbg:SetVertexColor(.3,.3,.3)
+		hpbg:SetVertexColor(192/255,192/255,192/255)
     end
 
     if not (unit == "targettarget" or unit == "focustarget" or unit == "pet") then
@@ -489,13 +490,13 @@ local func = function(self, unit)
        
 	
 	-- mouseover highlight
-    local mov = hp:CreateTexture(nil, "OVERLAY")
+    --[[local mov = hp:CreateTexture(nil, "OVERLAY")
 	mov:SetAllPoints(hp)
 	mov:SetTexture(movtex)
 	mov:SetVertexColor(1,1,1,.36)
 	mov:SetBlendMode("ADD")
 	mov:Hide()
-	self.Mouseover = mov
+	self.Mouseover = mov--]]
 	
 	-- threat highlight
 	local Thrt = hp:CreateTexture(nil, "OVERLAY")
@@ -517,7 +518,7 @@ local func = function(self, unit)
     end
 
     hp.frequentUpdates = true
-    hp.Smooth = false
+    hp.Smooth = true
 
     local hpbg = hp:CreateTexture(nil, "BORDER")
     hpbg:SetAllPoints(hp)
@@ -557,7 +558,7 @@ local func = function(self, unit)
         pp:SetPoint"BOTTOM" 
 
         pp.frequentUpdates = true
-        pp.Smooth = false
+        pp.Smooth = true
 
         local ppbg = pp:CreateTexture(nil, "BORDER")
         ppbg:SetAllPoints(pp)
@@ -920,7 +921,7 @@ local UnitSpecific = {
             self.Debuffs.num = 7
         end
 		
-		self.mouseovers = {}
+		--self.mouseovers = {}
 		
 		local OnEnter = function(self)
 			UnitFrame_OnEnter(self)
@@ -1019,7 +1020,7 @@ local UnitSpecific = {
         cpoints:SetPoint('RIGHT', self, 'LEFT', -4, 0)
         self:Tag(cpoints, '[cpoints]')
 		
-		self.mouseovers = {}
+		--self.mouseovers = {}
 		
 		local OnEnter = function(self)
 			UnitFrame_OnEnter(self)
