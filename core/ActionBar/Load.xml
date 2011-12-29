@@ -20,6 +20,7 @@
 	<Script file="bars\bags.lua"/>
 	<Script file="bars\micromenu.lua"/>
 	<Script file="Plugins\Style.lua"/>
+	<Script file="Plugins\Style2.lua"/>
 	<Script file="Plugins\tullaRange.lua"/>
 	<Script file="Plugins\HoverBind.lua"/>
 	<Script file="Plugins\Cooldown.lua"/>

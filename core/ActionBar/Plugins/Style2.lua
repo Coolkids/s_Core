@@ -1,4 +1,8 @@
-﻿local _, _, _, DB = unpack(select(2, ...))
+﻿local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Style2")
+
+function Module:OnInitialize()
+if ActionBarDB.Style == 2 then
 
   local _G = _G
 
@@ -257,3 +261,5 @@
   hooksecurefunc("ShapeshiftBar_Update",        rActionButtonStyler_AB_styleshapeshift)
   hooksecurefunc("ShapeshiftBar_UpdateState",   rActionButtonStyler_AB_styleshapeshift)
   hooksecurefunc("PetActionBar_Update",         rActionButtonStyler_AB_stylepet)
+  end
+  end

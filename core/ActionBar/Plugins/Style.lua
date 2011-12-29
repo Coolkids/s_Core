@@ -1,7 +1,9 @@
 ﻿-- Engines
 local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Style")
-
+function Module:OnInitialize()
+if ActionBarDB.Style == 1 then
+C = ActionBarDB
 local function StyleActionButton(self)
 	if not self.Shadow then
 		local Button  = self
@@ -202,10 +204,11 @@ local function StylePetButton()
 	end
 end
 
-function Module:OnInitialize()
-	C = ActionBarDB
+
+	
 	hooksecurefunc("ActionButton_Update", StyleActionButton)
 	hooksecurefunc("ShapeshiftBar_Update", StyleShapeShiftButton)
 	hooksecurefunc("ShapeshiftBar_UpdateState", StyleShapeShiftButton)
 	hooksecurefunc("PetActionBar_Update", StylePetButton)
+end
 end

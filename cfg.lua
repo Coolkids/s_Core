@@ -146,7 +146,58 @@ DB.bars = {
     },
   }
  
- 
+--旧版动作条美化
+ DB.textures = {
+    normal            = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\gloss",
+    flash             = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\flash",
+    hover             = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\hover",
+    pushed            = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\gloss",
+    checked           = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\checked",
+    equipped          = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\gloss",
+    buttonback        = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\outer_shadow",
+  }
+  DB.afont = ChatFrame1:GetFont()
+  DB.background = {
+    showbg            = false,  --show an background image?
+    showshadow        = true,   --show an outer shadow?
+    useflatbackground = false,  --true uses plain flat color instead
+    backgroundcolor   = { r = 0.3, g = 0.3, b = 0.3, a = 0.7},
+    shadowcolor       = { r = 0, g = 0, b = 0, a = 0.9},
+    classcolored      = false,
+    inset             = 5, 
+  }
+  
+  DB.color = {
+    normal            = { r = 0.37, g = 0.3, b = 0.3, },
+    equipped          = { r = 0.1, g = 0.5, b = 0.1, },
+    classcolored      = false,
+  }
+  
+  DB.hotkeys = {
+    show            = true,
+    fontsize        = 12,
+    pos1             = { a1 = "TOPRIGHT", x = 0, y = 0 }, 
+    pos2             = { a1 = "TOPLEFT", x = 0, y = 0 }, --important! two points are needed to make the hotkeyname be inside of the button
+  }
+  
+  DB.macroname = {
+    show            = true,
+    fontsize        = 10,
+    pos1             = { a1 = "BOTTOMLEFT", x = 0, y = 0 }, 
+    pos2             = { a1 = "BOTTOMRIGHT", x = 0, y = 0 }, --important! two points are needed to make the macroname be inside of the button
+  }
+  
+  DB.itemcount = {
+    show            = true,
+    fontsize        = 12,
+    pos1             = { a1 = "BOTTOMRIGHT", x = 0, y = 0 }, 
+  }
+  
+  DB.cooldown = {
+    spacing         = 0,
+  }
 
 
 
