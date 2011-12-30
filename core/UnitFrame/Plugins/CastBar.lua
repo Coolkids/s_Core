@@ -231,21 +231,26 @@ function CreateCastBar(f, unit)
 	s:SetHeight(10) -- 高度
 	s:SetWidth(460) -- 寬度
 	if f.unit == "player" then
-		s:SetPoint(unpack(C["PlayerCastbar"]))
+		--s:SetPoint(unpack(C["PlayerCastbar"]))
+		s:SetPoint("BOTTOM","Castbarplay","BOTTOM", 0, 0)
 	elseif f.unit == "target" then	
     s:SetHeight(10)
 	s:SetWidth(240)
-		s:SetPoint(unpack(C["TargetCastbar"]))
+		--s:SetPoint(unpack(C["TargetCastbar"]))
+		s:SetPoint("BOTTOM","Castbartarget","BOTTOM", 0, 0)
 	elseif f.unit == "focus" then
 		s:SetHeight(10)
 		s:SetWidth(200)
-		s:SetPoint(unpack(C["FocusCastbar"]))
+		--s:SetPoint(unpack(C["FocusCastbar"]))
+		s:SetPoint("BOTTOM","Castbarfouce","BOTTOM", 0, 0)
 	elseif f.unit == "pet" then
 		s:SetHeight(10)
 		s:SetWidth(200)
-		s:SetPoint(unpack(C["PetCastbar"]))
+		--s:SetPoint(unpack(C["PetCastbar"]))
+		s:SetPoint("BOTTOM","Castbarpet","BOTTOM", 0, 0)
 	else
-		s:SetPoint("CENTER",UIParent,"CENTER",-182,-248)	
+		s:SetPoint("CENTER",UIParent,"CENTER",-182,-248)
+			
 	end
 	
 	s:SetStatusBarTexture(bar_texture)

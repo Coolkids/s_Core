@@ -212,7 +212,6 @@ DB.stEAnchor = { "TOP", Minimap, "TOP", 0, 38}
 
 ---mini功能
 DB.combatpointOpen = true --盗贼连击点显示
-DB.combatpoint = {"CENTER",UIParent,"CENTER",226,-297}  --连击点位子
 DB.AutoSell = true   --自动出售
 DB.AutoRepair = false --自动修理
 DB.caelNamePlatesOpen = true  --开启姓名板美化

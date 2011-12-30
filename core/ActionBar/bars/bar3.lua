@@ -37,7 +37,7 @@ local barDB = DB.bars.bar3
       button:SetPoint("BOTTOMLEFT", bar, 0,0)
     else
       local previous = _G["MultiBarBottomRightButton"..i-1]      
-      if C["Bar1Layout"] == 2 and i == 7 then
+      if C["Bar3Layout"] == 2 and i == 7 then
         previous = _G["MultiBarBottomRightButton1"]
         button:SetPoint("BOTTOMLEFT", previous, "TOPLEFT", 0, C["ButtonSpacing"])
       else

@@ -160,7 +160,7 @@ local ClassCDAnchor = CreateFrame("Frame", "ClassCDAnchor", UIParent)
 
 ClassCDAnchor:SetSize(140, 20)
 
-ClassCDAnchor:SetPoint(unpack(C["ClassCD"]))
+ClassCDAnchor:SetPoint("BOTTOM","ClassCD","BOTTOM", 0, 0)
 end
 local FormatTime = function(time)
 	if time >= 60 then

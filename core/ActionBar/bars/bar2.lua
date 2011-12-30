@@ -37,7 +37,7 @@ C = ActionBarDB
       button:SetPoint("BOTTOMLEFT", bar, 0,0)
     else
       local previous = _G["MultiBarBottomLeftButton"..i-1]      
-      if C["Bar1Layout"] == 2 and i == 7 then
+      if C["Bar2Layout"] == 2 and i == 7 then
         previous = _G["MultiBarBottomLeftButton1"]
         button:SetPoint("BOTTOMLEFT", previous, "TOPLEFT", 0, C["ButtonSpacing"])
       else

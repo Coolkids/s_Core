@@ -16,8 +16,9 @@ local PRIESTAnchor = CreateFrame("Frame", "PRIESTAnchor", UIParent)
 
 PRIESTAnchor:SetSize(140, 20)
 
-PRIESTAnchor:SetPoint(unpack(C["ShadowPet"]))
+PRIESTAnchor:SetPoint("BOTTOM","ShadowPet","BOTTOM", 0, 0)
 end
+
 local FormatTime = function(time)
 	if time >= 60 then
 		return sformat("%.2d:%.2d", floor(time / 60), time % 60)
