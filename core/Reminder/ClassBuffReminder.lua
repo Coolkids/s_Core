@@ -342,7 +342,7 @@ local function OnEvent_ACTIVE_TALENT_GROUP_CHANGED(event, ...)
 		Button.Text = S.MakeFontString(Button, 10)
 		Button.Text:SetPoint("TOP", Button, "BOTTOM", 0, -10)
 		if key == 1 then
-			Button:SetPoint(unpack(MoveHandleDB["Class"]))
+			Button:SetPoint("BOTTOM","Class","BOTTOM",0,0)
 		else
 			Button:SetPoint("LEFT", BuffFrame[key-1], "RIGHT", ReminderDB.ClassBuffSpace, 0)
 		end
