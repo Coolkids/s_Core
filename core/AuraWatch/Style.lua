@@ -16,8 +16,7 @@ function S.BuildICON(IconSize)
 	Frame.Icon = Frame:CreateTexture(nil, "ARTWORK") 
 	Frame.Icon:SetAllPoints()
 	Frame.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	
-	
+
 	
 	Frame.Count = Frame:CreateFontString(nil, "OVERLAY") 
 	Frame.Count:SetFont(DB.Font, 17, "THINOUTLINE") 
@@ -26,7 +25,8 @@ function S.BuildICON(IconSize)
 	Frame.Cooldown = CreateFrame("Cooldown", nil, Frame) 
 	Frame.Cooldown:SetAllPoints() 
 	Frame.Cooldown:SetReverse(true)
-	Frame.Shadow = S.MakeShadow(Frame, 3)
+	Frame.Border = S.MakeBorder(Frame, 2)
+	Frame.Shadow = S.MakeShadow(Frame, 6)
 	--[[Frame.Statusbar = CreateFrame("StatusBar", nil, Frame)
 	Frame.Statusbar:SetSize(Frame:GetWidth(), Frame:GetHeight()/10)
 	Frame.Statusbar:SetPoint("BOTTOM", Frame, "TOP", 0, 2) 
