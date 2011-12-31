@@ -5,8 +5,8 @@
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file = "Init.lua"/>
-	<Script file = "API.lua"/>
 	<Script file = "..\cfg.lua"/>
+	<Script file = "API.lua"/>
 	<Include file="bags\load.xml"/>
 	<Script file = "move.lua"/>
 	<Script file = "Buffs.lua"/>

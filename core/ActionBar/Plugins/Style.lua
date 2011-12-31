@@ -50,6 +50,7 @@ local function StyleActionButton(self)
 		Count:SetFont(DB.Font, C["FontSize"], "THINOUTLINE")
 		
 		Flash:SetTexture("")
+		--Flash:SetTexture(1, 1, 1, 0.5)
 		Button:SetNormalTexture("")
 		Button.SetNormalTexture = function() end
 		
@@ -73,7 +74,7 @@ local function StyleActionButton(self)
 		end
  
 		local HighlightTexture = Button:CreateTexture("Frame", nil, self)
-		HighlightTexture:SetTexture(1, 1, 1, 0.3)
+		HighlightTexture:SetTexture(1, 1, 1, 0.5)
 		HighlightTexture:SetPoint("TOPLEFT", 2, -2)
 		HighlightTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		Button:SetHighlightTexture(HighlightTexture)
@@ -90,7 +91,7 @@ local function StyleActionButton(self)
 		CheckedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		Button:SetCheckedTexture(CheckedTexture)
 		
-		Button.Shadow = S.MakeTexShadow(Button, Icon, 4)
+		Button.Shadow = S.MakeTexShadow(Button, Icon, 4.5)
 	end
 end
  
@@ -203,8 +204,6 @@ local function StylePetButton()
 		end
 	end
 end
-
-
 	
 	hooksecurefunc("ActionButton_Update", StyleActionButton)
 	hooksecurefunc("ShapeshiftBar_Update", StyleShapeShiftButton)

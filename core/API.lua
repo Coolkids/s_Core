@@ -10,7 +10,10 @@ function S.MakeShadow(Parent, Size)
 	Shadow:SetFrameLevel(0)
 	Shadow:SetPoint("TOPLEFT", -Size, Size)
 	Shadow:SetPoint("BOTTOMRIGHT", Size, -Size)
+	Shadow:SetPoint("TOPRIGHT", Size, Size)
+	Shadow:SetPoint("BOTTOMLEFT", -Size, -Size)
 	Shadow:SetBackdrop({edgeFile = DB.GlowTex, edgeSize = Size})
+	Shadow:SetBackdropColor( .05, .05, .05, .9)
 	Shadow:SetBackdropBorderColor(0, 0, 0, 1)
 	return Shadow
 end

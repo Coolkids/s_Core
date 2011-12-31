@@ -28,7 +28,7 @@ DB.backdrop = {
   }
 
 -- 聊天设置
-DB.AutoApply = false									--聊天设置锁定		
+DB.AutoApply = true									--聊天设置锁定		
 DB.def_position = {"BOTTOMLEFT",UIParent,"BOTTOMLEFT",20,30} -- Chat Frame position
 DB.chat_height = 230
 DB.chat_width = 510

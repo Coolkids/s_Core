@@ -377,6 +377,11 @@ SRAuraList = {
 				{AuraID = 57761, UnitID = "player"},
 				--焦炎之痕
 				{AuraID =48108, UnitID = "player"},
+				-- 機緣回復
+				{AuraID = 63735, UnitID = "player"},
+				-- 光之澎湃
+				{AuraID = 88688, UnitID = "player"},
+				
 			},
 		},
 		
@@ -739,6 +744,8 @@ SRAuraList = {
 				{AuraID = 31661, UnitID = "player"},
 				-- 烈焰風暴
 				{AuraID = 2120, UnitID = "player"},
+				-- 暗月卡片:海啸
+				{AuraID = 89182, UnitID = "player"},
 			},
 		},
 		
@@ -979,8 +986,6 @@ SRAuraList = {
 				{AuraID = 47585, UnitID = "player"},  
 				-- 佈道
 				{AuraID = 81661, UnitID = "player"},
-				-- 光之澎湃
-				{AuraID = 88688, UnitID = "player"},
 				-- 心靈意志
 				{AuraID = 73413, UnitID = "player"},
 				-- 心靈之火
@@ -1009,12 +1014,8 @@ SRAuraList = {
 				{AuraID = 81206, UnitID = "player"},
 				-- 脈輪運轉:治療術
 				{AuraID = 81208, UnitID = "player"},
-				-- 聖言術:寧 
-				{AuraID = 88684, UnitID = "target"},
-				-- 聖言術:譴
-				{AuraID = 88625, UnitID = "tatget"},
-				-- 機緣回復
-				{AuraID = 63731, UnitID = "player"},
+				-- 神性火焰
+				{AuraID = 99132, UnitID = "player"},
 			},
 		},
 
@@ -1040,6 +1041,14 @@ SRAuraList = {
 				{AuraID = 15357, UnitID = "target", Caster = "player"},
 				-- 守护圣灵
 				{AuraID = 47788, UnitID = "target", Caster = "player"},
+				--光明回想
+				{AuraID = 77489, UnitID = "target", Caster = "player"},
+				-- 恢复
+				{AuraID = 139, UnitID = "target", Caster = "player"},
+				-- 聖言術:寧 
+				{AuraID = 88684, UnitID = "target", Caster = "player"},
+				-- 聖言術:譴
+				{AuraID = 88625, UnitID = "tatget", Caster = "player"},
 			},
 		},
 		
