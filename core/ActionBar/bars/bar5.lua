@@ -1,10 +1,11 @@
 local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Bar5", "AceEvent-3.0")
+function Module:OnInitialize()
+C = ActionBarDB 
+if C["Big4Layout"] == 1 then
+
 local barDB = DB.bars.bar5  
   local bar = CreateFrame("Frame","rABS_MultiBarLeft",UIParent, "SecureHandlerStateTemplate")
-  function Module:OnInitialize()
-  C = ActionBarDB
-
   bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
   bar:SetWidth(C["ButtonSize"])
   bar:SetPoint(C["bar5"].a1,C["bar5"].af,C["bar5"].a2,C["bar5"].x,C["bar5"].y)
@@ -50,7 +51,6 @@ for i=1, 2 do
       button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
     end
   end
-      end
   if barDB.showonmouseover then    
     local function lighton(alpha)
       if MultiBarLeft:IsShown() then
@@ -70,3 +70,5 @@ for i=1, 2 do
       pb:HookScript("OnLeave", function(self) lighton(0) end)
     end    
   end
+end
+end

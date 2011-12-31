@@ -1,14 +1,24 @@
 ﻿local S, C, L, DB = unpack(select(2, ...))
-local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Bar5", "AceEvent-3.0")
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Bar6", "AceEvent-3.0")
+function Module:OnInitialize()
+C = ActionBarDB 
+if C["Big4Layout"] == 2 then
   local barDB = DB.bars.bar5
-  
   local bar = CreateFrame("Frame","rABS_MultiBarLeft",UIParent, "SecureHandlerStateTemplate")
-  function Module:OnInitialize()
-  C = ActionBarDB
 
-  bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
-  bar:SetWidth(C["ButtonSize"])
-  bar:SetPoint(C["bar5"].a1,C["bar5"].af,C["bar5"].a2,C["bar5"].x,C["bar5"].y)
+
+  if C["Bar5Layout"] == 2 then
+    bar:SetWidth(C["ButtonSize"]*2+C["ButtonSpacing"])
+    bar:SetHeight(C["ButtonSize"]*6+C["ButtonSpacing"]*5)
+  else  
+    bar:SetWidth(C["ButtonSize"])
+    bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
+  end
+  if C["Bar5Layout"] == 2 then
+    bar:SetPoint(C["bar5"].a1,C["bar5"].af,C["bar5"].a2,C["bar5"].x+((C["ButtonSize"]*6+C["ButtonSpacing"]*6)/2),C["bar5"].y-(C["ButtonSize"]*1+C["ButtonSpacing"]*1)+0.5)
+  else 
+    bar:SetPoint(C["bar5"].a1,C["bar5"].af,C["bar5"].a2,C["bar5"].x,C["bar5"].y)
+  end
   bar:SetHitRectInsets(-DB.barinset, -DB.barinset, -DB.barinset, -DB.barinset)
   
   if barDB.testmode then
@@ -29,10 +39,16 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Bar5", "AceEv
       button:SetPoint("TOPLEFT", bar, 0,0)
     else
       local previous = _G["MultiBarLeftButton"..i-1]
+	  if C["Bar5Layout"] == 2 and i == 7 then
+        previous = _G["MultiBarLeftButton1"]
+        button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+	  else
       button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
     end
+	end
   end
-    end 
+  
+
   if barDB.showonmouseover then    
     local function lighton(alpha)
       if MultiBarLeft:IsShown() then
@@ -52,4 +68,5 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Bar5", "AceEv
       pb:HookScript("OnLeave", function(self) lighton(0) end)
     end    
   end
-  
+  end
+ end 

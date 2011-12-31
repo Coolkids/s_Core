@@ -12,8 +12,11 @@ wm:SetParent("UIParent")
 wm:ClearAllPoints() 
 wm:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 3, -3) 
 wm:SetSize(16, 16)
+S.Reskin(wm)
 wm:SetBackdrop(wmbg)
-wm:SetBackdropColor(0, 0, 0, 0.8)
+wm:SetBackdropColor(0, 0, 0, 1)
+wm:SetText("R")
+
 wm:Hide()
 
 CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButtonLeft:SetAlpha(0) 

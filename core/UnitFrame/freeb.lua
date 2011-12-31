@@ -23,7 +23,7 @@ local castbars = false
 local auras = true               
 
 local bossframes = C["Bossframes"]
-local auraborders = false
+local auraborders = true
 
 local classColorbars = C["ClassColorbars"]
 local powerColor = C["PowerColor"]

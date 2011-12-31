@@ -127,6 +127,32 @@ SRAuraList = {
 				{AuraID = 99256, UnitID = "player"},
 				--冰霜
 				{AuraID = 109325, UnitID = "player"},
+				---- Dragon Soul
+				-- Morchok
+				{AuraID = 103687, UnitID = "player"}, -- Crush Armor(擊碎護甲)
+				-- Zon'ozz
+				{AuraID = 103434, UnitID = "player"}, -- Disrupting Shadows(崩解之影)
+				-- Yor'sahj
+				{AuraID = 105171, UnitID = "player"},-- Deep Corruption(深度腐化)
+				--{AuraID = 103628)] = 7, -- Deep Corruption(深度腐化)
+				{AuraID = 104849, UnitID = "player"},  -- Void Bolt(虛無箭)
+				-- Hagara
+				{AuraID = 104451, UnitID = "player"},  -- Ice Tomb(寒冰之墓)
+				-- Ultraxion
+				{AuraID = 110073, UnitID = "player"}, -- Fading Light(凋零之光)
+				-- Blackhorn
+				{AuraID = 109209, UnitID = "player"},  -- Brutal Strike(蠻橫打擊)
+				{AuraID = 108043, UnitID = "player"},  -- Sunder Armor(破甲攻擊)
+				{AuraID = 108861, UnitID = "player"}, -- Degeneration(衰亡)
+				-- Spine
+				{AuraID = 105479, UnitID = "player"}, -- 燃燒血漿
+				{AuraID = 109379, UnitID = "player"},-- Searing Plasma(燃燒血漿)
+				{AuraID = 109457, UnitID = "player"},  -- Fiery Grip(熾熱之握)
+				{AuraID = 105490, UnitID = "player"},  -- Fiery Grip(熾熱之握)
+				-- Madness 
+				{AuraID = 105841, UnitID = "player"},  -- Degenerative Bite(退化咬擊)
+				{AuraID = 105445, UnitID = "player"},  -- Blistering Heat(極熾高熱)
+				{AuraID = 106444, UnitID = "player"},  -- Impale(刺穿)
 			},
 		},
 		
@@ -663,8 +689,10 @@ SRAuraList = {
 				{AuraID = 83853, UnitID = "target", Caster = "player"},
 				-- 深度凍結
 				{AuraID = 44572, UnitID = "target", Caster = "player"},
-				-- 炎爆
+				-- 炎爆!
 				{AuraID = 92315, UnitID = "target", Caster = "player"},
+				-- 炎爆
+				{AuraID = 11366, UnitID = "target", Caster = "player"},
 	
 			},
 		},
@@ -724,6 +752,8 @@ SRAuraList = {
 				{SpellID = 12051, UnitID = "player"},
 				-- 秘法强化
 				{SpellID = 12042, UnitID = "player"},
+				-- 燃火
+				{SpellID = 11129, UnitID = "player"},
 			},
 		},
 	},

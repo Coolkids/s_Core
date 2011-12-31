@@ -12,6 +12,7 @@
 	<Script file="bars\bar3.lua"/>
 	<Script file="bars\bar4.lua"/>
 	<Script file="bars\bar5.lua"/>
+	<Script file="bars\bar6.lua"/>
 	<Script file="bars\extra.lua"/>
 	<Script file="bars\stancebar.lua"/>
 	<Script file="bars\petbar.lua"/>

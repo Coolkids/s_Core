@@ -20,6 +20,15 @@ function Module.LoadSettings()
 		["Portraits"] = false,		--头像
 		["OnlyShowPlayer"] = false, -- only show player debuffs on target
 		["Scale"] = 1,
+		["PlayerCastBarHeight"] = 10,
+		["PlayerCastBarWidth"] = 460,
+		["TargetCastBarHeight"] = 10,
+		["TargetCastBarWidth"] = 240,
+		["FocusCastBarHeight"] = 10,
+		["FocusCastBarWidth"] = 200,
+		["PetCastBarHeight"] = 10,
+		["PetCastBarWidth"] = 180,
+		["Icon"] = 24,
 	}
 	if not UnitFrameDB then UnitFrameDB = {} end
 	for key, value in pairs(Default) do
@@ -112,6 +121,81 @@ function Module.BuildGUI()
 					min = 0.2, max = 2, step = 0.1,
 					get = function() return UnitFrameDB.Scale end,
 					set = function(_, value) UnitFrameDB.Scale = value end,
+				},
+				NewLine = {
+					type = "description", order = 12,
+					name = "\n",					
+				},
+				PlayerCastBarWidth = {
+					type = "input",
+					name = "玩家施法条宽度：",
+					desc = "请输入宽度",
+					order = 13,
+					get = function() return tostring(UnitFrameDB.PlayerCastBarWidth) end,
+					set = function(_, value) UnitFrameDB.PlayerCastBarWidth = tonumber(value) end,
+				},
+				PlayerCastBarHeight = {
+					type = "input",
+					name = "玩家施法条高度：",
+					desc = "请输入高度",
+					order = 14,
+					get = function() return tostring(UnitFrameDB.PlayerCastBarHeight) end,
+					set = function(_, value) UnitFrameDB.PlayerCastBarHeight = tonumber(value) end,
+				},
+				TargetCastBarWidth = {
+					type = "input",
+					name = "目标施法条宽度：",
+					desc = "请输入宽度",
+					order = 15,
+					get = function() return tostring(UnitFrameDB.TargetCastBarWidth) end,
+					set = function(_, value) UnitFrameDB.TargetCastBarWidth = tonumber(value) end,
+				},
+				TargetCastBarHeight = {
+					type = "input",
+					name = "目标施法条高度：",
+					desc = "请输入高度",
+					order = 16,
+					get = function() return tostring(UnitFrameDB.TargetCastBarHeight) end,
+					set = function(_, value) UnitFrameDB.TargetCastBarHeight = tonumber(value) end,
+				},
+				FocusCastBarWidth = {
+					type = "input",
+					name = "焦点施法条宽度：",
+					desc = "请输入宽度",
+					order = 17,
+					get = function() return tostring(UnitFrameDB.FocusCastBarWidth) end,
+					set = function(_, value) UnitFrameDB.FocusCastBarWidth = tonumber(value) end,
+				},
+				FocusCastBarHeight = {
+					type = "input",
+					name = "焦点施法条高度：",
+					desc = "请输入高度",
+					order = 18,
+					get = function() return tostring(UnitFrameDB.TargetCastBarHeight) end,
+					set = function(_, value) UnitFrameDB.TargetCastBarHeight = tonumber(value) end,
+				},
+				PetCastBarWidth = {
+					type = "input",
+					name = "焦点施法条宽度：",
+					desc = "请输入宽度",
+					order = 19,
+					get = function() return tostring(UnitFrameDB.PetCastBarWidth) end,
+					set = function(_, value) UnitFrameDB.PetCastBarWidth = tonumber(value) end,
+				},
+				PetCastBarHeight = {
+					type = "input",
+					name = "焦点施法条高度：",
+					desc = "请输入高度",
+					order = 20,
+					get = function() return tostring(UnitFrameDB.PetCastBarHeight) end,
+					set = function(_, value) UnitFrameDB.PetCastBarHeightt = tonumber(value) end,
+				},
+				Icon = {
+					type = "range", order = 21,
+					name = "施法条图标大小：", desc = "输入施法条图标大小",
+					min = 12, max = 64, step = 1,
+					get = function() return UnitFrameDB.Icon end,
+					set = function(_, value) UnitFrameDB.Icon = value end,
 				},
 			}
 		}

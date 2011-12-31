@@ -5,21 +5,22 @@ function Module:OnInitialize()
 C=MoveHandleDB
 L=ThreatDB
 M=ReminderDB
+A=UnitFrameDB
 local Castbarplay = CreateFrame("Frame", "Castbarplay", UIParent) 
-Castbarplay:SetWidth(460) 
-Castbarplay:SetHeight(10) 
+Castbarplay:SetWidth(A["PlayerCastBarWidth"]) 
+Castbarplay:SetHeight(A["PlayerCastBarHeight"]) 
 Castbarplay:SetPoint(unpack(C["PlayerCastbar"]))
 local Castbartarget = CreateFrame("Frame", "Castbartarget", UIParent) 
-Castbartarget:SetWidth(240) 
-Castbartarget:SetHeight(10) 
+Castbartarget:SetWidth(A["TargetCastBarWidth"]) 
+Castbartarget:SetHeight(A["TargetCastBarHeight"]) 
 Castbartarget:SetPoint(unpack(C["TargetCastbar"]))
 local Castbarfouce = CreateFrame("Frame", "Castbarfouce", UIParent) 
-Castbarfouce:SetWidth(200) 
-Castbarfouce:SetHeight(10) 
+Castbarfouce:SetWidth(A["FocusCastBarWidth"]) 
+Castbarfouce:SetHeight(A["FocusCastBarHeight"]) 
 Castbarfouce:SetPoint(unpack(C["FocusCastbar"]))
 local Castbarpet = CreateFrame("Frame", "Castbarpet", UIParent) 
-Castbarpet:SetWidth(200) 
-Castbarpet:SetHeight(10) 
+Castbarpet:SetWidth(A["PetCastBarWidth"]) 
+Castbarpet:SetHeight(A["PetCastBarHeight"]) 
 Castbarpet:SetPoint(unpack(C["PetCastbar"]))
 if DB.MyClass == "PRIEST" then
 local ShadowPet = CreateFrame("Frame", "ShadowPet", UIParent) 
@@ -56,7 +57,7 @@ end
 	
 	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, "内置CD监视", "ClassCD")
 	MoveHandle.Threat = S.MakeMoveHandle(Threat, "仇恨监视", "Threat")
-	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "缺少药剂buff提示", "Reminder")
+	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "", "Reminder")
 	MoveHandle.Class = S.MakeMoveHandle(Class, "缺少药剂buff提示", "Class")
 	
 	if (DB.MyClass == "ROGUE" and DB.MyClass == "DRUID") then  

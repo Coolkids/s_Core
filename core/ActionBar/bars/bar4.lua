@@ -5,9 +5,18 @@ local barDB = DB.bars.bar4
   function Module:OnInitialize()
   C = ActionBarDB
 
-  bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
-  bar:SetWidth(C["ButtonSize"])
-  bar:SetPoint(C["bar4"].a1,C["bar4"].af,C["bar4"].a2,C["bar4"].x,C["bar4"].y)
+  if C["Bar4Layout"] == 2 then
+    bar:SetWidth(C["ButtonSize"]*2+C["ButtonSpacing"])
+    bar:SetHeight(C["ButtonSize"]*6+C["ButtonSpacing"]*5)
+  else  
+    bar:SetWidth(C["ButtonSize"])
+    bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
+  end
+  if C["Bar4Layout"] == 2 then
+    bar:SetPoint(C["bar4"].a1,C["bar4"].af,C["bar4"].a2,C["bar4"].x+((C["ButtonSize"]*6+C["ButtonSpacing"]*6)/2),C["bar4"].y-(C["ButtonSize"]*1+C["ButtonSpacing"]*1)+0.5)
+  else 
+    bar:SetPoint(C["bar4"].a1,C["bar4"].af,C["bar4"].a2,C["bar4"].x,C["bar4"].y)
+  end
   bar:SetHitRectInsets(-DB.barinset, -DB.barinset, -DB.barinset, -DB.barinset)
   
   if barDB.testmode then
@@ -28,8 +37,13 @@ local barDB = DB.bars.bar4
       button:SetPoint("TOPLEFT", bar, 0,0)
     else
       local previous = _G["MultiBarRightButton"..i-1]
+	  if C["Bar4Layout"] == 2 and i == 7 then
+        previous = _G["MultiBarRightButton1"]
+        button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+	  else
       button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
-    end
+      end
+	 end
   end
      end 
   if barDB.showonmouseover then    
