@@ -1,8 +1,9 @@
-local _, _, _, DB = unpack(select(2, ...))
+local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Combatpoint")
 if DB.combatpointOpen ~= true then return end
 if (DB.MyClass ~= "ROGUE" and DB.MyClass ~= "DRUID") then return end
-
-local anchorPoint = DB.combatpoint
+function Module:OnInitialize()
+local anchorPoint = {"BOTTOM", "Combatpoint", "BOTTOM", 0, 0}
 local origPawWidth, origPawHeight = 512, 137
 local pawWidth = 170
 local comboBar = {
@@ -178,3 +179,4 @@ combo:RegisterEvent("PLAYER_REGEN_ENABLED")
 combo:RegisterEvent("UNIT_COMBO_POINTS")
 combo:RegisterEvent("PLAYER_TARGET_CHANGED")
 combo:SetScript("OnEvent", OnEvent)
+end

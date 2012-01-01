@@ -3,11 +3,9 @@
 	<Script file="Experience.lua"/>
 	<Script file="AuraWatch.lua"/>
 	<Script file="Reputation.lua"/>
-	<Script file="swing.lua"/>
 	<Script file="CastBar.lua"/>
 	<Script file="RaidDebuffs.lua"/>
 	<Script file="BarFader.lua"/>
-	
 	<Script file="TotemBar.lua"/>
 	<Script file="combatpoint.lua"/>
 </Ui>
