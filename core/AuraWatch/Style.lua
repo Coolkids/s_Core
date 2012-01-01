@@ -19,7 +19,7 @@ function S.BuildICON(IconSize)
 
 	
 	Frame.Count = Frame:CreateFontString(nil, "OVERLAY") 
-	Frame.Count:SetFont(DB.Font, 17, "THINOUTLINE") 
+	Frame.Count:SetFont(DB.Font, 12*S.Scale(1), "THINOUTLINE") 
 	Frame.Count:SetPoint("BOTTOMRIGHT", 6, -1)
 	
 	Frame.Cooldown = CreateFrame("Cooldown", nil, Frame) 
@@ -72,15 +72,15 @@ function S.BuildBAR(BarWidth, IconSize)
 	Frame.Statusbar.Shadow = S.MakeShadow(Frame.Statusbar, 3)
 
 	Frame.Count = Frame:CreateFontString(nil, "OVERLAY") 
-	Frame.Count:SetFont(DB.Font, 16, "THINOUTLINE") 
+	Frame.Count:SetFont(DB.Font, 12*S.Scale(1), "THINOUTLINE") 
 	Frame.Count:SetPoint("BOTTOMRIGHT", Frame.Icon, "BOTTOMRIGHT", 3, -1) 
 
 	Frame.Time = Frame.Statusbar:CreateFontString(nil, "ARTWORK") 
-	Frame.Time:SetFont(DB.Font, 11, "THINOUTLINE") 
+	Frame.Time:SetFont(DB.Font, 12*S.Scale(1), "THINOUTLINE") 
 	Frame.Time:SetPoint("RIGHT", 0, 5) 
 
 	Frame.Spellname = Frame.Statusbar:CreateFontString(nil, "ARTWORK") 
-	Frame.Spellname:SetFont(DB.Font, 18, "THINOUTLINE") 
+	Frame.Spellname:SetFont(DB.Font, 12*S.Scale(1), "THINOUTLINE") 
 	Frame.Spellname:SetPoint("CENTER", -10, 5)
 	
 	Frame:Hide()

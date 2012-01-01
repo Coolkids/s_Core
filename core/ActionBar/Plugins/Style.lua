@@ -24,7 +24,7 @@ local function StyleActionButton(self)
 		if HotKey then		
 			HotKey:ClearAllPoints()
 			HotKey:SetPoint("TOPRIGHT", 1, -1)
-			HotKey:SetFont(DB.Font, C["FontSize"], "THINOUTLINE")
+			HotKey:SetFont(DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
 			
 			if C["HideHotKey"] then
 				HotKey:SetText("")
@@ -36,7 +36,7 @@ local function StyleActionButton(self)
 		if Name then		
 			Name:ClearAllPoints()
 			Name:SetPoint("BOTTOMLEFT", -3, 2)
-			Name:SetFont(DB.Font, C["MFontSize"], "THINOUTLINE")
+			Name:SetFont(DB.Font, C["MFontSize"]*S.Scale(1), "THINOUTLINE")
 			
 			if C["HideMacroName"] then
 				Name:SetText("")
@@ -47,7 +47,7 @@ local function StyleActionButton(self)
 		
 		Count:ClearAllPoints()
 		Count:SetPoint("BOTTOMRIGHT", 2, 2)
-		Count:SetFont(DB.Font, C["FontSize"], "THINOUTLINE")
+		Count:SetFont(DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
 		
 		Flash:SetTexture("")
 		--Flash:SetTexture(1, 1, 1, 0.5)

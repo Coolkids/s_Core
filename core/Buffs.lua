@@ -23,12 +23,12 @@ function Module:Style(buttonName, i)
 	Duration:ClearAllPoints()
 	Duration:SetParent(Button)
 	Duration:SetPoint("TOP", Button, "BOTTOM", 2, 5)
-	Duration:SetFont(DB.bfont, 18, "THINOUTLINE")
+	Duration:SetFont(DB.bfont, 11*S.Scale(1), "THINOUTLINE")
 	
 	Count:ClearAllPoints()
 	Count:SetParent(Button)
 	Count:SetPoint("TOPRIGHT", Button, 3, -1)
-	Count:SetFont(DB.bfont, 18, "THINOUTLINE")
+	Count:SetFont(DB.bfont, 11*S.Scale(1), "THINOUTLINE")
 	
 	if Border then
 		Border:Hide()

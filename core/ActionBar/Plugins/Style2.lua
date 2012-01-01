@@ -117,7 +117,7 @@ if ActionBarDB.Style == 2 then
     bo.Show = nomoreplay
 
     if DB.hotkeys.show then
-      ho:SetFont(DB.afont, DB.hotkeys.fontsize, "OUTLINE")
+      ho:SetFont(DB.afont, DB.hotkeys.fontsize*S.Scale(1), "OUTLINE")
       ho:ClearAllPoints()
       ho:SetPoint(DB.hotkeys.pos1.a1,bu,DB.hotkeys.pos1.x,DB.hotkeys.pos1.y)
       ho:SetPoint(DB.hotkeys.pos2.a1,bu,DB.hotkeys.pos2.x,DB.hotkeys.pos2.y)
@@ -127,7 +127,7 @@ if ActionBarDB.Style == 2 then
     end
 
     if DB.macroname.show then
-      na:SetFont(DB.afont, DB.macroname.fontsize, "OUTLINE")
+      na:SetFont(DB.afont, DB.macroname.fontsize*S.Scale(1), "OUTLINE")
       na:ClearAllPoints()
       na:SetPoint(DB.macroname.pos1.a1,bu,DB.macroname.pos1.x,DB.macroname.pos1.y)
       na:SetPoint(DB.macroname.pos2.a1,bu,DB.macroname.pos2.x,DB.macroname.pos2.y)
@@ -136,7 +136,7 @@ if ActionBarDB.Style == 2 then
     end
 
     if DB.itemcount.show then
-      co:SetFont(DB.afont, DB.itemcount.fontsize, "OUTLINE")
+      co:SetFont(DB.afont, DB.itemcount.fontsize*S.Scale(1), "OUTLINE")
       co:ClearAllPoints()
       co:SetPoint(DB.itemcount.pos1.a1,bu,DB.itemcount.pos1.x,DB.itemcount.pos1.y)
     else

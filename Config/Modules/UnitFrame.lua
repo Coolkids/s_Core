@@ -9,7 +9,7 @@ local Module = DB["Modules"]["UnitFrame"]
 -- LoadSettings
 function Module.LoadSettings()
 	local Default = {
-		["FontSize"] = 15,
+		["FontSize"] = 10,
 		["Width"] = 240,
 		["Height"] = 25,
 		["PowerHeight"] = 0.75,            

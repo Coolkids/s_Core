@@ -6,7 +6,7 @@ C=TooltipDB
 
 local cfg = {
     font = DB.Font,
-    fontsize = C["FontSize"],
+    fontsize = C["FontSize"]*S.Scale(1),
     outline = "OUTLINE",
     tex = "Interface\\AddOns\\s_Core\\Media\\tooltip\\texture",
 

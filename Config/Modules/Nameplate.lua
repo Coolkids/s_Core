@@ -9,7 +9,7 @@ local Module = DB["Modules"]["Nameplate"]
 -- LoadSettings
 function Module.LoadSettings()
 	local Default = {
-		["Fontsize"] = 14,						-- 姓名板字体大小
+		["Fontsize"] = 10,						-- 姓名板字体大小
 		["HPHeight"] = 6,						-- 姓名板血条高度
 		["HPWidth"] = 120,						-- 姓名板血条宽度
 		["CastBarIconSize"] = 20,				-- 姓名板施法条图标大小

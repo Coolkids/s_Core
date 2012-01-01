@@ -11,7 +11,7 @@ function Module.LoadSettings()
 	local Default = {
 		["Cursor"] = true,
 		["HideInCombat"] = false,
-		["FontSize"] = 16,
+		["FontSize"] = 10,
 		["HideTitles"] = true,
 	}
 	if not TooltipDB then TooltipDB = {} end

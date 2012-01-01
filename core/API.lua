@@ -237,3 +237,7 @@ function S.UpdateSize(obj, width, height)
 	if width then obj:SetWidth(width) end
 	if height then obj:SetHeight(height) end
 end
+local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/0.68
+function S.Scale(x)
+	return (mult*math.floor(x/mult+.5))
+end

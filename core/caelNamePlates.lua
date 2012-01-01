@@ -11,7 +11,7 @@ caelNamePlates:SetScript("OnEvent", function(self, event, ...) self[event](self,
 local barTexture = [=[Interface\Addons\s_Core\media\normTex]=]
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
 local glowTexture = [=[Interface\Addons\s_Core\media\glowTex]=]
-local font, fontSize, fontOutline = DB.Font, C["Fontsize"], "OUTLINE"
+local font, fontSize, fontOutline = DB.Font, C["Fontsize"]*S.Scale(1), "OUTLINE"
 local backdrop = {
 		edgeFile = glowTexture, edgeSize = 5,
 		insets = {left = 3, right = 3, top = 3, bottom = 3}

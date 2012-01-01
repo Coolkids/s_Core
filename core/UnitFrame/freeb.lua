@@ -8,7 +8,7 @@ function Module:OnInitialize()
 C = UnitFrameDB
 local mediaPath = "Interface\\AddOns\\s_Core\\media\\"
 local texture = mediaPath.."Cabaret"   --Cabaret‘≠≤ƒ÷ 
-local font, fontsize, fontflag = DB.Font, C["FontSize"], "THINOUTLINE"
+local font, fontsize, fontflag = DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE"
 
 local movtex = mediaPath.."mouseover"
 local thrtex = mediaPath.."threat"
