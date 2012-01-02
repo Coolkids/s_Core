@@ -221,9 +221,9 @@ DB.Interrupt = true   --开启打断通告
 DB.Icicle = true  --开启敌对技能冷却监视
 DB.Ratings = true  --装备属性转换
 DB.MiniMapPanels = true  --开启团队工具
-DB.UIscale = true  --设置UI缩放
+DB.UIscale = false --设置UI缩放
 DB.AutoUIscale = false  -- 自动设定UI缩放
-DB.LockUIscale = true --锁定UI缩放
+DB.LockUIscale = false --锁定UI缩放
 DB.Autoinvite = false  --自动邀请
 DB.INVITE_WORD = "SunUI"  --自动邀请关键字(请在""里面填写)
 

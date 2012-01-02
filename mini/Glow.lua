@@ -13,7 +13,7 @@ local function UpdateGlow(Button, ItemID)
 		Button.Border = CreateFrame("Frame", nil, Button)
 		Button.Border:SetPoint("TOPLEFT")
 		Button.Border:SetPoint("BOTTOMRIGHT")
-		Button.Border:SetBackdrop({edgeFile = DB.Solid, edgeSize = 1})
+		Button.Border:SetBackdrop({edgeFile = DB.Solid, edgeSize = 1.5})
 	end
 
 	if texture then

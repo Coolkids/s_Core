@@ -46,7 +46,7 @@ local function StyleActionButton(self)
 		end
 		
 		Count:ClearAllPoints()
-		Count:SetPoint("BOTTOMRIGHT", 2, 2)
+		Count:SetPoint("BOTTOMRIGHT", 2, 0)
 		Count:SetFont(DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
 		
 		Flash:SetTexture("")

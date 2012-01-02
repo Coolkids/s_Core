@@ -241,3 +241,22 @@ local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/0.68
 function S.Scale(x)
 	return (mult*math.floor(x/mult+.5))
 end
+function S.CreateShadow(f)
+	if f.shadow then return end
+	
+	local shadow = CreateFrame("Frame", nil, f)
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata(f:GetFrameStrata())
+	shadow:SetPoint("TOPLEFT", -3, 3)
+	shadow:SetPoint("BOTTOMRIGHT", 3, -3)
+	shadow:SetBackdrop({
+	bgFile = [[Interface\ChatFrame\ChatFrameBackground.blp]], 
+	edgeFile =  [[Interface\Addons\s_Core\Media\glowTex.tga]], 
+	edgeSize = 5,
+	insets = { left = 4, right = 4, top = 4, bottom = 4 }
+	})
+	shadow:SetBackdropColor(.05,.05,.05, .9)
+	shadow:SetBackdropBorderColor(0, 0, 0, 1)
+	f.shadow = shadow
+	f.glow = shadow
+end

@@ -49,12 +49,12 @@ function Module.BuildGUI()
 			type = "group", order = 9,
 			name = "头像框体",
 			args = {
-				Fontsize = {
+				FontSize = {
 					type = "range", order = 1,
 					name = "头像字体大小：", desc = "输入头像字体大小",
-					min = 10, max = 28, step = 1,
-					get = function() return UnitFrameDB.Fontsize end,
-					set = function(_, value) UnitFrameDB.Fontsize = value end,
+					min = 8, max = 28, step = 1,
+					get = function() return UnitFrameDB.FontSize end,
+					set = function(_, value) UnitFrameDB.FontSize = value end,
 				},
 				Width = {
 					type = "input",
