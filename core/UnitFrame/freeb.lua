@@ -59,7 +59,6 @@ local frameBD = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
     insets = {left = 3, right = 3, top = 3, bottom = 3}
 }
-
 -- Unit Menu
 local dropdown = CreateFrame('Frame', ADDON_NAME .. 'DropDown', UIParent, 'UIDropDownMenuTemplate')
 
