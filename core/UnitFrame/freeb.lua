@@ -337,8 +337,7 @@ local CustomTimeText = function(castbar, duration)
     end
 end
 
-
-
+	
 
 
 --========================--
@@ -487,7 +486,31 @@ local func = function(self, unit)
 
     hp.bg = hpbg
     self.Health = hp
-       
+    local mhpb = CreateFrame('StatusBar', nil, self.Health)
+	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+	mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
+	mhpb:SetWidth(width)
+	mhpb:SetStatusBarTexture(texture)
+	mhpb:SetStatusBarColor(0, 1, 0.5, 0.5)
+
+	local ohpb = CreateFrame('StatusBar', nil, self.Health)
+	ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+	ohpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
+	ohpb:SetWidth(width)
+	ohpb:SetStatusBarTexture(texture)
+	ohpb:SetStatusBarColor(0, 1, 0, 0.4)
+
+	self.HealPrediction = {
+		-- status bar to show my incoming heals
+		myBar = mhpb,
+
+		-- status bar to show other peoples incoming heals
+		otherBar = ohpb,
+
+		-- amount of overflow past the end of the health bar
+		maxOverflow = 1.05,
+	}
+   
 	
 	-- mouseover highlight
     --[[local mov = hp:CreateTexture(nil, "OVERLAY")
