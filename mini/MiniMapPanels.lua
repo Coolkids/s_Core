@@ -10,7 +10,7 @@ local wmbg = {
 
 wm:SetParent("UIParent") 
 wm:ClearAllPoints() 
-wm:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 3, -3) 
+wm:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", -3, -3) 
 wm:SetSize(16, 16)
 S.Reskin(wm)
 wm:SetBackdrop(wmbg)

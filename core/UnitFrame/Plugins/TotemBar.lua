@@ -22,7 +22,7 @@
 --local R, C, DB = unpack(select(2, ...))
 
 local _, ns = ...
-local oUF = oUF_Freeb or ns.oUF or oUF
+local oUF = ns.oUF or oUF or Freeb
 if not oUF then return end
 
 local _, pClass = UnitClass("player")

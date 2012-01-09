@@ -834,7 +834,7 @@ local UnitSpecific = {
             --EclipseBarFrame:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -55)
         end
 
-        if IsAddOnLoaded("oUF_TotemBar") and class == "SHAMAN" then
+        if  class == "SHAMAN" then
             self.TotemBar = {}
             self.TotemBar.Destroy = true
             for i = 1, 4 do
@@ -1196,7 +1196,7 @@ local UnitSpecific = {
     pet = function(self, ...)
         func(self, ...)
 		SpellRange(self)
-
+		
         --[[if auras then 
             local debuffs = CreateFrame("Frame", nil, self)
             debuffs:SetHeight(height+2)
@@ -1361,25 +1361,4 @@ SpellRange = function(self)
 		outsideAlpha = 0.3}	 --范围外的透明度
 	end
 end
-end
-local function update(self, event, unit)
-   if(unit and unit ~= self.unit) then return end
-
-   if(not pending(self, self.unit)) then
-      UIFrameFadeOut(self, 1.5, self:GetAlpha(), self.BarFaderMinAlpha or 0.25)
-      UIFrameFadeOut(rABS_MultiBarBottomLeft, 1.5, rABS_MultiBarBottomLeft:GetAlpha(), self.BarFaderMinAlpha or 0)
-      UIFrameFadeOut(rABS_MultiBarLeft, 1.5, rABS_MultiBarLeft:GetAlpha(), self.BarFaderMinAlpha or 0)
-      UIFrameFadeOut(rABS_MainMenuBar, 1.5, rABS_MainMenuBar:GetAlpha(), self.BarFaderMinAlpha or 0)
-      UIFrameFadeOut(rABS_MultiBarBottomRight, 1.5, rABS_MultiBarBottomRight:GetAlpha(), self.BarFaderMinAlpha or 0)
-      UIFrameFadeOut(rABS_PetBar, 1.5, rABS_PetBar:GetAlpha(), self.BarFaderMinAlpha or 0)
-      UIFrameFadeOut(rABS_StanceBar, 1.5, rABS_StanceBar:GetAlpha(), self.BarFaderMinAlpha or 0)
-   else
-      UIFrameFadeIn(self, 0.8, self:GetAlpha(), self.BarFaderMaxAlpha or 1)
-      UIFrameFadeIn(rABS_MultiBarBottomLeft, 0.8, rABS_MultiBarBottomLeft:GetAlpha(), self.BarFaderMaxAlpha or 1)
-      UIFrameFadeIn(rABS_MultiBarLeft, 0.8, rABS_MultiBarLeft:GetAlpha(), self.BarFaderMaxAlpha or 1)
-      UIFrameFadeIn(rABS_MainMenuBar, 0.8, rABS_MainMenuBar:GetAlpha(), self.BarFaderMaxAlpha or 1)
-      UIFrameFadeIn(rABS_MultiBarBottomRight, 0.8, rABS_MultiBarBottomRight:GetAlpha(), self.BarFaderMaxAlpha or 1)
-      UIFrameFadeIn(rABS_PetBar, 0.8, rABS_PetBar:GetAlpha(), self.BarFaderMaxAlpha or 1)
-      UIFrameFadeIn(rABS_StanceBar, 0.8, rABS_StanceBar:GetAlpha(), self.BarFaderMaxAlpha or 1)
-   end
 end

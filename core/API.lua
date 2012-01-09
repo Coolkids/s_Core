@@ -241,6 +241,7 @@ local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/0.68
 function S.Scale(x)
 	return (mult*math.floor(x/mult+.5))
 end
+S.mult = mult
 function S.CreateShadow(f)
 	if f.shadow then return end
 	
@@ -260,3 +261,5 @@ function S.CreateShadow(f)
 	f.shadow = shadow
 	f.glow = shadow
 end
+
+

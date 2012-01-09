@@ -262,6 +262,7 @@ function CreateCastBar(f, unit)
 	s.CompleteColor = {20/255, 208/255, 0/255}
 	s.FailColor = {255/255, 12/255, 0/255}
 	s.ChannelingColor = cbColor
+
 	local h = CreateFrame("Frame", nil, s)
 	h:SetFrameLevel(0)
 	h:SetPoint("TOPLEFT",-5,5)
@@ -290,13 +291,12 @@ function CreateCastBar(f, unit)
 	--i:SetPoint("BOTTOM", s, "TOP", 0, 5)
 	i.Shadow = S.MakeTexShadow(s, i, 3)
 	--[[i = s:CreateTexture(nil, "ARTWORK")
-    i:SetSize(24, 24)
+    i:SetSize(L["Icon"], L["Icon"])
 	if f.unit == "target" then
-	i:SetSize(24, 24)
+	i:SetSize(L["Icon"], L["Icon"])
 	end	
 	if f.unit == "player" then
-    i:SetPoint("LEFT", s, "RIGHT", 2, 0)
-	--i:SetPoint("RIGHT", s, "LEFT", -4, 0)
+    i:SetPoint("BOTTOMRIGHT", s, "BOTTOMLEFT", -5, 0)
 	if f.unit == "target" then
 	i:SetPoint("LEFT", s, "RIGHT", 2, 0)
 	else

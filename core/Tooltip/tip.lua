@@ -19,16 +19,16 @@ local cfg = {
 
     backdrop = {
         bgFile = "Interface\\Buttons\\WHITE8x8",
-        edgeFile = "Interface\\AddOns\\s_Core\\Media\\ToolTip\\Tooltips\\UI-Tooltip-Border",
+        edgeFile = DB.GlowTex,       --"Interface\\AddOns\\s_Core\\Media\\ToolTip\\Tooltips\\UI-Tooltip-Border",
         tile = false,
         tileSize = 16,
-        edgeSize = 20,
-        insets = { left = 3, right = 3, top = 3, bottom = 3 },
+        edgeSize = 6,
+        insets = { left = 4, right = 4, top = 4, bottom = 4 },
     },
-    bgcolor = { r=0.05, g=0.05, b=0.05, t=0.6 },
-    bdrcolor = { r=0.3, g=0.3, b=0.3 },
-    gcolor = { r=1, g=0.12, b=0.80 },
-
+    bgcolor = { r=0.05, g=0.05, b=0.05, t=0.8 },
+    bdrcolor = { r=0.0, g=0.00, b=0.0, a=0.8 },
+    --gcolor = { r=1, g=0.12, b=0.80 },
+	gcolor = { r=112/255, g=192/255, b=245/255 },
     you = ">>你<<",
     boss = "首領",
     colorborderClass = false,           
@@ -230,41 +230,49 @@ end)
 hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
     local frame = GetMouseFocus()
     if cfg.cursor  then  --and frame == WorldFrame
-        tooltip:SetOwner(parent, "ANCHOR_CURSOR")
+       tooltip:SetOwner(parent, "ANCHOR_CURSOR")  
+		
     else
         tooltip:SetOwner(parent, "ANCHOR_NONE")	
         tooltip:SetPoint(cfg.point[1], UIParent, cfg.point[2], cfg.point[3], cfg.point[4])
     end
+
     tooltip.default = 1
 end)
 
 local function setBakdrop(frame)
     frame:SetBackdrop(cfg.backdrop)
     frame:SetScale(cfg.scale)
-
     frame.freebBak = true
 end
 
 local function style(frame)
     if not frame.freebBak then
-        setBakdrop(frame)
+        --setBakdrop(frame)
+		S.MakeShadow(frame, 3)
     end
 
     frame:SetBackdropColor(cfg.bgcolor.r, cfg.bgcolor.g, cfg.bgcolor.b, cfg.bgcolor.t)
-    frame:SetBackdropBorderColor(cfg.bdrcolor.r, cfg.bdrcolor.g, cfg.bdrcolor.b)
+    frame:SetBackdropBorderColor(cfg.bdrcolor.r, cfg.bdrcolor.g, cfg.bdrcolor.b, cfg.bdrcolor.a)
+	
 
+		
     if frame.GetItem then
         local _, item = frame:GetItem()
-        if item then
+		if item then
             local quality = select(3, GetItemInfo(item))
             if quality then
                 local r, g, b = GetItemQualityColor(quality)
-                frame:SetBackdropBorderColor(r, g, b)
+					if r == 1 and g == 1 and b ==1 then 
+						frame:SetBackdropBorderColor(0, 0, 0) 
+					else
+						frame:SetBackdropBorderColor(r, g, b)
+					end
             end
         else
-            frame:SetBackdropBorderColor(cfg.bdrcolor.r, cfg.bdrcolor.g, cfg.bdrcolor.b)
+            frame:SetBackdropBorderColor(cfg.bdrcolor.r, cfg.bdrcolor.g, cfg.bdrcolor.b, cfg.bdrcolor.a)
         end
-    end
+	end
 
     if cfg.colorborderClass then
         local _, unit = GameTooltip:GetUnit()

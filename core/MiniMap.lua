@@ -56,19 +56,21 @@ MiniMapLFGFrame:SetFrameStrata("MEDIUM")
 -- Instance Difficulty flag
 MiniMapInstanceDifficulty:ClearAllPoints()
 MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 2, 2)
-MiniMapInstanceDifficulty:SetScale(0.75)
+MiniMapInstanceDifficulty:SetScale(0.1)
+MiniMapInstanceDifficulty:SetAlpha(0)
 MiniMapInstanceDifficulty:SetFrameStrata("LOW")
 
 -- Guild Instance Difficulty flag
 GuildInstanceDifficulty:ClearAllPoints()
 GuildInstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 2, 2)
-GuildInstanceDifficulty:SetScale(0.75)
+GuildInstanceDifficulty:SetScale(0.1)
+GuildInstanceDifficulty:SetAlpha(0)
 GuildInstanceDifficulty:SetFrameStrata("LOW")
 
 -- Mail icon
 MiniMapMailFrame:ClearAllPoints()
 MiniMapMailFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 2, -6)
-MiniMapMailIcon:SetTexture("Interface\\AddOns\\S_core\\media\\mail")
+MiniMapMailIcon:SetTexture("Interface\\AddOns\\s_Core\\media\\mail")
 
 -- Invites Icon
 GameTimeCalendarInvitesTexture:ClearAllPoints()

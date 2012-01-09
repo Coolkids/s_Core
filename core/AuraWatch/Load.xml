@@ -1,8 +1,0 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-
-
-	<Script file = "AuraWatchList.lua"/>
-	<Script file = "Style.lua"/>
-	<Script file = "AuraWatch.lua"/>
-	<Script file = "AuraWatchAll.lua"/>
-</Ui>

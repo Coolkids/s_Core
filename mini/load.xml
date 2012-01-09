@@ -47,6 +47,9 @@
 	<Script file ="MiniMapPanels.lua"/>
 	<Script file ="classCD.lua"/>
 	<Script file ="PRIEST.lua"/>
+	<Script file ="tekKompare.lua"/>
+	<Script file ="TooltipItemIcon.lua"/>
+	<Script file ="sMirrorBars.lua"/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->

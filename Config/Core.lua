@@ -49,7 +49,7 @@ DB["Config"] = {
 		func = function()
 			if not UnitAffectingCombat("player") then
 				SlashCmdList.rabs("unlock")
-				SlashCmdList.SRAuraWatch("test")
+				--SlashCmdList.SRAuraWatch("test")
 				SlashCmdList.OUF_MOVABLEFRAMES()
 				for _, value in pairs(MoveHandle) do value:Show() end
 			end		
@@ -62,7 +62,7 @@ DB["Config"] = {
 		func = function()
 			if not UnitAffectingCombat("player") then
 				SlashCmdList.rabs("lock")
-				SlashCmdList.SRAuraWatch("test")
+				--SlashCmdList.SRAuraWatch("test")
 				SlashCmdList.OUF_MOVABLEFRAMES()
 				for _, value in pairs(MoveHandle) do value:Hide() end
 			end

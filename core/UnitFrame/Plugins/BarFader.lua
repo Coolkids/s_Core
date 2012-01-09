@@ -1,5 +1,3 @@
-local S, C, L, DB = unpack(select(2, ...))
-
 local _, ns = ...
 local oUF = ns.oUF or oUF or Freeb
 
@@ -19,10 +17,8 @@ local function update(self, event, unit)
 
 	if(not pending(self, self.unit)) then
 		UIFrameFadeOut(self, 1.5, self:GetAlpha(), self.BarFaderMinAlpha or 0.25)
-	elseif not InCombatLockdown() then
-		UIFrameFadeIn(self, 0.8, self:GetAlpha(), self.BarFaderMaxAlpha or 1)
 	else
-		self:SetAlpha(self.BarFaderMaxAlpha or 1)
+		UIFrameFadeIn(self, 0.8, self:GetAlpha(), self.BarFaderMaxAlpha or 1)
 	end
 end
 
@@ -40,19 +36,7 @@ local function enable(self, unit)
 		self:RegisterEvent('UNIT_RAGE', update)
 		self:RegisterEvent('UNIT_MANA', update)
 		self:RegisterEvent('UNIT_RUNIC_POWER', update)
-		self:HookScript("OnEnter", function(self)
-			if not InCombatLockdown() then
-				UIFrameFadeIn(self, 0.8, self:GetAlpha(), self.BarFaderMaxAlpha or 1)
-			else
-				self:SetAlpha(self.BarFaderMaxAlpha or 1)
-			end
-		end)
-		self:HookScript("OnLeave", function(self)
-			if(not pending(self, self.unit)) then
-				UIFrameFadeOut(self, 1.5, self:GetAlpha(), self.BarFaderMinAlpha or 0.25)
-			end
-		end)
-
+		
 		if(self.Castbar) then
 			self:RegisterEvent('UNIT_SPELLCAST_START', update)
 			self:RegisterEvent('UNIT_SPELLCAST_FAILED', update)

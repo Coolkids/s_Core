@@ -55,9 +55,9 @@ function Module:OnEnable()
 end
 
 function Module:SortBuff()
-	tsort(BuffTable["Time"], function(a, b)
+	--[[tsort(BuffTable["Time"], function(a, b)
 		return a.timeLeft > b.timeLeft
-	end)
+	end)--]]
 	for key, value in pairs(BuffTable["Time"]) do
 		tinsert(BuffTable["None"], value)
 	end

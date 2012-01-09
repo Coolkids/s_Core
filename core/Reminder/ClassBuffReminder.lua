@@ -102,9 +102,13 @@ local ClassBuffList = {
 			[1] = {
 				  588, -- 心灵之火
 				73413, -- 心灵意志
+			},	
+			[2] = {
 				15286, -- 吸血鬼拥抱
+			},	
+			[3] = {
 				15473, -- 暗影形态
-			},		
+			},	
 		},
 	},	
 	["ROGUE"] = {
@@ -325,7 +329,7 @@ local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
 			i = i + 1
 			BuffFrame[i].Icon:SetTexture(Icon)
 			BuffFrame[i].Icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
-			BuffFrame[i].Text:SetText(format("缺少：%s", Name))
+			BuffFrame[i].Text:SetText(format(Name))
 			BuffFrame[i]:SetAlpha(1)
 		end
 	end
@@ -339,7 +343,7 @@ local function OnEvent_ACTIVE_TALENT_GROUP_CHANGED(event, ...)
 		Button.Icon = Button:CreateTexture(nil, "ARTWORK")
 		Button.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		Button.Icon:SetAllPoints()
-		Button.Text = S.MakeFontString(Button, 10)
+		Button.Text = S.MakeFontString(Button, 6*S.Scale(1))
 		Button.Text:SetPoint("TOP", Button, "BOTTOM", 0, -10)
 		if key == 1 then
 			Button:SetPoint("BOTTOM","Class","BOTTOM",0,0)
@@ -366,7 +370,7 @@ local function OnEvent_PLAYER_REGEN_DISABLED(event, ...)
 			i = i + 1
 			BuffFrame[i].Icon:SetTexture(Icon)
 			BuffFrame[i].Icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
-			BuffFrame[i].Text:SetText(format("缺少：%s", Name))
+			BuffFrame[i].Text:SetText(format(Name))
 			BuffFrame[i]:SetAlpha(1)
 		end
 	end
@@ -387,7 +391,7 @@ local function OnEvent_UNIT_AURA(event, unit, ...)
 			i = i + 1
 			BuffFrame[i].Icon:SetTexture(Icon)
 			BuffFrame[i].Icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
-			BuffFrame[i].Text:SetText(format("缺少：%s", Name))
+			BuffFrame[i].Text:SetText(format(Name))
 			BuffFrame[i]:SetAlpha(1)
 		end
 	end

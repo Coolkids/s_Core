@@ -172,3 +172,43 @@ oUF.Tags['freeb:altpower'] = function(u)
     return format("%d", per > 0 and per or 0).."%"
 end
 oUF.TagEvents['freeb:altpower'] = "UNIT_POWER UNIT_MAXPOWER"
+oUF.Tags['healpredictionself'] = function(unit)
+	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
+
+	if myIncomingHeal == 0 then
+		return nil
+	else
+		return myIncomingHeal
+	end
+end
+oUF.TagEvents['healpredictionself'] = 'UNIT_HEAL_PREDICTION'
+
+oUF.Tags['healpredictionother'] = function(unit)
+	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
+	local allIncomingHeal = UnitGetIncomingHeals(unit) or 0
+
+	if(allIncomingHeal < myIncomingHeal) then
+		myIncomingHeal = allIncomingHeal
+		allIncomingHeal = 0
+	else
+		allIncomingHeal = allIncomingHeal - myIncomingHeal
+	end
+
+	if allIncomingHeal == 0 then
+		return nil
+	else
+		return allIncomingHeal
+	end
+end
+oUF.TagEvents['healpredictionother'] = 'UNIT_HEAL_PREDICTION'
+
+oUF.Tags['healpredictionall'] = function(unit)
+	local allIncomingHeal = UnitGetIncomingHeals(unit) or 0
+
+	if allIncomingHeal == 0 then
+		return nil
+	else
+		return allIncomingHeal
+	end
+end
+oUF.TagEvents['healpredictionall'] = 'UNIT_HEAL_PREDICTION'

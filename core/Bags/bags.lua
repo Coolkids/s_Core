@@ -64,18 +64,18 @@ function MyButton:OnCreate()
 	self.Icon:SetAllPoints()
 	self.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	
-	self.Count:SetPoint("BOTTOMRIGHT", -1, 3)
-	self.Count:SetFont( DB.Font, 14, "THINOUTLINE")
+	self.Count:SetPoint("BOTTOMRIGHT", -1, 1)
+	self.Count:SetFont( DB.Font, 9*S.Scale(1), "THINOUTLINE")
 	
 	self.Border = CreateFrame("Frame", nil, self)
 	self.Border:SetAllPoints(self.Icon)
-	self.Border:SetBackdrop({edgeFile = DB.Solid, edgeSize = 1.5})
+	self.Border:SetBackdrop({edgeFile = DB.Solid, edgeSize = S.mult})
 	self.Border:SetBackdropBorderColor(0, 0, 0, 0)	
 	
 	self.BG = CreateFrame("Frame", nil, self)
 	self.BG:SetPoint("TOPLEFT", self.Icon, 0, 0)
 	self.BG:SetPoint("BOTTOMRIGHT", self.Icon, 0, 0)
-	self.BG:SetBackdrop({bgFile = DB.Solid, insets = { left = 1, right = 1, top = 1, bottom = 1 }})
+	self.BG:SetBackdrop({bgFile = DB.Solid, insets = { left = S.mult, right = S.mult, top = S.mult, bottom = S.mult }})
 	self.BG:SetBackdropColor(0.2, 0.2, 0.2, 0.5)
 	self.BG:SetFrameLevel(0)
 

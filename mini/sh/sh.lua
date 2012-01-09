@@ -22,9 +22,10 @@ end
 Frame:RegisterEvent("UNIT_HEALTH")
 Frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 Frame:RegisterEvent("UNIT_POWER")
+
 Frame:SetScript("OnEvent", function(self, event)
 	if DB.MyClass == "PRIEST" then 
-		if event == "UNIT_HEALTH" or event == "PLAYER_TARGET_CHANGED" then 
+		if event == "UNIT_HEALTH" or event == "PLAYER_TARGET_CHANGED"  then 
 			if ( UnitCanAttack("player", "target") and not UnitIsDead("target") and ( UnitHealth("target")/UnitHealthMax("target") < 0.25 ) ) then
 			local Name, _, Icon = select(1, GetSpellInfo(32379))
 			Frame.Icon = Frame:CreateTexture(nil, "ARTWORK") 
@@ -43,7 +44,7 @@ Frame:SetScript("OnEvent", function(self, event)
 		end
     end
    if DB.MyClass == "HUNTER" then 
-		if event == "UNIT_HEALTH" or event == "PLAYER_TARGET_CHANGED" then 
+		if event == "UNIT_HEALTH" or event == "PLAYER_TARGET_CHANGED"  then 
 			if ( UnitCanAttack("player", "target") and not UnitIsDead("target") and ( UnitHealth("target")/UnitHealthMax("target") < 0.2 ) ) then
 			local Name, _, Icon = select(1, GetSpellInfo(53351))
 			Frame.Icon = Frame:CreateTexture(nil, "ARTWORK") 
@@ -81,6 +82,7 @@ Frame:SetScript("OnEvent", function(self, event)
 		end
    end
 end)
+
 
 
 

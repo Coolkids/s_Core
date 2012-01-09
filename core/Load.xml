@@ -13,7 +13,7 @@
 	<Script file = "Chat.lua"/>
 	<Script file = "caelNamePlates.lua"/>
 	<Script file = "Loot.lua"/>
-	<Script file = "LootGroup.lua"/>
+	<Script file = "roll.lua"/>
 	<Script file = "Minimap.lua"/>
 	<Script file = "Threat.lua"/>
 	<Include file="ActionBar\Load.xml"/>
