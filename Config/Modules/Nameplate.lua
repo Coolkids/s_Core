@@ -15,6 +15,8 @@ function Module.LoadSettings()
 		["CastBarIconSize"] = 20,				-- 姓名板施法条图标大小
 		["CastBarHeight"] = 5,					-- 姓名板施法条高度
 		["CastBarWidth"] = 120,					-- 姓名板施法条宽度
+		["CCAuraTrack"] = true,             --显示buff
+		["AuraTrack"] = true,                 --显示buff
 	}
 	if not NameplateDB then NameplateDB = {} end
 	for key, value in pairs(Default) do
@@ -82,6 +84,18 @@ function Module.BuildGUI()
 					order = 6,
 					get = function() return tostring(NameplateDB.CastBarWidth) end,
 					set = function(_, value) NameplateDB.CastBarWidth = tonumber(value) end,
+				},
+				CCAuraTrack = {
+					type = "toggle", order = 7,
+					name = "未知(也许是显示debuff)",			
+					get = function() return NameplateDB.CCAuraTrack end,
+					set = function(_, value) NameplateDB.CCAuraTrack = value end,
+				},
+				AuraTrack = {
+					type = "toggle", order = 8,
+					name = "显示debuff",			
+					get = function() return NameplateDB.AuraTrack end,
+					set = function(_, value) NameplateDB.AuraTrack = value end,
 				},
 			}
 		}

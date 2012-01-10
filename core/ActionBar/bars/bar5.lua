@@ -26,7 +26,6 @@ for i=1, 2 do
     button:ClearAllPoints()
     button:SetSize(C["ButtonSize"], C["ButtonSize"])
     button:SetScale(C["MainBarSacle"]+S.Scale(1)/2+0.1)
-	print(S.Scale(1)/2)
     if i == 1 then
       button:SetPoint("RIGHT", MultiBarBottomLeftButton1, "LEFT", -C["ButtonSpacing"],(C["ButtonSize"]+C["ButtonSpacing"])/2)
     else
