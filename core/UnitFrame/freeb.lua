@@ -508,7 +508,7 @@ local func = function(self, unit)
 
 		-- amount of overflow past the end of the health bar
 		maxOverflow = 1.05,
-	}
+	}--]]
    
 	
 	-- mouseover highlight
@@ -795,7 +795,7 @@ local UnitSpecific = {
                 i=i-1
             end
 
-            if class == "DEATHKNIGHT" then
+            if IsAddOnLoaded("oUF_TotemBar") and class == "DEATHKNIGHT" then
                 bars[3], bars[4], bars[5], bars[6] = bars[5], bars[6], bars[3], bars[4]
                 self.Runes = bars
             elseif class == "WARLOCK" then

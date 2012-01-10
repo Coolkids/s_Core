@@ -137,7 +137,7 @@ SetCVar("bloatnameplates", 0.0)
 SetCVar("cameraDistanceMax", 50)
 SetCVar("cameraDistanceMaxFactor", 3.4)
 SetCVar("screenshotQuality", SCREENSHOT_QUALITY)
-
+SetCVar("UnitNameNPC", 0)
 
 ---------------- > ALT+RightClick to buy a stack
 hooksecurefunc("MerchantItemButton_OnModifiedClick", function(self, button)
