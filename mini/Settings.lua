@@ -134,8 +134,6 @@ SetCVar("ShowClassColorInNameplate", 1)
 SetCVar("bloattest", 0)
 SetCVar("bloatthreat",0)
 SetCVar("bloatnameplates", 0.0)
-SetCVar("cameraDistanceMax", 50)
-SetCVar("cameraDistanceMaxFactor", 3.4)
 SetCVar("screenshotQuality", SCREENSHOT_QUALITY)
 SetCVar("UnitNameNPC", 0)
 

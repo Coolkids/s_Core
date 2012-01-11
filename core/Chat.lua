@@ -14,6 +14,7 @@ local LinkHover = {}; LinkHover.show = {	-- enable (true) or disable (false) Lin
 
 for i = 1, NUM_CHAT_WINDOWS do
   local cf = _G['ChatFrame'..i]
+  cf:SetFading(true)  --渐隐
   if cf then 
     cf:SetFont(NAMEPLATE_FONT, 12, "OUTLINE") 
     cf:SetFrameStrata("LOW")
@@ -28,7 +29,7 @@ for i = 1, NUM_CHAT_WINDOWS do
   end
 end
 
----------------- > Sticky Channels
+-- 打开输入框回到上次对话
 ChatTypeInfo.SAY.sticky = 0
 ChatTypeInfo.EMOTE.sticky = 0
 ChatTypeInfo.YELL.sticky = 0
@@ -56,7 +57,7 @@ do
 	end)
 end
 
----------------- > Fading alpha
+---------------- > 渐隐透明度
 CHAT_FRAME_TAB_NORMAL_NOMOUSE_ALPHA = 0
 CHAT_FRAME_TAB_SELECTED_NOMOUSE_ALPHA = 0
 
@@ -70,7 +71,15 @@ SetChat = function()
     ChatFrame1:SetHeight(DB.chat_height)
     ChatFrame1:SetFrameLevel(8)
     ChatFrame1:SetUserPlaced(true)
-	for i=1,10 do local cf = _G["ChatFrame"..i] FCF_SetWindowAlpha(cf, 0) end
+	for i=1,10 do 
+	local cf = _G["ChatFrame"..i] 
+	S.MakeShadow(cf, 3) 
+	cf:SetBackdrop({
+		bgFile = DB.bgFile, insets = {left = Size, right = Size, top = Size, bottom = Size},
+	})
+	cf:SetBackdropColor(0, 0, 0, 0.6)
+	--FCF_SetWindowAlpha(cf, 0.8) 
+	end 
     FCF_SavePositionAndDimensions(ChatFrame1)
 	FCF_SetLocked(ChatFrame1, 1)
 end

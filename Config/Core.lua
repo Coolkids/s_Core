@@ -4,6 +4,7 @@ local Core = LibStub("AceAddon-3.0"):GetAddon("Core")
 local Module = Core:NewModule("Congig", "AceConsole-3.0")
 local Version = 1204
 function Module:SetDefault()
+	SlashCmdList.AutoSet()
 	CoreVersion = Version
 	-- 聊天频道职业染色
 	ToggleChatColorNamesByClassGroup(true, "SAY")

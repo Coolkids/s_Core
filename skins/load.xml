@@ -4,7 +4,6 @@
 	<Script file='Recount.lua' />
 	<Script file='Quartz.lua' />
 	<Script file='DBM.lua' />
-	<Script file='PallyPower.lua' />
 	<Script file='Skada.lua' />
 	<Script file='BigWigs.lua' />
 	<Script file='friendmenuxp.lua' />
