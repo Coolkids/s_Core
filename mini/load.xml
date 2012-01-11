@@ -56,6 +56,7 @@
 	<Script file='FriendsMenuXP\localization.deDE.lua'/>
 	<Include file="FriendsMenuXP\FriendsMenuXP.xml"/>
 	<Script file='FriendColor.lua'/>
+	<Script file='memory.lua'/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->
