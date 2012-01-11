@@ -39,7 +39,6 @@
 	<Script file ="GuildRosterSelectedFix.lua"/>
 	<Script file ="PartyHide.lua"/>
 	<Script file ="FastError.lua"/>
-	<Script file ="Memory.lua"/>
 	<Script file ="AutoRepair.lua"/>
 	<Script file ="AutoSell.lua"/>
 	<Script file ="ChatFilter.lua"/>
