@@ -22,6 +22,6 @@ end
 		FriendsMenuXPSecure:SetBackdrop({
 		bgFile = DB.bgFile, insets = {left = 0, right = 0, top = 0, bottom = 0},
 	})
-	FriendsMenuXPSecure:SetBackdropColor(0, 0, 0, 0.8)
+	FriendsMenuXPSecure:SetBackdropColor(0, 0, 0, 0.9)
 	end
 end)
