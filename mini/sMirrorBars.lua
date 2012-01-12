@@ -1,7 +1,6 @@
 local addon, ns = ...
-local lib = ns.lib
 local _, settings = ...
-
+local S, _, _, DB = unpack(select(2, ...))
 local _DEFAULTS = { 
    width = 252, 
    height = 18, 
@@ -65,12 +64,12 @@ local function SkinIt(bar)
       if region:GetObjectType() == "Texture" then 
          region:SetTexture(nil) 
       elseif region:GetObjectType() == "FontString" then 
-         region:SetFont(Qulight["media"].font, 12, "THINOUTLINE") 
+         region:SetFont(DB.Font, 12, "THINOUTLINE") 
          region:SetShadowColor(0,0,0,0) 
       end 
    end 
     
-   bar:SetStatusBarTexture(Qulight["media"].texture) 
+   bar:SetStatusBarTexture(DB.Statusbar) 
    bar:SetStatusBarColor(170/255, 10/255, 10/255) 
     
    bar.backdrop = CreateFrame("Frame", nil, bar) 

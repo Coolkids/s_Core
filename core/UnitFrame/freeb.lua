@@ -795,7 +795,7 @@ local UnitSpecific = {
                 i=i-1
             end
 
-            if IsAddOnLoaded("oUF_TotemBar") and class == "DEATHKNIGHT" then
+            if class == "DEATHKNIGHT" then
                 bars[3], bars[4], bars[5], bars[6] = bars[5], bars[6], bars[3], bars[4]
                 self.Runes = bars
             elseif class == "WARLOCK" then
@@ -834,7 +834,7 @@ local UnitSpecific = {
             --EclipseBarFrame:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -55)
         end
 
-        if  class == "SHAMAN" then
+        if  IsAddOnLoaded("oUF_TotemBar") and class == "SHAMAN" then
             self.TotemBar = {}
             self.TotemBar.Destroy = true
             for i = 1, 4 do

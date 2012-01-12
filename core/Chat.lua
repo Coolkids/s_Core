@@ -73,9 +73,9 @@ SetChat = function()
     ChatFrame1:SetUserPlaced(true)
 	for i=1,10 do 
 	local cf = _G["ChatFrame"..i] 
-	S.MakeShadow(cf, 3) 
+	S.MakeShadow(cf, 4) 
 	cf:SetBackdrop({
-		bgFile = DB.bgFile, insets = {left = Size, right = Size, top = Size, bottom = Size},
+		bgFile = DB.bgFile, insets = {left = 0, right = 0, top = 0, bottom = 0},
 	})
 	cf:SetBackdropColor(0, 0, 0, 0.6)
 	--FCF_SetWindowAlpha(cf, 0.8) 
