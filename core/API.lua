@@ -239,7 +239,7 @@ function S.UpdateSize(obj, width, height)
 end
 local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/0.68
 function S.Scale(x)
-	return ((1/GetCVar("uiScale"))*x) --mult*math.floor(x/mult+.5)
+	return (mult*math.floor(x/mult+.5)) --(1/GetCVar("uiScale"))*x
 end
 S.mult = mult
 function S.CreateShadow(f)

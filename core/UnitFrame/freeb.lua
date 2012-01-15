@@ -630,7 +630,7 @@ local func = function(self, unit)
     LFDRole:SetSize(16, 16)
     LFDRole:SetPoint("TOPLEFT", hp, -15, 20)
 	self.LFDRole = LFDRole
-	self.LFDRole:SetTexture("Interface\\AddOns\\oUF_Freeb\\media\\lfd_role")
+	self.LFDRole:SetTexture("Interface\\AddOns\\s_Core\\media\\lfd_role")
 	
     local PvP = hp:CreateTexture(nil, 'OVERLAY')
     PvP:SetSize(20, 20)

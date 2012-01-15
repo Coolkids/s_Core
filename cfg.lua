@@ -226,7 +226,8 @@ DB.AutoUIscale = false  -- 自动设定UI缩放
 DB.LockUIscale = true --锁定UI缩放
 DB.Autoinvite = false  --自动邀请
 DB.INVITE_WORD = "SunUI"  --自动邀请关键字(请在""里面填写)
-
+DB.uiScale =  0.69999998807907  --填入您UI缩放的值获取方法如下
+--在聊天窗口里面输入/script print(GetCVar("uiScale")) 聊天框显示的数字就是ui缩放值
 --內置CD
 DB.ClassCDOpen = true
 DB.ClassCDDirection = down   --  down or up
