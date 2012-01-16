@@ -176,7 +176,7 @@ function Module.BuildGUI()
 				},
 				PetCastBarWidth = {
 					type = "input",
-					name = "焦点施法条宽度：",
+					name = "宠物施法条宽度：",
 					desc = "请输入宽度",
 					order = 19,
 					get = function() return tostring(UnitFrameDB.PetCastBarWidth) end,
@@ -184,7 +184,7 @@ function Module.BuildGUI()
 				},
 				PetCastBarHeight = {
 					type = "input",
-					name = "焦点施法条高度：",
+					name = "宠物施法条高度：",
 					desc = "请输入高度",
 					order = 20,
 					get = function() return tostring(UnitFrameDB.PetCastBarHeight) end,
