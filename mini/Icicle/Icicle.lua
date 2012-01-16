@@ -1,5 +1,5 @@
 
-local _, _, _, DB = unpack(select(2, ...))
+local S, _, _, DB = unpack(select(2, ...))
 if DB.Icicle ~= true then return end
 ----Config----
 local iconsize = 22
@@ -82,6 +82,7 @@ local sourcetable = function(Name, spellID, spellName)
 	icon.texture = icon:CreateTexture(nil, "BORDER")
 	icon.texture:SetAllPoints(icon)
 	icon.texture:SetTexture(texture)
+	S.MakeTexShadow(icon, icon.texture, 3)
 	icon.endtime = GetTime() + duration
 	icon.cooldown = icon:CreateFontString(nil, "OVERLAY")
 	icon.cooldown:SetTextColor(0.7, 1, 0)

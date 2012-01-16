@@ -72,10 +72,4 @@ Frame:SetScript("OnEvent", function(self, event)
 			end
 		end
    end
-end)
-
-
-
-
-
-	
+end)	

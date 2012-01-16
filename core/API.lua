@@ -99,14 +99,14 @@ function S.FormatTime(Time, Short)
 			return "N/A"
 		end
 	else
-		if Time > 86400 then
-			return Day.."d"		
-		elseif Time > 3600 then
-			return Hour.."h"
-		elseif Time < 3600 and Time > 60 then
-			return Minute.."m"
-		elseif Time < 60 and Time > 0 then	
-			return Second.."s"
+		if Time >= 86400 then
+			return format('%dd', floor(Time/86400 + 0.5))
+		elseif Time >= 3600 then
+			return format('%dh', floor(Time/3600 + 0.5))
+		elseif Time >= 60 then
+			return format('%dm', floor(Time/60 + 0.5))
+		elseif Time >= 0 then 
+			return format('%ds', floor(Time + 0.5))
 		else
 			return "N/A"
 		end

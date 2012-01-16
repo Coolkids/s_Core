@@ -130,14 +130,7 @@ end)
 
 hooksecurefunc("AuraButton_UpdateDuration", function(auraButton, timeLeft)
 	local Duration = auraButton.duration
-	if timeLeft then
 		Duration:SetText(S.FormatTime(timeLeft, true))
-		if timeLeft < BUFF_DURATION_WARNING_TIME then
-			--Duration:SetVertexColor(1, 0, 0)
-		else
-			--Duration:SetVertexColor(0.96, 0.82, 0.1)
-		end
-	end
 end) 
 
 hooksecurefunc("DebuffButton_UpdateAnchors", function(buttonName, i)
