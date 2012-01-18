@@ -2,7 +2,7 @@
 ## Title: |cffffe00a<|r|cffFF0000整合大全|r|cffffe00a>|r |cff44CCFFSunUI|r
 ## Notes: 孫小貓超級整合插件核心
 ## Author:Coolkid
-## SavedVariables: bb08df87101dd7f2161e5b77cf750f753c58ef1b
+## SavedVariables: bb08df87101dd7f2161e5b77cf750f753c58ef1b, MiniDB
 ## SavedVariablesPerCharacter: MBB_Exclude, MBB_Options,ActionBarDB, BuffDB, NameplateDB, ReminderDB, ThreatDB, TooltipDB, UnitFrameDB, MoveHandleDB, SkinDB, CoreVersion
 
 core.xml

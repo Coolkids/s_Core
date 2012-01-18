@@ -1,9 +1,9 @@
-local _, _, _, DB = unpack(select(2, ...))
-if DB.FastError ~= true then return end
+local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("FastError")
 
-
-
-
+function Module:OnInitialize()
+	C = MiniDB
+	if C["FastError"] ~= true then return end
 
 
 ---- SETTING HERE ---- ---- ---- ---- ----
@@ -68,3 +68,4 @@ local allertIt = function(_,_,error)
 end
 Error:RegisterEvent("UI_ERROR_MESSAGE")
 Error:SetScript("OnEvent",allertIt)
+end

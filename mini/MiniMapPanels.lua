@@ -1,6 +1,9 @@
 ﻿local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("MiniMapPanels")
 
-if DB.MiniMapPanels ~= true then return end
+function Module:OnInitialize()
+	C = MiniDB
+	if C["MiniMapPanels"] ~= true then return end
 local wm = CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
 local wmbg = {
 	bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],--[[Interface\DialogFrame\UI-DialogBox-Background]]---,
@@ -50,4 +53,5 @@ wm:StopMovingOrSizing()
 if (button=="RightButton") then 
 EasyMenu(wmmenuList, wmmenuFrame, "cursor", -150, 0, "MENU", 2) 
 end 
-end) 
+end)
+end 

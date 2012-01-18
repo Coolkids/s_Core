@@ -1,6 +1,9 @@
 ﻿local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("ClassCD")
-if DB.ClassCDOpen ~= true then return end
+
+function Module:OnInitialize()
+	C = MiniDB
+if C["ClassCDOpen"] ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	职业被动技能,饰品,附魔内置CD
@@ -158,7 +161,7 @@ C=MoveHandleDB
 
 local ClassCDAnchor = CreateFrame("Frame", "ClassCDAnchor", UIParent)
 
-ClassCDAnchor:SetSize(140, 20)
+ClassCDAnchor:SetSize(C["ClassCDWidth"], C["ClassCDHeight"])
 
 ClassCDAnchor:SetPoint("BOTTOM","ClassCD","BOTTOM", 0, 0)
 end
@@ -172,7 +175,7 @@ end
 
 local CreateFS = function(frame, fsize, fstyle)
 	local fstring = frame:CreateFontString(nil, "OVERLAY")
-	fstring:SetFont(DB.Font, 15, "OUTLINE")
+	fstring:SetFont(DB.Font, C["ClassFontSize"], "OUTLINE")
 	return fstring
 end
 
@@ -182,7 +185,7 @@ local UpdatePositions = function()
 		if i == 1 then
 			bars[i]:SetPoint("TOPLEFT", ClassCDAnchor, "TOPLEFT", 26, 0)
 		else
-			if DB.ClassCDDirection == "up" then
+			if C["ClassCDDirection"] == "1" then
 				bars[i]:SetPoint("BOTTOMLEFT", bars[i-1], "TOPLEFT", 0, 5)
 			else
 				bars[i]:SetPoint("TOPLEFT", bars[i-1], "BOTTOMLEFT", 0, -5)
@@ -237,7 +240,7 @@ end
 local CreateBar = function()
 	local bar = CreateFrame("Statusbar", nil, UIParent)
 	bar:SetFrameStrata("LOW")
-	bar:SetSize(140, 20)
+	bar:SetSize(C["ClassCDWidth"], C["ClassCDHeight"])
 	bar:SetStatusBarTexture(DB.Statusbar)
 	bar:SetMinMaxValues(0, 100)
     
@@ -260,7 +263,7 @@ local CreateBar = function()
 	bar.left = CreateFS(bar)
 	bar.left:SetPoint("LEFT", 2, 0)
 	bar.left:SetJustifyH("LEFT")
-	bar.left:SetSize(140, 20)
+	bar.left:SetSize(C["ClassCDWidth"], C["ClassCDHeight"])
 
 	bar.right = CreateFS(bar)
 	bar.right:SetPoint("RIGHT", 1, 0)
@@ -360,3 +363,4 @@ SlashCmdList.ClassCD = function(msg)
 	StartTimer(UnitName("player"), 96171)
 end
 SLASH_ClassCD1 = "/classcd"
+end

@@ -1,5 +1,9 @@
-﻿local _, _, _, DB = unpack(select(2, ...))
-if DB.AutoSell ~= true then return end
+﻿local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("AutoSell")
+
+function Module:OnInitialize()
+	C = MiniDB
+	if C["AutoSell"] ~= true then return end
 local Event = CreateFrame("Frame")
 Event:RegisterEvent("MERCHANT_SHOW")
 Event:SetScript("OnEvent", function(self)
@@ -22,3 +26,4 @@ local c = 0
 		DEFAULT_CHAT_FRAME:AddMessage("共售出：".." |cffffffff"..g.."|cffffc125 G|r".." |cffffffff"..s.."|cffc7c7cf S|r".." |cffffffff"..c.."|cffeda55f C|r"..".",255,255,255)
 	end
 end)
+end

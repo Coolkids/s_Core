@@ -1,5 +1,8 @@
-local _, _, _, DB = unpack(select(2, ...))
-if DB.Icicle ~= true then return end
+local S, _, _, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):NewAddon("IcicleCds")
+function Module:OnInitialize()
+C = MiniDB
+if C["Icicle"] ~= true then return end
 DB.IcicleCds = {
 	--Misc
 	[28730] = 120,				--"Arcane Torrent",
@@ -265,3 +268,4 @@ DB.IcicleCds = {
 	[46924] = 75,				--"Bladestorm",
 	[46968] = 17,				--"Shockwave",
 }
+end

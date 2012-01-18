@@ -212,24 +212,9 @@ DB.stEAnchor = { "TOP", Minimap, "TOP", 0, 38}
 
 ---mini功能
 DB.combatpointOpen = true --盗贼连击点显示
-DB.AutoSell = true   --自动出售
-DB.AutoRepair = false --自动修理
 DB.caelNamePlatesOpen = true  --开启姓名板美化
-DB.ChatFilter = true  --开启聊天信息过滤(防刷屏)
-DB.FastError = true   --开启系统红字屏蔽
-DB.Interrupt = true   --开启打断通告
-DB.Icicle = true  --开启敌对技能冷却监视
 DB.Ratings = true  --装备属性转换
-DB.MiniMapPanels = true  --开启团队工具
-DB.UIscale =  true --设置UI缩放
-DB.AutoUIscale = false  -- 自动设定UI缩放
-DB.LockUIscale = true --锁定UI缩放
-DB.Autoinvite = false  --自动邀请
-DB.INVITE_WORD = "SunUI"  --自动邀请关键字(请在""里面填写)
 DB.uiScale =  0.69999998807907  --填入您UI缩放的值获取方法如下
 --在聊天窗口里面输入/script print(GetCVar("uiScale")) 聊天框显示的数字就是ui缩放值
---內置CD
-DB.ClassCDOpen = true
-DB.ClassCDDirection = down   --  down or up
 --暗影魔計時
 DB.ShadowPetOpen = true

@@ -1,6 +1,9 @@
-
 local S, _, _, DB = unpack(select(2, ...))
-if DB.Icicle ~= true then return end
+local Module = LibStub("AceAddon-3.0"):NewAddon("Icicle")
+
+function Module:OnInitialize()
+C = MiniDB
+if C["Icicle"] ~= true then return end
 ----Config----
 local iconsize = 22
 local xoff = 0
@@ -234,4 +237,4 @@ Icicle:RegisterEvent("PLAYER_ENTERING_WORLD")
 Icicle:SetScript("OnEvent", function(frame, event, ...)
 	IcicleEvent[event](IcicleEvent, ...)
 end)
-	
+end

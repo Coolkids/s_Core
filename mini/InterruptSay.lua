@@ -1,5 +1,9 @@
-local _, _, _, DB = unpack(select(2, ...))
-if DB.Interrupt ~= true then return end
+local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Interrupt")
+
+function Module:OnInitialize()
+	C = MiniDB
+	if C["Interrupt"] ~= true then return end
 
 InterruptSayDB= {
 	intsayonoff = 1,
@@ -190,3 +194,4 @@ SlashCmdList["IIT"] =
 		print("|c00bfffff"..InterruptSayDB.msg)
     end
 end   
+end

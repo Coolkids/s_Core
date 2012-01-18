@@ -1,6 +1,9 @@
-﻿local _, _, _, DB = unpack(select(2, ...))
+﻿local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("AutoRepair")
 
-if DB.AutoRepair ~= true then return end
+function Module:OnInitialize()
+	C = MiniDB
+if C["AutoRepair"] ~= true then return end
 -- Event
 local Event = CreateFrame("Frame")
 Event:RegisterEvent("MERCHANT_SHOW")
@@ -31,3 +34,4 @@ Event:SetScript("OnEvent", function(self)
 		end
 	end
 end)
+end

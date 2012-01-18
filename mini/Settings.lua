@@ -1,4 +1,8 @@
-﻿local _, _, _, DB = unpack(select(2, ...))
+﻿local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Settings")
+
+
+
 
 local SCREENSHOT_QUALITY = 7
 
@@ -102,26 +106,7 @@ local ShowReadyCheckHook = function(self, initiator, timeLeft)
 end
 hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
 
----------------- > automatic UI Scale 
-if DB.UIscale then
-	if DB.LockUIscale then
-		local scalefix = CreateFrame("Frame")
-		scalefix:RegisterEvent("PLAYER_LOGIN")
-		scalefix:SetScript("OnEvent", function()
-			SetCVar("useUiScale", 1)
-			SetCVar("uiScale", 0.69999998807907)
-		end)
-	end
-	else
-	if DB.AutoUIscale then
-		local scalefix = CreateFrame("Frame")
-		scalefix:RegisterEvent("PLAYER_LOGIN")
-		scalefix:SetScript("OnEvent", function()
-			SetCVar("useUiScale", 1)
-			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"))
-			end)
-	end
-end
+
 ---------------- > SetupUI
 SetCVar("scriptErrors", 1)
 SetCVar("buffDurations", 1)
@@ -169,16 +154,38 @@ hooksecurefunc("MerchantItemButton_OnModifiedClick", function(self, button)
         end
     end
 end)
-
+function Module:OnInitialize()
+	C = MiniDB
+---------------- > automatic UI Scale 
+if C["UIscale"] then
+	if C["LockUIscale"] then
+		local scalefix = CreateFrame("Frame")
+		scalefix:RegisterEvent("PLAYER_LOGIN")
+		scalefix:SetScript("OnEvent", function()
+			SetCVar("useUiScale", 1)
+			SetCVar("uiScale", C["uiScale"])
+		end)
+	end
+	else
+	if C["AutoUIscale"] then
+		local scalefix = CreateFrame("Frame")
+		scalefix:RegisterEvent("PLAYER_LOGIN")
+		scalefix:SetScript("OnEvent", function()
+			SetCVar("useUiScale", 1)
+			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"))
+			end)
+	end
+end
 ---------------- > Autoinvite by whisper
-if DB.Autoinvite then
+if C["Autoinvite"] then
 local f = CreateFrame("frame")
 f:RegisterEvent("CHAT_MSG_WHISPER")
 f:SetScript("OnEvent", function(self,event,arg1,arg2)
-    if (not UnitExists("party1") or IsPartyLeader("player")) and arg1:lower():match(DB.INVITE_WORD) then
+    if (not UnitExists("party1") or IsPartyLeader("player")) and arg1:lower():match(C["INVITE_WORD"]) then
         InviteUnit(arg2)
     end
 end)
+end
 end
 ---------------- > Disband Group
 local GroupDisband = function()

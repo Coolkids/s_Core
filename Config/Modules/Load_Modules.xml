@@ -10,5 +10,5 @@
 	<Script file = "Threat.lua"/>
 	<Script file = "Tooltip.lua"/>	
 	<Script file = "UnitFrame.lua"/>
-	
+	<Script file = "Mini.lua"/>
 </Ui>

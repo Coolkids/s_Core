@@ -1,4 +1,10 @@
-﻿-----------------------------------------------------------------------
+﻿local S, C, L, DB = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("ChatFilter")
+
+function Module:OnInitialize()
+	C = MiniDB
+if C["ChatFilter"] ~= true then return end
+-----------------------------------------------------------------------
 -- Config
 -----------------------------------------------------------------------
 local Config = {
@@ -613,4 +619,5 @@ SlashCmdList["CHATFILTER"] = function(msg)
 		print("/chatfilter [ advertising | multiline | repeat | auction ]")
 		print("/chatfilter [ achievement | talent | creat | duel ]")
 	end
+end
 end
