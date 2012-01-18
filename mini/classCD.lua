@@ -156,15 +156,14 @@ local sformat = string.format
 local floor = math.floor
 local timer = 0
 local bars = {}
-function Module:OnInitialize()
-C=MoveHandleDB
+
 
 local ClassCDAnchor = CreateFrame("Frame", "ClassCDAnchor", UIParent)
 
 ClassCDAnchor:SetSize(C["ClassCDWidth"], C["ClassCDHeight"])
 
 ClassCDAnchor:SetPoint("BOTTOM","ClassCD","BOTTOM", 0, 0)
-end
+
 local FormatTime = function(time)
 	if time >= 60 then
 		return sformat("%.2d:%.2d", floor(time / 60), time % 60)
