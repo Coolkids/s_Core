@@ -57,6 +57,7 @@
 	<Include file="FriendsMenuXP\FriendsMenuXP.xml"/>
 	<Script file='FriendColor.lua'/>
 	<Script file='memory.lua'/>
+	<Script file='rollcolector.lua'/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->
