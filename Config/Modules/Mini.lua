@@ -21,6 +21,7 @@ function Module.LoadSettings()
 		["LockUIscale"] = false,
 		["Autoinvite"] = false,
 		["INVITE_WORD"] = "SunUI",
+		["igonoreOld "] = false,
 		["uiScale"] = 0.69999998807907,
 		["ClassCDOpen"] = false,
 		["ClassCDDirection"] = 1,
@@ -112,56 +113,75 @@ function Module.BuildGUI()
 					get = function() return tostring(MiniDB.INVITE_WORD) end,
 					set = function(_, value) MiniDB.INVITE_WORD = tonumber(value) end,
 				},
-				NewLine = {
-					type = "description", order = 11,
-					name = "\n",					
-				},
-				UIscale = {
+				igonoreOld = {
 					type = "toggle",
-					name = "启用插件UI缩放设定",
-					order = 12,
-					get = function() return MiniDB.UIscale end,
-					set = function(_, value) MiniDB.UIscale = value end,
+					name = "启用自动离开有进度的随机副本或团队",
+					order = 11,
+					get = function() return MiniDB.igonoreOld end,
+					set = function(_, value) MiniDB.igonoreOld = value end,
 				},
-				AutoUIscale = {
-					type = "toggle",
-					name = "自动设定UI缩放", desc = "需要开启插件UI缩放设定",
-					order = 13,
-					get = function() return MiniDB.AutoUIscale end,
-					set = function(_, value) MiniDB.AutoUIscale = value end,
-				},
-				LockUIscale = {
-					type = "toggle",
-					name = "锁定UI缩放", desc = "需要开启插件UI缩放设定",
-					order = 14,
-					get = function() return MiniDB.LockUIscale end,
-					set = function(_, value) MiniDB.LockUIscale = value end,
-				},
+			}
+		}
+			DB["Config"]["UI"] =  {
+			type = "group", order = 11,
+			name = "UI缩放",
+			args = {
 				uiScale = {
-					type = "range", order = 15,
+					type = "range", order = 1,
 					name = "UI缩放大小：", desc = "输入UI缩放大小",
 					min = 0.40, max = 1.20, step = 0.01,
 					get = function() return MiniDB.uiScale end,
 					set = function(_, value) MiniDB.uiScale = value end,
 				},
 				accept = {
-					type = "execute", order = 16,
+					type = "execute", order = 2,
 					name = "应用", desc = "应用",
 					func = function()  SetCVar("useUiScale", 1) SetCVar("uiScale", MiniDB.uiScale) RestartGx()end,
-				},
+				},	
 				NewLine = {
-					type = "description", order = 17,
+					type = "description", order = 3,
 					name = "\n",					
 				},
+				UIscale = {
+					type = "toggle",
+					name = "启用插件UI缩放设定",
+					order = 4,
+					get = function() return MiniDB.UIscale end,
+					set = function(_, value) MiniDB.UIscale = value end,
+				},
+				AutoUIscale = {
+					type = "toggle",
+					name = "自动设定UI缩放", desc = "需要开启插件UI缩放设定",
+					order = 5,
+					get = function() return MiniDB.AutoUIscale end,
+					set = function(_, value) MiniDB.AutoUIscale = value end,
+				},
+				LockUIscale = {
+					type = "toggle",
+					name = "锁定UI缩放", desc = "需要开启插件UI缩放设定",
+					order = 6,
+					get = function() return MiniDB.LockUIscale end,
+					set = function(_, value) MiniDB.LockUIscale = value end,
+				},			
+			}
+		}
+		DB["Config"]["ClassCD"] =  {
+			type = "group", order = 12,
+			name = "内置CD",
+			args = {
 				ClassCDOpen = {
 					type = "toggle",
 					name = "启动内置CD", desc = "开启这玩意会导致内存暴涨 请根据自己的需要选择",
-					order = 18,
+					order = 1,
 					get = function() return MiniDB.ClassCDOpen end,
 					set = function(_, value) MiniDB.ClassCDOpen = value end,
 				},
+				NewLine = {
+					type = "description", order = 2,
+					name = "\n",					
+				},
 				ClassFontSize = {
-					type = "range", order = 19,
+					type = "range", order = 3,
 					name = "内置CD字体大小：", desc = "输入内置CD字体大小",
 					min = 4, max = 28, step = 1,
 					get = function() return MiniDB.ClassFontSize end,
@@ -171,7 +191,7 @@ function Module.BuildGUI()
 					type = "input",
 					name = "框体宽度：",
 					desc = "请输入框体宽度",
-					order = 20,
+					order = 4,
 					get = function() return tostring(MiniDB.ClassCDWidth) end,
 					set = function(_, value) MiniDB.ClassCDWidth = tonumber(value) end,
 				},
@@ -179,7 +199,7 @@ function Module.BuildGUI()
 					type = "input",
 					name = "框体高度：",
 					desc = "请输入框体高度",
-					order = 21,
+					order = 5,
 					get = function() return tostring(MiniDB.ClassCDHeight) end,
 					set = function(_, value) MiniDB.ClassCDHeight = tonumber(value) end,
 				},
@@ -187,12 +207,12 @@ function Module.BuildGUI()
 					type = "select",
 					name = "计时条增长方向：",
 					desc = "请选择计时条增长方向",
-					order = 22,
+					order = 6,
 					values = {[1] = "向下", [2] = "向上"},
 					get = function() return MiniDB.ClassCDDirection end,
 					set = function(_, value) MiniDB.ClassCDDirection = value end,
 				},
-			},
+			}
 		}
 	end
 end

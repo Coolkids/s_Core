@@ -265,6 +265,7 @@ MiniDB = {
 	["FastError"] = true,
 	["Autoinvite"] = false,
 	["Interrupt"] = true,
+	["igonoreOld "] = false,
 	["ClassCDOpen"] = false,
 	["ClassFontSize"] = 15,
 	["ClassCDDirection"] = 1,
