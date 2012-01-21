@@ -187,6 +187,21 @@ f:SetScript("OnEvent", function(self,event,arg1,arg2)
 end)
 end
 end
+
+-- 隐藏小队框体
+for i = 1, MAX_PARTY_MEMBERS do
+	local PartyMemberFrame = _G["PartyMemberFrame"..i]
+	PartyMemberFrame:UnregisterAllEvents()
+	PartyMemberFrame:Hide()
+	PartyMemberFrame.Show = function() end
+end
+UIParent:UnregisterEvent("RAID_ROSTER_UPDATE")
+
+-- 实名好友弹窗位置修正
+BNToastFrame:HookScript("OnShow", function(self)
+	self:ClearAllPoints()
+	self:SetPoint("BOTTOMLEFT", ChatFrame1Tab, "TOPLEFT", 0, 20)
+end)
 ---------------- > Disband Group
 local GroupDisband = function()
 	local pName = UnitName("player")

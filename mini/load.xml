@@ -37,7 +37,6 @@
 	<Script file ="Molinari.lua"/>
 	<Script file ="Disenchanting.lua"/>
 	<Script file ="GuildRosterSelectedFix.lua"/>
-	<Script file ="PartyHide.lua"/>
 	<Script file ="FastError.lua"/>
 	<Script file ="AutoRepair.lua"/>
 	<Script file ="AutoSell.lua"/>
