@@ -200,7 +200,7 @@ UIParent:UnregisterEvent("RAID_ROSTER_UPDATE")
 -- 实名好友弹窗位置修正
 BNToastFrame:HookScript("OnShow", function(self)
 	self:ClearAllPoints()
-	self:SetPoint("BOTTOMLEFT", ChatFrame1Tab, "TOPLEFT", 0, 20)
+	self:SetPoint("BOTTOMLEFT", ChatFrame1Tab, "TOPLEFT", 0, 25)
 end)
 ---------------- > Disband Group
 local GroupDisband = function()

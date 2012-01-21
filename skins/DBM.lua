@@ -57,7 +57,7 @@ Event:SetScript("OnEvent", function()
 
 					if not name.styled then
 						name:ClearAllPoints()
-						name:SetPoint("LEFT", frame, 5, 5)
+						name:SetPoint("LEFT", frame, 5, icon1:GetHeight()/2)
 						name:SetFont(DB.Font, 11*S.Scale(1), "THINOUTLINE")
 						name:SetShadowOffset(0, 0)
 						name.SetFont = function() end
@@ -66,9 +66,9 @@ Event:SetScript("OnEvent", function()
 
 					if not timer.styled then
 						timer:ClearAllPoints()
-						timer:SetPoint("RIGHT", frame, -5, 5)					
+						timer:SetPoint("RIGHT", frame, -5, icon1:GetHeight()/2)					
 						timer:SetFont(DB.Font, 11*S.Scale(1), "THINOUTLINE")
-						timer:SetShadowOffset(0, 0)
+						timer:SetShadowOffset(0,0)
 						timer.SetFont = function() end
 						timer.styled = true
 					end
