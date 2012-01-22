@@ -7,7 +7,7 @@ local Module = Core:NewModule("UnitFrame")
 function Module:OnInitialize()
 C = UnitFrameDB
 local mediaPath = "Interface\\AddOns\\s_Core\\media\\"
-local texture = mediaPath.."Cabaret"   --Cabaret原材质
+local texture = mediaPath.."Statusbar7"   --Cabaret原材质
 local font, fontsize, fontflag = DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE"
 
 local movtex = mediaPath.."mouseover"

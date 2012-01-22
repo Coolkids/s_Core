@@ -39,7 +39,7 @@ DB.tscol = "64C2F5"						-- Timestamp coloring
 DB.TimeStampsCopy = true					-- 时间戳
 
 --Loot 
-  DB.bartex =		MediaPath.."statusbar"		
+  DB.bartex =		MediaPath.."statusbar7"		
   DB.bordertex =	MediaPath.."icon_clean"	
   DB.closebtex =	MediaPath.."black-close"
   DB.edgetex = 	"Interface\\Tooltips\\UI-Tooltip-Border"
@@ -204,7 +204,7 @@ DB.bars = {
 	
 
 --施法条
-DB.bar_texture = "Interface\\AddOns\\S_core\\media\\sppower"  --bar原材质
+DB.bar_texture = Media.."Statusbar7" --"Interface\\AddOns\\S_core\\media\\sppower"  --bar原材质
 
 --声望条位置
 DB.stEAnchor = { "TOP", Minimap, "TOP", 0, 38}

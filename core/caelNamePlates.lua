@@ -8,7 +8,7 @@ function Module:OnInitialize()
 local caelNamePlates = CreateFrame("Frame", nil, UIParent)
 caelNamePlates:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
 
-local barTexture = [=[Interface\Addons\s_Core\media\normTex]=]
+local barTexture = [=[Interface\Addons\s_Core\media\Statusbar7]=]
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
 local glowTexture = [=[Interface\Addons\s_Core\media\glowTex]=]
 local font, fontSize, fontOutline = DB.Font, C["Fontsize"]*S.Scale(1), "OUTLINE"
