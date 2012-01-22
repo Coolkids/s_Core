@@ -1,6 +1,6 @@
 ﻿local L = setmetatable(GetLocale() == "zhCN" and {
 	["(.*) won: (.+)"]                               = "(.*)赢得了：(.+)",
-	["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HRayUILootCollector:%d|h[%s]|h|r %s 赢得了 %s ",
+	["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HSunUILootCollector:%d|h[%s]|h|r %s 赢得了 %s ",
 	["(.*) has?v?e? selected (.+) for: (.+)"]        = "(.+)选择了(.+)取向：(.+)",
 	["(.+) Roll . (%d+) for (.+) by (.+)"]           = "（(.+)）(%d+)点：(.+)（(.+)）",
 	["(.+) Roll - (%d+) for (.+) by (.+) + Role Bonus"]	 = "（(.+)%+职责加成）(%d+)點:(.+)（(.+)）",
@@ -11,7 +11,7 @@
 	["Winner:"]										= "获胜者：",
 } or GetLocale() == "zhTW" and {
 	["(.*) won: (.+)"]                               = "(.*)贏得了:(.+)",
-	["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HRayUILootCollector:%d|h[%s]|h|r %s 贏得了 %s ",
+	["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HSunUILootCollector:%d|h[%s]|h|r %s 贏得了 %s ",
 	["(.*) has?v?e? selected (.+) for: (.+)"]        = "(.+)選擇\228?\186?\134?(.+):(.+)",
 	["(.+) Roll . (%d+) for (.+) by (.+)"]           = "(.+) %- (.+)由(.+)擲出(%d+)",
 	["(.+) Roll - (%d+) for (.+) by (.+) + Role Bonus"]	 = "%((.+)%+角色加成%)(%d+)點:(.+)%((.+)%)",
@@ -90,7 +90,7 @@ f:SetScript("OnEvent", function(self, event)
 					roll._printed = true
 					roll._winner = player
 					local rolltype = roll[roll._winner][1]
-					local msg = string.format(L["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "], rollcolors[rolltype], i, rolltype, player, link)
+					local msg = string.format(L["%s|HSunUILootCollector:%d|h[%s roll]|h|r %s won %s "], rollcolors[rolltype], i, rolltype, player, link)
 						for cf in pairs(frames) do
 							_G[cf]:AddMessage(msg)
 						end
@@ -113,7 +113,7 @@ end)
 
 local orig2 = SetItemRef
 function SetItemRef(link, text, button)
-	local id = link:match("RayUILootCollector:(%d+)")
+	local id = link:match("SunUILootCollector:(%d+)")
 	if id then
 		ShowUIPanel(ItemRefTooltip)
 		if not ItemRefTooltip:IsShown() then ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE") end

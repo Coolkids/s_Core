@@ -40,7 +40,6 @@
 	<Script file ="FastError.lua"/>
 	<Script file ="AutoRepair.lua"/>
 	<Script file ="AutoSell.lua"/>
-	<Script file ="ChatFilter.lua"/>
 	<Include file ="Quest\load.xml"/>
 	<Script file ="MiniMapPanels.lua"/>
 	<Script file ="classCD.lua"/>
@@ -56,7 +55,6 @@
 	<Include file="FriendsMenuXP\FriendsMenuXP.xml"/>
 	<Script file='FriendColor.lua'/>
 	<Script file='memory.lua'/>
-	<Script file='rollcolector.lua'/>
 	<Script file='AutoLFG.lua'/>
 </Ui>
 

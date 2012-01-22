@@ -25,5 +25,5 @@
 	<Script file="Plugins\tullaRange.lua"/>
 	<Script file="Plugins\HoverBind.lua"/>
 	<Script file="Plugins\Cooldown.lua"/>
-	
+	<Script file="Plugins\CooldownFlash.lua"/>
 </Ui>

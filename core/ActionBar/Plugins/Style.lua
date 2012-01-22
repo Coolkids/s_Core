@@ -74,19 +74,19 @@ local function StyleActionButton(self)
 		end
  
 		local HighlightTexture = Button:CreateTexture("Frame", nil, self)
-		HighlightTexture:SetTexture(1, 1, 1, 0.5)
+		HighlightTexture:SetTexture(1, 1, 1, 0.3)
 		HighlightTexture:SetPoint("TOPLEFT", 2, -2)
 		HighlightTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		Button:SetHighlightTexture(HighlightTexture)
 
 		local PushedTexture = Button:CreateTexture("Frame", nil, self)
-		PushedTexture:SetTexture(0.1, 0.1, 0.1, 0.5)
+		PushedTexture:SetTexture(0.9, 0.8, 0.1, 0.3)
 		PushedTexture:SetPoint("TOPLEFT", 2, -2)
 		PushedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		Button:SetHighlightTexture(PushedTexture)
 		
 		local CheckedTexture = Button:CreateTexture("Frame", nil, self)
-		CheckedTexture:SetTexture(1, 1, 1, 0.5)
+		CheckedTexture:SetTexture(23/255,132/255,209/255,0.5)
 		CheckedTexture:SetPoint("TOPLEFT", 2, -2)
 		CheckedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		Button:SetCheckedTexture(CheckedTexture)

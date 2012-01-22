@@ -12,7 +12,7 @@
 	<Script file = "move.lua"/>
 	<Include file="bags\load.xml"/>
 	<Script file = "Buffs.lua"/>
-	<Script file = "Chat.lua"/>
+	<Include file = "Chat\load.xml"/>
 	<Script file = "caelNamePlates.lua"/>
 	<Script file = "Loot.lua"/>
 	<Script file = "roll.lua"/>
