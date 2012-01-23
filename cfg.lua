@@ -206,16 +206,11 @@ DB.bars = {
 --施法条
 DB.bar_texture = Media.."Statusbar7" --"Interface\\AddOns\\S_core\\media\\sppower"  --bar原材质
 
---声望条位置
-DB.stEAnchor = { "TOP", Minimap, "TOP", 0, 38}
-
-
 ---mini功能
 DB.combatpointOpen = true --盗贼连击点显示
 DB.caelNamePlatesOpen = true  --开启姓名板美化
 DB.Ratings = true  --装备属性转换
-DB.uiScale =  0.69999998807907  --填入您UI缩放的值获取方法如下
---在聊天窗口里面输入/script print(GetCVar("uiScale")) 聊天框显示的数字就是ui缩放值
+
 --暗影魔計時
 DB.ShadowPetOpen = true
 

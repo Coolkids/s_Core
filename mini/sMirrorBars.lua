@@ -4,7 +4,7 @@ local S, _, _, DB = unpack(select(2, ...))
 local _DEFAULTS = { 
    width = 252, 
    height = 18, 
-   texture = [[Interface\AddOns\s_Core\media\statusbar4]], 
+   texture = [[Interface\AddOns\s_Core\media\statusbar7]], 
  
 
  

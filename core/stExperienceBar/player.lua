@@ -1,10 +1,10 @@
-﻿local _, _, _, DB = unpack(select(2, ...))
+﻿local S, _, _, DB = unpack(select(2, ...))
 --Bar Height and Width
-local barHeight, barWidth = 15, Minimap:GetWidth()
+local barHeight, barWidth = 10, Minimap:GetWidth()+3
 
 --Where you want the fame to be anchored
 --------AnchorPoint, AnchorTo, RelativePoint, xOffset, yOffset
-local Anchor = DB.stEAnchor
+local Anchor = { "TOP", Minimap, "TOP", 0, barHeight}
 
 --Fonts
 local showText = true -- Set to false to hide text
@@ -12,8 +12,8 @@ local mouseoverText = true -- Set to true to only show text on mouseover
 local font,fontsize,flags = DB.Font, 12, "THINOUTLINE"
 
 --Textures
-local barTex = [[Interface\Addons\S_core\media\Flat.tga]]
-local flatTex = [[Interface\Addons\S_core\media\Flat.tga]]
+local barTex = [[Interface\Addons\s_Core\media\statusbar7.tga]]
+local flatTex = [[Interface\Addons\s_Core\media\statusbar7.tga]]
 
 -----------------------------------------------------------
 -- Don't edit past here unless you know what your doing! --
@@ -32,22 +32,15 @@ local xpBorder = CreateFrame("frame", aName.."xpBorder", Frame)
 xpBorder:SetHeight(barHeight)
 xpBorder:SetWidth(barWidth)
 xpBorder:SetPoint("TOP", Frame, "TOP", 0, 0)
-xpBorder:SetBackdrop({
-	bgFile = barTex, 
-	edgeFile = barTex, 
-	tile = false, tileSize = 0, edgeSize = 1, 
-	insets = { left = -1, right = -1, top = -1, bottom = -1}
-})
-xpBorder:SetBackdropColor(0, 0, 0)
-xpBorder:SetBackdropBorderColor(.2, .2, .2, 1)
+
 
 local xpOverlay = xpBorder:CreateTexture(nil, "BORDER", xpBorder)
 xpOverlay:ClearAllPoints()
 xpOverlay:SetPoint("TOPLEFT", xpBorder, "TOPLEFT", 2, -2)
 xpOverlay:SetPoint("BOTTOMRIGHT", xpBorder, "BOTTOMRIGHT", -2, 2)
 xpOverlay:SetTexture(barTex)
-xpOverlay:SetVertexColor(.1,.1,.1)
-
+xpOverlay:SetVertexColor(.05,.05,.05, 0.2)
+S.MakeTexShadow(xpBorder, xpOverlay, 3)
 --Create xp status bar
 local xpBar = CreateFrame("StatusBar",  aName.."xpBar", xpBorder, "TextStatusBar")
 --xpBar:SetWidth(barWidth-4)
@@ -71,22 +64,15 @@ local repBorder = CreateFrame("frame", aName.."repBorder", Frame)
 repBorder:SetHeight(5)
 repBorder:SetWidth(Frame:GetWidth())
 repBorder:SetPoint("BOTTOM", Frame, "BOTTOM", 0, 0)
-repBorder:SetBackdrop({
-	bgFile = barTex, 
-	edgeFile = barTex, 
-	tile = false, tileSize = 0, edgeSize = 1, 
-	insets = { left = -1, right = -1, top = -1, bottom = -1}
-})
-repBorder:SetBackdropColor(0, 0, 0)
-repBorder:SetBackdropBorderColor(.2, .2, .2, 1)
+S.MakeShadow(repBorder, 3)
 
 local repOverlay = repBorder:CreateTexture(nil, "BORDER", Frame)
 repOverlay:ClearAllPoints()
 repOverlay:SetPoint("TOPLEFT", repBorder, "TOPLEFT", 2, -2)
 repOverlay:SetPoint("BOTTOMRIGHT", repBorder, "BOTTOMRIGHT", -2, 2)
 repOverlay:SetTexture(barTex)
-repOverlay:SetVertexColor(.1,.1,.1)
-
+repOverlay:SetVertexColor(.05,.05,.05, 0.2)
+S.MakeTexShadow(repBorder, repOverlay, 3)
 local repBar = CreateFrame("StatusBar", aName.."repBar", repBorder, "TextStatusBar")
 --repBar:SetWidth(barWidth-4)
 --repBar:SetHeight(st.IsMaxLevel() and barHeight-4 or 2)

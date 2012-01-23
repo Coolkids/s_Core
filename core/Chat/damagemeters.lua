@@ -107,7 +107,7 @@ function SetItemRef(link, text, button, frame)
 		end
 		ItemRefTooltip:ClearLines()
 		ItemRefTooltip:AddLine(meters[meterID].title)
-		ItemRefTooltip:AddLine(string.format(L["发布者"]..": %s", meters[meterID].source))
+		ItemRefTooltip:AddLine(string.format("发布者"..": %s", meters[meterID].source))
 		for k, v in ipairs(meters[meterID].data) do
 			local left, right = v:match("^(.*)  (.*)$")
 			if left and right then
