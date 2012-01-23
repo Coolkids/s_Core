@@ -16,7 +16,7 @@ flash.icon = flash:CreateTexture(nil, "OVERLAY")
 flash:SetScript("OnEvent", function()
 	local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/GetCVar("uiScale")
 	local function scale(x) return mult*math.floor(x+.5) end
-	flash:SetPoint("CENTER", UIParent)
+	flash:SetPoint("BOTTOM", UIParent, "CENTER", 0, 150)
 	flash:SetSize(scale(80),scale(80))
 	S.MakeTexShadow(flash, flash.icon, 8)
 	flash:SetBackdropColor(.1,.1,.1)

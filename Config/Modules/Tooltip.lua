@@ -50,7 +50,7 @@ function Module.BuildGUI()
 				FontSize = {
 					type = "range", order = 3,
 					name = "字体大小：", desc = "输入字体大小",
-					min = 10, max = 22, step = 1,
+					min = 2, max = 22, step = 1,
 					get = function() return TooltipDB.FontSize end,
 					set = function(_, value) TooltipDB.FontSize = value end,
 				},

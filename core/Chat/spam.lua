@@ -1,199 +1,90 @@
-local S, C, L, DB = unpack(select(2, ...))
-
-
-----------------------------------------------------------------------------------
--- 屏蔽关键字
-----------------------------------------------------------------------------------
-local SpamList = {
-	"蛋糕",
-	"淘寶",	
-	"旺旺",	
-	"皇冠",	
-	"牛肉",	
-	"月餅",	
-	"季餅",	
-	"手工",	
-	"皇冠",	
-	"大脚",
-	"大腳",
-	"準備開火吧",
-	"Fatality:",
-	"FishUI",
-}
-
-----------------------------------------------------------------------------------
---	Talent Spec Spam Filter 防止切天賦時洗頻
---	By Azmenen of Kargath
-----------------------------------------------------------------------------------
-
-local TalentSpecSpam = {}
-
-local minTime = 0.95 -- the minimum time to allow for results to be collected.   NOTE: minTime seconds after TalentSpecSpam.time, the tables will be printed and then emptied
-
-TalentSpecSpam.time = 8
-
-TalentSpecSpam.patterns = {}
-
-TalentSpecSpam.patternFragments = {}
-
-TalentSpecSpam.unlearned = {}
-TalentSpecSpam.learned = {}
-TalentSpecSpam.learnedspell = {}
-TalentSpecSpam.alreadyseen = {}
-
-TalentSpecSpam.globalPatterns = {
-	[1] = _G["ERR_SPELL_UNLEARNED_S"], -- You have unlearned %s.
-	[2] = _G["ERR_LEARN_ABILITY_S"], -- You have learned a new ability : %s.
-	[3] = _G["ERR_LEARN_SPELL_S"], -- You have learned a new spell : %s.
-}
-
-TalentSpecSpam.link = {
-	[1] = TalentSpecSpam.unlearned,
-	[2] = TalentSpecSpam.learned,
-	[3] = TalentSpecSpam.learnedspell,
-}
-
-function TalentSpecSpam.addBetterStuff(in_string)
-	local temp = string.gsub(in_string, "%%1$s", "(%%S+)")
-	toReturn = string.gsub(temp, "%%s", "(%%S+)")
-	
-	return toReturn
+﻿local S, C, L, DB = unpack(select(2, ...))
+local NGSenable=1
+local NGSkilled=0
+local NGSreport=0
+local NGSid2=0
+local NGSmatchs=1 --在這裡修改關鍵字配對個數.找到n個關鍵字則屏蔽,就改此處為n.
+local NGSSymbols={"`","~","@","#","^","*","=","|"," ","，","。","、","？","！","：","；","’","‘","“","”","【","】","『","』","《","》","<",">","（","）"} 
+--在這裡修改要清除的干擾字符.
+if (GetLocale() == "zhTW") then
+  NGSwords = {"淘寶","淘宝","旺旺","純手工","纯手工","牛肉","萬斤","手工金","手工G","平臺","黑一賠","黑一赔","皇冠店","代練","代练","代打","大腳","FishUI","魔盒","準備開火","Fatality:","**→","←"} 
+  --(zhTW)在這裡修改關鍵字,以" "包括,以,分隔.
+  NGSrep="|cff3399FFSunUI:|r已經截獲|cff00ff00%d|r條廣告訊息."
+  NGSturnoff="|cff00ff00出售金幣廣告信息屏蔽插件已經停用.輸入/NGS啟用.|r"
+  NGSturnon="|cff00ff00出售金幣廣告信息屏蔽插件已經啟用.輸入/NGS停用.|r"
+  NGSrepFreq=200; --(zhTW)在這裡截獲報告頻率.幾條消息報告一次,就改此處為n.
+else if (GetLocale() == "zhCN") then
+    NGSwords = {"平台交易","点心","担保","纯手工","淘宝","游戏币","代打","代练","工作室","金=","G=","元=","代练","手工金","手工G","黑赔","皇冠店","黑一赔十","大脚","FishUI","魔盒","准备开火","Fatality:","**→","←"} 
+	--(zhCN)在这里修改关键字,以" "包括,以,分隔.
+    NGSrep="|cff3399FFSunUI:|r本次登录到现在已经接获|cff00ff00%d|r条广告信息。"
+    NGSturnoff="|cff00ff00出售金币广告信息屏蔽插件已经停用。输入/NGS启用。|r"
+    NGSturnon="|cff00ff00出售金币广告信息屏蔽插件已经启用。输入/NGS停用。|r"
+    NGSrepFreq=400; --(zhCN)在这里修改报告频率。n条消息报告一次，就该此处为n。
+  else
+    DEFAULT_CHAT_FRAME:AddMessage("請注意!\nNoGoldSeller只能在zhTW,zhCN下運行,不支持您現在的遊戲語言版本!已經自行禁用.")
+	DEFAULT_CHAT_FRAME:AddMessage("WARNING!\nNoGoldSeller: This addon ONLY fits for Traditional Chinese (zhTW) & Simplified Chinese (zhCN) realms. Unsupport your game client. It has automatically disabled now.")
+	NGSenable=0;
+  end
 end
+local NGSdebug=0;
 
-function TalentSpecSpam.sanitizePeriods(in_string)
-	local toReturn = ""
-	for i=1, in_string:len() do
-		if (in_string:sub(i,i) == ".") then
-			toReturn = toReturn .. "%."
-		else
-			toReturn = toReturn .. in_string:sub(i,i)
-		end
+function IsGoldSeller(NGSself, NGSevent, NGSmsg, NGSauthor, _, _, _, NGSflag, _, _, _, _, NGSid)
+  if(NGSenable==0) then
+    return false;
+  end
+  if ((NGSevent == "CHAT_MSG_WHISPER" and NGSflag == "GM") or UnitIsInMyGuild(NGSauthor) or UnitIsUnit(NGSauthor,"player") or UnitInRaid(NGSauthor) or UnitInParty(NGSauthor) or (not CanComplainChat(NGSid))) then 
+	return false; 
+  end
+  for _, NGSsymbol in ipairs(NGSSymbols) do
+    NGSmsg, a = gsub(NGSmsg, NGSsymbol, "")
+  end
+  local NGSmatch = 0;
+  local NGSnewString=""
+  for _, NGSword in ipairs(NGSwords) do
+    local NGSnewString, NGSresult= gsub(NGSmsg, NGSword, "");
+	if (NGSresult > 0) then
+	  NGSmatch = NGSmatch +1;
 	end
-	return toReturn
-end
-
-function TalentSpecSpam.makeFragments(in_string)
-	local tbl = {
-		[1] = "",
-		[2] = "",
-	}
-	
-	local value = ""
-	local mod_string = TalentSpecSpam.sanitizePeriods(in_string)
-	for i=1, mod_string:len() do
-		if (mod_string:sub(i,i+1) == "%s") then
-			tbl[1] = value
-			tbl[2] = mod_string:sub(i+2)
-			return tbl
-		elseif (mod_string:sub(i,i+3) == "%1$s") then
-			tbl[1] = value
-			tbl[2] = mod_string:sub(i+4)
-			return tbl
-		else
-			value = value .. mod_string:sub(i,i)
-		end
-	end
-	
-	tbl[1] = mod_string
-	return tbl
-end
-
-for index, globalString in ipairs (TalentSpecSpam.globalPatterns) do
-	TalentSpecSpam.patterns[index] = TalentSpecSpam.addBetterStuff(globalString)
-	TalentSpecSpam.patternFragments[index] = TalentSpecSpam.makeFragments(globalString)
-end
-
-function TalentSpecSpam.TalentSpecSpamFilter(self, event, msg)
-	for i=1, #(TalentSpecSpam.patterns) do
-		if (msg:find(TalentSpecSpam.patterns[i])) then
-			local tempString, finalString = "", ""
-			
-			if (TalentSpecSpam.patternFragments[i][1] ~= "") then
-				tempString = string.gsub(msg, TalentSpecSpam.patternFragments[i][1], "")
-			else tempString = msg
-			end
-			
-			if (TalentSpecSpam.patternFragments[i][2] ~= "") then
-				finalString = string.gsub(tempString, TalentSpecSpam.patternFragments[i][2], "")
-			else finalString = tempString
-			end
-			
-			if (TalentSpecSpam.alreadyseen[i] == nil) then TalentSpecSpam.alreadyseen[i] = {}; end
-			if (TalentSpecSpam.alreadyseen[i][finalString] == nil) then
-				TalentSpecSpam.alreadyseen[i][finalString] = true
-				
-				local tempTable = TalentSpecSpam.link[i]
-				tempTable[#(tempTable) + 1] = finalString
-				
-				TalentSpecSpam.time = GetTime()
-				TalentSpecSpam.frame:SetScript("OnUpdate", TalentSpecSpam.summarize)
-			end
-			
-			return true
-		end
-	end
-	
-	return false
-end
-
-function TalentSpecSpam.print(intable)
-	local toReturn = ""
-	for k,name in pairs(intable) do
-		toReturn = toReturn .. name .. ", "
-	end
-	
-	return toReturn
-end
-
-function TalentSpecSpam.removeLastComma(instring)
-	local toReturn = ""
-	
-	for i=instring:len(), 1, -1 do
-		if (instring:sub(i,i) == ",") then
-			return instring:sub(1,i-1)
-		end
-	end
-	
-	return toReturn
-end
-
-function TalentSpecSpam.summarize()
-	if ((GetTime() - TalentSpecSpam.time) > minTime) then
-		TalentSpecSpam.frame:SetScript("OnUpdate", nil)
+  end
+  if (NGSmatch >= NGSmatchs) then 
+	if (not(NGSid == NGSid2)) then
+		NGSkilled = NGSkilled + 1
+		NGSreport = NGSreport + 1
+		NGSid2 = NGSid
 		
-		if (#(TalentSpecSpam.unlearned) > 0) then
-			DEFAULT_CHAT_FRAME:AddMessage(string.gsub(TalentSpecSpam.globalPatterns[1], "%%s", TalentSpecSpam.removeLastComma(TalentSpecSpam.print(TalentSpecSpam.unlearned))), 1, 1, 0)
+		if (NGSdebug == 1) then --debug
+			DEFAULT_CHAT_FRAME:AddMessage(NGSauthor)
+			DEFAULT_CHAT_FRAME:AddMessage(NGSevent)
+			DEFAULT_CHAT_FRAME:AddMessage(NGSmsg)
+			DEFAULT_CHAT_FRAME:AddMessage(NGSkilled)
 		end
 		
-		if ((#(TalentSpecSpam.learned) > 0) or (#(TalentSpecSpam.learnedspell) > 0)) then
-			DEFAULT_CHAT_FRAME:AddMessage(string.gsub(TalentSpecSpam.globalPatterns[2], "%%s", TalentSpecSpam.removeLastComma(TalentSpecSpam.print(TalentSpecSpam.learned) .. TalentSpecSpam.print(TalentSpecSpam.learnedspell))), 1, 1, 0)
-		end
-		
-		for k, tbl in ipairs (TalentSpecSpam.link) do wipe(tbl); end
-		wipe(TalentSpecSpam.alreadyseen)
-	end
-end
-
-TalentSpecSpam.frame = CreateFrame("Frame", "TalentSpecSpamFilterFrame", UIParent)
-TalentSpecSpam.frame:SetScript("OnUpdate", TalentSpecSpam.summarize)
-
-ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", TalentSpecSpam.TalentSpecSpamFilter)
-
-----------------------------------------------------------------------------------
--- 交易频道过滤
-----------------------------------------------------------------------------------
-local function TRADE_FILTER(self, event, arg1, arg2)
-	if (SpamList and SpamList[1]) then
-		for i, SpamList in pairs(SpamList) do
-			if arg2 == UnitName("player") then return end
-			if (arg1:find(SpamList)) then
-				return true
-			end
+		if (NGSreport == NGSrepFreq) then
+		DEFAULT_CHAT_FRAME:AddMessage(string.format(NGSrep, NGSkilled))
+		NGSreport=0
 		end
 	end
+	return true;
+  else
+    return false;
+  end
 end
-ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", TRADE_FILTER)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL",IsGoldSeller)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", IsGoldSeller) 
+ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", IsGoldSeller) 
+ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", IsGoldSeller) 
 
+SLASH_NGS1 = "/nogoldseller";
+SLASH_NGS2 = "/NGS";
+SlashCmdList["NGS"] = function(cmd)
+  if (NGSenable==1) then
+	DEFAULT_CHAT_FRAME:AddMessage(NGSturnoff)
+	NGSenable=0;
+  else
+    DEFAULT_CHAT_FRAME:AddMessage(NGSturnon)
+    NGSenable=1;
+  end
+end
 ----------------------------------------------------------------------------------
 -- 高亮显示自己名字
 ----------------------------------------------------------------------------------
