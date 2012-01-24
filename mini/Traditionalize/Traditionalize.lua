@@ -1,3 +1,5 @@
+local S, C, L, DB = unpack(select(2, ...))
+DB.Traditionalize = open
 if (GetLocale()=="zhCN") then
 	EDIT_BOXES = {
 		"SendMailNameEditBox", 
