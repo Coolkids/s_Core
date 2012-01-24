@@ -9,7 +9,7 @@ Minimap:SetSize(140, 140)
 Minimap.Shadow = S.MakeShadow(Minimap, 4)
 
 function Module:OnInitialize()
-	MoveHandle.Minimap = S.MakeMoveHandle(Minimap, "小地图", "Minimap")
+	MoveHandle.Minimap = S.MakeMoveHandle(Minimap, L["小地图"], "Minimap")
 end
 
 LFGSearchStatus:SetClampedToScreen(true)

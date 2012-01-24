@@ -1,12 +1,12 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file ="TheBurningTrade\localization-zhTW.lua"/>
 	<Script file ="TheBurningTrade\localization-zhCN.lua"/>
+	<Script file ="TheBurningTrade\localization-enUS.lua"/>
 	<Script file ="TheBurningTrade\TheBurningTrade.lua"/>
 	<Script file ="RETabBinder\RETabBinder.lua"/>
 	<Include file ="RETabBinder\RETabBinder.xml"/>
-	<Include file ="Traditionalize\Bindings.xml"/>
-	<Script file ="Traditionalize\Traditionalize.lua"/>
 	<Include file ="Traditionalize\Traditionalize.xml"/>
+	<Include file ="Traditionalize\Bindings.xml"/>
 	<Script file ="Icicle\IcicleCds.lua"/>
 	<Script file ="Icicle\Icicle.lua"/>
 	<Script file ="MBB\localization-zhTW.lua"/>
@@ -56,6 +56,7 @@
 	<Script file='FriendColor.lua'/>
 	<Script file='memory.lua'/>
 	<Script file='AutoLFG.lua'/>
+	<Script file='lag.lua'/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->

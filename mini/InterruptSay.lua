@@ -83,18 +83,18 @@ function InterruptSay:COMBAT_LOG_EVENT_UNFILTERED(...)
 			end
 			if InterruptSayDB.Verbose~=1 then 
 				if aUser~=UnitName("player") then
-					intsaymsg = (aUser.." 我已斷法: =>"..destName.. "<=的 " ..GetSpellLink(spellID).. ".")
+					intsaymsg = (aUser..L["我已打断: =>"]..destName.. L["<=的 "] ..GetSpellLink(spellID).. ".")
 					InterruptSayDB.msg = ("Interrupted MobName's [SpellLink].")
 				else
-					intsaymsg = ("我已斷法 "..destName.. " 的法術 " ..GetSpellLink(spellID).. ".")
+					intsaymsg = (L["我已打断: =>"]..destName.. L["<=的 "] ..GetSpellLink(spellID).. ".")
 					InterruptSayDB.msg = ("我已斷法 MobName的 [SpellLink].")
 				end
 			else
 				if aUser~=UnitName("player") then
-					intsaymsg = ("=> "..aUser.." 我已斷法: "..destName.. "的 " ..GetSpellLink(spellID).. ".")
+					intsaymsg = (aUser..L["我已打断: =>"]..destName..L["<=的 "] ..GetSpellLink(spellID).. ".")
 					InterruptSayDB.msg = ("=> Someone Else Interrupted That: MobName's [SpellLink].")
 				else
-					intsaymsg = ("我已斷法: =>"..destName.. "<=的 " ..GetSpellLink(spellID).. ".")
+					intsaymsg = (L["我已打断: =>"]..destName.. L["<=的 "] ..GetSpellLink(spellID).. ".")
 					InterruptSayDB.msg = ("我已斷法: MobName的 [SpellLink].")
 				end
 			end

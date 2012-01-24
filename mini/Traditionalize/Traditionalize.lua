@@ -1,4 +1,3 @@
-
 if (GetLocale()=="zhCN") then
 	EDIT_BOXES = {
 		"SendMailNameEditBox", 

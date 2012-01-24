@@ -64,7 +64,7 @@ local repBorder = CreateFrame("frame", aName.."repBorder", Frame)
 repBorder:SetHeight(5)
 repBorder:SetWidth(Frame:GetWidth())
 repBorder:SetPoint("BOTTOM", Frame, "BOTTOM", 0, 0)
-S.MakeShadow(repBorder, 3)
+
 
 local repOverlay = repBorder:CreateTexture(nil, "BORDER", Frame)
 repOverlay:ClearAllPoints()
@@ -170,35 +170,35 @@ local function updateStatus()
 			gtOverlay:SetTexture(barTex)
 			gtOverlay:SetVertexColor(.1,.1,.1)
 		end]]
-		GameTooltip:SetOwner(mouseFrame, "ANCHOR_BOTTOMLEFT", -3, barHeight)
-		GameTooltip:ClearLines()
-		if not st.IsMaxLevel() then
-			GameTooltip:AddLine("經驗值:")
-			GameTooltip:AddLine(string.format('XP: %s/%s (%d%%)', st.ShortValue(XP), st.ShortValue(maxXP), (XP/maxXP)*100))
-			GameTooltip:AddLine(string.format('剩餘: %s', st.ShortValue(maxXP-XP)))
-			if restXP then
-				GameTooltip:AddLine(string.format('|cffb3e1ff休息: %s (%d%%)', st.ShortValue(restXP), restXP/maxXP*100))
-			end
-		end
-		if GetWatchedFactionInfo() then
-			local name, rank, min, max, value = GetWatchedFactionInfo()
-			if not st.IsMaxLevel() then GameTooltip:AddLine(" ") end
-			GameTooltip:AddLine(string.format('陣營: %s', name))
-			GameTooltip:AddLine(string.format('狀態: |c'..st.Colorize(rank)..'%s|r', st.FactionInfo[rank][2]))
-			GameTooltip:AddLine(string.format('聲望: %s/%s (%d%%)', st.CommaValue(value-min), st.CommaValue(max-min), (value-min)/(max-min)*100))
-			GameTooltip:AddLine(string.format('剩餘: %s', st.CommaValue(max-value)))
-		end
-		GameTooltip:Show()
+		--GameTooltip:SetOwner(mouseFrame, "ANCHOR_BOTTOMLEFT", -3, barHeight)
+		--GameTooltip:ClearLines()
+		--if not st.IsMaxLevel() then
+			--GameTooltip:AddLine("經驗值:")
+			--GameTooltip:AddLine(string.format('XP: %s/%s (%d%%)', st.ShortValue(XP), st.ShortValue(maxXP), (XP/maxXP)*100))
+			--GameTooltip:AddLine(string.format('剩餘: %s', st.ShortValue(maxXP-XP)))
+			--if restXP then
+				--GameTooltip:AddLine(string.format('|cffb3e1ff休息: %s (%d%%)', st.ShortValue(restXP), restXP/maxXP*100))
+			--end
+		--end
+		--if GetWatchedFactionInfo() then
+			--local name, rank, min, max, value = GetWatchedFactionInfo()
+			--if not st.IsMaxLevel() then GameTooltip:AddLine(" ") end
+			--GameTooltip:AddLine(string.format('陣營: %s', name))
+			--GameTooltip:AddLine(string.format('狀態: |c'..st.Colorize(rank)..'%s|r', st.FactionInfo[rank][2]))
+			--GameTooltip:AddLine(string.format('聲望: %s/%s (%d%%)', st.CommaValue(value-min), st.CommaValue(max-min), (value-min)/(max-min)*100))
+			--GameTooltip:AddLine(string.format('剩餘: %s', st.CommaValue(max-value)))
+		--end
+		--GameTooltip:Show()
 	end)
 	mouseFrame:SetScript("OnLeave", function()
-		GameTooltip:Hide()
+		--GameTooltip:Hide()
 		if mouseoverText == true then
 			Text:SetAlpha(0)
 		end
 	end)
 	
 	-- Right click menu
-	local function sendReport(dest, rep)--Destination, if Reputation rep = true
+	--[[local function sendReport(dest, rep)--Destination, if Reputation rep = true
 		if rep == true then 
 			local name, rank, min, max, value = GetWatchedFactionInfo()
 			SendChatMessage("我在 "..name.." 的聲望為 "..st.FactionInfo[rank][2].." "..(value-min).."/"..(max-min).." ("..floor((((value-min)/(max-min))*100)).."%).",dest)
@@ -333,7 +333,7 @@ local function updateStatus()
 				EasyMenu(reportList, reportFrame, self, 0, 0, "menu", 2)
 			end
 		end)
-	end
+	end--]]
 end
 
 

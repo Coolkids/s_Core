@@ -3,7 +3,7 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("castbarmove")
 
 function Module:OnInitialize()
 C = MoveHandleDB
-L = ThreatDB
+D = ThreatDB
 M = ReminderDB
 A = UnitFrameDB
 B = MiniDB
@@ -34,7 +34,7 @@ ClassCD:SetWidth(B["ClassCDWidth"])
 ClassCD:SetHeight(B["ClassCDHeight"]) 
 ClassCD:SetPoint(unpack(C["ClassCD"]))
 local Threat = CreateFrame("Frame", "Threat", UIParent) 
-Threat:SetWidth(L["ThreatBarWidth"]) 
+Threat:SetWidth(D["ThreatBarWidth"]) 
 Threat:SetHeight(6) 
 Threat:SetPoint(unpack(C["Threat"]))
 local Reminder = CreateFrame("Frame", "Reminder", UIParent) 
@@ -52,20 +52,20 @@ Class:SetPoint(unpack(C["Class"]))
 		Combatpoint:SetPoint(unpack(C["Combatpoint"]))
 	end
 
-	MoveHandle.Castbarplay = S.MakeMoveHandle(Castbarplay, "玩家施法条", "PlayerCastbar")
-	MoveHandle.Castbartarget = S.MakeMoveHandle(Castbartarget, "目标施法条", "TargetCastbar")
-	MoveHandle.Castbarfouce = S.MakeMoveHandle(Castbarfouce, "焦点施法条", "FocusCastbar")
-	MoveHandle.Castbarpet = S.MakeMoveHandle(Castbarpet, "宠物施法条", "PetCastbar")
+	MoveHandle.Castbarplay = S.MakeMoveHandle(Castbarplay, L["玩家施法条"], "PlayerCastbar")
+	MoveHandle.Castbartarget = S.MakeMoveHandle(Castbartarget, L["目标施法条"], "TargetCastbar")
+	MoveHandle.Castbarfouce = S.MakeMoveHandle(Castbarfouce, L["焦点施法条"], "FocusCastbar")
+	MoveHandle.Castbarpet = S.MakeMoveHandle(Castbarpet, L["宠物施法条"], "PetCastbar")
 	
-	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, "内置CD监视", "ClassCD")
-	MoveHandle.Threat = S.MakeMoveHandle(Threat, "仇恨监视", "Threat")
+	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, L["内置CD监视"], "ClassCD")
+	MoveHandle.Threat = S.MakeMoveHandle(Threat, L["仇恨监视"], "Threat")
 	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "", "Reminder")
-	MoveHandle.Class = S.MakeMoveHandle(Class, "缺少药剂buff提示", "Class")
+	MoveHandle.Class = S.MakeMoveHandle(Class, L["缺少药剂buff提示"], "Class")
 	
 		if DB.MyClass == "ROGUE" or DB.MyClass == "DRUID" then  
-			MoveHandle.Combatpoint = S.MakeMoveHandle(Combatpoint, "连击点", "Combatpoint")
+			MoveHandle.Combatpoint = S.MakeMoveHandle(Combatpoint, L["连击点"], "Combatpoint")
 		end
 		if DB.MyClass == "PRIEST" then
-			MoveHandle.ShadowPet = S.MakeMoveHandle(ShadowPet, "暗影魔计时条", "ShadowPet")
+			MoveHandle.ShadowPet = S.MakeMoveHandle(ShadowPet, L["暗影魔计时条"], "ShadowPet")
 		end
 end

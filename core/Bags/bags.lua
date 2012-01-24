@@ -162,7 +162,7 @@ function MyContainer:OnCreate(name, settings)
 	local searchText = infoFrame:CreateFontString(nil, "OVERLAY")
 	searchText:SetPoint("LEFT", infoFrame, "LEFT", 0, 1)
 	searchText:SetFont(DB.Font, 14, "THINOUTLINE")
-	searchText:SetText("搜索")	
+	searchText:SetText(L["搜索"])	
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
 	search.highlightFunction = highlightFunction
 	search.isGlobal = true
@@ -194,7 +194,7 @@ function MyContainer:OnCreate(name, settings)
 	BagToggle.Text = BagToggle:CreateFontString(nil, "OVERLAY")
 	BagToggle.Text:SetPoint("CENTER")
 	BagToggle.Text:SetFont(DB.Font, 14, "THINOUTLINE")
-	BagToggle.Text:SetText("背包")
+	BagToggle.Text:SetText(L["背包"])
 	
 	-- 背包整理按钮
 	local SortButton = S.MakeButton(self)
@@ -204,7 +204,7 @@ function MyContainer:OnCreate(name, settings)
 	SortButton.Text = SortButton:CreateFontString(nil, "OVERLAY")
 	SortButton.Text:SetPoint("CENTER")
 	SortButton.Text:SetFont(DB.Font, 14, "THINOUTLINE")
-	SortButton.Text:SetText("整理背包")
+	SortButton.Text:SetText(L["整理背包"])
 
 	-- 关闭按钮
 	local CloseButton = S.MakeButton(self)

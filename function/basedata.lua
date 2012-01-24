@@ -72,6 +72,7 @@ ActionBarDB = {
 		["af"] = "UIParent",
 	},
 	["HideHotKey"] = false,
+	["CooldownFlash"] = true,
 	["Style"] = 1,
 	["Bar4Layout"] = 1,
 	["petbar"] = {

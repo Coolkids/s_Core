@@ -35,22 +35,33 @@ DB["Modules"] = {}
 DB["Config"] = {
 	ResetToDefault = {
 		type = "execute",
-		name = "恢复默认设置",
+		name = L["恢复默认设置"],
 		order = 1,
 		func = function()
-			for _, value in pairs(DB["Modules"]) do value.ResetToDefault() end
-			Module:SetDefault()
-			ReloadUI()
-		end
+			StaticPopupDialogs["sure"] = {
+			text = L["恢复默认标语"],
+				button1 = OKAY,
+				button2 = CANCEL,
+			OnAccept = function()
+				for _, value in pairs(DB["Modules"]) do value.ResetToDefault() end
+				Module:SetDefault()
+				ReloadUI()
+				end,
+			OnCancel = function()
+				end,
+			timeout = 0,
+			hideOnEscape = 0,
+			}
+			StaticPopup_Show("sure")
+	end
 	},
 	UnLock = {
 		type = "execute",
-		name = "解锁框体",
+		name = L["解锁框体"],
 		order = 2,
 		func = function()
 			if not UnitAffectingCombat("player") then
 				SlashCmdList.rabs("unlock")
-				--SlashCmdList.SRAuraWatch("test")
 				SlashCmdList.OUF_MOVABLEFRAMES()
 				for _, value in pairs(MoveHandle) do value:Show() end
 			end		
@@ -58,12 +69,11 @@ DB["Config"] = {
 	},
 	Lock = {
 		type = "execute",
-		name = "锁定框体",
+		name = L["锁定框体"],
 		order = 3,
 		func = function()
 			if not UnitAffectingCombat("player") then
 				SlashCmdList.rabs("lock")
-				--SlashCmdList.SRAuraWatch("test")
 				SlashCmdList.OUF_MOVABLEFRAMES()
 				for _, value in pairs(MoveHandle) do value:Hide() end
 			end
@@ -71,7 +81,7 @@ DB["Config"] = {
 	},
 	Reload = {
 		type = "execute",
-		name = "应用(重载界面)",
+		name = L["应用(重载界面)"],
 		order = 4,
 		func = function() ReloadUI() end
 	},
@@ -83,10 +93,10 @@ function Module:ShowConfig()
 end
 
 function Module:BuildGameMenuButton()
-	local Button = CreateFrame("Button", "SoraGameMenuButton", GameMenuFrame, "GameMenuButtonTemplate")
+	local Button = CreateFrame("Button", "SunUIGameMenuButton", GameMenuFrame, "GameMenuButtonTemplate")
 	S.Reskin(Button)
 	Button:SetSize(GameMenuButtonHelp:GetWidth(), GameMenuButtonHelp:GetHeight())
-	Button:SetText("|cff70C0F5SunUI|r")
+	Button:SetText("|cffDDA0DDSun|r|cff44CCFFUI|r")
 	Button:SetPoint(GameMenuButtonHelp:GetPoint())
 	Button:SetScript("OnClick", function()
 		HideUIPanel(GameMenuFrame)
@@ -103,7 +113,7 @@ function Module:OnInitialize()
 	end
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("SunUI Config", {
 		type = "group",
-		name = "|cff70C0F5SunUI",
+		name = "|cffDDA0DDSun|r|cff44CCFFUI|r",
 		args = DB["Config"],
 	})
 	Module:RegisterChatCommand("SunUI", "ShowConfig")
@@ -113,7 +123,7 @@ function Module:OnEnable()
 	Module:BuildGameMenuButton()
 	if not CoreVersion or (CoreVersion < Version) then
 		StaticPopupDialogs["SunUI"] = {
-			text = "欢迎使用|cff70C0F5SunUI\n\n请点击确定按钮加载默认配置\n",
+			text = L["欢迎标语"],
 			button1 = OKAY,
 			OnAccept = function()
 				Module:SetDefault()

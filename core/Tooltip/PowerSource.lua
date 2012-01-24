@@ -1,4 +1,5 @@
-﻿local function addAuraSource(self, func, unit, index, filter)
+﻿local S, C, L, DB = unpack(select(2, ...))
+local function addAuraSource(self, func, unit, index, filter)
 	local srcUnit = select(8, func(unit, index, filter))
 	if srcUnit then
 		self:AddLine(" ")
@@ -16,7 +17,7 @@
 			end
 		end
 		
-		self:AddLine("釋放者: "..format("|cff70C0F5%s|r",src))
+		self:AddLine(L["释放者"]..format("|cff70C0F5%s|r",src))
 		self:Show()
 	end
 end

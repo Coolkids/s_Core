@@ -38,7 +38,7 @@ DB.applyDragFunctionality = function(f,userplaced,locked)
         f:SetScript("OnEnter", function(s) 
           GameTooltip:SetOwner(s, "ANCHOR_TOP")
           GameTooltip:AddLine(s:GetName(), 0, 1, 0.5, 1, 1, 1)
-          GameTooltip:AddLine("鼠标左键拖动我!", 1, 1, 1, 1, 1, 1)
+          GameTooltip:AddLine(L["鼠标左键拖动我!"], 1, 1, 1, 1, 1, 1)
           GameTooltip:Show()
         end)
         f:SetScript("OnLeave", function(s) GameTooltip:Hide() end)
@@ -52,7 +52,6 @@ DB.applyDragFunctionality = function(f,userplaced,locked)
     end  
   end
   function rABS_unlockFrames()
-    print("|c0000FF00動作條解鎖|r")
     for _, v in pairs(rABS_Frames) do
       f = _G[v]
       if f and f:IsUserPlaced() then
@@ -69,7 +68,7 @@ DB.applyDragFunctionality = function(f,userplaced,locked)
         f:SetScript("OnEnter", function(s)
           GameTooltip:SetOwner(s, "ANCHOR_TOP")
           GameTooltip:AddLine(s:GetName(), 0, 1, 0.5, 1, 1, 1)
-          GameTooltip:AddLine("鼠标左键拖动我!", 1, 1, 1, 1, 1, 1)
+          GameTooltip:AddLine(L["鼠标左键拖动我!"], 1, 1, 1, 1, 1, 1)
           GameTooltip:Show()
         end)
         f:SetScript("OnLeave", function(s) GameTooltip:Hide() end)
@@ -78,7 +77,6 @@ DB.applyDragFunctionality = function(f,userplaced,locked)
   end
 
   function rABS_lockFrames()
-    print("|c0000FF00動作條鎖定|r")
     for _, v in pairs(rABS_Frames) do
       f = _G[v]
       if f and f:IsUserPlaced() then
@@ -99,10 +97,6 @@ DB.applyDragFunctionality = function(f,userplaced,locked)
       rABS_unlockFrames()
     elseif (cmd:match"lock") then
       rABS_lockFrames()
-    else
-      print("|c0000FF00動作條命令|r")
-      print("|c0000FF00\/ab lock|r,鎖定動作條")
-      print("|c0000FF00\/ab unlock|r,解鎖動作條")
     end
   end
 

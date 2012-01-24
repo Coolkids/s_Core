@@ -28,11 +28,11 @@ function Module.BuildGUI()
 	if DB["Config"] then
 		DB["Config"]["Skin"] =  {
 			type = "group", order = 8,
-			name = "界面皮肤",
+			name = L["界面皮肤"],
 			args = {
 				EnableDBMSkin = {
 					type = "toggle",
-					name = "启用DBM皮肤",
+					name = L["启用DBM皮肤"],
 					order = 1,
 					get = function() return SkinDB.EnableDBMSkin end,
 					set = function(_, value) SkinDB.EnableDBMSkin = value end,

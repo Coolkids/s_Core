@@ -1,11 +1,10 @@
---modify by ljxx.net 
---local E, C , L = unpack(EUI)
+local S, C, L, DB = unpack(select(2, ...))
 local gtt = GameTooltip;
 local GetTalentTabInfo = GetTalentTabInfo;
 
 -- Constants
-local TALENTS_PREFIX = "主天赋:|cffffffff ";
-local TALENTS_PREFIX2 = "副天赋:|cffffffff ";
+local TALENTS_PREFIX = L["主天赋"];
+local TALENTS_PREFIX2 = L["副天赋"];
 local CACHE_SIZE = 25;		-- Change cache size here (Default 25)
 local INSPECT_DELAY = 0.2;
 local INSPECT_FREQ = 2;

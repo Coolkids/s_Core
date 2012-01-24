@@ -1,4 +1,5 @@
-﻿CreateFrame('Frame', 'Needy', UIParent)
+﻿local S, C, L, DB = unpack(select(2, ...))
+CreateFrame('Frame', 'Needy', UIParent)
 
 Needy:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
 Needy:RegisterEvent('MODIFIER_STATE_CHANGED')
@@ -17,7 +18,7 @@ function Needy:INSPECT_ACHIEVEMENT_READY()
         local stats, text = {}, ''
 
         stats.TotalAchievemen = tonumber(GetComparisonAchievementPoints()) or 0
-            text = text .. '|cFFF1C502成就点数:  |cFFFFFFFF' .. stats.TotalAchievemen
+            text = text .. L["成就点数"]  .. stats.TotalAchievemen
 
         if text ~= '' then
             self.line:SetText(text)
@@ -67,7 +68,7 @@ function Needy:UPDATE_MOUSEOVER_UNIT(refresh)
 
     self.unit = UnitName('mouseover')
 
-    local text = '\n正在查询成就..'
+    local text = L["正在查询成就"]
 
     if refresh then
         self.line:SetText(text)
@@ -126,7 +127,24 @@ function GetPlayerScore(unit)
    ClearInspectPlayer(); 
    return floor(ilvl / equipped);
 end
+function ColorGradient(perc, ...)
+	if perc >= 1 then
+		local r, g, b = select(select('#', ...) - 2, ...)
+		return r, g, b
+	elseif perc <= 0 then
+		local r, g, b = ...
+		return r, g, b
+	end
 
+	local num = select('#', ...) / 3
+	local segment, relperc = math.modf(perc*(num-1))
+	local r1, g1, b1, r2, g2, b2 = select((segment*3)+1, ...)
+
+	return r1 + (r2-r1)*relperc, g1 + (g2-g1)*relperc, b1 + (b2-b1)*relperc
+end
+function GetQuality(ItemScore)
+	return ColorGradient(ItemScore/450, 0.5, 0.5, 0.5, 1, 0.1, 0.1)
+end
 function SetUnit() 
    local _, unit = GameTooltip:GetUnit();
    local unitilvl = 0;
@@ -138,9 +156,9 @@ function SetUnit()
 NotifyInspect(unit); unitilvl = GetPlayerScore(unit);
    end
 
-   if (unitilvl > 1) then 
-      GameTooltip:AddLine("已装备物品等级: "..unitilvl,1,1,1);
-end
+	local Red, Blue, Green = GetQuality(unitilvl) 
+	GameTooltip:AddLine("ilevel: "..unitilvl, Red, Green, Blue)
+
 end
 
 GameTooltip:HookScript("OnTooltipSetUnit",SetUnit)
