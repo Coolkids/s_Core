@@ -25,7 +25,7 @@ local NumbFont = DB.Font -- 法術數字字體
 -- 各個法術條的位置
 function Module:OnInitialize()
 C=MoveHandleDB
-L=UnitFrameDB
+A=UnitFrameDB
 end
 --- ----------------------------------
 --> Function
@@ -229,24 +229,24 @@ function CreateCastBar(f, unit)
 
 
 	s = CreateFrame("StatusBar", "oUF_Castbar"..f.unit, f)--"oUF_Castbar"..f.mystyle
-	s:SetHeight(L["PlayerCastBarHeight"]) -- 高度
-	s:SetWidth(L["PlayerCastBarWidth"]) -- 寬度
+	s:SetHeight(A["PlayerCastBarHeight"]) -- 高度
+	s:SetWidth(A["PlayerCastBarWidth"]) -- 寬度
 	if f.unit == "player" then
 		--s:SetPoint(unpack(C["PlayerCastbar"]))
 		s:SetPoint("BOTTOM","Castbarplay","BOTTOM", 0, 0)
 	elseif f.unit == "target" then	
-    s:SetHeight(L["TargetCastBarHeight"])
-	s:SetWidth(L["TargetCastBarWidth"])
+    s:SetHeight(A["TargetCastBarHeight"])
+	s:SetWidth(A["TargetCastBarWidth"])
 		--s:SetPoint(unpack(C["TargetCastbar"]))
 		s:SetPoint("BOTTOM","Castbartarget","BOTTOM", 0, 0)
 	elseif f.unit == "focus" then
-		s:SetHeight(L["FocusCastBarHeight"])
-		s:SetWidth(L["FocusCastBarWidth"])
+		s:SetHeight(A["FocusCastBarHeight"])
+		s:SetWidth(A["FocusCastBarWidth"])
 		--s:SetPoint(unpack(C["FocusCastbar"]))
 		s:SetPoint("BOTTOM","Castbarfouce","BOTTOM", 0, 0)
 	elseif f.unit == "pet" then
-		s:SetHeight(L["PetCastBarHeight"])
-		s:SetWidth(L["PetCastBarWidth"])
+		s:SetHeight(A["PetCastBarHeight"])
+		s:SetWidth(A["PetCastBarWidth"])
 		--s:SetPoint(unpack(C["PetCastbar"]))
 		s:SetPoint("BOTTOM","Castbarpet","BOTTOM", 0, 0)
 	else
@@ -285,7 +285,7 @@ function CreateCastBar(f, unit)
 	
     local 
 	i = s:CreateTexture(nil, "ARTWORK")
-	i:SetSize(L["Icon"], L["Icon"])
+	i:SetSize(A["Icon"], A["Icon"])
 	i:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	i:SetPoint("BOTTOMRIGHT", s, "BOTTOMLEFT", -5, 0)
 	--i:SetPoint("BOTTOM", s, "TOP", 0, 5)

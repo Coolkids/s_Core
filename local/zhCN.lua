@@ -5,7 +5,7 @@ if GetLocale() ~= "zhCN" then  return end
 --标语
 L["恢复默认标语"] = "|cffDDA0DDSun|r|cff44CCFFUI|r\n|cffFF0000确认恢复默认设置|r\n"
 L["欢迎标语"] = "欢迎使用|cffDDA0DDSun|r|cff44CCFFUI|r\n\n请点击确定按钮加载默认配置\n"
-L["警告"] = "|cffFF0000开启此功能会导致战斗中内存暴涨,请量力开启.|r"
+L["警告"] = "|cffFFD700开启此功能会导致战斗中内存暴涨,请量力开启.|r"
 --总
 L["恢复默认设置"] = "恢复默认设置"
 L["解锁框体"] = "解锁框体"

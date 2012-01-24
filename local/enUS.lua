@@ -5,7 +5,7 @@ if (GetLocale() == "zhTW" or GetLocale() == "zhCN") then  return end
 --标语
 L["恢复默认标语"] = "|cffDDA0DDSun|r|cff44CCFFUI|r\n|cffFF0000Sure to Default Setting|r\n"
 L["欢迎标语"] = "Welcome|cffDDA0DDSun|r|cff44CCFFUI|r\n\nLoading Default Setting\n"
-L["警告"] = "|cffFF0000Use this Module need big memory.|r"
+L["警告"] = "|cffFFD700Use this Module need big memory.|r"
 --总
 L["恢复默认设置"] = "DefaultSet"
 L["解锁框体"] = "unLock"
