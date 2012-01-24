@@ -1,7 +1,7 @@
 ﻿-- Engines
 local _, ns = ...
 local cargBags = ns.cargBags
-local S, _, _, DB = unpack(select(2, ...))
+local S, C, L, DB = unpack(select(2, ...))
 
 ----------------
 --  主程序  --
