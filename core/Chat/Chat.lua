@@ -15,14 +15,19 @@ local LinkHover = {}; LinkHover.show = {	-- enable (true) or disable (false) Lin
 for i = 1, NUM_CHAT_WINDOWS do
   local cf = _G['ChatFrame'..i]
   cf:SetFading(true)  --渐隐
+  S.MakeShadow(cf, 3) 
+	cf:SetBackdrop({
+		bgFile = DB.bgFile, insets = {left = 0, right = 0, top = 0, bottom = 0},
+	})
+	cf:SetBackdropColor(0, 0, 0, 0.6)
   if cf then 
-    cf:SetFont(NAMEPLATE_FONT, 12, "OUTLINE") 
+    cf:SetFont(NAMEPLATE_FONT, 10*S.Scale(1), "OUTLINE") 
     cf:SetFrameStrata("LOW")
     cf:SetFrameLevel(2)
   end
   local tab = _G['ChatFrame'..i..'Tab']
   if tab then
-    tab:GetFontString():SetFont(NAMEPLATE_FONT, 13, "OUTLINE")
+    tab:GetFontString():SetFont(NAMEPLATE_FONT, 11*S.Scale(1), "OUTLINE")
     --fix for color and alpha of undocked frames
     tab:GetFontString():SetTextColor(1,0.7,0)
     tab:SetAlpha(1)
@@ -64,7 +69,7 @@ CHAT_FRAME_TAB_SELECTED_NOMOUSE_ALPHA = 0
 ---------------- > Function to move and scale chatframes 
 SetChat = function()
     FCF_SetLocked(ChatFrame1, nil)
-	FCF_SetChatWindowFontSize(self, ChatFrame1, DB.fontsize) 
+	FCF_SetChatWindowFontSize(self, ChatFrame1, DB.fontsize*S.Scale(1)) 
     ChatFrame1:ClearAllPoints()
     ChatFrame1:SetPoint(unpack(DB.def_position))
     ChatFrame1:SetWidth(DB.chat_width)

@@ -28,11 +28,11 @@ DB.backdrop = {
   }
 
 -- 聊天设置
-DB.AutoApply = true									--聊天设置锁定		
+DB.AutoApply = false									--聊天设置锁定		
 DB.def_position = {"BOTTOMLEFT",UIParent,"BOTTOMLEFT",20,30} -- Chat Frame position
 DB.chat_height = 230
 DB.chat_width = 440
-DB.fontsize = 18                          --other variables
+DB.fontsize = 10                          --other variables
 DB.eb_point = {"BOTTOM", -200, 180}		-- Editbox position
 DB.eb_width = 400						-- Editbox width
 DB.tscol = "64C2F5"						-- Timestamp coloring
@@ -158,7 +158,7 @@ DB.bars = {
     buttonbackflat    = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\button_background_flat",
     outer_shadow      = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\outer_shadow",
   }
-  DB.afont = ChatFrame1:GetFont()
+
   DB.background = {
     showbg            = false,  --show an background image?
     showshadow        = true,   --show an outer shadow?

@@ -266,7 +266,8 @@ local function style(frame)
 					if r == 1 and g == 1 and b ==1 then 
 						frame:SetBackdropBorderColor(0, 0, 0) 
 					else
-						frame:SetBackdropBorderColor(r, g, b)
+						frame:SetBackdropBorderColor(0, 0, 0) 
+						--frame:SetBackdropBorderColor(r, g, b)
 					end
             end
         else
