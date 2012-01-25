@@ -19,7 +19,7 @@ else if (GetLocale() == "zhCN") then
     NGSrep="|cff3399FFSunUI:|r本次登录到现在已经接获|cff00ff00%d|r条广告信息。"
     NGSturnoff="|cff00ff00出售金币广告信息屏蔽插件已经停用。输入/NGS启用。|r"
     NGSturnon="|cff00ff00出售金币广告信息屏蔽插件已经启用。输入/NGS停用。|r"
-    NGSrepFreq=400; --(zhCN)在这里修改报告频率。n条消息报告一次，就该此处为n。
+    NGSrepFreq=4000; --(zhCN)在这里修改报告频率。n条消息报告一次，就该此处为n。
   else
     DEFAULT_CHAT_FRAME:AddMessage("請注意!\nNoGoldSeller只能在zhTW,zhCN下運行,不支持您現在的遊戲語言版本!已經自行禁用.")
 	DEFAULT_CHAT_FRAME:AddMessage("WARNING!\nNoGoldSeller: This addon ONLY fits for Traditional Chinese (zhTW) & Simplified Chinese (zhCN) realms. Unsupport your game client. It has automatically disabled now.")
@@ -32,7 +32,7 @@ function IsGoldSeller(NGSself, NGSevent, NGSmsg, NGSauthor, _, _, _, NGSflag, _,
   if(NGSenable==0) then
     return false;
   end
-  if ((NGSevent == "CHAT_MSG_WHISPER" and NGSflag == "GM") or UnitIsInMyGuild(NGSauthor) or UnitIsUnit(NGSauthor,"player") or UnitInRaid(NGSauthor) or UnitInParty(NGSauthor) or (not CanComplainChat(NGSid))) then 
+  if ((NGSevent == "CHAT_MSG_WHISPER" and NGSflag == "GM") or UnitIsUnit(NGSauthor,"player") or (not CanComplainChat(NGSid))) then 
 	return false; 
   end
   for _, NGSsymbol in ipairs(NGSSymbols) do
@@ -69,10 +69,14 @@ function IsGoldSeller(NGSself, NGSevent, NGSmsg, NGSauthor, _, _, _, NGSflag, _,
     return false;
   end
 end
-ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL",IsGoldSeller)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", IsGoldSeller)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", IsGoldSeller)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", IsGoldSeller)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", IsGoldSeller) 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", IsGoldSeller) 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", IsGoldSeller) 
+ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_WARNING", IsGoldSeller) 
+ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", IsGoldSeller) 
 
 SLASH_NGS1 = "/nogoldseller";
 SLASH_NGS2 = "/NGS";

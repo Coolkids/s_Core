@@ -340,11 +340,6 @@ local rollpairs = locale == "deDE" and {
 local function ParseRollChoice(msg)
 	for i,v in pairs(rollpairs) do
 		local _, _, playername, itemname = string.find(msg, i)
-		if locale == "zhTW" and (v == "greed" or v == "need" or v == "disenchant")  then 
-			local temp = playername
-			playername = itemname
-			itemname = temp
-		end 
 		if playername and itemname and playername ~= "Everyone" then return playername, itemname, v end
 	end
 end

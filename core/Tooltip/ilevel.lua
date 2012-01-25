@@ -131,7 +131,7 @@ function ColorGradient(perc, ...)
 	if perc >= 1 then
 		local r, g, b = select(select('#', ...) - 2, ...)
 		return r, g, b
-	elseif perc <= 0 then
+	elseif perc <= 0.5 then
 		local r, g, b = ...
 		return r, g, b
 	end
@@ -143,7 +143,7 @@ function ColorGradient(perc, ...)
 	return r1 + (r2-r1)*relperc, g1 + (g2-g1)*relperc, b1 + (b2-b1)*relperc
 end
 function GetQuality(ItemScore)
-	return ColorGradient(ItemScore/450, 0.5, 0.5, 0.5, 1, 0.1, 0.1)
+	return ColorGradient(ItemScore/413, 0.5, 0.5, 0.5, 1, 1, 1)
 end
 function SetUnit() 
    local _, unit = GameTooltip:GetUnit();

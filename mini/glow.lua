@@ -1,10 +1,5 @@
 local S, C, L, DB = unpack(select(2, ...))
-local Title = "iLvLr"
-local Core = "1"
-local Revision = "0"
-local Build = "252"
 
-SLASH_ILVLR1 = '/ilvlr'
 
 local frameDB = {CharacterHeadSlot,
 					CharacterNeckSlot,
@@ -76,12 +71,6 @@ function iLvLrMain()
 	iLvLrFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	iLvLrFrame:RegisterEvent("SOCKET_INFO_UPDATE")
 	iLvLrFrame:SetScript("OnEvent", iLvLrOnEvent)
-end
-
-function SlashCmdList.ILVLR(msg)
-	print("Thank you for using " .. Title)
-	print("Author: JerichoHM")
-	print("Version: " .. Core .. "." .. Revision .. "." .. Build)
 end
 
 function iLvLrOnEvent(self, event)
@@ -378,7 +367,7 @@ function makeIlvl(frame, slot)
 		iLvl:SetBackdropColor(0,0,0,0)
 		
 		local iLvlText = iLvl:CreateFontString(nil, "ARTWORK")
-		isValid = iLvlText:SetFont(DB.Font, 10*S.Scale(1))
+		isValid = iLvlText:SetFont(DB.Font, 10*S.Scale(1), "THINOUTLINE")
 		iLvlText:SetPoint("CENTER", iLvl, "CENTER", 0, 0)
 		iLvl.text = iLvlText
 		
@@ -414,16 +403,24 @@ function makeQuality(frame, slot)
 	if not iQuality then
 		iQuality = CreateFrame("Frame", nil, frame)
 		iQuality:SetPoint("CENTER", frame, "CENTER", 0, 0)
-		iQuality:SetSize(frame:GetWidth()+3, frame:GetHeight()+3)
-		iQuality:SetBackdrop({edgeFile = DB.GlowTex, edgeSize = 3})
+		iQuality:SetSize(frame:GetWidth()+5, frame:GetHeight()+5)
+		iQuality:SetBackdrop({edgeFile = DB.GlowTex, edgeSize = 4})
 		
 		local r, g, b = fetchQuality(slot)
+		if r == 1 and g == 1 and b == 1 then
+		iQuality:SetBackdropBorderColor(0, 0, 0, 0.1)
+		else
 		iQuality:SetBackdropBorderColor(r, g, b, 1.0)
-		
+		end
 		iQualityFrames[slot] = iQuality
 	else
+	iQuality:SetBackdrop({edgeFile = DB.GlowTex, edgeSize = 4})
 		local r, g, b = fetchQuality(slot)
+		if r == 1 and g == 1 and b == 1 then
+		iQuality:SetBackdropBorderColor(0, 0, 0, 0.1)
+		else
 		iQuality:SetBackdropBorderColor(r, g, b, 1.0)
+		end
 	end
 	
 	iQuality:Show()
@@ -448,7 +445,7 @@ function makeDurability(frame, slot)
 		iDura:SetBackdropColor(0,0,0,0)
 		
 		local iDuraText = iDura:CreateFontString(nil, "ARTWORK")
-		isValid = iDuraText:SetFont(DB.Font, 10*S.Scale(1))
+		isValid = iDuraText:SetFont(DB.Font, 10*S.Scale(1), "THINOUTLINE")
 		iDuraText:SetPoint("CENTER", iDura, "CENTER", 0, 0)
 		iDura.text = iDuraText
 		
@@ -508,7 +505,7 @@ function makeMod(frame, slot)
 		iMod:SetBackdropColor(0,0,0,0)
 		
 		local iModText = iMod:CreateFontString(nil, "ARTWORK")
-		isValid = iModText:SetFont(DB.Font, 10*S.Scale(1))
+		isValid = iModText:SetFont(DB.Font, 10*S.Scale(1), "THINOUTLINE")
 		iModText:SetPoint("CENTER", iMod, "CENTER", 0, 0)
 		iMod.text = iModText
 		
