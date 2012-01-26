@@ -38,13 +38,13 @@ end)
 
 local wmmenuFrame = CreateFrame("Frame", "wmRightClickMenu", UIParent, "UIDropDownMenuTemplate") 
 local wmmenuList = { 
-{text = "就位确认", 
+{text = L["就位确认"], 
 func = function() DoReadyCheck() end}, 
-{text = "角色检查", 
+{text = L["角色检查"], 
 func = function() InitiateRolePoll() end}, 
-{text = "转化为团队", 
+{text = L["转化为团队"], 
 func = function() ConvertToRaid() end}, 
-{text = "转化为小队", 
+{text = L["转化为小队"], 
 func = function() ConvertToParty() end}, 
 } 
 
