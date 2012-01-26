@@ -245,7 +245,7 @@ local auraIcon = function(auras, button)
         auras.showDebuffType = true
         button.overlay:SetTexture(buttonTex)
         button.overlay:SetPoint("TOPLEFT", button, "TOPLEFT", -2, 2)
-        button.overlay:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
+        button.overlay:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
         button.overlay:SetTexCoord(0, 1, 0.02, 1)
     else
         button.overlay:Hide()
