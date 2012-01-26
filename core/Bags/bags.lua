@@ -25,7 +25,7 @@ function Bags:OnInit()
 	-- 玩家背包
 	f.main = MyContainer:New("Main", {
 			Columns = 10, 
-			Scale = DB.bagScale, 
+			Scale = 1, 
 			Bags = "bags", 
 			Movable = true, 
 	})

@@ -8,9 +8,9 @@ function Module:OnInitialize()
 local caelNamePlates = CreateFrame("Frame", nil, UIParent)
 caelNamePlates:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
 
-local barTexture = [=[Interface\Addons\s_Core\media\Statusbar7]=]
+local barTexture = DB.Statusbar
 local overlayTexture = [=[Interface\Tooltips\Nameplate-Border]=]
-local glowTexture = [=[Interface\Addons\s_Core\media\glowTex]=]
+local glowTexture = DB.GlowTex
 local font, fontSize, fontOutline = DB.Font, C["Fontsize"]*S.Scale(1), "OUTLINE"
 local backdrop = {
 		edgeFile = glowTexture, edgeSize = 5,
@@ -224,7 +224,7 @@ local _, castbarOverlay, shieldedRegion, spellIconRegion= castBar:GetRegions()
 	castBar:RegisterEvent("UNIT_SPELLCAST_NOT_INTERRUPTIBLE")
 
 	castBar.time = castBar:CreateFontString(nil, "ARTWORK")
-	castBar.time:SetPoint("RIGHT", castBar, "LEFT", -2, 1)
+	castBar.time:SetPoint("BOTTOM", castBar, "BOTTOM", 0, -(C["CastBarHeight"]+10))
 	castBar.time:SetFont(font, fontSize, fontOutline)
 	castBar.time:SetTextColor(0.84, 0.75, 0.65)
 	castBar.time:SetShadowOffset(1.25, -1.25)

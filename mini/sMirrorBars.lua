@@ -4,7 +4,7 @@ local S, _, _, DB = unpack(select(2, ...))
 local _DEFAULTS = { 
    width = 252, 
    height = 18, 
-   texture = [[Interface\AddOns\s_Core\media\statusbar7]], 
+   texture = DB.Statusbar, 
  
 
  
@@ -32,8 +32,8 @@ do
 end 
 
 local shadows = { 
-   bgFile =  "Interface\\AddOns\\s_Core\\media\\statusbar7", 
-   edgeFile = "Interface\\AddOns\\s_Core\\media\\glowTex",  
+   bgFile =  DB.Statusbar, 
+   edgeFile = DB.GlowTex,  
    edgeSize = 4, 
    insets = { left = 3, right = 3, top = 3, bottom = 3 } 
 } 

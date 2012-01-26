@@ -1,6 +1,6 @@
 ﻿local S, _, _, DB = unpack(select(2, ...))
 --Bar Height and Width
-local barHeight, barWidth = 10, Minimap:GetWidth()+3
+local barHeight, barWidth = 10*S.Scale(1), Minimap:GetWidth()+3
 
 --Where you want the fame to be anchored
 --------AnchorPoint, AnchorTo, RelativePoint, xOffset, yOffset
@@ -9,7 +9,7 @@ local Anchor = { "TOP", Minimap, "TOP", 0, barHeight}
 --Fonts
 local showText = true -- Set to false to hide text
 local mouseoverText = true -- Set to true to only show text on mouseover
-local font,fontsize,flags = DB.Font, 12, "THINOUTLINE"
+local font,fontsize,flags = DB.Font, 12*S.Scale(1), "THINOUTLINE"
 
 --Textures
 local barTex = [[Interface\Addons\s_Core\media\statusbar7.tga]]
@@ -27,6 +27,7 @@ local Frame = CreateFrame("frame", aName.."Frame", UIParent)
 Frame:SetHeight(barHeight)
 Frame:SetWidth(barWidth)
 Frame:SetPoint(unpack(Anchor))
+S.MakeBG(Frame, 0)
 
 local xpBorder = CreateFrame("frame", aName.."xpBorder", Frame)
 xpBorder:SetHeight(barHeight)

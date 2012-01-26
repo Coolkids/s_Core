@@ -1,7 +1,6 @@
 ﻿local _, _, _, DB = unpack(select(2, ...))
 --全局设置
-local MediaPath = "Interface\\Addons\\s_core\\media\\"
-local Media = "Interface\\Addons\\s_core\\media\\"
+local Media = "Interface\\Addons\\s_Core\\media\\"
 dummy = function() return end
 DB.MyClass = select(2, UnitClass("player"))
 DB.PlayerName, _ = UnitName("player")
@@ -11,8 +10,13 @@ DB.Solid = Media.."solid"
 DB.Button = Media.."Button"
 DB.GlowTex = Media.."glowTex"
 DB.Statusbar = Media.."Statusbar7"
+DB.bordertex =	Media.."icon_clean"	
+DB.closebtex =	Media.."black-close"
+DB.bgFile = "Interface\\Tooltips\\UI-Tooltip-Background"
+DB.edgetex = 	"Interface\\Tooltips\\UI-Tooltip-Border"
+DB.loottex =		"Interface\\QuestFrame\\UI-QuestLogTitleHighlight"
 DB.barinset = 10
-DB.bfont = MediaPath.."ROADWAY.ttf"
+DB.bfont = Media.."ROADWAY.ttf"
 DB.backdrop = { 
     bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
     edgeFile = "",
@@ -39,17 +43,8 @@ DB.tscol = "64C2F5"						-- Timestamp coloring
 DB.TimeStampsCopy = true					-- 时间戳
 
 --Loot 
-  DB.bartex =		MediaPath.."statusbar7"		
-  DB.bordertex =	MediaPath.."icon_clean"	
-  DB.closebtex =	MediaPath.."black-close"
-  DB.edgetex = 	"Interface\\Tooltips\\UI-Tooltip-Border"
-  DB.loottex =		"Interface\\QuestFrame\\UI-QuestLogTitleHighlight"
-  DB.iconsize = 28 					-- 图标大小
-  DB.roll_iconsize = 33 				-- roll点框体大小
-  DB.position = {"TOP", 0, -300}  	-- roll点框体位置
-  DB.suppress_loot_spam = false			-- suppress group loot spam in chat window if detailed loot info enabled
-  DB.bar_width = 250					-- bar宽度
-  DB.bar_height = 25					-- bar高度
+ DB.iconsize = 28 					-- 图标大小
+
  
 --仇恨条
 DB.OpenThreat = true
@@ -57,10 +52,12 @@ DB.ArrowT = Media.."ArrowT"
 DB.Arrow = Media.."Arrow"
 
 
---背包
-DB.bgFile = "Interface\\Tooltips\\UI-Tooltip-Background"
-DB.edgeFile = Media.."glowTex5"
-DB.bagScale = 1.1 		
+--头像
+
+DB.thrtex = Media.."threat"
+DB.buttonTex = Media.."buttontex"
+
+		
 
 --动作条
 
@@ -147,16 +144,17 @@ DB.bars = {
   }
  
 --旧版动作条美化
+local ActionBarMedia = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\"
  DB.textures = {
-    normal            = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\gloss",
-    flash             = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\flash",
-    hover             = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\hover",
-    pushed            = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\gloss",
-    checked           = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\checked",
-    equipped          = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\gloss",
-    buttonback        = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\outer_shadow",
+    normal            = ActionBarMedia.."gloss",
+    flash             = ActionBarMedia.."flash",
+    hover             = ActionBarMedia.."hover",
+    pushed            = ActionBarMedia.."gloss",
+    checked           = ActionBarMedia.."checked",
+    equipped          = ActionBarMedia.."gloss",
+    buttonback        = ActionBarMedia.."button_background",
+    buttonbackflat    = ActionBarMedia.."button_background_flat",
+    outer_shadow      = ActionBarMedia.."outer_shadow",
   }
 
   DB.background = {
@@ -204,7 +202,7 @@ DB.bars = {
 	
 
 --施法条
-DB.bar_texture = Media.."Statusbar7" --"Interface\\AddOns\\S_core\\media\\sppower"  --bar原材质
+DB.bar_texture = Media.."Statusbar7" 
 
 ---mini功能
 DB.combatpointOpen = true --盗贼连击点显示

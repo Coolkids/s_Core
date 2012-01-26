@@ -6,14 +6,14 @@ local Module = Core:NewModule("UnitFrame")
 
 function Module:OnInitialize()
 C = UnitFrameDB
-local mediaPath = "Interface\\AddOns\\s_Core\\media\\"
-local texture = mediaPath.."Statusbar7"   --Cabaret‘≠≤ƒ÷ 
+
+local texture = DB.Statusbar   --bar
 local font, fontsize, fontflag = DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE"
 
-local movtex = mediaPath.."mouseover"
-local thrtex = mediaPath.."threat"
-local glowTex = mediaPath.."glowTex"
-local buttonTex = mediaPath.."buttontex"
+local movtex = ""
+local thrtex = DB.thrtex
+local glowTex = DB.GlowTex
+local buttonTex = DB.buttonTex
 local height, width = C["Height"], C["Width"]
 local scale = C["Scale"]
 local hpheight = C["PowerHeight"]
