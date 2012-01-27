@@ -85,7 +85,7 @@ local sourcetable = function(Name, spellID, spellName)
 	icon.texture = icon:CreateTexture(nil, "BORDER")
 	icon.texture:SetAllPoints(icon)
 	icon.texture:SetTexture(texture)
-	S.MakeTexShadow(icon, icon.texture, 3)
+	icon.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	icon.endtime = GetTime() + duration
 	icon.cooldown = icon:CreateFontString(nil, "OVERLAY")
 	icon.cooldown:SetTextColor(0.7, 1, 0)
@@ -94,9 +94,7 @@ local sourcetable = function(Name, spellID, spellName)
 	for k, v in ipairs(IcicleInterrupts) do
 		if v == spellName then
 			local iconBorder = icon:CreateTexture(nil, "OVERLAY")
-			iconBorder:SetTexture("Interface\\Addons\\s_Core\\Media\\icon_clean")
-			iconBorder:SetVertexColor(1, 0.35, 0)
-			iconBorder:SetAllPoints(icon)
+			S.MakeTexShadow(icon, iconBorder, 3)
 		end
 	end
 	if spellID == 14185 or spellID == 23989 or spellID == 11958 then

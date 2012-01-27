@@ -6,8 +6,8 @@ local barDB = DB.bars.bar4
   C = ActionBarDB
 
   if C["Bar4Layout"] == 2 then
-    bar:SetWidth(C["ButtonSize"]*2+C["ButtonSpacing"])
-    bar:SetHeight(C["ButtonSize"]*6+C["ButtonSpacing"]*5)
+    bar:SetWidth(C["ButtonSize"]*6+C["ButtonSpacing"]*5)
+    bar:SetHeight(C["ButtonSize"]*2+C["ButtonSpacing"])
   else  
     bar:SetWidth(C["ButtonSize"])
     bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
@@ -29,23 +29,39 @@ local barDB = DB.bars.bar4
 
   MultiBarRight:SetParent(bar)
 
-  for i=1, 12 do
-    local button = _G["MultiBarRightButton"..i]
-    button:ClearAllPoints()
-    button:SetSize(C["ButtonSize"], C["ButtonSize"])
-    if i == 1 then
-      button:SetPoint("TOPLEFT", bar, 0,0)
-    else
-      local previous = _G["MultiBarRightButton"..i-1]
-	  if C["Bar4Layout"] == 2 and i == 7 then
-        previous = _G["MultiBarRightButton1"]
-        button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
-	  else
-      button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
-      end
+ if C["Bar4Layout"] == 1 then
+	 for i=1, 12 do
+		local button = _G["MultiBarRightButton"..i]
+		button:ClearAllPoints()
+		button:SetSize(C["ButtonSize"], C["ButtonSize"])
+			if i == 1 then
+			  button:SetPoint("TOPLEFT", bar, 0,0)
+			else
+			 local previous = _G["MultiBarRightButton"..i-1]
+			 button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
+			end
 	 end
-  end
-     end 
+ end 
+if C["Bar4Layout"] == 2 then 
+	  for i=1, 12 do
+		local button = _G["MultiBarRightButton"..i]
+		button:ClearAllPoints()
+		button:SetSize(C["ButtonSize"], C["ButtonSize"])
+			if i == 1 then
+				button:SetPoint("TOPLEFT", bar, 0,0)	
+			else
+				local previous = _G["MultiBarRightButton"..i-1]
+				if  i == 7 then
+				previous = _G["MultiBarRightButton1"]
+				button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -C["ButtonSpacing"])
+				else
+				button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+				end
+			end
+	end
+end
+ 
+ 
   if barDB.showonmouseover then    
     local function lighton(alpha)
       if MultiBarRight:IsShown() then
@@ -65,3 +81,4 @@ local barDB = DB.bars.bar4
       pb:HookScript("OnLeave", function(self) lighton(0) end)
     end    
   end
+end
