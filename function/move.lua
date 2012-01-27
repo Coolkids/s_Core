@@ -68,7 +68,7 @@ Class:Hide()
 	
 	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, L["内置CD监视"], "ClassCD")
 	MoveHandle.Threat = S.MakeMoveHandle(Threat, L["仇恨监视"], "Threat")
-	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "", "Reminder")
+	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "R", "Reminder")
 	MoveHandle.Class = S.MakeMoveHandle(Class, L["缺少药剂buff提示"], "Class")
 	
 		if DB.MyClass == "ROGUE" or DB.MyClass == "DRUID" then  
