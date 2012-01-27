@@ -1,4 +1,4 @@
-﻿local S, _, _, DB = unpack(select(2, ...))
+﻿local S, C, L, DB = unpack(select(2, ...))
 --Bar Height and Width
 local barHeight, barWidth = 10*S.Scale(1), Minimap:GetWidth()+3
 
@@ -12,8 +12,8 @@ local mouseoverText = true -- Set to true to only show text on mouseover
 local font,fontsize,flags = DB.Font, 12*S.Scale(1), "THINOUTLINE"
 
 --Textures
-local barTex = [[Interface\Addons\s_Core\media\statusbar7.tga]]
-local flatTex = [[Interface\Addons\s_Core\media\statusbar7.tga]]
+local barTex = DB.Statusbar
+local flatTex = DB.Statusbar
 
 -----------------------------------------------------------
 -- Don't edit past here unless you know what your doing! --
@@ -155,44 +155,30 @@ local function updateStatus()
 		if mouseoverText == true then
 			Text:SetAlpha(1)
 		end
-		--[[GameTooltip:SetBackdrop({
-			bgFile = flatTex, 
-			edgeFile = flatTex, 
-			tile = false, tileSize = 0, edgeSize = 1, 
-			insets = { left = -1, right = -1, top = -1, bottom = -1}
-		})
-		GameTooltip:SetBackdropColor(0, 0, 0)
-		GameTooltip:SetBackdropBorderColor(.2, .2, .2, 1)
-		if not gtOverlay then
-			local gtOverlay = GameTooltip:CreateTexture(nil, "BORDER", GameTooltip)
-			gtOverlay:ClearAllPoints()
-			gtOverlay:SetPoint("TOPLEFT", GameTooltip, "TOPLEFT", 2, -2)
-			gtOverlay:SetPoint("BOTTOMRIGHT", GameTooltip, "BOTTOMRIGHT", -2, 2)
-			gtOverlay:SetTexture(barTex)
-			gtOverlay:SetVertexColor(.1,.1,.1)
-		end]]
-		--GameTooltip:SetOwner(mouseFrame, "ANCHOR_BOTTOMLEFT", -3, barHeight)
-		--GameTooltip:ClearLines()
-		--if not st.IsMaxLevel() then
-			--GameTooltip:AddLine("經驗值:")
-			--GameTooltip:AddLine(string.format('XP: %s/%s (%d%%)', st.ShortValue(XP), st.ShortValue(maxXP), (XP/maxXP)*100))
-			--GameTooltip:AddLine(string.format('剩餘: %s', st.ShortValue(maxXP-XP)))
-			--if restXP then
-				--GameTooltip:AddLine(string.format('|cffb3e1ff休息: %s (%d%%)', st.ShortValue(restXP), restXP/maxXP*100))
-			--end
-		--end
-		--if GetWatchedFactionInfo() then
-			--local name, rank, min, max, value = GetWatchedFactionInfo()
-			--if not st.IsMaxLevel() then GameTooltip:AddLine(" ") end
-			--GameTooltip:AddLine(string.format('陣營: %s', name))
-			--GameTooltip:AddLine(string.format('狀態: |c'..st.Colorize(rank)..'%s|r', st.FactionInfo[rank][2]))
-			--GameTooltip:AddLine(string.format('聲望: %s/%s (%d%%)', st.CommaValue(value-min), st.CommaValue(max-min), (value-min)/(max-min)*100))
-			--GameTooltip:AddLine(string.format('剩餘: %s', st.CommaValue(max-value)))
-		--end
-		--GameTooltip:Show()
+
+
+		GameTooltip:SetOwner(mouseFrame, "ANCHOR_BOTTOMLEFT", -3, barHeight)
+		GameTooltip:ClearLines()
+		if not st.IsMaxLevel() then
+			GameTooltip:AddLine(L["经验值"])
+			GameTooltip:AddLine(string.format('XP: %s/%s (%d%%)', st.ShortValue(XP), st.ShortValue(maxXP), (XP/maxXP)*100))
+			GameTooltip:AddLine(string.format(L["剩余"], st.ShortValue(maxXP-XP)))
+			if restXP then
+				GameTooltip:AddLine(string.format(L["休息"], st.ShortValue(restXP), restXP/maxXP*100))
+			end
+		end
+		if GetWatchedFactionInfo() then
+			local name, rank, min, max, value = GetWatchedFactionInfo()
+			if not st.IsMaxLevel() then GameTooltip:AddLine(" ") end
+			GameTooltip:AddLine(string.format(L["阵营"], name))
+			GameTooltip:AddLine(string.format(L["状态"]..st.Colorize(rank)..'%s|r', st.FactionInfo[rank][2]))
+			GameTooltip:AddLine(string.format(L["声望"], st.CommaValue(value-min), st.CommaValue(max-min), (value-min)/(max-min)*100))
+			GameTooltip:AddLine(string.format(L["剩余"], st.CommaValue(max-value)))
+		end
+		GameTooltip:Show()
 	end)
 	mouseFrame:SetScript("OnLeave", function()
-		--GameTooltip:Hide()
+		GameTooltip:Hide()
 		if mouseoverText == true then
 			Text:SetAlpha(0)
 		end

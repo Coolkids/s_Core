@@ -451,30 +451,37 @@ function makeDurability(frame, slot)
 		
 		itemDurability, itemMaxDurability = fetchDura(slot)
 		if itemDurability then
-			local itemDurabilityPercentage = (itemDurability / itemMaxDurability) * 100
-			if itemDurabilityPercentage > 25 then
+			local itemDurabilityPercentage = (itemDurability / itemMaxDurability) --* 100
+			if(ceil(itemDurabilityPercentage * 100) < 100)then
+					iDura.text:SetTextColor(1 - itemDurabilityPercentage, itemDurabilityPercentage, 0)
+					iDura.text:SetText(ceil(itemDurabilityPercentage * 100) .. "%")
+				else
+					iDura.text:SetTextColor(0, 1, 0)
+					iDura.text:SetText(ceil(100) .. "%")
+				end
+			--[[if itemDurabilityPercentage > 25 then
 				iDura.text:SetFormattedText("|c%x%i%%", txtG, itemDurabilityPercentage)
 			elseif itemDurabilityPercentage > 0 and itemDurabilityPercentage <= 25 then
 				iDura.text:SetFormattedText("|c%x%i%%", txtY, itemDurabilityPercentage)
 			elseif itemDurabilityPercentage == 0 then
 				iDura.text:SetFormattedText("|c%x%i%%", txtR, itemDurabilityPercentage)
-			end
-		else
-			iDura.text:SetFormattedText("")
+			end--]]
+		--else
+			--iDura.text:SetFormattedText("")
 		end
 		
 		iDuraFrames[slot] = iDura
 	else
 		itemDurability, itemMaxDurability = fetchDura(slot)
 		if itemDurability then
-			local itemDurabilityPercentage = (itemDurability / itemMaxDurability) * 100
-			if itemDurabilityPercentage > 25 then
-				iDura.text:SetFormattedText("|c%x%i%%", txtG, itemDurabilityPercentage)
-			elseif itemDurabilityPercentage > 0 and itemDurabilityPercentage <= 25 then
-				iDura.text:SetFormattedText("|c%x%i%%", txtY, itemDurabilityPercentage)
-			elseif itemDurabilityPercentage == 0 then
-				iDura.text:SetFormattedText("|c%x%i%%", txtR, itemDurabilityPercentage)
-			end
+			local itemDurabilityPercentage = (itemDurability / itemMaxDurability) --* 100
+			if(ceil(itemDurabilityPercentage * 100) < 100)then
+					iDura.text:SetTextColor(1 - itemDurabilityPercentage, itemDurabilityPercentage, 0)
+					iDura.text:SetText(ceil(itemDurabilityPercentage * 100) .. "%")
+				else
+					iDura.text:SetTextColor(0, 1, 0)
+					iDura.text:SetText(ceil(100) .. "%")
+				end
 		else
 			iDura.text:SetFormattedText("")
 		end
