@@ -161,7 +161,7 @@ L["连击点"] = "Combat Point"
 L["暗影魔计时条"] = "Shadow Pet Time"
 L["小地图"] = "MiniMap"
 L["鼠标左键拖动我!"] = "Hold down to drag"
-
+L["药水"] = "Reminder"
 --minimap
 L["角色信息"] = "Character"
 L["法术书"] = "SpellBook"

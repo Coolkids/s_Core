@@ -231,13 +231,13 @@ local function BuildBuffFrame()
 		
 		if ReminderDB.RaidBuffDirection == 1 then
 			if i == 1 then
-				Temp:SetPoint("BOTTOM","Reminder","BOTTOM",0,0)
+				Temp:SetPoint("LEFT","Reminder","LEFT",0,0)
 			else
 				Temp:SetPoint("LEFT", BuffFrame[i-1], "RIGHT", 4, 0)
 			end
 		elseif ReminderDB.RaidBuffDirection == 2 then
 			if i == 1 then
-				Temp:SetPoint("BOTTOM","Reminder","BOTTOM",0,0)
+				Temp:SetPoint("LEFT","Reminder","LEFT",0,0)
 			else
 				Temp:SetPoint("TOP", BuffFrame[i-1], "BOTTOM", 0, -4)
 			end

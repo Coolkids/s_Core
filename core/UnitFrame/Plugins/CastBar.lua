@@ -225,6 +225,7 @@ end
 --- ----------------------------------
 
 
+
 function CreateCastBar(f, unit)
 
 
@@ -255,6 +256,12 @@ function CreateCastBar(f, unit)
 	end
 	
 	s:SetStatusBarTexture(bar_texture)
+		local spar = s:CreateTexture(nil, "OVERLAY")
+		spar:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
+		spar:SetBlendMode("ADD")
+		spar:SetAlpha(.8)
+		spar:SetPoint("TOPLEFT", s:GetStatusBarTexture(), "TOPRIGHT", -10, 13)
+		spar:SetPoint("BOTTOMRIGHT", s:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -13)
 	--fixStatusbar(s)
 	s:SetStatusBarColor(95/255, 182/255, 255/255,1)
 	s:SetFrameLevel(1)

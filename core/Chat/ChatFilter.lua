@@ -94,9 +94,6 @@ local Config = {
 		"promoti[on][gn]",
 		"sa[fl]e",
 		"serv[ei][rc]e?",
-		"大腳",
-		"FishUI",
-		"魔盒",
 	},
 	["WhiteList"] = {
 		"%d?%..*%d+%.?%d?%(%d+%.?%d?%,?%d+%.?%d?%%%)",

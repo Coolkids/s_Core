@@ -44,8 +44,13 @@ Threat:SetHeight(6)
 Threat:SetPoint(unpack(C["Threat"]))
 Threat:Hide()
 local Reminder = CreateFrame("Frame", "Reminder", UIParent) 
-Reminder:SetWidth(M["RaidBuffSize"]) 
-Reminder:SetHeight(M["RaidBuffSize"]) 
+	if M["RaidBuffDirection"] == 1 then 
+		Reminder:SetWidth(M["RaidBuffSize"]*6+5) 
+		Reminder:SetHeight(M["RaidBuffSize"]) 
+		else
+		Reminder:SetWidth(M["RaidBuffSize"]) 
+		Reminder:SetHeight(M["RaidBuffSize"]*6+5) 
+	end
 Reminder:SetPoint(unpack(C["Reminder"]))
 Reminder:Hide()
 local Class = CreateFrame("Frame", "Class", UIParent) 
@@ -68,7 +73,7 @@ Class:Hide()
 	
 	MoveHandle.ClassCD = S.MakeMoveHandle(ClassCD, L["内置CD监视"], "ClassCD")
 	MoveHandle.Threat = S.MakeMoveHandle(Threat, L["仇恨监视"], "Threat")
-	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, "R", "Reminder")
+	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, L["药水"], "Reminder")
 	MoveHandle.Class = S.MakeMoveHandle(Class, L["缺少药剂buff提示"], "Class")
 	
 		if DB.MyClass == "ROGUE" or DB.MyClass == "DRUID" then  
