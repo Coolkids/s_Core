@@ -45,11 +45,11 @@ Threat:SetPoint(unpack(C["Threat"]))
 Threat:Hide()
 local Reminder = CreateFrame("Frame", "Reminder", UIParent) 
 	if M["RaidBuffDirection"] == 1 then 
-		Reminder:SetWidth(M["RaidBuffSize"]*6+5) 
+		Reminder:SetWidth(M["RaidBuffSize"]*7+5) 
 		Reminder:SetHeight(M["RaidBuffSize"]) 
 		else
 		Reminder:SetWidth(M["RaidBuffSize"]) 
-		Reminder:SetHeight(M["RaidBuffSize"]*6+5) 
+		Reminder:SetHeight(M["RaidBuffSize"]*7+5) 
 	end
 Reminder:SetPoint(unpack(C["Reminder"]))
 Reminder:Hide()

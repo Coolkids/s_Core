@@ -31,17 +31,7 @@ end
 --> Function
 --- ----------------------------------
 
-local frameBorder = function(f)
-	f:SetBackdrop({
-		bgFile =  [=[Interface\ChatFrame\ChatFrameBackground]=],
-        edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 2, 
-		insets = {left = -1, right = -1, top = -1, bottom = -1} 
-	})
-	f:SetPoint("TOPLEFT", -1, 1)
-	f:SetPoint("BOTTOMRIGHT", 1, -1)
-	f:SetBackdropColor(0.1,0.1,0.1,1)
-	f:SetBackdropBorderColor(0,0,0,0.5)
-end
+
 
 Castframe = function(f)
     if f.Castframe==nil then
@@ -52,14 +42,7 @@ Castframe = function(f)
       Castframe:SetPoint("BOTTOMLEFT", 4, 4)
       Castframe:SetPoint("TOPRIGHT", -4, -4)
       Castframe:SetPoint("BOTTOMRIGHT", -4, 4)
-      Castframe:SetBackdrop( { 
-        edgeFile = "Interface\\Buttons\\WHITE8x8", 
-	  tile = false, tileSize = 0, edgeSize = 2, 
-	  insets = { left = -1, right = -1, top = -1, bottom = -1}
-      })
-     
-      Castframe:SetBackdropColor(1,1,1,1)
-      Castframe:SetBackdropBorderColor(0,0,0,0.5)
+	  S.MakeShadow(Castframe, 3)
       f.Castframe = Castframe
     end
 end 
@@ -256,6 +239,7 @@ function CreateCastBar(f, unit)
 	end
 	
 	s:SetStatusBarTexture(bar_texture)
+	S.MakeBG(s, 0)
 		local spar = s:CreateTexture(nil, "OVERLAY")
 		spar:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
 		spar:SetBlendMode("ADD")
@@ -274,7 +258,8 @@ function CreateCastBar(f, unit)
 	h:SetFrameLevel(0)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
-	frameBorder(h)
+	S.MakeTexShadow(h, s, 3)
+	
 	--CreateShadow(h)
     sp = s:CreateTexture(nil, "OVERLAY")
     sp:SetBlendMode("ADD")
