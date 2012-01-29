@@ -64,8 +64,8 @@ function MyButton:OnCreate()
 	self.Icon:SetAllPoints()
 	self.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	
-	self.Count:SetPoint("BOTTOMRIGHT", -1, 1)
-	self.Count:SetFont( DB.Font, 9*S.Scale(1), "THINOUTLINE")
+	self.Count:SetPoint("BOTTOMRIGHT", 1, 1)
+	self.Count:SetFont( DB.Font, 8*S.Scale(1), "THINOUTLINE")
 	
 	self.Border = CreateFrame("Frame", nil, self)
 	self.Border:SetAllPoints(self.Icon)

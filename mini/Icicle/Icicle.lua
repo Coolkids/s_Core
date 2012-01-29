@@ -86,6 +86,7 @@ local sourcetable = function(Name, spellID, spellName)
 	icon.texture:SetAllPoints(icon)
 	icon.texture:SetTexture(texture)
 	icon.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	S.MakeTexShadow(icon, icon.texture, 3)
 	icon.endtime = GetTime() + duration
 	icon.cooldown = icon:CreateFontString(nil, "OVERLAY")
 	icon.cooldown:SetTextColor(0.7, 1, 0)
