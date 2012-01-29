@@ -43,14 +43,19 @@ Event:SetScript("OnEvent", function()
 						tbar:SetAllPoints(frame)
 						frame.styled = true
 					end
-
+					
+					if not spark.killed then
+						spark:SetAlpha(0)
+						spark:SetTexture(nil)
+						spark.killed = true
+					end
 		
-					local spark =  tbar:CreateTexture(nil, "OVERLAY")
-					spark:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
-					spark:SetBlendMode("ADD")
-					spark:SetAlpha(.8)
-					spark:SetPoint("TOPLEFT", tbar:GetStatusBarTexture(), "TOPRIGHT", -7, 10)
-					spark:SetPoint("BOTTOMRIGHT", tbar:GetStatusBarTexture(), "BOTTOMRIGHT", 7, -10)
+					local spar =  tbar:CreateTexture(nil, "OVERLAY")
+					spar:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
+					spar:SetBlendMode("ADD")
+					spar:SetAlpha(.8)
+					spar:SetPoint("TOPLEFT", tbar:GetStatusBarTexture(), "TOPRIGHT", -10, 13)
+					spar:SetPoint("BOTTOMRIGHT", tbar:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -13)
 					
 
 					if not icon1.styled then
