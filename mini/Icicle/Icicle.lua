@@ -8,7 +8,7 @@ if C["Icicle"] ~= true then return end
 local iconsize = 22
 local xoff = 0
 local yoff = 22
-local tfont = DB.Font
+
 ---------------
 
 local IcicleReset = {
@@ -21,7 +21,7 @@ local db = {}
 local eventcheck = {}
 local purgeframe = CreateFrame("frame")
 local plateframe = CreateFrame("frame")
-local TrinketTex = "Interface\Icons\INV_Jewelry_TrinketPVP_01"
+local TrinketTex = "Interface\\Icons\\INV_Jewelry_TrinketPVP_01"
 local count = 0
 local width
 local Sfont
@@ -43,7 +43,7 @@ local addicons = function(name, f)
 		db[name][i]:ClearAllPoints()
 		db[name][i]:SetWidth(size)
 		db[name][i]:SetHeight(size)
-		db[name][i].cooldown:SetFont(tfont ,Sfont, "OUTLINE")
+		db[name][i].cooldown:SetFont(DB.Font ,Sfont, "OUTLINE")
 		if i == 1 then
 			db[name][i]:SetPoint("TOPLEFT", f, xoff, yoff)
 		else
@@ -65,10 +65,10 @@ local icontimer = function(icon)
 	local itimer = ceil(icon.endtime - GetTime())
 	if not Sfont then Sfont = ceil(iconsize - iconsize / 2) end
 	if itimer >= 60 then
-		icon.cooldown:SetFont(tfont ,Sfont, "OUTLINE")
+		icon.cooldown:SetFont(DB.Font ,Sfont, "OUTLINE")
 		icon.cooldown:SetText(ceil(itimer/60).."m")
 	elseif itimer < 60 and itimer >= 1 then
-		icon.cooldown:SetFont(tfont ,Sfont, "OUTLINE")
+		icon.cooldown:SetFont(DB.Font ,Sfont, "OUTLINE")
 		icon.cooldown:SetText(itimer)
 	else
 		icon.cooldown:SetText(" ")

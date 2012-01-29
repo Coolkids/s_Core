@@ -9,7 +9,7 @@ local Anchor = { "TOP", Minimap, "TOP", 0, barHeight}
 --Fonts
 local showText = true -- Set to false to hide text
 local mouseoverText = true -- Set to true to only show text on mouseover
-local font,fontsize,flags = DB.Font, 12*S.Scale(1), "THINOUTLINE"
+local font,fontsize,flags = DB.Font, 7*S.Scale(1), "THINOUTLINE"
 
 --Textures
 local barTex = DB.Statusbar

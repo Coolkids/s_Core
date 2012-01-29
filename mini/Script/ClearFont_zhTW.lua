@@ -269,7 +269,7 @@ if not (GetLocale() == "zhTW") then return end
 
 -- 頭像框架名字，BUFF時間，未選擇的面板標籤，面板中大部分描述字體，天賦點的數位，頭銜獎勵（成就面板），查詢、公會成員角色名字（社交面板），
 -- 競技場站隊詳細、站隊等級（PvP面板），日曆活動條目
-	if (CanSetFont(GameFontNormalSmall)) then 			GameFontNormalSmall:SetFont(CLEAR_FONT, 12 * CF_SCALE); end		-- 預設值：15
+	if (CanSetFont(GameFontNormalSmall)) then 			GameFontNormalSmall:SetFont(CLEAR_FONT, 11 * CF_SCALE); end		-- 預設值：15
 
 -- 高亮字體，下拉功能表選項，已選擇的面板標籤，角色屬性、技能的數位、聲望條目（角色資訊面板），天賦點數（天賦面板），角色等級、職業等資訊、公會資訊（社交面板），
 -- 詳細榮譽點、競技場比分（PvP面板），時間資訊，系統功能表子專案
