@@ -1,6 +1,6 @@
 ﻿local L = setmetatable(GetLocale() == "zhCN" and {
 	["(.*) won: (.+)"]                               = "(.*)赢得了：(.+)",
-	["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HSunUILootCollector:%d|h[%s]|h|r %s 赢得了 %s ",
+	["%s|HSunUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HSunUILootCollector:%d|h[%s]|h|r %s 赢得了 %s ",
 	["(.*) has?v?e? selected (.+) for: (.+)"]        = "(.+)选择了(.+)取向：(.+)",
 	["(.+) Roll . (%d+) for (.+) by (.+)"]           = "（(.+)）(%d+)点：(.+)（(.+)）",
 	["(.+) Roll - (%d+) for (.+) by (.+) + Role Bonus"]	 = "（(.+)%+职责加成）(%d+)點:(.+)（(.+)）",
@@ -11,7 +11,7 @@
 	["Winner:"]										= "获胜者：",
 } or GetLocale() == "zhTW" and {
 	["(.*) won: (.+)"]                               = "(.*)贏得了:(.+)",
-	["%s|HRayUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HSunUILootCollector:%d|h[%s]|h|r %s 贏得了 %s ",
+	["%s|HSunUILootCollector:%d|h[%s roll]|h|r %s won %s "] = "%s|HSunUILootCollector:%d|h[%s]|h|r %s 贏得了 %s ",
 	["(.*) has?v?e? selected (.+) for: (.+)"]        = "(.+)選擇\228?\186?\134?(.+):(.+)",
 	["(.+) Roll . (%d+) for (.+) by (.+)"]           = "(.+) %- (.+)由(.+)擲出(%d+)",
 	["(.+) Roll - (%d+) for (.+) by (.+) + Role Bonus"]	 = "%((.+)%+角色加成%)(%d+)點:(.+)%((.+)%)",
