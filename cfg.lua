@@ -1,5 +1,6 @@
 ﻿local _, _, _, DB = unpack(select(2, ...))
 --全局设置
+
 local Media = "Interface\\Addons\\s_Core\\media\\"
 dummy = function() return end
 DB.MyClass = select(2, UnitClass("player"))
