@@ -116,7 +116,7 @@ C = ActionBarDB
     bo:Hide()
     bo.Show = nomoreplay
 
-    if C["HideHotKey"] then
+    if  C["HideHotKey"] == false then
       ho:SetFont(DB.Font, C["FontSize"]*S.Scale(1), "OUTLINE")
       ho:ClearAllPoints()
       ho:SetPoint(DB.hotkeys.pos1.a1,bu,DB.hotkeys.pos1.x,DB.hotkeys.pos1.y)
@@ -126,7 +126,7 @@ C = ActionBarDB
       ho.Show = nomoreplay
     end
 
-    if DB.macroname.show then
+    if C["HideMacroName"] == false then
       na:SetFont(DB.Font, C["MFontSize"]*S.Scale(1), "OUTLINE")
       na:ClearAllPoints()
       na:SetPoint(DB.macroname.pos1.a1,bu,DB.macroname.pos1.x,DB.macroname.pos1.y)
@@ -135,7 +135,7 @@ C = ActionBarDB
       na:Hide()
     end
 
-    if C["HideMacroName"] then
+    if DB.itemcount.show then
       co:SetFont(DB.Font, C["FontSize"]*S.Scale(1), "OUTLINE")
       co:ClearAllPoints()
       co:SetPoint(DB.itemcount.pos1.a1,bu,DB.itemcount.pos1.x,DB.itemcount.pos1.y)

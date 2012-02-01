@@ -2,6 +2,9 @@
 
 local Map = CreateFrame("Frame")
 Map:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+
+
 Map:SetScript("OnEvent", function()
 Map:UnregisterEvent("PLAYER_ENTERING_WORLD")
 local function StripTextures(object, kill)
@@ -16,7 +19,11 @@ local function StripTextures(object, kill)
 		end
 	end		
 end
-		StripTextures(WorldMapButton)
-		S.MakeShadow(WorldMapFrame, 3)
-		S.MakeBG(WorldMapFrame, 0)
+
+		StripTextures(WorldMapFrame, Kill)
+		WorldMapFrame.backdrop = CreateFrame("Frame", nil, WorldMapFrame)
+		WorldMapFrame.backdrop:SetPoint("TOPLEFT", -2, 2)
+		WorldMapFrame.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
+		S.SetBD(WorldMapFrame.backdrop)
+
 end)

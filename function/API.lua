@@ -152,6 +152,19 @@ local function CreatePulse(frame, speed, mult, alpha)
 		end
 	end)
 end
+local function CreateSD(parent, size, r, g, b, alpha, offset)
+	local sd = CreateFrame("Frame", nil, parent)
+	sd.size = size or 5
+	sd.offset = offset or 0
+	sd:SetBackdrop({
+		edgeFile = DB.GlowTex,
+		edgeSize = sd.size,
+	})
+	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
+	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
+	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd:SetAlpha(alpha or 1)
+end
 local function StartGlow(f)
 	f:SetBackdropColor(r, g, b, .1)
 	f:SetBackdropBorderColor(r, g, b)
@@ -205,7 +218,20 @@ function S.MakeButton(Parent)
 	S.Reskin(Button)
 	return Button
 end
-
+function S.SetBD(f, x, y, x2, y2)
+	local bg = CreateFrame("Frame", nil, f)
+	if not x then
+		bg:SetPoint("TOPLEFT")
+		bg:SetPoint("BOTTOMRIGHT")
+	else
+		bg:SetPoint("TOPLEFT", x, y)
+		bg:SetPoint("BOTTOMRIGHT", x2, y2)
+	end
+	bg:SetFrameLevel(0)
+	--(parent, size, r, g, b, alpha, offset)
+	CreateBD(bg, 0.3)
+	CreateSD(bg)
+end
 function S.MakeMoveHandle(Frame, Text, key)
 	local MoveHandle = CreateFrame("Frame", nil, UIParent)
 	MoveHandle:SetSize(Frame:GetWidth(), Frame:GetHeight())
