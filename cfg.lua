@@ -16,6 +16,7 @@ DB.closebtex =	Media.."black-close"
 DB.bgFile = "Interface\\Tooltips\\UI-Tooltip-Background"
 DB.edgetex = 	"Interface\\Tooltips\\UI-Tooltip-Border"
 DB.loottex =		"Interface\\QuestFrame\\UI-QuestLogTitleHighlight"
+DB.aurobackdrop = "Interface\\ChatFrame\\ChatFrameBackground"
 DB.barinset = 10
 DB.bfont = Media.."ROADWAY.ttf"
 DB.backdrop = { 

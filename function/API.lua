@@ -129,7 +129,16 @@ local function CreateBD(f, a)
 		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
 		edgeSize = 1, 
 	})
-	f:SetBackdropColor(0, 0, 0, a or alpha)
+	f:SetBackdropColor(0, 0, 0, a or 0.7)
+	f:SetBackdropBorderColor(0, 0, 0)
+end
+function S.CreateBD(f, a)
+	f:SetBackdrop({
+		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
+		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
+		edgeSize = 1, 
+	})
+	f:SetBackdropColor(0, 0, 0, a or 0.7)
 	f:SetBackdropBorderColor(0, 0, 0)
 end
 local function CreatePulse(frame, speed, mult, alpha)
@@ -163,7 +172,20 @@ local function CreateSD(parent, size, r, g, b, alpha, offset)
 	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
 	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
 	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
-	sd:SetAlpha(alpha or 1)
+	sd:SetAlpha(0.7 or 1)
+end
+function S.CreateSD(parent, size, r, g, b, alpha, offset)
+	local sd = CreateFrame("Frame", nil, parent)
+	sd.size = size or 5
+	sd.offset = offset or 0
+	sd:SetBackdrop({
+		edgeFile = DB.GlowTex,
+		edgeSize = sd.size,
+	})
+	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
+	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
+	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd:SetAlpha(0.7 or 1)
 end
 local function StartGlow(f)
 	f:SetBackdropColor(r, g, b, .1)
@@ -213,6 +235,78 @@ function S.Reskin(f)
 	f:HookScript("OnEnter", StartGlow)
  	f:HookScript("OnLeave", StopGlow)
 end
+function S.ReskinInput(f, height, width)
+	local frame = f:GetName()
+	_G[frame.."Left"]:Hide()
+	if _G[frame.."Middle"] then _G[frame.."Middle"]:Hide() end
+	if _G[frame.."Mid"] then _G[frame.."Mid"]:Hide() end
+	_G[frame.."Right"]:Hide()
+	CreateBD(f, 0)
+
+	local tex = f:CreateTexture(nil, "BACKGROUND")
+	tex:SetPoint("TOPLEFT")
+	tex:SetPoint("BOTTOMRIGHT")
+	tex:SetTexture(DB.aurobackdrop)
+	tex:SetGradientAlpha("VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35)
+
+	if height then f:SetHeight(height) end
+	if width then f:SetWidth(width) end
+end
+ function S.ReskinScroll(f)
+	local frame = f:GetName()
+
+	if _G[frame.."Track"] then _G[frame.."Track"]:Hide() end
+	if _G[frame.."BG"] then _G[frame.."BG"]:Hide() end
+	if _G[frame.."Top"] then _G[frame.."Top"]:Hide() end
+	if _G[frame.."Middle"] then _G[frame.."Middle"]:Hide() end
+	if _G[frame.."Bottom"] then _G[frame.."Bottom"]:Hide() end
+
+	local bu = _G[frame.."ThumbTexture"]
+	bu:SetAlpha(0)
+	bu:SetWidth(17)
+
+	bu.bg = CreateFrame("Frame", nil, f)
+	bu.bg:SetPoint("TOPLEFT", bu, 0, -2)
+	bu.bg:SetPoint("BOTTOMRIGHT", bu, 0, 4)
+	CreateBD(bu.bg, 0)
+
+	local tex = f:CreateTexture(nil, "BACKGROUND")
+	tex:SetPoint("TOPLEFT", bu.bg)
+	tex:SetPoint("BOTTOMRIGHT", bu.bg)
+	tex:SetTexture(DB.aurobackdrop)
+	tex:SetGradientAlpha("VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35)
+
+	local up = _G[frame.."ScrollUpButton"]
+	local down = _G[frame.."ScrollDownButton"]
+
+	up:SetWidth(17)
+	down:SetWidth(17)
+	
+	S.Reskin(up)
+	S.Reskin(down)
+	
+	up:SetDisabledTexture(DB.aurobackdrop)
+	local dis1 = up:GetDisabledTexture()
+	dis1:SetVertexColor(0, 0, 0, .3)
+	dis1:SetDrawLayer("OVERLAY")
+	
+	down:SetDisabledTexture(DB.aurobackdrop)
+	local dis2 = down:GetDisabledTexture()
+	dis2:SetVertexColor(0, 0, 0, .3)
+	dis2:SetDrawLayer("OVERLAY")
+
+	local uptex = up:CreateTexture(nil, "ARTWORK")
+	uptex:SetTexture("Interface\\AddOns\\s_Core\\Media\\arrow-up-active")
+	uptex:SetSize(8, 8)
+	uptex:SetPoint("CENTER")
+	uptex:SetVertexColor(1, 1, 1)
+
+	local downtex = down:CreateTexture(nil, "ARTWORK")
+	downtex:SetTexture("Interface\\AddOns\\s_Core\\Media\\arrow-down-active")
+	downtex:SetSize(8, 8)
+	downtex:SetPoint("CENTER")
+	downtex:SetVertexColor(1, 1, 1)
+end
 function S.MakeButton(Parent)
 	local Button = CreateFrame("Button", nil, Parent)
 	S.Reskin(Button)
@@ -255,7 +349,18 @@ function S.MakeMoveHandle(Frame, Text, key)
 	Frame:SetPoint("CENTER", MoveHandle)
 	return MoveHandle
 end
-
+ function S.StripTextures(object, kill)
+	for i=1, object:GetNumRegions() do
+		local region = select(i, object:GetRegions())
+		if region:GetObjectType() == "Texture" then
+			if kill then
+				region:Kill()
+			else
+				region:SetTexture(nil)
+			end
+		end
+	end		
+end
 function S.UpdateSize(obj, width, height)
 	if not obj then return end
 	if width then obj:SetWidth(width) end
@@ -266,3 +371,16 @@ function S.Scale(x)
 	return (mult*math.floor(x/mult+.5)) --(1/GetCVar("uiScale"))*x
 end
 S.mult = mult
+
+function S.Kill(object)
+	if object.IsProtected then 
+		if object:IsProtected() then
+			error("Attempted to kill a protected object: <"..object:GetName()..">")
+		end
+	end
+	if object.UnregisterAllEvents then
+		object:UnregisterAllEvents()
+	end
+	object.Show = function() return end
+	object:Hide()
+end
