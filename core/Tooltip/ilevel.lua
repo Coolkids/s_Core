@@ -127,24 +127,8 @@ function GetPlayerScore(unit)
    ClearInspectPlayer(); 
    return floor(ilvl / equipped);
 end
-function ColorGradient(perc, ...)
-	if perc >= 1 then
-		local r, g, b = select(select('#', ...) - 2, ...)
-		return r, g, b
-	elseif perc <= 0.92 then
-		local r, g, b = ...
-		return r, g, b
-	end
 
-	local num = select('#', ...) / 3
-	local segment, relperc = math.modf(perc*(num-1))
-	local r1, g1, b1, r2, g2, b2 = select((segment*3)+1, ...)
 
-	return r1 + (r2-r1)*relperc, g1 + (g2-g1)*relperc, b1 + (b2-b1)*relperc
-end
-function GetQuality(ItemScore)
-	return ColorGradient(ItemScore/413, 0.5, 0.5, 0.5, 1, 0.1, 0.1)
-end
 function SetUnit() 
    local _, unit = GameTooltip:GetUnit();
    local unitilvl = 0;
@@ -156,8 +140,7 @@ function SetUnit()
 NotifyInspect(unit); unitilvl = GetPlayerScore(unit);
    end
 
-	local Red, Blue, Green = GetQuality(unitilvl) 
-	GameTooltip:AddLine("ilevel: "..unitilvl, Red, Green, Blue)
+	GameTooltip:AddLine("ilevel: "..unitilvl)
 
 end
 

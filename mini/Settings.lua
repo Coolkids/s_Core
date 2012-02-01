@@ -120,7 +120,6 @@ SetCVar("bloattest", 0)
 SetCVar("bloatthreat",0)
 SetCVar("bloatnameplates", 0.0)
 SetCVar("screenshotQuality", SCREENSHOT_QUALITY)
-SetCVar("UnitNameNPC", 0)
 
 ---------------- > ALT+RightClick to buy a stack
 hooksecurefunc("MerchantItemButton_OnModifiedClick", function(self, button)

@@ -3,4 +3,5 @@
 	<Script file='DBM.lua' />
 	<Script file='map.lua' />
 	<Script file='friendmenuxp.lua' />
+	<Script file='UIParentFade.lua' />
 </Ui>
