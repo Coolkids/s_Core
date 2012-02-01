@@ -8,6 +8,7 @@ ActionBarDB = {
 		["a1"] = "BOTTOM",
 		["af"] = "UIParent",
 	},
+	["CooldownFlashSize"] = 64,
 	["FontSize"] = 11,
 	["MFontSize"] = 10,
 	["PetBarSacle"] = 0.7,

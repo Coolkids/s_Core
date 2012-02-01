@@ -22,6 +22,7 @@ function Module.LoadSettings()
 		["Reminder"] = {"BOTTOMRIGHT","UIParent","BOTTOMRIGHT", -52, 211},
 		["Class"] = {"CENTER", "UIParent", "CENTER", -150, 150},
 		["Combatpoint"] = {"CENTER","UIParent","CENTER",226,-297},
+		["CooldownFlash"] = {"BOTTOM", "UIParent", "CENTER", 0, 150}
 	}
 	if not MoveHandleDB then MoveHandleDB = {} end
 	for key, value in pairs(Default) do

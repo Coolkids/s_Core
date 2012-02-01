@@ -7,6 +7,7 @@ D = ThreatDB
 M = ReminderDB
 A = UnitFrameDB
 B = MiniDB
+E = ActionBarDB
 local Castbarplay = CreateFrame("Frame", "Castbarplay", UIParent) 
 Castbarplay:SetWidth(A["PlayerCastBarWidth"]) 
 Castbarplay:SetHeight(A["PlayerCastBarHeight"]) 
@@ -58,6 +59,11 @@ Class:SetWidth(M["ClassBuffSize"])
 Class:SetHeight(M["ClassBuffSize"]) 
 Class:SetPoint(unpack(C["Class"]))
 Class:Hide()
+local CooldownFlash = CreateFrame("Frame", "CooldownFlash", UIParent) 
+CooldownFlash:SetWidth(S.Scale(E["CooldownFlashSize"]))
+CooldownFlash:SetHeight(S.Scale(E["CooldownFlashSize"]))
+CooldownFlash:SetPoint(unpack(C["CooldownFlash"]))
+CooldownFlash:Hide()
 	if DB.MyClass == "ROGUE" or DB.MyClass == "DRUID" then  
 		local Combatpoint = CreateFrame("Frame", "Combatpoint", UIParent) 
 		Combatpoint:SetWidth(180) 
@@ -75,6 +81,7 @@ Class:Hide()
 	MoveHandle.Threat = S.MakeMoveHandle(Threat, L["仇恨监视"], "Threat")
 	MoveHandle.Reminder = S.MakeMoveHandle(Reminder, L["药水"], "Reminder")
 	MoveHandle.Class = S.MakeMoveHandle(Class, L["缺少药剂buff提示"], "Class")
+	MoveHandle.CooldownFlash = S.MakeMoveHandle(CooldownFlash, L["冷却闪光"], "CooldownFlash")
 	
 		if DB.MyClass == "ROGUE" or DB.MyClass == "DRUID" then  
 			MoveHandle.Combatpoint = S.MakeMoveHandle(Combatpoint, L["连击点"], "Combatpoint")

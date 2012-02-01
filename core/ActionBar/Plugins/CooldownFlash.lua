@@ -1,8 +1,9 @@
-local S, _, _, DB = unpack(select(2, ...))
+local S, C, L, DB = unpack(select(2, ...))
 local lib = LibStub("LibCooldown")
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("CooldownFlash")
 function Module:OnInitialize()
-	if ActionBarDB.CooldownFlash ~= true then return end
+	C = ActionBarDB
+	if C["CooldownFlash"] ~= true then return end
 
 		local filter = {
 			["pet"] = "all",
@@ -17,15 +18,15 @@ function Module:OnInitialize()
 		flash.icon = flash:CreateTexture(nil, "OVERLAY")
 		flash:SetScript("OnEvent", function()
 			local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/GetCVar("uiScale")
-			local function scale(x) return mult*math.floor(x+.5) end
-			flash:SetPoint("BOTTOM", UIParent, "CENTER", 0, 150)
-			flash:SetSize(scale(64),scale(64))
+			local function scale(x) return mult*math.floor(x/mult+.5) end
+			flash:SetPoint("BOTTOM", CooldownFlash, "BOTTOM", 0, 0)
+			flash:SetSize(scale(C["CooldownFlashSize"]),scale(C["CooldownFlashSize"]))
 			--flash:SetBackdropColor(.1,.1,.1)
 			--flash:SetBackdropBorderColor(.6,.6,.6)
 			flash.icon:SetPoint("TOPLEFT", scale(2), scale(-2))
 			flash.icon:SetPoint("BOTTOMRIGHT", scale(-2), scale(2))
 			flash.icon:SetTexCoord(.08, .92, .08, .92)
-			S.MakeTexShadow(flash, flash.icon, 6)
+			S.MakeTexShadow(flash, flash.icon, scale(4))
 			flash:Hide()
 			flash:SetScript("OnUpdate", function(self, e)
 				flash.e = flash.e + e
