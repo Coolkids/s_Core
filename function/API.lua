@@ -52,7 +52,7 @@ end
 
 function S.MakeFontString(Parent, FontSize)
 	local Text = Parent:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(DB.Font, 18, "THINOUTLINE")
+	Text:SetFont(DB.Font, FontSize*S.Scale(1), "THINOUTLINE")
 	return Text
 end
 
@@ -129,7 +129,7 @@ local function CreateBD(f, a)
 		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
 		edgeSize = 1, 
 	})
-	f:SetBackdropColor(0, 0, 0, a or 0.7)
+	f:SetBackdropColor(0, 0, 0, a or 0.6)
 	f:SetBackdropBorderColor(0, 0, 0)
 end
 function S.CreateBD(f, a)
@@ -138,7 +138,7 @@ function S.CreateBD(f, a)
 		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
 		edgeSize = 1, 
 	})
-	f:SetBackdropColor(0, 0, 0, a or 0.7)
+	f:SetBackdropColor(0, 0, 0, a or 0.6)
 	f:SetBackdropBorderColor(0, 0, 0)
 end
 local function CreatePulse(frame, speed, mult, alpha)
@@ -384,3 +384,75 @@ function S.Kill(object)
 	object.Show = function() return end
 	object:Hide()
 end
+function S.ColorGradient(perc, ...)
+	if perc >= 1 then
+		local r, g, b = select(select('#', ...) - 2, ...)
+		return r, g, b
+	elseif perc <= 0 then
+		local r, g, b = ...
+		return r, g, b
+	end
+
+	local num = select('#', ...) / 3
+	local segment, relperc = math.modf(perc*(num-1))
+	local r1, g1, b1, r2, g2, b2 = select((segment*3)+1, ...)
+
+	return r1 + (r2-r1)*relperc, g1 + (g2-g1)*relperc, b1 + (b2-b1)*relperc
+end
+function S.RGBToHex(r, g, b)
+	r = r <= 1 and r >= 0 and r or 0
+	g = g <= 1 and g >= 0 and g or 0
+	b = b <= 1 and b >= 0 and b or 0
+	return string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
+end
+function S.ShortValue(v)
+	if v >= 1e6 then
+		return ("%.1fm"):format(v / 1e6):gsub("%.?0+([km])$", "%1")
+	elseif v >= 1e3 or v <= -1e3 then
+		return ("%.1fk"):format(v / 1e3):gsub("%.?0+([km])$", "%1")
+	else
+		return v
+	end
+end
+RoleUpdater = CreateFrame("Frame")
+local function CheckRole(self, event, unit)
+	local tree = GetPrimaryTalentTree()
+	local resilience
+	local resilperc = GetCombatRatingBonus(COMBAT_RATING_RESILIENCE_PLAYER_DAMAGE_TAKEN)
+	if resilperc > GetDodgeChance() and resilperc > GetParryChance() then
+		resilience = true
+	else
+		resilience = false
+	end
+	if (DB.MyClass == "PALADIN" and tree == 1) or (DB.MyClass == "SHAMAN" and tree == 3) or (DB.MyClass == "PRIEST" and (tree == 1 or tree == 2)) or (DB.MyClass == "DRUID" and tree == 3) then
+		DB.isHealer = true
+	else
+		DB.isHealer = false
+	end
+	if ((DB.MyClass == "PALADIN" and tree == 2) or 
+	(DB.MyClass == "WARRIOR" and tree == 3) or 
+	(DB.MyClass == "DEATHKNIGHT" and tree == 1)) and
+	resilience == false or
+	(DB.MyClass == "DRUID" and tree == 2 and GetBonusBarOffset() == 3) then
+		DB.Role = "Tank"
+	else
+		local playerint = select(2, UnitStat("player", 4))
+		local playeragi	= select(2, UnitStat("player", 2))
+		local base, posBuff, negBuff = UnitAttackPower("player");
+		local playerap = base + posBuff + negBuff;
+
+		if (((playerap > playerint) or (playeragi > playerint)) and not (DB.MyClass == "SHAMAN" and tree ~= 1 and tree ~= 3) and not (UnitBuff("player", GetSpellInfo(24858)) or UnitBuff("player", GetSpellInfo(65139)))) or DB.MyClass == "ROGUE" or DB.MyClass == "HUNTER" or (DB.MyClass == "SHAMAN" and tree == 2) then
+			DB.Role = "Melee"
+		else
+			DB.Role = "Caster"
+		end
+	end
+end	
+RoleUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
+RoleUpdater:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+RoleUpdater:RegisterEvent("PLAYER_TALENT_UPDATE")
+RoleUpdater:RegisterEvent("CHARACTER_POINTS_CHANGED")
+RoleUpdater:RegisterEvent("UNIT_INVENTORY_CHANGED")
+RoleUpdater:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
+RoleUpdater:SetScript("OnEvent", CheckRole)
+CheckRole()

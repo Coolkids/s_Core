@@ -11,7 +11,7 @@ function Module.LoadSettings()
 	local Default = {
 		["Buff"] = {"TOPRIGHT", "UIParent", "TOPRIGHT", -5, -5},
 		["Debuff"] = {"TOPRIGHT", "UIParent", "TOPRIGHT", -5, -140},
-		["Minimap"] = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -20, 27},
+		["Minimap"] = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -10, 29},
 		["PlayerCastbar"] = {"CENTER","UIParent","CENTER",0,-335},
 		["TargetCastbar"] = {"CENTER","UIParent","CENTER",226,-257},
 		["FocusCastbar"] = {"RIGHT","UIParent","RIGHT",-99,-165},
@@ -22,7 +22,9 @@ function Module.LoadSettings()
 		["Reminder"] = {"BOTTOMRIGHT","UIParent","BOTTOMRIGHT", -52, 211},
 		["Class"] = {"CENTER", "UIParent", "CENTER", -150, 150},
 		["Combatpoint"] = {"CENTER","UIParent","CENTER",226,-297},
-		["CooldownFlash"] = {"BOTTOM", "UIParent", "CENTER", 0, 150}
+		["CooldownFlash"] = {"BOTTOM", "UIParent", "CENTER", 0, 150},
+		["InfoPanel"] = {"TOPLEFT", "UIParent", "TOPLEFT", 5, -5},
+		["InfoPanel2"] = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -5, 5},
 	}
 	if not MoveHandleDB then MoveHandleDB = {} end
 	for key, value in pairs(Default) do

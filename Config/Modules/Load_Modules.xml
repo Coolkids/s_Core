@@ -11,4 +11,5 @@
 	<Script file = "Tooltip.lua"/>	
 	<Script file = "UnitFrame.lua"/>
 	<Script file = "Mini.lua"/>
+        <Script file = "InfoPanel.lua"/>
 </Ui>

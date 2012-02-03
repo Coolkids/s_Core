@@ -14,6 +14,7 @@
 	<Include file="mini\Load.xml"/>
 	<Include file="skins\Load.xml"/>
 	<Include file="config\Load_Config.xml"/>
+	<Include file="layout\Load.xml"/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->

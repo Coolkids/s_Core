@@ -1,8 +1,10 @@
-﻿local _, _, _, DB = unpack(select(2, ...))
+﻿local S, _, _, DB = unpack(select(2, ...))
 --全局设置
 
 local Media = "Interface\\Addons\\s_Core\\media\\"
 dummy = function() return end
+DB.level = UnitLevel("player")
+DB.myrealm = GetRealmName()
 DB.MyClass = select(2, UnitClass("player"))
 DB.PlayerName, _ = UnitName("player")
 DB.MyClassColor = RAID_CLASS_COLORS[DB.MyClass]
