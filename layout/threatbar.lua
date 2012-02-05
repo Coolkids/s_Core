@@ -346,10 +346,10 @@ end
 	end
 	
 	local function Location()
-		zone = GetZoneText()
+
 		pvp,_,_ = GetZonePVPInfo()
 		if pvp == "friendly" then r,g,b = 0.1,1,0.1 elseif pvp == "sanctuary" then r,g,b = 0.41,0.8,0.94 elseif pvp =="arena" then r,g,b = 1,0.1,0.1 elseif pvp == "hostile" then r,g,b = 1,0.1,0.1 elseif pvp == "contested" then r,g,b = 1,0.7,0 elseif pvp == "combat" then r,g,b = 1,0.1,0.1 else r,g,b = 1,1,1 end
-		text3:SetText(zone)
+		text3:SetText(GetMinimapZoneText())
 		text3:SetTextColor(r,g,b)
 	end
 	
