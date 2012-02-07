@@ -10,8 +10,7 @@ function Module:OnEnable()
 	bottomleftbarpos:SetWidth(C["BottomWidth"])
 	bottomleftbarpos:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5 , 5)--]]
 	local frame = CreateFrame("Frame", nil, UIParent)
-	frame:SetHeight(C["BottomHeight"])	
-	frame:SetWidth(ChatFrame1:GetWidth()) --C["BottomWidth"]
+	
 	frame:SetPoint("TOPLEFT", ChatFrame1, "BOTTOMLEFT", 0 , -5)
 	frame:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE")
 	frame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
@@ -70,6 +69,8 @@ function Module:OnEnable()
 	end
 
 	local function UpdateDisplay()
+	frame:SetHeight(C["BottomHeight"])	
+	frame:SetWidth(ChatFrame1:GetWidth()) --C["BottomWidth"]
 	threatbar:SetValue(0)
 	text:SetText("")
 	local status = nil
