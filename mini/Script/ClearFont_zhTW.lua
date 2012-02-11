@@ -54,7 +54,7 @@ function Module:OnInitialize()
 -- 全局字體比例調整（當你覺得所有字體都太大或太小時調整這個參數）
 --  範例：你想把所有字體縮小到80%，那麼可以將"1.0"改成"0.8"
 -- -----------------------------------------------------------------------------
-	print(MiniDB["FontScale"])
+
 	local CF_SCALE = MiniDB["FontScale"]*S.Scale(1)
 
 
