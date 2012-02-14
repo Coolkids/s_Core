@@ -443,8 +443,8 @@ local function MakeBG(Parent, Size)
 		bgFile = DB.bgFile, insets = {left = Size, right = Size, top = Size, bottom = Size},
 		edgeFile = DB.GlowTex, edgeSize = Size-1,
 	})
-	BG:SetBackdropColor(255/255, 255/255, 255/255, 0.5)
-	BG:SetBackdropBorderColor(1, 1, 1, 0.5)
+	BG:SetBackdropColor(245/255, 245/255, 245/255, 0.4)
+	BG:SetBackdropBorderColor(1, 1, 1, 0.4)
 	return BG
 end
 local func = function(self, unit)
@@ -452,13 +452,13 @@ local func = function(self, unit)
 
     --self:SetBackdrop(backdrop)
     --self:SetBackdropColor(0, 0, 0)
-	S.MakeShadow(self, 3)
+	S.MakeShadow(self, 6)
     self:SetScript("OnEnter", UnitFrame_OnEnter)
     self:SetScript("OnLeave", UnitFrame_OnLeave)
     self:RegisterForClicks"AnyUp"
 
     --self.FrameBackdrop = createBackdrop(self, self)
-	self.FrameBackdrop = MakeBG(self, 0)
+	--self.FrameBackdrop = MakeBG(self, 0)
 	
     local hp = createStatusbar(self, texture, nil, nil, nil, 0.10, 0.10, 0.10, 1)
     hp:SetPoint"TOP"
@@ -482,7 +482,9 @@ local func = function(self, unit)
         hp.colorClass = true
         hp.colorReaction = true
         hpbg.multiplier = .2
+		S.MakeBG(hp, 0)
     else
+		MakeBG(hp, 0)
         --hpbg:SetVertexColor(.3,.3,.3)
 		--hpbg:SetVertexColor(1,1,1, 0.5)
     end
@@ -532,7 +534,9 @@ local func = function(self, unit)
         hp.colorClass = true
         hp.colorReaction = true
         hpbg.multiplier = .2
+		S.MakeBG(hp, 0)
     else
+		MakeBG(hp, 0)
         --hpbg:SetVertexColor(1,1,1, 0.5)
     end--]]
 
@@ -560,14 +564,14 @@ local func = function(self, unit)
         pp:SetPoint"LEFT"
         pp:SetPoint"RIGHT"
         pp:SetPoint"BOTTOM" 
-
+		S.MakeBG(pp, 0)
         pp.frequentUpdates = true
         pp.Smooth = true
 
         local ppbg = pp:CreateTexture(nil, "BORDER")
         ppbg:SetAllPoints(pp)
-        ppbg:SetTexture(texture) 
-
+        ppbg:SetTexture(nil) 
+		
         if powerColor then
             pp.colorPower = true
             ppbg.multiplier = .2
@@ -582,7 +586,7 @@ local func = function(self, unit)
         self.Power = pp
     end
 
-    local altpp = createStatusbar(self, texture, nil, 4, nil, 1, 1, 1, .8)
+    local altpp = createStatusbar(self, texture, nil, 4, nil, 1, 1, 1, 1)
     altpp:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -2)
     altpp:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -2)
     altpp.bg = altpp:CreateTexture(nil, 'BORDER')
