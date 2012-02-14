@@ -110,9 +110,10 @@ local createBackdrop = function(parent, anchor)
         frame:SetAllPoints(anchor)
         frame:SetBackdrop(backdrop2)
     else
-        frame:SetPoint("TOPLEFT", anchor, "TOPLEFT", -4, 4)
-        frame:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", 4, -4)
-        frame:SetBackdrop(frameBD)
+        frame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 0, 0)
+        frame:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", 0, 0)
+		S.MakeShadow(frame, 3)
+        --frame:SetBackdrop(frameBD)
     end
     frame:SetBackdropColor(41/255, 36/255, 33/255, 1)
     frame:SetBackdropBorderColor(0, 0, 0)
@@ -433,19 +434,33 @@ end
 --========================--
 --  Shared
 --========================--
+local function MakeBG(Parent, Size)
+	local BG = CreateFrame("Frame", nil, Parent)
+	BG:SetFrameLevel(0)
+	BG:SetPoint("TOPLEFT", -Size, Size)
+	BG:SetPoint("BOTTOMRIGHT", Size, -Size)
+	BG:SetBackdrop({
+		bgFile = DB.bgFile, insets = {left = Size, right = Size, top = Size, bottom = Size},
+		edgeFile = DB.GlowTex, edgeSize = Size-1,
+	})
+	BG:SetBackdropColor(255/255, 255/255, 255/255, 0.5)
+	BG:SetBackdropBorderColor(1, 1, 1, 0.5)
+	return BG
+end
 local func = function(self, unit)
     self.menu = menu
 
-    self:SetBackdrop(backdrop)
-    self:SetBackdropColor(0, 0, 0)
-
+    --self:SetBackdrop(backdrop)
+    --self:SetBackdropColor(0, 0, 0)
+	S.MakeShadow(self, 3)
     self:SetScript("OnEnter", UnitFrame_OnEnter)
     self:SetScript("OnLeave", UnitFrame_OnLeave)
     self:RegisterForClicks"AnyUp"
 
-    self.FrameBackdrop = createBackdrop(self, self)
-
-    local hp = createStatusbar(self, texture, nil, nil, nil, .1, .1, .1, 1)
+    --self.FrameBackdrop = createBackdrop(self, self)
+	self.FrameBackdrop = MakeBG(self, 0)
+	
+    local hp = createStatusbar(self, texture, nil, nil, nil, 0.10, 0.10, 0.10, 1)
     hp:SetPoint"TOP"
     hp:SetPoint"LEFT"
     hp:SetPoint"RIGHT"
@@ -459,9 +474,9 @@ local func = function(self, unit)
     hp.frequentUpdates = true
     hp.Smooth = true
 
-    local hpbg = hp:CreateTexture(nil, "BORDER")
+   local hpbg = hp:CreateTexture(nil, "BORDER")
     hpbg:SetAllPoints(hp)
-    hpbg:SetTexture(texture)
+    hpbg:SetTexture(nil)
 
     if classColorbars then
         hp.colorClass = true
@@ -469,7 +484,7 @@ local func = function(self, unit)
         hpbg.multiplier = .2
     else
         --hpbg:SetVertexColor(.3,.3,.3)
-		hpbg:SetVertexColor(192/255,192/255,192/255)
+		--hpbg:SetVertexColor(1,1,1, 0.5)
     end
 
     if not (unit == "targettarget" or unit == "focustarget" or unit == "pet") then
@@ -483,42 +498,9 @@ local func = function(self, unit)
         end
     end
 
-    hp.bg = hpbg
+    --hp.bg = hpbg
     self.Health = hp
-    --[[local mhpb = CreateFrame('StatusBar', nil, self.Health)
-	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
-	mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
-	mhpb:SetWidth(width)
-	mhpb:SetStatusBarTexture(texture)
-	mhpb:SetStatusBarColor(0, 1, 0.5, 0.5)
 
-	local ohpb = CreateFrame('StatusBar', nil, self.Health)
-	ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
-	ohpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
-	ohpb:SetWidth(width)
-	ohpb:SetStatusBarTexture(texture)
-	ohpb:SetStatusBarColor(0, 1, 0, 0.4)
-
-	self.HealPrediction = {
-		-- status bar to show my incoming heals
-		myBar = mhpb,
-
-		-- status bar to show other peoples incoming heals
-		otherBar = ohpb,
-
-		-- amount of overflow past the end of the health bar
-		maxOverflow = 1.05,
-	}--]]
-   
-	
-	-- mouseover highlight
-    --[[local mov = hp:CreateTexture(nil, "OVERLAY")
-	mov:SetAllPoints(hp)
-	mov:SetTexture(movtex)
-	mov:SetVertexColor(1,1,1,.36)
-	mov:SetBlendMode("ADD")
-	mov:Hide()
-	self.Mouseover = mov--]]
 	
 	-- threat highlight
 	local Thrt = hp:CreateTexture(nil, "OVERLAY")
@@ -544,15 +526,15 @@ local func = function(self, unit)
 
     local hpbg = hp:CreateTexture(nil, "BORDER")
     hpbg:SetAllPoints(hp)
-    hpbg:SetTexture(texture)
+    hpbg:SetTexture(nil)
 
     if classColorbars then
         hp.colorClass = true
         hp.colorReaction = true
         hpbg.multiplier = .2
     else
-        hpbg:SetVertexColor(1,1,1,.6)
-    end
+        --hpbg:SetVertexColor(1,1,1, 0.5)
+    end--]]
 
     if not (unit == "targettarget" or unit == "focustarget" or unit == "player" or unit == "target" or unit == "focus" or unit == "pet") then
         local hpp = createFont(hp, "OVERLAY", font, fontsize, fontflag, 1, 1, 1)
@@ -570,11 +552,11 @@ local func = function(self, unit)
         ppp.frequentUpdates = true
          self:Tag(ppp, '[freeb:pp]')
 
-    hp.bg = hpbg
+    --hp.bg = hpbg
     self.Health = hp
    end
     if not (unit == "pet" or unit == "targettarget" or unit == "focustarget") then
-        local pp = createStatusbar(self, texture, nil, height*-(hpheight-.95), nil, 1, 1, 1, 1)
+        local pp = createStatusbar(self, texture, nil, height*-(hpheight-1), nil, 1, 1, 1, 1)
         pp:SetPoint"LEFT"
         pp:SetPoint"RIGHT"
         pp:SetPoint"BOTTOM" 
