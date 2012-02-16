@@ -1,6 +1,6 @@
 ﻿-- Engines
 local S, _, _, DB = unpack(select(2, ...))
-
+if DB.Nuke == true then return end
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 
 function S.MakeShadow(Parent, Size)
