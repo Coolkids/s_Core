@@ -23,7 +23,7 @@ local colors = {
 if(IsAddOnLoaded'!ClassColors' and CUSTOM_CLASS_COLORS) then
 	local updateColors = function()
 		for eclass, color in next, CUSTOM_CLASS_COLORS do
-			colors.class[eclass] = {color.r, color.g, color.b}
+			colors.class[eclass] = {color.r+0.1, color.g+0.1, color.b+0.1}
 		end
 
 		local oUF = ns.oUF or _G[parent]
