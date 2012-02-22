@@ -588,7 +588,7 @@ local function SkinObjects(frame)
 	raidicon:ClearAllPoints()
 	raidicon:SetPoint("BOTTOM", hp, "TOP", 0, 2)
 	raidicon:SetSize(iconSize*1.4, iconSize*1.4)
-	raidicon:SetTexture([[Interface\AddOns\!RayUI\media\raidicons.blp]])	
+	raidicon:SetTexture("Interface\\AddOns\\s_Core\\Media\\raidicons.blp")	
 	frame.raidicon = raidicon
 	
 	--Hide Old Stuff
