@@ -13,6 +13,11 @@ C = UnitFrameDB
   -----------------------------
   -- STYLE FUNCTIONS
   -----------------------------
+	local BarFader = function(self) 
+         self.BarFader = C["EnableBarFader"] 
+         self.BarFaderMinAlpha = 0--渐隐时的最小透明度。要么在cfg.lua中添加此项，或者可以改为0到1之间的数字。 
+         self.BarFaderMaxAlpha = 1 
+	end
   local function genStyle(self)
 	self.menu = lib.menu
 	self:RegisterForClicks("AnyUp")
@@ -26,7 +31,19 @@ C = UnitFrameDB
     lib.gen_highlight(self)
     lib.gen_RaidMark(self)
 	self.Health.frequentUpdates = true
-	if C["ReverseHPbars"] then self.colors.smooth = {.8,.2,.2, .7,.4,.4, .5,.5,.5} else self.colors.smooth = {1,0,0, .7,.41,.44, .3,.3,.3} end
+	if C["ReverseHPbars"] then 
+		if C["ClassColor"] then 
+			self.colors.smooth = {DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b,DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b,DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b}
+		else
+			self.colors.smooth = {.8,.2,.2, .7,.4,.4, .5,.5,.5} 
+		end
+	else 
+		if C["ClassColor"] then 
+			self.colors.smooth = {DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b,DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b,DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b}
+		else
+			self.colors.smooth = {1,0,0, .7,.41,.44, .3,.3,.3}
+		end
+	end
     self.Health.colorSmooth = true
 	--self.Health.colorHealth = true self.colors.health = {.6,.3,.3}
 	self.Health.bg.multiplier = 0.3
@@ -39,6 +56,7 @@ C = UnitFrameDB
     self.height = C["Height"]
     self.mystyle = "player"
     genStyle(self)
+	BarFader(self)
     self.Health.Smooth = true
     self.Power.frequentUpdates = true
     self.Power.Smooth = true
@@ -107,6 +125,7 @@ C = UnitFrameDB
     self.mystyle = "pet"
     self.disallowVehicleSwap = true
     genStyle(self)
+	BarFader(self)
     self.Power.frequentUpdates = true
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.3
