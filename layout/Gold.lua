@@ -9,7 +9,7 @@ function Module:OnEnable()
 	Stat:SetFrameLevel(3)
 	
 	local Text  = Stat:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(DB.Font, 10*S.Scale(1)*MiniDB["FontScale"], "THINOUTLINE")
+	Text:SetFont(DB.Font, 11*S.Scale(1)*MiniDB["FontScale"], "THINOUTLINE")
 	Text:SetShadowOffset(1.25, -1.25)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:Point("BOTTOMRIGHT", Currency, "BOTTOMRIGHT", -5, -8)
@@ -78,12 +78,12 @@ function Module:OnEnable()
 				GameTooltip:AddLine(CURRENCY,0,.6,1)
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine("目前: ",.6,.8,1)
-				GameTooltip:AddDoubleLine("收入:", formatMoney(Profit), 1, 1, 1, 1, 1, 1)
-				GameTooltip:AddDoubleLine("花费:", formatMoney(Spent), 1, 1, 1, 1, 1, 1)
+				GameTooltip:AddDoubleLine("收入:", formatMoney(Profit), 1, 1, 1, 0, 1, 0)
+				GameTooltip:AddDoubleLine("花费:", formatMoney(Spent), 1, 1, 1, 1, 0, 0)
 				if Profit < Spent then
-					GameTooltip:AddDoubleLine("亏损:", formatMoney(Profit-Spent), 1, 0, 0, 1, 1, 1)
+					GameTooltip:AddDoubleLine("亏损:", formatMoney(Profit-Spent), 1, 1, 1, 1, 0, 0)
 				elseif (Profit-Spent)>0 then
-					GameTooltip:AddDoubleLine("利润:", formatMoney(Profit-Spent), 0, 1, 0, 1, 1, 1)
+					GameTooltip:AddDoubleLine("利润:", formatMoney(Profit-Spent), 1, 1, 1, 0, 1, 0)
 				end				
 				GameTooltip:AddLine' '								
 			

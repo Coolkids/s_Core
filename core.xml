@@ -7,9 +7,8 @@
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 
-	
-	<Include file="function\load.xml"/>
 	<Include file="Libs\load.xml"/>
+	<Include file="function\load.xml"/>
 	<Include file="local\load.xml"/>
 	<Include file="core\Load.xml"/>
 	<Include file="mini\Load.xml"/>

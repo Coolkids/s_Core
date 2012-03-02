@@ -12,7 +12,7 @@ C=ThreatDB
 L=MoveHandleDB
 local function Init()
 	MainFrame:Size(C["ThreatBarWidth"], 6)
-	MainFrame:SetBackdrop({bgFile = "Interface\\Addons\\s_Core\\Media\\statusbar6"})
+	MainFrame:SetBackdrop({bgFile = "Interface\\Addons\\!SunUI\\Media\\statusbar6"})
 	MainFrame:SetBackdropColor(1, 1, 1)
 	MainFrame:SetAlpha(0)
 	MainFrame.Shadow = S.MakeShadow(MainFrame, 3)

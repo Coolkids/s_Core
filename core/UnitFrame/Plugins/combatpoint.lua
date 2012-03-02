@@ -31,7 +31,7 @@ combo:Point(unpack(anchorPoint))
 combo:Size(origPawWidth * texScale, origPawHeight * texScale)
 combo:SetAlpha(0.5)
 local t = combo:CreateTexture(nil, "ARTWORK", self, -5)
-t:SetTexture([[Interface\AddOns\s_Core\Media\pawsCombo]])
+t:SetTexture([[Interface\AddOns\!SunUI\Media\pawsCombo]])
 t:SetTexCoord(0, 1.0, 0, 0.268)
 t:SetAllPoints()
 
@@ -40,7 +40,7 @@ combo:Point(unpack(anchorPoint))
 combo:Size(origPawWidth * texScale, origPawHeight * texScale)
 combo.glow:SetAlpha(0)
 local t2 = combo.glow:CreateTexture(nil, "ARTWORK", self, -1)
-t2:SetTexture([[Interface\AddOns\s_Core\Media\pawsCombo]])
+t2:SetTexture([[Interface\AddOns\!SunUI\Media\pawsCombo]])
 t2:SetTexCoord(0, 1.0, 0.268, 0.54)
 t2:SetAllPoints()
 
@@ -55,7 +55,7 @@ for i = 1, MAX_COMBO_POINTS do
 	combo[i]:SetAlpha(0)
 
 	local r = combo[i]:CreateTexture(nil, "OVERLAY")  
-	r:SetTexture([[Interface\AddOns\s_Core\Media\pawsCombo]])
+	r:SetTexture([[Interface\AddOns\!SunUI\Media\pawsCombo]])
 	r:SetTexCoord(0.027, 0.227, 0.54, 0.75)
 	r:SetAllPoints()
 	combo[i].tex = r

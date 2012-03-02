@@ -259,7 +259,7 @@ local CreateBar = function()
 	bar.backdrop:SetFrameStrata("BACKGROUND")
 	bar.backdrop:SetBackdrop({
 	bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-	edgeFile = "Interface\\AddOns\\s_Core\\Media\\glowTex", edgeSize = 3,
+	edgeFile = "Interface\\AddOns\\!SunUI\\Media\\glowTex", edgeSize = 3,
 	insets = {top = 3, left = 3, bottom = 3, right = 3},
     })
 	bar.backdrop:SetBackdropColor(0, 0, 0, 0.2)

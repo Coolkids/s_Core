@@ -31,26 +31,8 @@ do
    end 
 end 
 
-local shadows = { 
-   bgFile =  DB.Statusbar, 
-   edgeFile = DB.GlowTex,  
-   edgeSize = 4, 
-   insets = { left = 3, right = 3, top = 3, bottom = 3 } 
-} 
 
-function CreateShadow(f) -- 
-   if f.shadow then return end 
-   local shadow = CreateFrame("Frame", nil, f) 
-   shadow:SetFrameLevel(0) 
-   shadow:SetFrameStrata(f:GetFrameStrata()) 
-   shadow:SetPoint("TOPLEFT", -2, 2) 
-   shadow:SetPoint("BOTTOMRIGHT", 2, -2) 
-   shadow:SetBackdrop(shadows) 
-   shadow:SetBackdropColor( .05,.05,.05, .9) 
-   shadow:SetBackdropBorderColor(0, 0, 0, 1) 
-   f.shadow = shadow 
-   return shadow 
-end
+
 
 local function SkinIt(bar)    
    local _, originalPoint, _, _, _ = bar:GetPoint() 
@@ -68,14 +50,10 @@ local function SkinIt(bar)
          region:SetShadowColor(0,0,0,0) 
       end 
    end 
-    
+   bar:CreateShadow("Background")
    bar:SetStatusBarTexture(DB.Statusbar) 
    bar:SetStatusBarColor(170/255, 10/255, 10/255) 
     
-   bar.backdrop = CreateFrame("Frame", nil, bar) 
-   bar.backdrop:SetFrameLevel(0) 
-   CreateShadow(bar.backdrop) 
-   bar.backdrop:SetAllPoints(originalPoint) 
 end 
 
 
@@ -127,16 +105,13 @@ do
       frame:SetScript("OnUpdate", OnUpdate) 
 
       local r, g, b = unpack(settings.colors[type]) 
+	  frame:CreateShadow("Background")
+     
+--[[       local border = CreateFrame("Frame", nil, frame) 
+      border:SetPoint("TOPLEFT", frame, -2, 0) 
+      border:SetPoint("BOTTOMRIGHT", frame, 0, 2) 
 
-      local bg = frame:CreateTexture(nil, 'BACKGROUND') 
-      bg:SetAllPoints(frame) 
-      bg:SetTexture(settings.texture) 
-      bg:SetVertexColor(r * .5, g * .5, b * .5) 
-      local border = CreateFrame("Frame", nil, frame) 
-      border:SetPoint("TOPLEFT", frame, -2, 2) 
-      border:SetPoint("BOTTOMRIGHT", frame, 2, -2) 
-      CreateShadow(border) 
-      border:SetFrameLevel(0) 
+      border:SetFrameLevel(0)  ]]
       local text = frame:CreateFontString(nil, 'OVERLAY') 
       text:SetFont(GameFontNormalSmall:GetFont(), 14, "THINOUTLINE") 
       text:SetShadowOffset(1, -1) 

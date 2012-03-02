@@ -9,7 +9,7 @@ local cfg = {
     font = DB.Font,
     fontsize = C["FontSize"]*S.Scale(1),
     outline = "OUTLINE",
-    tex = "Interface\\AddOns\\s_Core\\Media\\tooltip\\texture",
+    --tex = "Interface\\AddOns\\!SunUI\\Media\\tooltip\\texture",
 
     scale = 1,
     point = { "BOTTOMRIGHT", "BOTTOMRIGHT", -50, 200 },
@@ -18,14 +18,14 @@ local cfg = {
     hideTitles = C["HideTitles"],
     hideRealm = false,
 
-    backdrop = {
+    --[[ backdrop = {
         bgFile = "Interface\\Buttons\\WHITE8x8",
-        edgeFile = DB.GlowTex,       --"Interface\\AddOns\\s_Core\\Media\\ToolTip\\Tooltips\\UI-Tooltip-Border",
+        edgeFile = DB.GlowTex,       --"Interface\\AddOns\\!SunUI\\Media\\ToolTip\\Tooltips\\UI-Tooltip-Border",
         tile = false,
         tileSize = 16,
         edgeSize = 6,
         insets = { left = 4, right = 4, top = 4, bottom = 4 },
-    },
+    }, ]]
     bgcolor = { r=0.05, g=0.05, b=0.05, t=0.8 },
     bdrcolor = { r=0.0, g=0.00, b=0.0, a=0.8 },
     --gcolor = { r=1, g=0.12, b=0.80 },
@@ -185,8 +185,8 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
     if GameTooltipStatusBar:IsShown() then
         GameTooltipStatusBar:ClearAllPoints()
 		GameTooltipStatusBar:Height(8)
-		GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 4.5, 4)
-		GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -4.5, 4)
+		GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 0, 5)
+		GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", 0, 5)
 		if not GameTooltipStatusBar.Shadow then
 			GameTooltipStatusBar:CreateShadow("Background")
 		end
@@ -241,23 +241,14 @@ hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
     tooltip.default = 1
 end)
 
-local function setBakdrop(frame)
-    frame:SetBackdrop(cfg.backdrop)
-    frame:SetScale(cfg.scale)
-    frame.freebBak = true
-end
 
 local function style(frame)
-    if not frame.freebBak then
+    if not frame.shadow then
         --setBakdrop(frame)
-		frame:CreateShadow("Background")
+		frame:CreateShadow() --"Background"
+		frame:SetScale(cfg.scale)
     end
 
-    frame:SetBackdropColor(cfg.bgcolor.r, cfg.bgcolor.g, cfg.bgcolor.b, cfg.bgcolor.t)
-    frame:SetBackdropBorderColor(cfg.bdrcolor.r, cfg.bdrcolor.g, cfg.bdrcolor.b, cfg.bdrcolor.a)
-	
-
-		
     if frame.GetItem then
         local _, item = frame:GetItem()
 		if item then
@@ -335,7 +326,7 @@ function ns:UnregisterEvent(...) for i=1,select("#", ...) do f:UnregisterEvent((
 ns:RegisterEvent"PLAYER_LOGIN"
 function ns:PLAYER_LOGIN()
     for i, frame in ipairs(tooltips) do
-        setBakdrop(frame)
+        frame:CreateShadow()            --"Background"
     end
 
     ns:UnregisterEvent"PLAYER_LOGIN"

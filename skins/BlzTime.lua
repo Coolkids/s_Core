@@ -1,20 +1,20 @@
 ﻿local S, C, L, DB = unpack(select(2, ...))
-local F, _ = unpack(Aurora)
+
 local function TimeManagerSkin(_, _, addon)
 	if addon == "Blizzard_TimeManager" then
 		local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 		S.StripTextures(TimeManagerFrame)
 		S.SetBD(TimeManagerFrame, 5, -10, -48, 10)
 		S.ReskinClose(TimeManagerCloseButton, "TOPRIGHT", TimeManagerFrame, "TOPRIGHT", -51, -13)
-		F.ReskinDropDown(TimeManagerAlarmHourDropDown)
+		S.ReskinDropDown(TimeManagerAlarmHourDropDown)
 		TimeManagerAlarmHourDropDown:SetWidth(80)
-		F.ReskinDropDown(TimeManagerAlarmMinuteDropDown)
+		S.ReskinDropDown(TimeManagerAlarmMinuteDropDown)
 		TimeManagerAlarmMinuteDropDown:SetWidth(80)
-		F.ReskinDropDown(TimeManagerAlarmAMPMDropDown)
+		S.ReskinDropDown(TimeManagerAlarmAMPMDropDown)
 		TimeManagerAlarmAMPMDropDown:SetWidth(90)
-		F.ReskinCheck(TimeManagerMilitaryTimeCheck)
-		F.ReskinCheck(TimeManagerLocalTimeCheck)
-		F.ReskinInput(TimeManagerAlarmMessageEditBox)
+		S.ReskinCheck(TimeManagerMilitaryTimeCheck)
+		S.ReskinCheck(TimeManagerLocalTimeCheck)
+		S.ReskinInput(TimeManagerAlarmMessageEditBox)
 		TimeManagerAlarmEnabledButton:SetNormalTexture(nil)
 		TimeManagerAlarmEnabledButton.SetNormalTexture = DB.dummy
 		S.Reskin(TimeManagerAlarmEnabledButton)

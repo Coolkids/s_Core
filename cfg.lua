@@ -2,7 +2,7 @@
 
 
 --全局设置
-local Media = "Interface\\Addons\\s_Core\\media\\"
+local Media = "Interface\\Addons\\!SunUI\\media\\"
 DB.dummy = function() return end
 DB.zone = GetLocale()
 DB.level = UnitLevel("player")
@@ -143,7 +143,7 @@ DB.bars = {
   }
  
 --旧版动作条美化
-local ActionBarMedia = "Interface\\AddOns\\s_Core\\Media\\ActionBar\\"
+local ActionBarMedia = "Interface\\AddOns\\!SunUI\\Media\\ActionBar\\"
  DB.textures = {
     normal            = ActionBarMedia.."gloss",
     flash             = ActionBarMedia.."flash",

@@ -4,7 +4,7 @@ local S, _, _, DB = unpack(select(2, ...))
 if DB.Nuke == true then return end
 if DB.zone ~= "zhTW" and DB.zone ~= "zhCN" then return end
 local IconSize = S.Scale(23)					 -- 表情IconSize
-local fdir = "Interface\\Addons\\s_Core\\core\\Chat\\Icon\\"			 -- 表情材质路径
+local fdir = "Interface\\Addons\\!SunUI\\core\\Chat\\Icon\\"			 -- 表情材质路径
 ----------------------------------------------------------------------------------------
 local customEmoteStartIndex = 9
 if DB.zone == "zhCN" then  
