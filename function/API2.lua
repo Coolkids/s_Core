@@ -84,8 +84,8 @@ S.ReskinInput = function(f, height, width)
 	if width then f:SetWidth(width) end
 end
 
-function CreateShadow(f, t) 
-	if f.shadow then return end
+function CreateShadow(p, f, t) 
+if f.shadow then return end
 	
 	local borderr, borderg, borderb, bordera = 0, 0, 0, 1
 	local backdropr, backdropg, backdropb, backdropa =  .05, .05, .05, .9
@@ -96,12 +96,10 @@ function CreateShadow(f, t)
 		backdropa = 0
 	end
 	
-	local border = CreateFrame("Frame", nil, f)
+	local border = CreateFrame("Frame", nil, p)
 	border:SetFrameLevel(1)
-	border:Point("TOPLEFT", 1, -1)
-	border:Point("TOPRIGHT", -1, -1)
-	border:Point("BOTTOMRIGHT", -1, 1)
-	border:Point("BOTTOMLEFT", 1, 1)
+	border:Point("TOPLEFT", f, -1, 1)
+	border:Point("BOTTOMRIGHT", f, 1, -1)
 	border:CreateBorder()
 	f.border = border
 	
@@ -115,7 +113,7 @@ function CreateShadow(f, t)
 		edgeFile = DB.GlowTex,
 		bgFile =DB.Solid,
 		edgeSize = S.Scale(4),
-		insets = {left = S.Scale(3), right = S.Scale(3), top = S.Scale(3), bottom = S.Scale(3)},
+		insets = {left = S.Scale(4), right = S.Scale(4), top = S.Scale(4), bottom = S.Scale(4)},
 	})
 	shadow:SetBackdropColor( backdropr, backdropg, backdropb, backdropa )
 	shadow:SetBackdropBorderColor( borderr, borderg, borderb, bordera )

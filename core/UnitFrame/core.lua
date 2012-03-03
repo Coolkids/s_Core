@@ -124,6 +124,7 @@ C = UnitFrameDB
 		--lib.createBuffs(self)
 		--lib.createDebuffs(self) 
 	end
+	
 	self:Size(self.width,self.height)
   end 
   
@@ -153,7 +154,7 @@ C = UnitFrameDB
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.3
     lib.gen_castbar(self)
-    --lib.createAuras(self)
+    lib.createAuras(self)
 	self:Size(self.width,self.height)
   end
   
@@ -203,7 +204,7 @@ C = UnitFrameDB
     self.height = C["BossHeight"]
     self.mystyle = "arena"
     genStyle(self)
-    --self.Health.Smooth = true
+    self.Health.Smooth = true
     self.Power.frequentUpdates = true
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.3
@@ -233,6 +234,10 @@ C = UnitFrameDB
     self.height = C["BossHeight"]
     self.mystyle = "boss"
     genStyle(self)
+	if C["ClassColor"] then
+	self.Health.colorClass = true
+	self.Health.colorReaction = true
+	end
     self.Power.frequentUpdates = true
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.3
