@@ -534,11 +534,8 @@ C = UnitFrameDB
 	--button.remaining:SetShadowColor(0, 0, 0)--button.remaining:SetShadowOffset(2, -1)
     button.remaining:Point("TOPLEFT", 0, -0.5)
     --overlay texture for debuff types display
-	button.overlay = CreateFrame("Frame", nil, button)
-    button.overlay:SetBackdrop({
-			edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
-			edgeSize = S.Scale(1), 
-		})
+	
+    button.overlay:SetTexture(DB.bordertex)
     button.overlay:Point("TOPLEFT", button, "TOPLEFT", -1, 1)
     button.overlay:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, -1)
     button.overlay:SetTexCoord(0.04, 0.96, 0.04, 0.96)

@@ -141,7 +141,7 @@ function Module.BuildGUI()
 							set = function(_, value) UnitFrameDB.BossScale = value end,
 						},
 						Alpha3D = {
-							type = "range", order = 10,
+							type = "range", order = 11,
 							name = L["头像透明度"],
 							min = 0, max = 1, step = 0.1,
 							get = function() return UnitFrameDB.Alpha3D end,

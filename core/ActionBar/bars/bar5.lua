@@ -44,9 +44,9 @@ if C["Big4Layout"] == 1 then
 		for i=1, 2 do
 			local button = _G["MultiBarLeftButton"..i]
 			button:ClearAllPoints()
-			button:Size(C["ButtonSize"]*2+C["ButtonSpacing"], C["ButtonSize"]*2+C["ButtonSpacing"])
+			button:Size(C["ButtonSize"]*1.8, C["ButtonSize"]*1.8)
 			if i == 1 then
-			  button:Point("RIGHT", MultiBarBottomLeftButton1, "LEFT", -C["ButtonSpacing"],(C["ButtonSize"]+C["ButtonSpacing"])/2)
+			  button:Point("BOTTOMRIGHT", MultiBarBottomLeftButton1, "LEFT", -C["ButtonSpacing"],0)
 			else
 			  local previous = _G["MultiBarLeftButton"..i-1]      
 			  button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
@@ -61,9 +61,9 @@ if C["Big4Layout"] == 1 then
 		for i=11, 12 do
 			local button = _G["MultiBarLeftButton"..i]
 			button:ClearAllPoints()
-			button:Size(C["ButtonSize"]*2+C["ButtonSpacing"], C["ButtonSize"]*2+C["ButtonSpacing"])
+			button:Size(C["ButtonSize"]*1.8, C["ButtonSize"]*1.8)
 			if i == 11 then
-			  button:Point("LEFT", MultiBarBottomLeftButton12, "RIGHT", C["ButtonSpacing"],(C["ButtonSize"]+C["ButtonSpacing"])/2)
+			  button:Point("BOTTOMLEFT", MultiBarBottomLeftButton12, "RIGHT", C["ButtonSpacing"],0)
 			else
 			  local previous = _G["MultiBarLeftButton"..i-1]      
 			  button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
