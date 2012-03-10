@@ -681,7 +681,7 @@ C = UnitFrameDB
 	  d.size = 23
       d:Height((d.size+d.spacing)*2)
       d:Width((d.size+d.spacing)*8)
-	  d:Point("BOTTOMLEFT", f, "TOPLEFT", 0, 10)
+	  d:Point("BOTTOMLEFT", f, "TOPLEFT", 0, 15)
 	  --d.PreSetPosition = lib.PreSetPosition
 	  elseif f.mystyle=="focus" then
 	  d:Point("RIGHT", f, "LEFT", -d.spacing, 0)
@@ -712,7 +712,7 @@ C = UnitFrameDB
         r = CreateFrame("StatusBar", f:GetName().."_Runes"..i, f)
         r:Size(f.width/6 - 2, f.height/3)
         if (i == 1) then
-          r:Point("BOTTOMLEFT", f, "TOPLEFT", 1, 3)
+          r:Point("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
         else
           r:Point("TOPLEFT", f.Runes[i-1], "TOPRIGHT", 2, 0)
         end
@@ -799,7 +799,7 @@ C = UnitFrameDB
 			time:SetFontObject"GameFontNormal"
 			t.Time = time
 			local text = lib.gen_fontstring(h, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
-			text:Point("BOTTOMLEFT", t, "TOPLEFT", 0, -1)
+			text:Hide()---Point("BOTTOMLEFT", t, "TOPLEFT", 0, -1)
 			--text:SetFontObject"GameFontNormal"
 			t.Text = text
 	        t.bg = CreateFrame("Frame", nil, t)
@@ -834,11 +834,8 @@ C = UnitFrameDB
 		end
 	end
 	if f.mystyle == "player" then
-		local sp = lib.gen_fontstring(h, DB.Font, 30*S.Scale(1), "OUTLINE")
-		sp:Point("TOPLEFT", f.Health, "BOTTOMLEFT",0,0)
-		sp:Point("BOTTOMRIGHT", f.Health, "BOTTOMRIGHT",0,-5)
-		sp:Width(f.Health:GetWidth())
-		sp:SetJustifyH("LEFT")
+		local sp = lib.gen_fontstring(h, DB.Font, (C["FontSize"]+10)*S.Scale(1), "OUTLINE")
+		sp:Point("TOPLEFT", f.Power, "BOTTOMLEFT",0,0)
 		if class == "DRUID" then
 			f:Tag(sp, '[mono:wm1][mono:wm2][mono:wm3]')
 		elseif class == "PRIEST" then
@@ -856,8 +853,7 @@ C = UnitFrameDB
     h:SetAllPoints(f.Health)
     h:SetFrameLevel(10)
     local cp = lib.gen_fontstring(h, DB.Font, 20*S.Scale(1), "THINOUTLINE")
-    cp:Point("CENTER", f.Health, "CENTER",0,0)
-	cp:SetJustifyH("CENTER")
+    cp:Point("TOPLEFT", f.Power, "BOTTOMLEFT",0,0)
     f:Tag(cp, '[mono:cp]')
   end
   --gen LFD role indicator
