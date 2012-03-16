@@ -254,7 +254,7 @@ DB.colors = {
 		["WARRIOR"]     = { 199/255, 156/255, 110/255 },
 	},
 }
-DB.mirrorbars = false
+
 
 local Launch = CreateFrame("Frame")
 Launch:RegisterEvent("PLAYER_ENTERING_WORLD")
