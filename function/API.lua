@@ -134,7 +134,7 @@ local function CreateBD(f, a)
 	f:SetBackdrop({
 		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
 		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
-		edgeSize = 1, 
+		edgeSize = S.mult, 
 	})
 	f:SetBackdropColor(0, 0, 0, a or 0.6)
 	f:SetBackdropBorderColor(0, 0, 0)
@@ -143,7 +143,7 @@ function S.CreateBD(f, a)
 	f:SetBackdrop({
 		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
 		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
-		edgeSize = 1, 
+		edgeSize = S.mult, 
 	})
 	f:SetBackdropColor(0, 0, 0, a or 0.6)
 	f:SetBackdropBorderColor(0, 0, 0)
@@ -171,27 +171,25 @@ end
 local function CreateSD(parent, size, r, g, b, alpha, offset)
 	local sd = CreateFrame("Frame", nil, parent)
 	sd.size = size or 5
+	sd.size = sd.size - 5
 	sd.offset = offset or 0
-	sd:SetBackdrop({
-		edgeFile = DB.GlowTex,
-		edgeSize = sd.size,
-	})
-	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
-	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
-	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd:Point("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
+	sd:Point("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
+	sd:CreateShadow()
+	sd.shadow:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd.border:SetBackdropBorderColor(r or 0, g or 0, b or 0)
 	sd:SetAlpha(0.7 or 1)
 end
 function S.CreateSD(parent, size, r, g, b, alpha, offset)
 	local sd = CreateFrame("Frame", nil, parent)
 	sd.size = size or 5
+	sd.size = sd.size - 5
 	sd.offset = offset or 0
-	sd:SetBackdrop({
-		edgeFile = DB.GlowTex,
-		edgeSize = sd.size,
-	})
-	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
-	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
-	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd:Point("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
+	sd:Point("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
+	sd:CreateShadow()
+	sd.shadow:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd.border:SetBackdropBorderColor(r or 0, g or 0, b or 0)
 	sd:SetAlpha(0.7 or 1)
 end
 local function StartGlow(f)
@@ -564,6 +562,8 @@ local function CreateShadow(f, t, offset, thickness, texture)
 	
 	if t == "Background" then
 		backdropa = 0.6
+	elseif t == "UnitFrame" then 
+		backdropa = 0.3
 	else
 		backdropa = 0
 	end

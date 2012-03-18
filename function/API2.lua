@@ -92,6 +92,8 @@ if f.shadow then return end
 	
 	if t == "Background" then
 		backdropa = 0.6
+	elseif t == "UnitFrame" then 
+		backdropa = 0.3
 	else
 		backdropa = 0
 	end
