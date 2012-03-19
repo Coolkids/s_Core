@@ -252,52 +252,55 @@ C = UnitFrameDB
   -----------------------------
   -- SPAWN UNITS
   -----------------------------
-  oUF:RegisterStyle("monoPlayer", CreatePlayerStyle)
-  oUF:RegisterStyle("monoTarget", CreateTargetStyle)
-  oUF:RegisterStyle("monoToT", CreateToTStyle)
-  oUF:RegisterStyle("monoFocus", CreateFocusStyle)
-  oUF:RegisterStyle("monoPet", CreatePetStyle)
-  oUF:RegisterStyle("monoParty", CreatePartyStyle)
-  oUF:RegisterStyle("monoArena", CreateArenaStyle)
-  oUF:RegisterStyle("monoArenaTarget", CreateArenaTargetStyle)
-  oUF:RegisterStyle("monoBoss", CreateBossStyle)
+  oUF:RegisterStyle("SunUIPlayer", CreatePlayerStyle)
+  oUF:RegisterStyle("SunUITarget", CreateTargetStyle)
+  oUF:RegisterStyle("SunUIToT", CreateToTStyle)
+  oUF:RegisterStyle("SunUIFocus", CreateFocusStyle)
+  oUF:RegisterStyle("SunUIFocusTarget", CreateFocusStyle)
+  oUF:RegisterStyle("SunUIPet", CreatePetStyle)
+  oUF:RegisterStyle("SunUIParty", CreatePartyStyle)
+  oUF:RegisterStyle("SunUIArena", CreateArenaStyle)
+  oUF:RegisterStyle("SunUIArenaTarget", CreateArenaTargetStyle)
+  oUF:RegisterStyle("SunUIBoss", CreateBossStyle)
   
 oUF:Factory(function(self)
-  self:SetActiveStyle("monoPlayer")
-  local player = self:Spawn("player", "oUF_monoPlayerFrame")
+  self:SetActiveStyle("SunUIPlayer")
+  local player = self:Spawn("player", "oUF_SunUIPlayer")
   player:SetPoint("CENTER", "UIParent", "CENTER", -225, -208)
   player:SetScale(C["Scale"])
+  MoveHandle.SunUIPlayerFrame = S.MakeMove(player, "SunUI_PlayerFrame", "PlayerFrame", C["Scale"])
   
-  self:SetActiveStyle("monoTarget")
-  local target = self:Spawn("target", "oUF_monoTargetFrame")
-  target:SetPoint("CENTER", "UIParent", "CENTER", 225, -208)
+  self:SetActiveStyle("SunUITarget")
+  local target = self:Spawn("target", "oUF_SunUITarget")
   target:SetScale(C["Scale"])
+  MoveHandle.SunUITargetFrame = S.MakeMove(target, "SunUI_TargetFrame", "TargetFrame", C["Scale"])
   
   if C["showtot"] then
-    self:SetActiveStyle("monoToT")
-    local tot = self:Spawn("targettarget", "oUF_mono_ToTFrame")
-	tot:SetPoint("CENTER", "oUF_monoTargetFrame", "CENTER", -250, 0)
+    self:SetActiveStyle("SunUIToT")
+    local tot = self:Spawn("targettarget", "oUF_SunUIToT")
 	tot:SetScale(C["PetScale"])
+	MoveHandle.SunUIToTFrame = S.MakeMove(tot, "SunUI_ToTFrame", "ToTFrame", C["PetScale"])
   end
   
   if C["showfocus"] then
-    self:SetActiveStyle("monoFocus")
-    local focus = self:Spawn("focus", "oUF_monoFocusFrame")
-	focus:SetPoint("RIGHT", "UIParent", "RIGHT", -150, -100)
+    self:SetActiveStyle("SunUIFocus")
+    local focus = self:Spawn("focus", "oUF_SunUIFocus")
 	focus:SetScale(C["PetScale"])
-	self:SetActiveStyle("monoToT")
-	local focust = self:Spawn("focustarget", "oUF_monoFocusTargetFrame")
-	focust:SetPoint("TOPLEFT", "oUF_monoFocusFrame", "BOTTOMLEFT", 0, -38)
+	MoveHandle.SunUIFocusFrame = S.MakeMove(focus, "SunUI_FocusFrame", "FocusFrame", C["PetScale"])
+	
+	self:SetActiveStyle("SunUIFocusTarget")
+	local focust = self:Spawn("focustarget", "oUF_SunUIFocusTarget")
 	focust:SetScale(C["PetScale"])
+	MoveHandle.SunUIFocusTFrame = S.MakeMove(focust, "SunUI_FocusTargetFrame", "FocusTFrame", C["PetScale"])
   else
     oUF:DisableBlizzard'focus'
   end
   
   if C["showpet"] then
-    self:SetActiveStyle("monoPet")
-    local pet = self:Spawn("pet", "oUF_monoPetFrame")
-	pet:SetPoint("TOPRIGHT", "oUF_monoPlayerFrame", "TOPLEFT", -5, 0)
+    self:SetActiveStyle("SunUIPet")
+    local pet = self:Spawn("pet", "oUF_SunUIPet")
 	pet:SetScale(C["PetScale"])
+	MoveHandle.SunUIPetFrame = S.MakeMove(pet, "SunUI_PetFrame", "PetFrame", C["PetScale"])
   end
   
   local w = C["BossWidth"]
@@ -317,14 +320,15 @@ oUF:Factory(function(self)
   local visible = 'custom [group:party,nogroup:raid][@raid6,noexists,group:raid] show;hide'
   --local visible = 'raid, party'
   if C["showparty"] then
-    self:SetActiveStyle("monoParty") 
-    local party = self:SpawnHeader("monoParty",nil,visible,
+    self:SetActiveStyle("SunUIParty") 
+    local party = self:SpawnHeader("SunUIParty",nil,visible,
 	'oUF-initialConfigFunction', init:format(w,h,s,ph,ph),
 	'showParty',true,
-	'template','oUF_monoPartyPet',
+	'template','oUF_SunUIPartyPet',
 	--'useOwnerUnit', true, 
 	'yOffset', -40)
-    party:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 120, 362)
+	party:SetScale(C["BossScale"])
+    MoveHandle.SunUIPartyFrame = S.MakeMove(party, "SunUI_PartyFrame", "PartyFrame", C["BossScale"])
   else
     oUF:DisableBlizzard'party'
   end
@@ -332,19 +336,19 @@ oUF:Factory(function(self)
   local gap = 56
   if C["showarena"] and not IsAddOnLoaded('Gladius') then
     SetCVar("showArenaEnemyFrames", false)
-    self:SetActiveStyle("monoArena")
+    self:SetActiveStyle("SunUIArena")
     local arena = {}
     local arenatarget = {}
     for i = 1, 5 do
-      arena[i] = self:Spawn("arena"..i, "oUF_Arena"..i)
+      arena[i] = self:Spawn("arena"..i, "oUF_SunUIArena"..i)
 	  arena[i]:SetScale(C["BossScale"])
       if i == 1 then
-        arena[i]:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -120, 362)
+        MoveHandle.SunUIArenaFrame = S.MakeMove(arena[i], "SunUIArena"..i, "ArenaFrame", C["BossScale"])
       else
         arena[i]:SetPoint("BOTTOMRIGHT", arena[i-1], "BOTTOMRIGHT", 0, gap)
       end
     end
-    self:SetActiveStyle("monoArenaTarget")
+    self:SetActiveStyle("SunUIArenaTarget")
     for i = 1, 5 do
       arenatarget[i] = self:Spawn("arena"..i.."target", "oUF_Arena"..i.."target")
 	  arenatarget[i]:SetPoint("TOPRIGHT",arena[i], "TOPLEFT", -4, 0)
@@ -353,13 +357,13 @@ oUF:Factory(function(self)
   end
 
   if C["showboss"] then
-    self:SetActiveStyle("monoBoss")
+    self:SetActiveStyle("SunUIBoss")
     local boss = {}
     for i = 1, MAX_BOSS_FRAMES do
       boss[i] = self:Spawn("boss"..i, "oUF_Boss"..i)
 	  boss[i]:SetScale(C["BossScale"])
       if i == 1 then
-        boss[i]:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -120, 362)
+		MoveHandle.SunUIBossFrame = S.MakeMove(boss[i], "SunUIBoss"..i, "BossFrame", C["BossScale"])
       else
         boss[i]:SetPoint("BOTTOMRIGHT", boss[i-1], "BOTTOMRIGHT", 0, gap)
       end

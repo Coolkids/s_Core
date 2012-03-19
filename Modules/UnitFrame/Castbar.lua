@@ -26,7 +26,7 @@ cast.setBarTicks = function(castBar, ticknum)
 		for k = 1, ticknum do
 			if not ticks[k] then
 				ticks[k] = castBar:CreateTexture(nil, 'OVERLAY')
-				ticks[k]:SetTexture(DB.bar_texture)
+				ticks[k]:SetTexture(DB.Statusbar)
 				ticks[k]:SetVertexColor(0.8, 0.6, 0.6)
 				ticks[k]:Width(4)
 				ticks[k]:Height(castBar:GetHeight())

@@ -134,7 +134,8 @@ function MyContainer:OnCreate(name, settings)
 	})
 	self:SetBackdropColor(0, 0, 0, 0.8)
 	self:SetBackdropBorderColor(0, 0, 0, 1) ]]
-	self:CreateShadow("Background")
+	--self:CreateShadow("Background")
+	S.SetBD(self)
 
 	self:SetParent(settings.Parent or Bags)
 	self:SetFrameStrata("HIGH")

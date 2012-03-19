@@ -262,7 +262,7 @@ local function BuildBuffFrame()
 		Temp.Flag.Border = CreateFrame("Frame", nil, Temp)
 		Temp.Flag.Border:Point("TOPLEFT", Temp.Flag, "TOPLEFT", -1, 1)
 		Temp.Flag.Border:Point("BOTTOMRIGHT", Temp.Flag, "BOTTOMRIGHT", 1, -1)
-		Temp.Flag.Border:SetBackdrop({edgeFile = DB.Solid, edgeSize = 1})
+		Temp.Flag.Border:SetBackdrop({edgeFile = DB.Solid, edgeSize = S.mult})
 		Temp.Flag.Border:SetBackdropBorderColor(0, 0, 0, 1)
 
 		Temp:SetAlpha(0)	

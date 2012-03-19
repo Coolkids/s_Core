@@ -285,7 +285,7 @@ C = UnitFrameDB
   lib.gen_castbar = function(f)
     local s = CreateFrame("StatusBar", "oUF_monoCastbar"..f.mystyle, f)
     s:Size(f.width-(f.height/1.5+4),f.height/1.5)
-    s:SetStatusBarTexture(DB.bar_texture)
+    s:SetStatusBarTexture(DB.Statusbar)
     s:SetStatusBarColor(.3, .45, .65,1)
     s:SetFrameLevel(9)
     --color
@@ -333,13 +333,13 @@ C = UnitFrameDB
 	i:Size(s:GetHeight(),s:GetHeight())
     i:SetPoint("BOTTOMRIGHT", s, "BOTTOMLEFT", -6, 0)
     i:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	S.MakeTexShadow(s, i, 3)
+	CreateShadow(s, i)
     --helper2 for icon
     local h2 = CreateFrame("Frame", nil, s)
     h2:SetFrameLevel(0)
     h2:SetPoint("TOPLEFT",i,"TOPLEFT",-5,5)
     h2:SetPoint("BOTTOMRIGHT",i,"BOTTOMRIGHT",5,-5)
-    lib.gen_backdrop(h2)
+    
     if f.mystyle == "focus" and not C["focusCBuserplaced"] then
       s:SetPoint("BOTTOM", "Castbarfouce", "BOTTOM", 0, 0)
       s:Size(C["FocusCastBarWidth"],C["FocusCastBarHeight"])
@@ -408,7 +408,7 @@ C = UnitFrameDB
   end
   --gen Mirror Cast Bar
   --/run local t = _G["MirrorTimer1StatusBar"]:GetValue() print(t)
-  lib.gen_mirrorcb = function(f)
+ --[[  lib.gen_mirrorcb = function(f)
     for _, bar in pairs({'MirrorTimer1','MirrorTimer2','MirrorTimer3',}) do   
       for i, region in pairs({_G[bar]:GetRegions()}) do
         if (region.GetTexture and region:GetTexture() == 'SolidTexture') then
@@ -436,7 +436,7 @@ C = UnitFrameDB
       --lib.gen_backdrop(h)
 	  h:CreateShadow("Background")
     end
-  end
+  end ]]
   
 ------ [Auras, all of them!]
 -- Creating our own timers with blackjack and hookers!
@@ -501,7 +501,7 @@ C = UnitFrameDB
     else
       icon.remaining:Hide()
     end
-    if unit == 'player' or unit == 'target' or (unit:match'(boss)%d?$' == 'boss') or unit == 'focus' then
+    if unit == 'player' or unit == 'target' or (unit:match'(boss)%d?$' == 'boss') or unit == 'focus' or unit == 'focustarget' then
       icon.duration = duration
       icon.timeLeft = expirationTime
       icon.first = true

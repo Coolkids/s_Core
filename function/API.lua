@@ -3,18 +3,6 @@ local S, _, _, DB = unpack(select(2, ...))
 if DB.Nuke == true then return end
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 
-function S.MakeShadow(Parent, Size)
-	local Shadow = CreateFrame("Frame", nil, Parent)
-	x = S.Scale(Size)
-	Shadow:SetFrameLevel(0)
-	Shadow:SetPoint("TOPLEFT", -x, x)
-	Shadow:SetPoint("BOTTOMRIGHT", x, -x)
-	Shadow:SetBackdrop({edgeFile = DB.GlowTex, edgeSize = x})
-	Shadow:SetBackdropColor( .05, .05, .05, .9)
-	Shadow:SetBackdropBorderColor(0, 0, 0, 1)
-	return Shadow
-end
-
 function S.MakeBorder(Parent, Size)
 	local Border = CreateFrame("Frame", nil, Parent)
 	x = S.Scale(Size)
@@ -39,17 +27,6 @@ function S.MakeBG(Parent, Size)
 	BG:SetBackdropColor(0, 0, 0, 0.6)
 	BG:SetBackdropBorderColor(0, 0, 0, 1)
 	return BG
-end
-
-function S.MakeTexShadow(Parent, Anchor, Size)
-	local Shadow = CreateFrame("Frame", nil, Parent)
-	x = S.Scale(Size)
-	Shadow:SetPoint("TOPLEFT", Anchor, -Size, Size)
-	Shadow:SetPoint("BOTTOMRIGHT", Anchor, Size, -Size)
-	Shadow:SetFrameLevel(1)
-	Shadow:SetBackdrop({edgeFile = DB.GlowTex, edgeSize = Size})
-	Shadow:SetBackdropBorderColor(0, 0, 0, 1)
-	return Shadow
 end
 
 function S.MakeFontString(Parent, FontSize)
@@ -139,15 +116,7 @@ local function CreateBD(f, a)
 	f:SetBackdropColor(0, 0, 0, a or 0.6)
 	f:SetBackdropBorderColor(0, 0, 0)
 end
-function S.CreateBD(f, a)
-	f:SetBackdrop({
-		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
-		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", 
-		edgeSize = S.mult, 
-	})
-	f:SetBackdropColor(0, 0, 0, a or 0.6)
-	f:SetBackdropBorderColor(0, 0, 0)
-end
+S.CreateBD = CreateBD
 local function CreatePulse(frame, speed, mult, alpha)
 	frame.speed = speed or .05
 	frame.mult = mult or 1
@@ -168,30 +137,20 @@ local function CreatePulse(frame, speed, mult, alpha)
 		end
 	end)
 end
+S.CreatePulse = CreatePulse
 local function CreateSD(parent, size, r, g, b, alpha, offset)
 	local sd = CreateFrame("Frame", nil, parent)
 	sd.size = size or 5
 	sd.size = sd.size - 5
 	sd.offset = offset or 0
-	sd:Point("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
-	sd:Point("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
+	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
+	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
 	sd:CreateShadow()
 	sd.shadow:SetBackdropBorderColor(r or 0, g or 0, b or 0)
 	sd.border:SetBackdropBorderColor(r or 0, g or 0, b or 0)
 	sd:SetAlpha(0.7 or 1)
 end
-function S.CreateSD(parent, size, r, g, b, alpha, offset)
-	local sd = CreateFrame("Frame", nil, parent)
-	sd.size = size or 5
-	sd.size = sd.size - 5
-	sd.offset = offset or 0
-	sd:Point("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
-	sd:Point("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
-	sd:CreateShadow()
-	sd.shadow:SetBackdropBorderColor(r or 0, g or 0, b or 0)
-	sd.border:SetBackdropBorderColor(r or 0, g or 0, b or 0)
-	sd:SetAlpha(0.7 or 1)
-end
+S.CreateSD = CreateSD
 local function StartGlow(f)
 	f:SetBackdropColor(r, g, b, .1)
 	f:SetBackdropBorderColor(r, g, b)
@@ -230,10 +189,10 @@ function S.Reskin(f)
 	f.glow = CreateFrame("Frame", nil, f)
 	f.glow:SetBackdrop({
 		edgeFile = DB.GlowTex,
-		edgeSize = 5,
+		edgeSize = S.Scale(5),
 	})
-	f.glow:SetPoint("TOPLEFT", -6, 6)
-	f.glow:SetPoint("BOTTOMRIGHT", 6, -6)
+	f.glow:Point("TOPLEFT", -6, 6)
+	f.glow:Point("BOTTOMRIGHT", 6, -6)
 	f.glow:SetBackdropBorderColor(r, g, b)
 	f.glow:SetAlpha(0)
 
@@ -268,24 +227,24 @@ end
 
 	local bu = _G[frame.."ThumbTexture"]
 	bu:SetAlpha(0)
-	bu:SetWidth(17)
+	bu:Width(17)
 
 	bu.bg = CreateFrame("Frame", nil, f)
-	bu.bg:SetPoint("TOPLEFT", bu, 0, -2)
-	bu.bg:SetPoint("BOTTOMRIGHT", bu, 0, 4)
+	bu.bg:Point("TOPLEFT", bu, 0, -2)
+	bu.bg:Point("BOTTOMRIGHT", bu, 0, 4)
 	CreateBD(bu.bg, 0)
 
 	local tex = f:CreateTexture(nil, "BACKGROUND")
-	tex:SetPoint("TOPLEFT", bu.bg)
-	tex:SetPoint("BOTTOMRIGHT", bu.bg)
+	tex:Point("TOPLEFT", bu.bg)
+	tex:Point("BOTTOMRIGHT", bu.bg)
 	tex:SetTexture(DB.aurobackdrop)
 	tex:SetGradientAlpha("VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35)
 
 	local up = _G[frame.."ScrollUpButton"]
 	local down = _G[frame.."ScrollDownButton"]
 
-	up:SetWidth(17)
-	down:SetWidth(17)
+	up:Width(17)
+	down:Width(17)
 	
 	S.Reskin(up)
 	S.Reskin(down)
@@ -302,13 +261,13 @@ end
 
 	local uptex = up:CreateTexture(nil, "ARTWORK")
 	uptex:SetTexture("Interface\\AddOns\\s_Core\\Media\\arrow-up-active")
-	uptex:SetSize(8, 8)
+	uptex:Size(8, 8)
 	uptex:SetPoint("CENTER")
 	uptex:SetVertexColor(1, 1, 1)
 
 	local downtex = down:CreateTexture(nil, "ARTWORK")
 	downtex:SetTexture("Interface\\AddOns\\s_Core\\Media\\arrow-down-active")
-	downtex:SetSize(8, 8)
+	downtex:Size(8, 8)
 	downtex:SetPoint("CENTER")
 	downtex:SetVertexColor(1, 1, 1)
 end
@@ -318,17 +277,17 @@ function S.MakeButton(Parent)
 	return Button
 end
 function S.SetBD(f, x, y, x2, y2)
+	if not f then return end
 	local bg = CreateFrame("Frame", nil, f)
 	if not x then
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT")
 	else
-		bg:SetPoint("TOPLEFT", x, y)
-		bg:SetPoint("BOTTOMRIGHT", x2, y2)
+		bg:Point("TOPLEFT", x, y)
+		bg:Point("BOTTOMRIGHT", x2, y2)
 	end
 	bg:SetFrameLevel(0)
-	--(parent, size, r, g, b, alpha, offset)
-	CreateBD(bg, 0.4)
+	CreateBD(bg)
 	CreateSD(bg)
 end
 S.ReskinClose = function(f, a1, p, a2, x, y)
@@ -668,6 +627,8 @@ local function addapi(object)
 	if not object.CreateShadow then mt.CreateShadow = CreateShadow end
 	if not object.SetTemplate then mt.SetTemplate = SetTemplate end
 	if not object.StyleButton then mt.StyleButton = StyleButton end
+	if not object.CreateBD then mt.CreateBD = CreateBD end
+	if not object.CreateSD then mt.CreateSD = CreateSD end
 end
 local handled = {["Frame"] = true}
 local object = CreateFrame("Frame")
