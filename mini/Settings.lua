@@ -1,8 +1,6 @@
 ﻿local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Settings")
-function Module:OnInitialize()
-	C = MiniDB
----------------- > Some slash commands
+
 SlashCmdList['RELOADUI'] = function() ReloadUI() end
 SLASH_RELOADUI1 = '/rl'
 
@@ -24,41 +22,20 @@ SLASH_ENABLE_ADDON1 = "/en"   -- You need to reload UI after enabling/disabling 
 SlashCmdList["CLCE"] = function() CombatLogClearEntries() end
 SLASH_CLCE1 = "/clc"
 
--- a command to show frame you currently have mouseovered
-SlashCmdList["FRAME"] = function(arg)
-	if arg ~= "" then
-		arg = _G[arg]
-	else
-		arg = GetMouseFocus()
-	end
-	if arg ~= nil and arg:GetName() ~= nil then
-		local point, relativeTo, relativePoint, xOfs, yOfs = arg:GetPoint()
-		ChatFrame1:AddMessage("Name: |cffFFD100"..arg:GetName())
-		if arg:GetParent() then
-			ChatFrame1:AddMessage("Parent: |cffFFD100"..arg:GetParent():GetName())
-		end
- 		ChatFrame1:AddMessage("Width: |cffFFD100"..format("%.2f",arg:GetWidth()))
-		ChatFrame1:AddMessage("Height: |cffFFD100"..format("%.2f",arg:GetHeight()))
-		ChatFrame1:AddMessage("Strata: |cffFFD100"..arg:GetFrameStrata())
-		ChatFrame1:AddMessage("Level: |cffFFD100"..arg:GetFrameLevel())
- 		if xOfs then
-			ChatFrame1:AddMessage("X: |cffFFD100"..format("%.2f",xOfs))
-		end
-		if yOfs then
-			ChatFrame1:AddMessage("Y: |cffFFD100"..format("%.2f",yOfs))
-		end
-		if relativeTo then
-			ChatFrame1:AddMessage("Point: |cffFFD100"..point.."|r anchored to "..relativeTo:GetName().."'s |cffFFD100"..relativePoint)
-		end
-		ChatFrame1:AddMessage("----------------------")
-	elseif arg == nil then
-		ChatFrame1:AddMessage("Invalid frame name")
-	else
-		ChatFrame1:AddMessage("Could not find frame info")
-	end
-end
-SLASH_FRAME1 = "/gf"
 
+-- simple spec and equipment switching
+SlashCmdList["SPEC"] = function() 
+	if GetActiveTalentGroup()==1 then SetActiveTalentGroup(2) elseif GetActiveTalentGroup()==2 then SetActiveTalentGroup(1) end
+end
+SLASH_SPEC1 = "/ss"
+
+---------------- > Proper Ready Check sound
+local ShowReadyCheckHook = function(self, initiator, timeLeft)
+	if initiator ~= "player" then PlaySound("ReadyCheck") end
+end
+hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
+function Module:OnInitialize()
+	C = MiniDB
 -- Quest tracker(by Tukz)
 local wf = WatchFrame
 local wfmove = false 
@@ -67,15 +44,12 @@ wf:SetMovable(true);
 wf:SetClampedToScreen(false); 
 wf:ClearAllPoints()
 wf:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -35, -200)
-wf:SetWidth(250)
-wf:SetHeight(500)
-
 wf:SetUserPlaced(true)
 wf.SetPoint = function() end
 wfg = CreateFrame("Frame")
 wfg:SetPoint("TOPLEFT", wf, "TOPLEFT")
 wfg:SetPoint("BOTTOMRIGHT", wf, "BOTTOMRIGHT")
-wfg.text = S.MakeFontString(wfg, 10)
+wfg.text = S.MakeFontString(wfg, 14)
 wfg.text:SetText("点我拖动")
 wfg.text:SetPoint("TOP", wfg, "TOP")
 wfg:CreateShadow("Background")
@@ -96,10 +70,8 @@ local function WATCHFRAMELOCK()
 		print("|cffFFD700任务追踪框|r |cffFF0000锁定|r")
 	end
 end
-
 SLASH_WATCHFRAMELOCK1 = "/wf"
 SlashCmdList["WATCHFRAMELOCK"] = WATCHFRAMELOCK
-
 -- VS移动(by Tukz)
 local vs = VehicleSeatIndicator
 local vsmove = false 
@@ -115,7 +87,7 @@ vs.SetPoint = function() end
 vsg = CreateFrame("Frame")
 vsg:SetPoint("TOPLEFT", vs, "TOPLEFT")
 vsg:SetPoint("BOTTOMRIGHT", vs, "BOTTOMRIGHT")
-vsg.text = S.MakeFontString(vsg, 10)
+vsg.text = S.MakeFontString(vsg, 14)
 vsg.text:SetText("点我拖动")
 vsg.text:SetPoint("TOP", vsg, "TOP")
 vsg:CreateShadow("Background")
@@ -144,17 +116,7 @@ SlashCmdList["VehicleSeatIndicatorLOCK"] = VSLOCK
 --RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")  --Disable Boss Emote Frame
 --RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_WHISPER") --Disable Boss Whisper Frame
 
--- simple spec and equipment switching
-SlashCmdList["SPEC"] = function() 
-	if GetActiveTalentGroup()==1 then SetActiveTalentGroup(2) elseif GetActiveTalentGroup()==2 then SetActiveTalentGroup(1) end
-end
-SLASH_SPEC1 = "/ss"
 
----------------- > Proper Ready Check sound
-local ShowReadyCheckHook = function(self, initiator, timeLeft)
-	if initiator ~= "player" then PlaySound("ReadyCheck") end
-end
-hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
 
 
 ---------------- > SetupUI
