@@ -515,6 +515,10 @@ C = UnitFrameDB
     button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     button.icon:SetDrawLayer("BACKGROUND")
     --count
+	local h3 = CreateFrame("Frame", nil, button)
+    h3:SetAllPoints(button)
+    h3:SetFrameLevel(10)
+	button.count = lib.gen_fontstring(h3, DB.Font, (C["FontSize"]-1)*S.Scale(1), "THINOUTLINE")
     button.count:ClearAllPoints()
     button.count:SetJustifyH("RIGHT")
     button.count:SetPoint("BOTTOMRIGHT", 2, -2)
@@ -529,9 +533,9 @@ C = UnitFrameDB
     local h2 = CreateFrame("Frame", nil, button)
     h2:SetAllPoints(button)
     h2:SetFrameLevel(10)
-    button.remaining = lib.gen_fontstring(h2, DB.Font, (C["FontSize"]-3)*S.Scale(1), "THINOUTLINE")
+    button.remaining = lib.gen_fontstring(h2, DB.Font, (C["FontSize"]-1)*S.Scale(1), "THINOUTLINE")
 	--button.remaining:SetShadowColor(0, 0, 0)--button.remaining:SetShadowOffset(2, -1)
-    button.remaining:SetPoint("TOPLEFT", 0, -0.5)
+    button.remaining:SetPoint("TOPLEFT", -2, 4)
     --overlay texture for debuff types display
 	
     button.overlay:SetTexture(DB.bordertex)
@@ -560,7 +564,7 @@ C = UnitFrameDB
     a.initialAnchor = 'TOPLEFT'
     a.gap = true
     a.spacing = 3
-    a.size = 14
+    a.size = 16
     a.showDebuffType = true
     if f.mystyle=="target" then
       a:SetHeight((a.size+a.spacing)*2)
@@ -574,8 +578,8 @@ C = UnitFrameDB
       a.initialAnchor = 'TOPLEFT'
       a:SetHeight((a.size+a.spacing)*2)
       a:SetWidth((a.size+a.spacing)*8)
-      a.numBuffs = 15 
-      a.numDebuffs = 15
+      a.numBuffs = 8 
+      a.numDebuffs = 8
 	  a:SetPoint('TOPLEFT', f, 'TOPLEFT', -a.size-5, -1)
     elseif f.mystyle=="focus" then
       a:SetHeight((a.size+a.spacing)*2)
@@ -593,7 +597,7 @@ C = UnitFrameDB
     b.initialAnchor = "TOPLEFT"
     b["growth-y"] = "DOWN"
     b.num = 8
-    b.size = 14
+    b.size = 16
     b.spacing = 3
     b:SetHeight((b.size+b.spacing)*2)
     b:SetWidth((b.size+b.spacing)*12)
@@ -606,25 +610,25 @@ C = UnitFrameDB
     elseif f.mystyle=="arena" then
       b.showBuffType = true
       b:SetPoint("TOPLEFT", f, "TOPRIGHT", b.spacing, -2)
-	  b.size = 14
+	  b.size = 16
       b.num = 5
       b:SetWidth((b.size+b.spacing)*4)
 	elseif f.mystyle=="boss" then
       b.showBuffType = true
       b:SetPoint("TOPLEFT", f, "TOPRIGHT", b.spacing, -2)
-	  b.size = 14
+	  b.size = 16
       b.num = 4
       b:SetWidth((b.size+b.spacing)*4)
     elseif f.mystyle=='party' then
       b:SetPoint("TOPLEFT", f.Power, "BOTTOMLEFT", 0, -b.spacing)
-	  b.size = 14
+	  b.size = 16
       b.num = 8
 	elseif f.mystyle=="player" and playerauras=="BUFFS" then
 	  b['growth-x'] = 'LEFT'
       b['growth-y'] = 'DOWN' 
       b.initialAnchor = 'TOPRIGHT'
 	  b.num = 8
-	  b.size = 14
+	  b.size = 16
       b:SetHeight((b.size+b.spacing)*2)
       b:SetWidth((b.size+b.spacing)*8)
 	  b:SetPoint("TOPRIGHT", f, "TOPLEFT", -5, -1)
@@ -641,7 +645,7 @@ C = UnitFrameDB
 	d['growth-x'] = 'RIGHT'
     d["growth-y"] = "DOWN"
     d.num = 16
-    d.size = 14
+    d.size = 16
     d.spacing = 3
     d:SetHeight((d.size+d.spacing)*2)
     d:SetWidth((d.size+d.spacing)*5)
@@ -656,7 +660,7 @@ C = UnitFrameDB
       d.showDebuffType = false
       d.initialAnchor = "TOPLEFT"
       d.num = 4
-	  d.size = 14
+	  d.size = 16
 	  d:SetPoint('TOPLEFT', f, 'TOPRIGHT', 2, 0)
       d:SetWidth((d.size+d.spacing)*4)
 --[[     elseif f.mystyle=="boss" then
@@ -669,7 +673,7 @@ C = UnitFrameDB
     elseif f.mystyle=='party' then
       d:SetPoint("TOPRIGHT", f, "TOPLEFT", -d.spacing, -2)
 	  d.num = 8
-	  d.size = 14
+	  d.size = 16
       d["growth-x"] = "LEFT"
       d:SetWidth((d.size+d.spacing)*4)
 	elseif f.mystyle=="player" and playerauras=="DEBUFFS" then
@@ -677,7 +681,7 @@ C = UnitFrameDB
       d['growth-y'] = 'UP' 
       d.initialAnchor = 'BOTTOMLEFT'
 	  d.num = 8
-	  d.size = 14
+	  d.size = 16
       d:SetHeight((d.size+d.spacing)*2)
       d:SetWidth((d.size+d.spacing)*8)
 	  d:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 15)
@@ -693,7 +697,7 @@ C = UnitFrameDB
       d['growth-y'] = 'UP' 
       d.initialAnchor = 'BOTTOMLEFT'
 	  d.num = 8
-	  d.size = 14
+	  d.size = 16
       d:SetHeight((d.size+d.spacing)*2)
       d:SetWidth((d.size+d.spacing)*8)
 	  d:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 15)
@@ -706,11 +710,7 @@ C = UnitFrameDB
 ------ [Extra functionality]
  lib.gen_sppower = function(f)  
 	if class ~= "PRIEST" then return end
-    local colors = {
-		[1] = {255/255, 97/255, 97/255},
-		[2] = {255/255, 241/255, 48/255},
-		[3] = {138/255, 255/255, 48/255},
-	}
+	local color = oUF.colors.power["SOUL_SHARDS"]
 	local bars = CreateFrame("Frame", nil, f)
 	bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
     bars:SetSize((f.width-4)/3, f.height/3)
@@ -724,7 +724,7 @@ C = UnitFrameDB
 				else
 					bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
 				end
-				bars[i]:SetStatusBarColor(unpack(colors[i]))
+                bars[i]:SetStatusBarColor(color[1], color[2], color[3])
 				bars[i].bg = CreateFrame("Frame", nil, bars[i])
 				bars[i].bg:SetAllPoints()
 				bars[i].bg:CreateShadow("Background")
@@ -743,17 +743,13 @@ C = UnitFrameDB
 		end
 	end
 	bars:RegisterEvent("UNIT_AURA")
+	bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+	bars:RegisterEvent("PLAYER_REGEN_DISABLED")
+	bars:RegisterEvent("PLAYER_REGEN_ENABLED")
 	bars:SetScript("OnEvent", OnEvent)
 end
    lib.gen_classpower = function(f)  
 	if class ~= "WARLOCK" and class ~= "PALADIN" and class ~= "DEATHKNIGHT" then return end
-     local runeloadcolors = {
-      [1] = {0.59, 0.31, 0.31},
-      [2] = {0.59, 0.31, 0.31},
-      [3] = {0.33, 0.51, 0.33},
-      [4] = {0.33, 0.51, 0.33},
-      [5] = {0.31, 0.45, 0.53},
-      [6] = {0.31, 0.45, 0.53},}
         -- Runes, Shards, HolyPower
             local count
             if class == "DEATHKNIGHT" then 
@@ -763,7 +759,7 @@ end
             end
 			local bars = CreateFrame("Frame", nil, f)
 			bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
-            bars:SetSize((f.width-4)/count, f.height/3)
+            bars:SetSize((f.width-2*(count-1))/count, f.height/3)
             for i = 1, count do
                 bars[i] =CreateFrame("StatusBar", nil, bars)
 				bars[i]:SetStatusBarTexture(DB.Statusbar)
@@ -780,12 +776,10 @@ end
                 elseif class == "PALADIN" then
                     local color = oUF.colors.power["HOLY_POWER"]
                     bars[i]:SetStatusBarColor(color[1], color[2], color[3])
-                elseif  class == "DEATHKNIGHT" then
-					bars[i]:SetStatusBarColor(unpack(runeloadcolors[i]))
 				end
-				bars[i].bg = CreateFrame("Frame", nil, bars[i])
-				bars[i].bg:SetAllPoints()
-				bars[i].bg:CreateShadow("Background")
+				bars[i].bd = CreateFrame("Frame", nil, bars[i])
+				bars[i].bd:SetAllPoints()
+				bars[i].bd:CreateShadow("Background")
                 i=i-1
             end
             if class == "DEATHKNIGHT" then
@@ -920,39 +914,92 @@ end
   end
   --gen class specific power display
   lib.gen_specificpower = function(f, unit)
-    local h = CreateFrame("Frame", nil, f)
-    h:SetAllPoints(f.Health)
-    h:SetFrameLevel(10)
-	if f.mystyle == "party" then
-		local es = lib.gen_fontstring(h, DB.Font, (C["FontSize"]+2)*S.Scale(1), "THINOUTLINE")
-		es:SetPoint("CENTER", f.Power, "BOTTOMRIGHT",0,0)	
-		if class == "SHAMAN" then
-			f:Tag(es, '[raid:earth]')
+   if class ~= "DRUID" and class ~= "SHAMAN" then return end
+	local bars = CreateFrame("Frame", nil, f)
+	bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
+    bars:SetSize((f.width-4)/3, f.height/3)
+    for i = 1, 3 do
+        bars[i] =CreateFrame("StatusBar", nil, bars)
+		bars[i]:SetStatusBarTexture(DB.Statusbar)
+		bars[i]:GetStatusBarTexture():SetHorizTile(false)
+		bars[i]:SetSize((f.width-4)/3, f.height/3)
+		if (i == 1) then
+			bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
+		else
+			bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
+		end
+		bars[i]:SetStatusBarColor(DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b)
+		bars[i].bg = CreateFrame("Frame", nil, bars[i])
+		bars[i].bg:SetAllPoints()
+		bars[i].bg:CreateShadow("Background")
+        i=i-1
+        end
+		if 	class == "SHAMAN" then
+		local function OnEvent(self,event)
+			rank = select(4,UnitBuff("player", GetSpellInfo(52127)))
+			if rank then
+				for i = 1, rank do
+					bars[i]:SetAlpha(1)
+				end
+			else
+				for i = 1, 3 do
+					bars[i]:SetAlpha(0)
+				end
+			end
+		end
+		bars:RegisterEvent("UNIT_AURA")
+		bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+		bars:RegisterEvent("PLAYER_REGEN_DISABLED")
+		bars:RegisterEvent("PLAYER_REGEN_ENABLED")
+		bars:SetScript("OnEvent", OnEvent)
 		elseif class == "DRUID" then
-			f:Tag(es, '[raid:lb]')
-		elseif class == "PRIEST" then
-			f:Tag(es, '[raid:pom]')
-		end
-	end
-	if f.mystyle == "player" then
-		local sp = lib.gen_fontstring(h, DB.Font, (C["FontSize"]+10)*S.Scale(1), "OUTLINE")
-		sp:SetPoint("TOPLEFT", f.Power, "BOTTOMLEFT",0,0)
-		if class == "DRUID" then
-			f:Tag(sp, '[mono:wm1][mono:wm2][mono:wm3]')
-		elseif class == "SHAMAN" then
-			f:Tag(sp, '[mono:ws][mono:ls]')
-		end
-	end
+			local function OnEvent(self,event)
+				for i=1,3 do
+					local dur = select(4,GetTotemInfo(i))
+					if dur > 0 then
+						bars[i]:SetAlpha(1)
+					else
+						bars[i]:SetAlpha(0)
+					end
+				end
+			end
+		bars:RegisterEvent("PLAYER_TOTEM_UPDATE")
+		bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+		bars:RegisterEvent("PLAYER_REGEN_DISABLED")
+		bars:RegisterEvent("PLAYER_REGEN_ENABLED")
+		bars:SetScript("OnEvent", OnEvent)
+	  end
   end
   --gen combo points
---[[   lib.gen_cp = function(f)
-    local h = CreateFrame("Frame", nil, f)
-    h:SetAllPoints(f.Health)
-    h:SetFrameLevel(10)
-    local cp = lib.gen_fontstring(h, DB.Font, 20*S.Scale(1), "THINOUTLINE")
-    cp:SetPoint("TOPLEFT", f.Power, "BOTTOMLEFT",0,0)
-    f:Tag(cp, '[mono:cp]')
-  end ]]
+  lib.gen_cp = function(f)
+	if class ~= "ROGUE" and class ~= "DRUID" then return end
+     local colors = {
+			[1]	= {0.05, 0.43, 0.72},
+			[2]	= {0.71, 0.21, 0.82},
+			[3]	= {0.24, 0.67, 0.23},
+			[4]	= {0.95, 0.71, 0.00},
+			[5]	= {0.72, 0.05, 0.05},}
+			local bars = CreateFrame("Frame", nil, f)
+			bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
+            bars:SetSize((f.width-8)/5, f.height/4)
+            for i = 1, 5 do
+                bars[i] =CreateFrame("StatusBar", nil, bars)
+				bars[i]:SetStatusBarTexture(DB.Statusbar)
+				bars[i]:GetStatusBarTexture():SetHorizTile(false)
+				bars[i]:SetSize((f.width-12)/5, f.height/4)
+				 if (i == 1) then
+					bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
+				else
+					bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 3, 0)
+				end
+				bars[i]:SetStatusBarColor(unpack(colors[i]))
+				bars[i].bg = CreateFrame("Frame", nil, bars[i])
+				bars[i].bg:SetAllPoints()
+				bars[i].bg:CreateShadow("Background")
+                i=i-1
+				end
+				f.CPoints = bars
+  end 
   --gen LFD role indicator
   lib.gen_LFDindicator = function(f)
     local lfdi = lib.gen_fontstring(f.Power, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
