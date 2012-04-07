@@ -557,6 +557,7 @@ local function CreateShadow(f, t, offset, thickness, texture)
 	f.shadow = shadow
 end
 function S.ReskinFrame(f)
+	if f.reskin == true then return end
 	f.glow = CreateFrame("Frame", nil, f)
 	f.glow:SetBackdrop({
 		edgeFile = DB.GlowTex,
@@ -569,6 +570,7 @@ function S.ReskinFrame(f)
 
 	f:HookScript("OnEnter", StartGlow)
  	f:HookScript("OnLeave", StopGlow)
+	f.reskin = true
 end
 local function StyleButton(button, setallpoints)
 	if button.SetHighlightTexture and not button.hover then

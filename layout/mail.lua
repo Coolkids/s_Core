@@ -30,7 +30,7 @@ local function ShowTooltip(self)
 		GameTooltip:AddLine(" ")
 	local mail = HasNewMail()
 	if mail == 1 then
-		GameTooltip:AddLine(L["新邮件"].."來自",  0.75, 0.9, 1)
+		GameTooltip:AddLine(HAVE_MAIL_FROM,  0.75, 0.9, 1)
 		local sender1, sender2, sender3 = GetLatestThreeSenders()
 		GameTooltip:AddLine(sender1,0.75, 0.9, 1)
 		if sender2 then 
