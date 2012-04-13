@@ -1,0 +1,10 @@
+﻿<!-- -->
+
+
+
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+
+	<Include file="bars\load.xml"/>
+	<Include file="Plugins\load.xml"/>
+</Ui>
