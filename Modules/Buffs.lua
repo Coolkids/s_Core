@@ -6,7 +6,22 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Buff")
 local BuffPos, DebuffPos = nil, nil
 local tinsert, _G, tsort = tinsert, _G, table.sort
 local BuffTable = {["Time"] = {}, ["None"] = {}}
-
+local slotDB = {
+	[3] = "MainHandSlot",
+	[2]= "SecondaryHandSlot",
+	[1]= "RangedSlot"
+	}
+local function fetchQuality(slotName)
+	local slotId, texture, checkRelic = GetInventorySlotInfo(slotName)
+	local itemId = GetInventoryItemID("player", slotId)
+	if itemId then
+		local name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice =GetItemInfo(itemId)
+		if quality then
+			local r, g, b, hex = GetItemQualityColor(quality)
+			return r, g, b
+		end
+	end
+end
 function Module:Style(buttonName, i, f)
 	if not _G[buttonName..i] then return end
 	
@@ -50,22 +65,6 @@ function Module:Style(buttonName, i, f)
 	end
 	
 	if f == w then
-		local hasMainHandEnchant, _, _, hasOffHandEnchant, _, _, hasThrownEnchant = GetWeaponEnchantInfo()
-		local slotDB = {
-		[3] = "MainHandSlot",
-		[2]= "SecondaryHandSlot",
-		[1]= "RangedSlot"}
-		local function fetchQuality(slotName)
-			local slotId, texture, checkRelic = GetInventorySlotInfo(slotName)
-			local itemId = GetInventoryItemID("player", slotId)
-			if itemId then
-				local name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(itemId)
-				if quality then
-					local r, g, b, hex = GetItemQualityColor(quality)
-					return r, g, b
-				end
-			end
-		end
 		local r, g, b = {}, {}, {}
 		for k = 1,3 do
 			r[k], g[k], b[k] = fetchQuality(slotDB[k])
