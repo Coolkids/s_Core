@@ -40,7 +40,7 @@ function Module:OnInitialize()
 				self:Show()
 				UpdateFrame()
 				if event == "SPELL_UPDATE_COOLDOWN" then
-					start, duration = GetSpellCooldown(spellIDs[DB.MyClass])
+					local start, duration = GetSpellCooldown(spellIDs[DB.MyClass])
 					Frame.Cooldown:SetReverse(false)
 					CooldownFrame_SetTimer(Frame.Cooldown, start, duration, 1)
 				end
@@ -51,7 +51,7 @@ function Module:OnInitialize()
 				self:Show()
 				UpdateFrame()
 				if event == "SPELL_UPDATE_COOLDOWN" then
-					start, duration = GetSpellCooldown(spellIDs[DB.MyClass])
+					local start, duration = GetSpellCooldown(spellIDs[DB.MyClass])
 					Frame.Cooldown:SetReverse(false)
 					CooldownFrame_SetTimer(Frame.Cooldown, start, duration, 1)
 				end
@@ -62,7 +62,7 @@ function Module:OnInitialize()
 				self:Show()
 				UpdateFrame()
 				if event == "SPELL_UPDATE_COOLDOWN" then
-					start, duration = GetSpellCooldown(spellIDs[DB.MyClass])
+					local start, duration = GetSpellCooldown(spellIDs[DB.MyClass])
 					Frame.Cooldown:SetReverse(false)
 					CooldownFrame_SetTimer(Frame.Cooldown, start, duration, 1)
 				end
@@ -89,4 +89,5 @@ function Module:OnInitialize()
 		sp:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 		sp:RegisterEvent("UPDATE_SHAPESHIFT_FORMS")
 	end
+	
 end
