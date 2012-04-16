@@ -742,15 +742,17 @@ C = UnitFrameDB
 				bars[i].bg:CreateShadow("Background")
                 i=i-1
             end
-	local function OnEvent(self,event)
-		local rank = select(4,UnitBuff("player", GetSpellInfo(77487)))
-		if rank then
-			for i = 1, rank do
-				bars[i]:SetAlpha(1)
-			end
-		else
-			for i = 1, 3 do
-				bars[i]:SetAlpha(0)
+	local function OnEvent(self,event,unit)
+		if ( event == "UNIT_AURA" and unit == "player" ) then
+			local rank = select(4,UnitBuff("player", GetSpellInfo(77487)))
+			if rank then
+				for i = 1, rank do
+					bars[i]:SetAlpha(1)
+				end
+			else
+				for i = 1, 3 do
+					bars[i]:SetAlpha(0)
+				end
 			end
 		end
 	end
@@ -917,15 +919,17 @@ end
         i=i-1
         end
 		if 	class == "SHAMAN" then
-		local function OnEvent(self,event)
-			local rank = select(4,UnitBuff("player", GetSpellInfo(52127)))
-			if rank then
-				for i = 1, rank do
-					bars[i]:SetAlpha(1)
-				end
-			else
-				for i = 1, 3 do
-					bars[i]:SetAlpha(0)
+		local function OnEvent(self,event,unit)
+			if ( event == "UNIT_AURA" and unit == "player" ) then
+				local rank = select(4,UnitBuff("player", GetSpellInfo(52127)))
+				if rank then
+					for i = 1, rank do
+						bars[i]:SetAlpha(1)
+					end
+				else
+					for i = 1, 3 do
+						bars[i]:SetAlpha(0)
+					end
 				end
 			end
 		end
@@ -1000,15 +1004,17 @@ end
                 i=i-1
             end
 	local function OnEvent(self,event)
-		local rank = select(4,UnitBuff("target", GetSpellInfo(33763)))
-		local caster = select(8,UnitBuff("target", GetSpellInfo(33763)))
-		if rank and caster == "player" then
-			for i = 1, rank do
-				bars[i]:SetAlpha(1)
-			end
-		else
-			for i = 1, 3 do
-				bars[i]:SetAlpha(0)
+		if ( event == "UNIT_AURA" and unit == "target" ) then
+			local rank = select(4,UnitBuff("target", GetSpellInfo(33763)))
+			local caster = select(8,UnitBuff("target", GetSpellInfo(33763)))
+			if rank and caster == "player" then
+				for i = 1, rank do
+					bars[i]:SetAlpha(1)
+				end
+			else
+				for i = 1, 3 do
+					bars[i]:SetAlpha(0)
+				end
 			end
 		end
 	end
