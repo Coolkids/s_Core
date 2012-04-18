@@ -38,7 +38,7 @@ function AB:OnInitialize()
 
 	local function Style(button, totem, flyout)
 		local name = button:GetName()
-
+		if button.styled then return end
 		if name:match("MultiCast") then return end
 
 		local action = button.action
@@ -78,7 +78,7 @@ function AB:OnInitialize()
 			S.Kill(_G[name..'FloatingBG'])
 		end
 
-		if button.styled then return end
+		
 
 		if Btname then	
 			Btname:SetJustifyH("CENTER")
@@ -135,6 +135,7 @@ function AB:OnInitialize()
 
 	local function StyleSmallButton(normal, button, icon, name, pet)
 		if button.shadow then return end
+
 		local Flash = _G[name.."Flash"]
 
 		button:SetNormalTexture("")
@@ -194,7 +195,7 @@ function AB:OnInitialize()
 	local function SetupFlyoutButton()
 		for i=1, buttons do
 			if _G["SpellFlyoutButton"..i] then
-			AB:Style(_G["SpellFlyoutButton"..i])
+			Style(_G["SpellFlyoutButton"..i])
 			_G["SpellFlyoutButton"..i]:StyleButton(true)
 			end
 		end
