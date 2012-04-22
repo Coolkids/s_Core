@@ -4,6 +4,7 @@ local config = {
 	enable = 1,
 	spacing = 4,
 	bpr = 10,
+	bapr = 15,
 	size = 30,
 	scale = 1,
 }
@@ -34,7 +35,11 @@ local bags = {
 function SetUp(framen, ...)
 	local frame = CreateFrame("Frame", "bBag_"..framen, UIParent)
 	frame:SetScale(config.scale)
-	frame:SetWidth(((config.size+config.spacing)*config.bpr)+20-config.spacing)
+	if framen == "bag" then 
+		frame:SetWidth(((config.size+config.spacing)*config.bpr)+20-config.spacing)
+	else
+		frame:SetWidth(((config.size+config.spacing)*config.bapr)+20-config.spacing)
+	end
 	frame:SetPoint(...)
 	frame:SetFrameStrata("HIGH")
 	frame:SetFrameLevel(1)
@@ -57,10 +62,10 @@ function SetUp(framen, ...)
 	frame_bags:Hide()
 	frame_bags:CreateBD()
 	
-	local frame_bags_toggle = CreateFrame('Frame', "bBag_"..framen.."_bags_toggle")
-	frame_bags_toggle:SetHeight(20)
-	frame_bags_toggle:SetWidth(20)
-	frame_bags_toggle:SetPoint("TOPRIGHT", "bBag_"..framen, "TOPRIGHT", -26, -6)
+	local frame_bags_toggle = CreateFrame('Frame')
+	frame_bags_toggle:SetHeight(10)
+	frame_bags_toggle:SetWidth(10)
+	frame_bags_toggle:SetPoint("TOPRIGHT", "bBag_"..framen, "TOPRIGHT", -41, -12)
 	frame_bags_toggle:SetParent("bBag_"..framen)
 	frame_bags_toggle:EnableMouse(true)
 	
@@ -84,10 +89,10 @@ function SetUp(framen, ...)
 		end
 	end)
 	
-	local jp = CreateFrame('Frame', "bBag_"..framen.."_bags_toggle")
-	jp:SetHeight(20)
-	jp:SetWidth(20)
-	jp:SetPoint("TOPRIGHT", "bBag_"..framen, "TOPRIGHT", -14, -6)
+	local jp = CreateFrame('Frame')
+	jp:SetHeight(10)
+	jp:SetWidth(10)
+	jp:SetPoint("LEFT", frame_bags_toggle, "RIGHT", 6, 0)
 	jp:SetParent("bBag_"..framen)
 	jp:EnableMouse(true)
 	
@@ -100,10 +105,10 @@ function SetUp(framen, ...)
 		JPack:Pack()
 	end)
 	
-	local close = CreateFrame('Frame', "bBag_"..framen.."_bags_toggle")
-	close:SetHeight(20)
-	close:SetWidth(20)
-	close:SetPoint("TOPRIGHT", "bBag_"..framen, "TOPRIGHT", 0, -6)
+	local close = CreateFrame('Frame')
+	close:SetHeight(10)
+	close:SetWidth(10)
+	close:SetPoint("LEFT", jp, "RIGHT", 6, 0)
 	close:SetParent("bBag_"..framen)
 	close:EnableMouse(true)
 	
@@ -114,7 +119,6 @@ function SetUp(framen, ...)
 	closet:SetTextColor(.4,.4,.4)
 	close:SetScript('OnMouseUp', function()
 		CloseAllBags()
-		CloseBankBagFrames() 
 	end)
 	
 	if (framen == "bag") then
@@ -221,7 +225,7 @@ BagItemSearchBox:SetScript("OnUpdate", function()
 end)
 BankItemSearchBox:SetScript("OnUpdate", function()
 	BankItemSearchBox:ClearAllPoints()
-	BagItemSearchBox:SetSize(4.5*(config.spacing+config.size),20)
+	BankItemSearchBox:SetSize(4.5*(config.spacing+config.size),20)
 	BankItemSearchBox:SetPoint("LEFT", ContainerFrame2MoneyFrame, "RIGHT", 2, 0)
 end)
 
@@ -263,8 +267,8 @@ function ContainerFrame_GenerateFrame(frame, size, id)
 			local slots = GetContainerNumSlots(bag-1)
 			for item = slots, 1, -1 do
 				local itemframes = _G["ContainerFrame"..bag.."Item"..item]
-				local questTexture = _G["ContainerFrame"..bag.."Item"..item.."IconQuestTexture"]
-				S.Kill(questTexture)
+				--local questTexture = _G["ContainerFrame"..bag.."Item"..item.."IconQuestTexture"]
+				--S.Kill(questTexture)
 				itemframes:ClearAllPoints()
 				itemframes:SetWidth(config.size)
 				itemframes:SetHeight(config.size)
@@ -298,8 +302,6 @@ function ContainerFrame_GenerateFrame(frame, size, id)
 		local numrows, lastrowbutton, numbuttons, lastbutton = 0, ContainerFrame1Item1, 1, ContainerFrame1Item1
 		for bank = 1, 28 do
 			local bankitems = _G["BankFrameItem"..bank]
-			local questTexture = _G["BankFrameItem"..bank.."IconQuestTexture"]
-			S.Kill(questTexture)
 			bankitems:ClearAllPoints()
 			bankitems:SetWidth(config.size)
 			bankitems:SetHeight(config.size)
@@ -316,7 +318,7 @@ function ContainerFrame_GenerateFrame(frame, size, id)
 				bankitems:SetPoint("TOPLEFT", _G["bBag_bank"], "TOPLEFT", 10, -30)
 				lastrowbutton = bankitems
 				lastbutton = bankitems
-			elseif numbuttons==config.bpr then
+			elseif numbuttons==config.bapr then
 				bankitems:SetPoint("TOPRIGHT", lastrowbutton, "TOPRIGHT", 0, -(config.spacing+config.size))
 				bankitems:SetPoint("BOTTOMLEFT", lastrowbutton, "BOTTOMLEFT", 0, -(config.spacing+config.size))
 				lastrowbutton = bankitems
@@ -338,7 +340,7 @@ function ContainerFrame_GenerateFrame(frame, size, id)
 				itemframes:SetHeight(config.size)
 				itemframes:SetFrameStrata("HIGH")
 				itemframes:SetFrameLevel(2)
-				if numbuttons==config.bpr then
+				if numbuttons==config.bapr then
 					itemframes:SetPoint("TOPRIGHT", lastrowbutton, "TOPRIGHT", 0, -(config.spacing+config.size))
 					itemframes:SetPoint("BOTTOMLEFT", lastrowbutton, "BOTTOMLEFT", 0, -(config.spacing+config.size))
 					lastrowbutton = itemframes
@@ -392,3 +394,33 @@ function ToggleAllBags()
 		end
 	end
 end
+hooksecurefunc("ContainerFrame_Update", function(frame)
+		local id = frame:GetID()
+		local name = frame:GetName()
+		local isQuestItem, questId, isActive, questTexture
+		for i=1, frame.size, 1 do
+			itemButton = _G[name.."Item"..i]
+			questTexture = _G[name.."Item"..i.."IconQuestTexture"]
+			S.Kill(questTexture)	
+			isQuestItem, questId, isActive = GetContainerItemQuestInfo(id, itemButton:GetID())
+			if ( questId and not isActive ) then
+				itemButton.border:SetBackdropBorderColor(1, 1, 0, 1)
+			elseif ( questId or isQuestItem ) then
+				itemButton.border:SetBackdropBorderColor(1, 1, 0, 1)
+			else
+				itemButton.border:SetBackdropBorderColor(0, 0, 0, 1)
+			end
+		end
+end)
+hooksecurefunc("BankFrameItemButton_Update", function(button)
+		local questTexture = _G[button:GetName().."IconQuestTexture"]
+		if questTexture then S.Kill(questTexture)	end
+		local isQuestItem, questId, isActive = GetContainerItemQuestInfo(BANK_CONTAINER, button:GetID())
+		if ( questId and not isActive ) then
+			button.border:SetBackdropBorderColor(1, 1, 0, 1)
+		elseif ( questId or isQuestItem ) then
+			button.border:SetBackdropBorderColor(1, 1, 0, 1)
+		else
+			button.border:SetBackdropBorderColor(0, 0, 0, 1)
+		end
+end)
