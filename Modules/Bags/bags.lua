@@ -131,7 +131,7 @@ function SetUp(framen, ...)
 			f:SetNormalTexture("")
 			f:SetPushedTexture("")
 			f:SetCheckedTexture("")
-			f:CreateBD()
+			--f:CreateBorder()
 			lastbuttonbag = f
 			_G["bBag_"..framen.."_bags"]:SetWidth((24+config.spacing)*(getn(bags.bag))+14)
 			_G["bBag_"..framen.."_bags"]:SetHeight(40)
@@ -156,9 +156,9 @@ function SetUp(framen, ...)
 			f:SetNormalTexture("")
 			f:SetPushedTexture("")
 			f:SetHighlightTexture("")
-			f:CreateBD()
+			--f:CreateBorder()
 			lastbuttonbank = f
-			_G["bBag_"..framen.."_bags"]:SetWidth((24+config.spacing)*(getn(bags.bank)))
+			_G["bBag_"..framen.."_bags"]:SetWidth((24+config.spacing)*(getn(bags.bank))+14)
 			_G["bBag_"..framen.."_bags"]:SetHeight(40)
 		end
 	end
@@ -170,9 +170,9 @@ local function skin(index, frame)
 		local f = _G[bag:GetName().."IconTexture"]
         bag:SetNormalTexture("")
         bag:SetPushedTexture("")
-		bag:CreateBD()
-        f:SetPoint("TOPLEFT", bag, 2, -2)
-		f:SetPoint("BOTTOMRIGHT", bag, -2, 2)
+		bag:CreateBorder()
+        f:Point("TOPLEFT", bag, 1.5, -1.5)
+		f:Point("BOTTOMRIGHT", bag, -1.5, 1.5)
         f:SetTexCoord(.1, .9, .1, .9)
     end
 end
