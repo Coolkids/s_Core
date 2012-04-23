@@ -117,8 +117,12 @@ function SetUp(framen, ...)
 	closet:SetFont(DB.Font, 12, "OUTLINE")
 	closet:SetText("X")
 	closet:SetTextColor(.4,.4,.4)
-	close:SetScript('OnMouseUp', function()
-		CloseAllBags()
+	close:SetScript('OnMouseUp', function(self)
+		if framen == "bag" then  
+			CloseAllBags()
+		else
+			CloseBankFrame()
+		end
 	end)
 	
 	if (framen == "bag") then
