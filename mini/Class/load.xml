@@ -1,6 +1,0 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-
-	<Script file ="sh.lua"/>
-	<Script file ="PRIEST.lua"/>
-	<Script file ="Pd.lua"/>
-</Ui>

@@ -1,6 +1,5 @@
 ﻿-- Engines
 local S, C, L, DB = unpack(select(2, ...))
-if DB.Nuke == true then return end
 local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("Buff")
 
 local BuffPos, DebuffPos = nil, nil
@@ -23,12 +22,12 @@ function Module:Style(buttonName, i, f)
 	Duration:ClearAllPoints()
 	Duration:SetParent(Button)
 	Duration:SetPoint("TOP", Button, "BOTTOM", 2, -3)
-	Duration:SetFont(DB.bfont, 12*S.Scale(1)*MiniDB["FontScale"], "THINOUTLINE")
+	Duration:SetFont("Interface\\Addons\\!SunUI\\media\\ROADWAY.ttf", 12*S.Scale(1)*MiniDB["FontScale"], "THINOUTLINE")
 	
 	Count:ClearAllPoints()
 	Count:SetParent(Button)
 	Count:SetPoint("TOPRIGHT", Button, 3, -1)
-	Count:SetFont(DB.bfont, 12*S.Scale(1)*MiniDB["FontScale"], "THINOUTLINE")
+	Count:SetFont("Interface\\Addons\\!SunUI\\media\\ROADWAY.ttf", 12*S.Scale(1)*MiniDB["FontScale"], "THINOUTLINE")
 	
 	if Border then
 		Border:Hide()
