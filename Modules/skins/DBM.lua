@@ -208,6 +208,7 @@ function Module:OnInitialize()
 				end
 				return RaidNotice_AddMessage_(noticeFrame, textString, colorInfo)
 			end
+			
 		end
 	end)
 	
@@ -222,7 +223,8 @@ function Module:OnInitialize()
 			DBT_SavedOptions["DBM"].IconLeft = true
 			DBT_SavedOptions["DBM"].Texture = "Interface\\Buttons\\WHITE8x8"
 			DBT_SavedOptions["DBM"].IconRight = false	
-			DBT_SavedOptions["DBM"].HugeBarsEnabled = true
+			DBT_SavedOptions["DBM"].Flash = false
+			DBT_SavedOptions["DBM"].FadeIn = true
 			local players = {
 			["Coolkid"] = true,
 			["Coolkids"] = true,

@@ -10,12 +10,11 @@ local Module = DB["Modules"]["Reminder"]
 function Module.LoadSettings()
 	local Default = {
 	["ShowClassBuff"] = true,
-	["ClassBuffSound"] = false,
-	["ClassBuffSpace"] = 32,
-	["ShowOnlyInParty"] = true,
+	--["ClassBuffSound"] = false,
 	["ShowRaidBuff"] = true,
 	["RaidBuffSize"] = 15,
 	["ClassBuffSize"] = 32,
+	["ShowOnlyInParty"] = true,
 	["RaidBuffDirection"] = 1,
 	}
 	if not ReminderDB then ReminderDB = {} end
@@ -52,7 +51,7 @@ function Module.BuildGUI()
 							name = L["只在队伍中显示"],
 							get = function() return ReminderDB.ShowOnlyInParty end,
 							set = function(_, value) ReminderDB.ShowOnlyInParty = value end,
-						},
+						}, 
 						RaidBuffSize = {
 							type = "input", order = 2,
 							name = L["团队增益图标大小"], desc = L["团队增益图标大小"],
@@ -78,24 +77,24 @@ function Module.BuildGUI()
 					type = "group", order = 4,
 					name = " ", guiInline = true, disabled = not ReminderDB.ShowClassBuff,
 					args = {
-						ClassBuffSound = {
+--[[ 						ClassBuffSound = {
 							type = "toggle", order = 1,
 							name = L["开启声音警报"],
 							get = function() return ReminderDB.ClassBuffSound end,
 							set = function(_, value) ReminderDB.ClassBuffSound = value end,
-						},
+						}, ]]
 						ClassBuffSize = {
 							type = "input", order = 2,
 							name = L["职业增益图标大小"], desc = L["职业增益图标大小"],
 							get = function() return tostring(ReminderDB.ClassBuffSize) end,
 							set = function(_, value) ReminderDB.ClassBuffSize = tonumber(value) end,
 						},
-						ClassBuffSpace = {
+						--[[ ClassBuffSpace = {
 							type = "input", order = 3,
 							name = L["职业增益图标间距"], desc = L["职业增益图标间距"],
 							get = function() return tostring(ReminderDB.ClassBuffSpace) end,
 							set = function(_, value) ReminderDB.ClassBuffSpace = tonumber(value) end,
-						},
+						}, --]]
 					},
 				},
 			},
