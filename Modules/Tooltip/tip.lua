@@ -183,8 +183,7 @@ function Module:OnInitialize()
 				end
 				self:AddLine(TARGET..": "..text)
 			end
-		end
-		 if C["HideTitles"] then
+			if C["HideTitles"] then
 				local name = self:GetUnit()
                 local title = UnitPVPName(unit)
                 if title then
@@ -194,6 +193,7 @@ function Module:OnInitialize()
                     if text then GameTooltipTextLeft1:SetText(text) end
                 end
             end
+		end
 	end)
 
 	GameTooltipStatusBar.bg = CreateFrame("Frame", nil, GameTooltipStatusBar)
@@ -251,7 +251,7 @@ function Module:OnInitialize()
 			tooltip:SetOwner(parent, "ANCHOR_CURSOR")
 		else
 			tooltip:SetOwner(parent, "ANCHOR_NONE")
-			tooltip:SetPoint("BOTTOMRIGHT", TooltipMover, "BOTTOMRIGHT", 0, 0)
+			tooltip:SetPoint("BOTTOMRIGHT", tooltipholder, "BOTTOMRIGHT", 0, 0)
 		end	
 		tooltip.default = 1
 	end)

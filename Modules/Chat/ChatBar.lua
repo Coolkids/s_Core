@@ -31,11 +31,12 @@ function Module:BuildChatbar()
 			Button:SetAttribute("*type*", "macro")
 			Button:SetAttribute("macrotext", "/roll")
 		end
-		Button:SetSize((ChatFrame1:GetWidth()-14)/8, InfoPanelDB["BottomHeight"])
+		Button:SetSize((ChatFrame1:GetWidth()-14)/8, 4)
 		Button:SetBackdrop({ 
-			bgFile = DB.Statusbar, insets = {left = 1, right = 1, top = 1, bottom = 2}, 
+			bgFile = DB.Statusbar, --insets = {left = 1, right = 1, top = 1, bottom = 2}, 
 		})
 		Button:SetBackdropColor(unpack(Color[i]))
+		Button:CreateShadow()
 		Button:SetScript("OnEnter", function(self)
 			if InCombatLockdown() then return end
 			UIFrameFadeIn(Parent, 2, Parent:GetAlpha(), 1)
@@ -45,7 +46,7 @@ function Module:BuildChatbar()
 			UIFrameFadeOut(Parent, 2, self:GetAlpha(), 0)
 		end)
 		if i == 1 then
-			Button:SetPoint("TOPLEFT", ChatFrame1, "BOTTOMLEFT", 0, -5)
+			Button:Point("TOPLEFT", ChatFrame1, "BOTTOMLEFT", 0, -2)
 		else
 			Button:SetPoint("LEFT", PreButton, "RIGHT", 2, 0)
 		end

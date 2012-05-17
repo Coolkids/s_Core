@@ -9,7 +9,6 @@ local lib = CreateFrame("Frame")
 local PlayerTimersOnly = false 
 function Module:OnInitialize()
 local playerauras = "DEBUFFS"  		
-local EnableCombatFeedback = false
 C = UnitFrameDB
   -----------------------------
   -- local variables
@@ -706,47 +705,47 @@ C = UnitFrameDB
   end
 
 ------ [Extra functionality]
- lib.gen_sppower = function(f)  
-	if class ~= "PRIEST" then return end
-	local color = oUF.colors.power["SOUL_SHARDS"]
-	local bars = CreateFrame("Frame", nil, f)
-	bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
-	bars:SetFrameLevel(16)
-    bars:SetSize((f.width-4)/3, f.height/3/2)
-            for i = 1, 3 do
-                bars[i] =CreateFrame("StatusBar", nil, bars)
-				bars[i]:SetStatusBarTexture(DB.Statusbar)
-				bars[i]:GetStatusBarTexture():SetHorizTile(false)
-				bars[i]:SetSize((f.width-4)/3, f.height/3/2)
-				 if (i == 1) then
-					bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
-				else
-					bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
-				end
-                bars[i]:SetStatusBarColor(color[1], color[2], color[3])
-				bars[i].bg = CreateFrame("Frame", nil, bars[i])
-				bars[i].bg:SetAllPoints()
-				bars[i].bg:CreateShadow("Background")
-                i=i-1
-            end
-	local function OnEvent(self,event,unit)
-		if ( event == "UNIT_AURA" and unit == "player" ) or event == "PLAYER_ENTERING_WORLD" then
-			local rank = select(4,UnitBuff("player", GetSpellInfo(77487)))
-			if rank then
-				for i = 1, rank do
-					bars[i]:SetAlpha(1)
-				end
-			else
-				for i = 1, 3 do
-					bars[i]:SetAlpha(0)
-				end
-			end
-		end
-	end
-	bars:RegisterEvent("UNIT_AURA")
-	bars:RegisterEvent("PLAYER_ENTERING_WORLD")
-	bars:SetScript("OnEvent", OnEvent)
-end
+ -- lib.gen_sppower = function(f)  
+	-- if class ~= "PRIEST" then return end
+	-- local color = oUF.colors.power["SOUL_SHARDS"]
+	-- local bars = CreateFrame("Frame", nil, f)
+	-- bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
+	-- bars:SetFrameLevel(16)
+    -- bars:SetSize((f.width-4)/3, f.height/3/2)
+            -- for i = 1, 3 do
+                -- bars[i] =CreateFrame("StatusBar", nil, bars)
+				-- bars[i]:SetStatusBarTexture(DB.Statusbar)
+				-- bars[i]:GetStatusBarTexture():SetHorizTile(false)
+				-- bars[i]:SetSize((f.width-4)/3, f.height/3/2)
+				 -- if (i == 1) then
+					-- bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
+				-- else
+					-- bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
+				-- end
+                -- bars[i]:SetStatusBarColor(color[1], color[2], color[3])
+				-- bars[i].bg = CreateFrame("Frame", nil, bars[i])
+				-- bars[i].bg:SetAllPoints()
+				-- bars[i].bg:CreateShadow("Background")
+                -- i=i-1
+            -- end
+	-- local function OnEvent(self,event,unit)
+		-- if ( event == "UNIT_AURA" and unit == "player" ) or event == "PLAYER_ENTERING_WORLD" then
+			-- local rank = select(4,UnitBuff("player", GetSpellInfo(77487)))
+			-- if rank then
+				-- for i = 1, rank do
+					-- bars[i]:SetAlpha(1)
+				-- end
+			-- else
+				-- for i = 1, 3 do
+					-- bars[i]:SetAlpha(0)
+				-- end
+			-- end
+		-- end
+	-- end
+	-- bars:RegisterEvent("UNIT_AURA")
+	-- bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+	-- bars:SetScript("OnEvent", OnEvent)
+-- end
    lib.gen_classpower = function(f)  
 	if class ~= "WARLOCK" and class ~= "PALADIN" and class ~= "DEATHKNIGHT" then return end
         -- Runes, Shards, HolyPower
@@ -838,7 +837,7 @@ end
 		TotemBar:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 1, 3)
 		TotemBar.Destroy = true
 		TotemBar.UpdateColors = true
-		TotemBar.AbbreviateNames = true
+		--TotemBar.AbbreviateNames = true
 		for i = 1, 4 do
 			local t = CreateFrame("Frame", nil, TotemBar)
 			t:SetPoint("LEFT", (i - 1) * (width + 3.5), 0)
@@ -852,12 +851,12 @@ end
 			t.StatusBar = bar
 			local h = CreateFrame("Frame",nil,t)
 			h:SetFrameLevel(10)
-			local time = lib.gen_fontstring(h, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
-			time:SetPoint("BOTTOMRIGHT",t,"TOPRIGHT", 0, -1)
-			time:SetFontObject"GameFontNormal"
-			t.Time = time
-			local text = lib.gen_fontstring(h, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
-			text:Hide()---SetPoint("BOTTOMLEFT", t, "TOPLEFT", 0, -1)
+			--local time = lib.gen_fontstring(h, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
+			--time:SetPoint("BOTTOMRIGHT",t,"TOPRIGHT", 0, -1)
+			--time:SetFontObject"GameFontNormal"
+			--t.Time = time
+			--local text = lib.gen_fontstring(h, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
+			--text:Hide()---SetPoint("BOTTOMLEFT", t, "TOPLEFT", 0, -1)
 			--text:SetFontObject"GameFontNormal"
 			t.Text = text
 			bar:CreateShadow("Background")
@@ -877,67 +876,67 @@ end
     end
   end
   --gen class specific power display
-  lib.gen_specificpower = function(f, unit)
-   if class ~= "DRUID" and class ~= "SHAMAN" then return end
-	local bars = CreateFrame("Frame", nil, f)
-	bars:SetSize((f.width-10)/3, f.height/3/2)
-	bars:SetFrameLevel(16)
-	bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
-    for i = 1, 3 do
-        bars[i] =CreateFrame("StatusBar", nil, bars)
-		bars[i]:SetStatusBarTexture(DB.Statusbar)
-		bars[i]:GetStatusBarTexture():SetHorizTile(false)
-		bars[i]:SetSize((f.width-4)/3, f.height/3/2)
-		if (i == 1) then
-			bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
-		else
-			bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
-		end
-		if class == "DRUID" then 
-			local color = oUF.colors.power["SOUL_SHARDS"]
-            bars[i]:SetStatusBarColor(color[1], color[2], color[3])
-		else
-			bars[i]:SetStatusBarColor(DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b)
-		end
-		bars[i].bg = CreateFrame("Frame", nil, bars[i])
-		bars[i].bg:SetAllPoints()
-		bars[i].bg:CreateShadow("Background")
-        i=i-1
-        end
-		if 	class == "SHAMAN" then
-		local function OnEvent(self,event,unit)
-			if ( event == "UNIT_AURA" and unit == "player" ) or event == "PLAYER_ENTERING_WORLD" then
-				local rank = select(4,UnitBuff("player", GetSpellInfo(52127)))
-				if rank then
-					for i = 1, rank do
-						bars[i]:SetAlpha(1)
-					end
-				else
-					for i = 1, 3 do
-						bars[i]:SetAlpha(0)
-					end
-				end
-			end
-		end
-		bars:RegisterEvent("UNIT_AURA")
-		bars:RegisterEvent("PLAYER_ENTERING_WORLD")
-		bars:SetScript("OnEvent", OnEvent)
-		elseif class == "DRUID" then
-			local function OnEvent(self,event)
-				for i=1,3 do
-					local dur = select(4,GetTotemInfo(i))
-					if dur > 0 then
-						bars[i]:SetAlpha(1)
-					else
-						bars[i]:SetAlpha(0)
-					end
-				end
-			end
-		bars:RegisterEvent("PLAYER_TOTEM_UPDATE")
-		bars:RegisterEvent("PLAYER_ENTERING_WORLD")
-		bars:SetScript("OnEvent", OnEvent)
-	  end
-  end
+  -- lib.gen_specificpower = function(f, unit)
+   -- if class ~= "DRUID" and class ~= "SHAMAN" then return end
+	-- local bars = CreateFrame("Frame", nil, f)
+	-- bars:SetSize((f.width-10)/3, f.height/3/2)
+	-- bars:SetFrameLevel(16)
+	-- bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
+    -- for i = 1, 3 do
+        -- bars[i] =CreateFrame("StatusBar", nil, bars)
+		-- bars[i]:SetStatusBarTexture(DB.Statusbar)
+		-- bars[i]:GetStatusBarTexture():SetHorizTile(false)
+		-- bars[i]:SetSize((f.width-4)/3, f.height/3/2)
+		-- if (i == 1) then
+			-- bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
+		-- else
+			-- bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
+		-- end
+		-- if class == "DRUID" then 
+			-- local color = oUF.colors.power["SOUL_SHARDS"]
+            -- bars[i]:SetStatusBarColor(color[1], color[2], color[3])
+		-- else
+			-- bars[i]:SetStatusBarColor(DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b)
+		-- end
+		-- bars[i].bg = CreateFrame("Frame", nil, bars[i])
+		-- bars[i].bg:SetAllPoints()
+		-- bars[i].bg:CreateShadow("Background")
+        -- i=i-1
+        -- end
+		-- if 	class == "SHAMAN" then
+		-- local function OnEvent(self,event,unit)
+			-- if ( event == "UNIT_AURA" and unit == "player" ) or event == "PLAYER_ENTERING_WORLD" then
+				-- local rank = select(4,UnitBuff("player", GetSpellInfo(52127)))
+				-- if rank then
+					-- for i = 1, rank do
+						-- bars[i]:SetAlpha(1)
+					-- end
+				-- else
+					-- for i = 1, 3 do
+						-- bars[i]:SetAlpha(0)
+					-- end
+				-- end
+			-- end
+		-- end
+		-- bars:RegisterEvent("UNIT_AURA")
+		-- bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+		-- bars:SetScript("OnEvent", OnEvent)
+		-- elseif class == "DRUID" then
+			-- local function OnEvent(self,event)
+				-- for i=1,3 do
+					-- local dur = select(4,GetTotemInfo(i))
+					-- if dur > 0 then
+						-- bars[i]:SetAlpha(1)
+					-- else
+						-- bars[i]:SetAlpha(0)
+					-- end
+				-- end
+			-- end
+		-- bars:RegisterEvent("PLAYER_TOTEM_UPDATE")
+		-- bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+		-- bars:SetScript("OnEvent", OnEvent)
+	  -- end
+  -- end
   --gen combo points
   lib.gen_cp = function(f)
 	if class ~= "ROGUE" and class ~= "DRUID" then return end
@@ -968,46 +967,46 @@ end
 				end
 				f.CPoints = bars
   end 
-  lib.gen_lifebloom = function(f)  
-	if class ~= "DRUID" then return end
-	local bars = CreateFrame("Frame", nil, f)
-	bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
-	bars:SetFrameLevel(16)
-    bars:SetSize((f.width-4)/3, f.height/3/2)
-            for i = 1, 3 do
-                bars[i] =CreateFrame("StatusBar", nil, bars)
-				bars[i]:SetStatusBarTexture(DB.Statusbar)
-				bars[i]:GetStatusBarTexture():SetHorizTile(false)
-				bars[i]:SetSize((f.width-4)/3, f.height/3/2)
-				 if (i == 1) then
-					bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
-				else
-					bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
-				end
-                bars[i]:SetStatusBarColor(0.2, 0.8, 0.2)
-				bars[i].bg = CreateFrame("Frame", nil, bars[i])
-				bars[i].bg:SetAllPoints()
-				bars[i].bg:CreateShadow("Background")
-                i=i-1
-            end
-	local function OnEvent(self,event)
-		local rank = select(4,UnitBuff("target", GetSpellInfo(33763)))
-		local caster = select(8,UnitBuff("target", GetSpellInfo(33763)))
-		if rank and caster == "player" then
-			for i = 1, rank do
-				bars[i]:SetAlpha(1)
-			end
-		else
-			for i = 1, 3 do
-				bars[i]:SetAlpha(0)
-			end
-		end
-	end
-	bars:RegisterEvent("UNIT_AURA")
-	bars:RegisterEvent("PLAYER_TARGET_CHANGED")
-	bars:RegisterEvent("PLAYER_ENTERING_WORLD")
-	bars:SetScript("OnEvent", OnEvent)
-end
+  -- lib.gen_lifebloom = function(f)  
+	-- if class ~= "DRUID" then return end
+	-- local bars = CreateFrame("Frame", nil, f)
+	-- bars:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
+	-- bars:SetFrameLevel(16)
+    -- bars:SetSize((f.width-4)/3, f.height/3/2)
+            -- for i = 1, 3 do
+                -- bars[i] =CreateFrame("StatusBar", nil, bars)
+				-- bars[i]:SetStatusBarTexture(DB.Statusbar)
+				-- bars[i]:GetStatusBarTexture():SetHorizTile(false)
+				-- bars[i]:SetSize((f.width-4)/3, f.height/3/2)
+				 -- if (i == 1) then
+					-- bars[i]:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, -1.5)
+				-- else
+					-- bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 2, 0)
+				-- end
+                -- bars[i]:SetStatusBarColor(0.2, 0.8, 0.2)
+				-- bars[i].bg = CreateFrame("Frame", nil, bars[i])
+				-- bars[i].bg:SetAllPoints()
+				-- bars[i].bg:CreateShadow("Background")
+                -- i=i-1
+            -- end
+	-- local function OnEvent(self,event)
+		-- local rank = select(4,UnitBuff("target", GetSpellInfo(33763)))
+		-- local caster = select(8,UnitBuff("target", GetSpellInfo(33763)))
+		-- if rank and caster == "player" then
+			-- for i = 1, rank do
+				-- bars[i]:SetAlpha(1)
+			-- end
+		-- else
+			-- for i = 1, 3 do
+				-- bars[i]:SetAlpha(0)
+			-- end
+		-- end
+	-- end
+	-- bars:RegisterEvent("UNIT_AURA")
+	-- bars:RegisterEvent("PLAYER_TARGET_CHANGED")
+	-- bars:RegisterEvent("PLAYER_ENTERING_WORLD")
+	-- bars:SetScript("OnEvent", OnEvent)
+-- end
   --gen LFD role indicator
   lib.gen_LFDindicator = function(f)
     local lfdi = lib.gen_fontstring(f.Power, DB.Font, C["FontSize"]*S.Scale(1), "THINOUTLINE")
@@ -1129,61 +1128,61 @@ end
     f:Tag(ti, '[mono:targeticon]')
   end
   --gen fake target bars
-  lib.gen_faketarget = function(f)
-    local fhp = CreateFrame("frame","FakeHealthBar",UIParent) 
-    fhp:SetAlpha(.6)
-    fhp:Size(f.width,f.height)
-    fhp:SetPoint("TOPLEFT",oUF_monoTargetFrame,"TOPLEFT",0,0)
-    fhp.bg = fhp:CreateTexture(nil, "PARENT")
-    fhp.bg:SetTexture(DB.Statusbar)
-    fhp.bg:ClearAllPoints()
-    fhp.bg:SetAllPoints(fhp)
-    fhp.bg:SetVertexColor(.3,.3,.3)
-    local h = CreateFrame("Frame",nil,fhp)
-    h:SetBackdrop(backdrop_tab)
-    h:SetPoint("TOPLEFT",-3.5,3.5)
-    h:SetPoint("BOTTOMRIGHT",3.5,-3.5)
-    h:SetBackdropColor(0,0,0,0)
-    h:SetBackdropBorderColor(0,0,0,.7)
+  -- lib.gen_faketarget = function(f)
+    -- local fhp = CreateFrame("frame","FakeHealthBar",UIParent) 
+    -- fhp:SetAlpha(.6)
+    -- fhp:Size(f.width,f.height)
+    -- fhp:SetPoint("TOPLEFT",oUF_monoTargetFrame,"TOPLEFT",0,0)
+    -- fhp.bg = fhp:CreateTexture(nil, "PARENT")
+    -- fhp.bg:SetTexture(DB.Statusbar)
+    -- fhp.bg:ClearAllPoints()
+    -- fhp.bg:SetAllPoints(fhp)
+    -- fhp.bg:SetVertexColor(.3,.3,.3)
+    -- local h = CreateFrame("Frame",nil,fhp)
+    -- h:SetBackdrop(backdrop_tab)
+    -- h:SetPoint("TOPLEFT",-3.5,3.5)
+    -- h:SetPoint("BOTTOMRIGHT",3.5,-3.5)
+    -- h:SetBackdropColor(0,0,0,0)
+    -- h:SetBackdropBorderColor(0,0,0,.7)
 
-    local fpp = CreateFrame("frame","FakeManaBar",fhp)
-    fpp:SetWidth(fhp:GetWidth())
-    fpp:SetHeight(f.height/3)
-    fpp:SetPoint("TOPLEFT",FakeHealthBar,"BOTTOMLEFT",0,-2)
-    fpp.bg = fpp:CreateTexture(nil, "PARENT")
-    fpp.bg:SetTexture(DB.Statusbar)
-    fpp.bg:ClearAllPoints()
-    fpp.bg:SetAllPoints(fpp)
-    fpp.bg:SetVertexColor(.30,.45,.65)
-    local h2 = CreateFrame("Frame",nil,fpp)
-    h2:SetBackdrop(backdrop_tab)
-    h2:SetPoint("TOPLEFT",-3.5,5)
-    h2:SetPoint("BOTTOMRIGHT",3.5,-5)
-    h2:SetBackdropColor(0,0,0,0)
-    h2:SetBackdropBorderColor(0,0,0,1)
+    -- local fpp = CreateFrame("frame","FakeManaBar",fhp)
+    -- fpp:SetWidth(fhp:GetWidth())
+    -- fpp:SetHeight(f.height/3)
+    -- fpp:SetPoint("TOPLEFT",FakeHealthBar,"BOTTOMLEFT",0,-2)
+    -- fpp.bg = fpp:CreateTexture(nil, "PARENT")
+    -- fpp.bg:SetTexture(DB.Statusbar)
+    -- fpp.bg:ClearAllPoints()
+    -- fpp.bg:SetAllPoints(fpp)
+    -- fpp.bg:SetVertexColor(.30,.45,.65)
+    -- local h2 = CreateFrame("Frame",nil,fpp)
+    -- h2:SetBackdrop(backdrop_tab)
+    -- h2:SetPoint("TOPLEFT",-3.5,5)
+    -- h2:SetPoint("BOTTOMRIGHT",3.5,-5)
+    -- h2:SetBackdropColor(0,0,0,0)
+    -- h2:SetBackdropBorderColor(0,0,0,1)
 
-    fhp:RegisterEvent('PLAYER_TARGET_CHANGED')
-    fhp:SetScript('OnEvent', function(self)
-      if UnitExists("target") then
-        self:Hide()
-      else
-        self:Show()
-      end
-    end)
-  end
-  -- oUF_CombatFeedback
-  lib.gen_combat_feedback = function(f)
-	if EnableCombatFeedback then
-		local h = CreateFrame("Frame", nil, f.Health)
-		h:SetAllPoints(f.Health)
-		h:SetFrameLevel(30)
-		local cfbt = lib.gen_fontstring(h, DB.Font, (C["FontSize"]+4)*S.Scale(1), "THINOUTLINE")
-		cfbt:SetPoint("CENTER", f.Health, "BOTTOM", 0, -1)
-		cfbt.maxAlpha = 0.75
-		cfbt.ignoreEnergize = true
-		f.CombatFeedbackText = cfbt
-	end
-  end
+    -- fhp:RegisterEvent('PLAYER_TARGET_CHANGED')
+    -- fhp:SetScript('OnEvent', function(self)
+      -- if UnitExists("target") then
+        -- self:Hide()
+      -- else
+        -- self:Show()
+      -- end
+    -- end)
+  -- end
+  --oUF_CombatFeedback
+  -- lib.gen_combat_feedback = function(f)
+	-- if EnableCombatFeedback then
+		-- local h = CreateFrame("Frame", nil, f.Health)
+		-- h:SetAllPoints(f.Health)
+		-- h:SetFrameLevel(30)
+		-- local cfbt = lib.gen_fontstring(h, DB.Font, (C["FontSize"]+4)*S.Scale(1), "THINOUTLINE")
+		-- cfbt:SetPoint("CENTER", f.Health, "BOTTOM", 0, -1)
+		-- cfbt.maxAlpha = 0.75
+		-- cfbt.ignoreEnergize = true
+		-- f.CombatFeedbackText = cfbt
+	-- end
+  -- end
   -- oUF_Swing
   lib.gen_swing_timer = function(f)
 	if C["EnableSwingTimer"] then
