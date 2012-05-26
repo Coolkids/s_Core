@@ -156,11 +156,14 @@ function SunUIConfig:LoadDefaults()
 				["ClassCDIcon"] = false,
 				["ClassCDIconSize"] = 25,
 				["ClassCDIconDirection"] = 1,
+				["IPhoneLock"] = true,
 			},
 			InfoPanelDB = {
 				["OpenTop"] = true,
 				["OpenBottom"] = true,
 				["MemNum"] = 5,
+				["Friend"] = false,
+				["Guild"] = false,
 			},
 			MoveHandleDB = {
 				["bar3"] = {
@@ -1319,6 +1322,11 @@ function SunUIConfig.GenerateOptionsInternal()
 								name = "Auto AcceptResurrect",
 								order = 15,
 							},
+							IPhoneLock = {
+								type = "toggle",
+								name = "SlideLock",
+								order = 16,
+							},
 						}
 					},
 					group2 = {
@@ -1573,24 +1581,30 @@ function SunUIConfig.GenerateOptionsInternal()
 					type = "toggle",
 					name = L["启用顶部信息条"],
 					order = 1,
-					get = function() return db.InfoPanelDB.OpenTop end,
-					set = function(_, value) db.InfoPanelDB.OpenTop = value end,
+					},
+					OpenBottom = {
+						type = "toggle",
+						name = L["启用底部信息条"],
+						order = 2,
 					},
 					MemNum = {
 						type = "input",
 						name = L["一次显示插件数目"],
 						desc = L["一次显示插件数目"],
 						disabled = not db.InfoPanelDB.OpenTop,
-						order = 4,
+						order = 3,
 						get = function() return tostring(db.InfoPanelDB.MemNum) end,
 						set = function(_, value) db.InfoPanelDB.MemNum = tonumber(value) end,
 					},
-					OpenBottom = {
+					Friend = {
+					type = "toggle",
+					name = FRIENDS,
+					order = 4,
+					},
+					Guild = {
 						type = "toggle",
-						name = L["启用底部信息条"],
-						order = 3,
-						get = function() return db.InfoPanelDB.OpenBottom end,
-						set = function(_, value) db.InfoPanelDB.OpenBottom = value end,
+						name = GUILD,
+						order = 5,
 					},
 				}
 			},	
@@ -1634,6 +1648,15 @@ function SunUIConfig.GenerateOptionsInternal()
 	}
 	SunUIConfig.Options.args.profiles = SunUIConfig.profile
 end
+-- for group, options in pairs(SunUIConfig.profile) do
+		-- if not C[group] then C[group] = {} end
+		-- if C[group] then
+			-- for option, value in pairs(options) do
+				-- C[group][option] = value
+			-- end
+		-- end
+	-- end
+-- MoveHandle = {}
 local function BuildFrame()
 	local f = CreateFrame("Frame", "SunUI_InstallFrame", UIParent)
 	f:SetSize(400, 400)
@@ -1729,6 +1752,7 @@ local function BuildFrame()
 	end
 	--SetUpDBM
 	local function SetDBM()
+		if not IsAddOnLoaded("DBM-Core") then return end
 		if(DBM_SavedOptions) then table.wipe(DBM_SavedOptions) end
 		DBM_SavedOptions["DisableCinematics"] = true
 		DBM_SavedOptions.Enabled = true
