@@ -112,6 +112,7 @@ function SunUIConfig:LoadDefaults()
 				["Height"] = 20,
 				["BigFocus"] = true,
 				["PlayerBuff"] = 4,
+				["CastBar"] = true,
 			},
 			MiniDB = {
 				["uiScale"] = 0.9,
@@ -163,7 +164,6 @@ function SunUIConfig:LoadDefaults()
 			InfoPanelDB = {
 				["OpenTop"] = true,
 				["OpenBottom"] = true,
-				["MemNum"] = 5,
 				["Friend"] = false,
 				["Guild"] = false,
 			},
@@ -539,7 +539,7 @@ function SunUIConfig.GenerateOptionsInternal()
 			Header = {
 				order = 1,
 				type = "header",
-				name = "6.6A",
+				name = "6.10A",
 				width = "full",		
 			},
 			Unlock = {
@@ -1102,6 +1102,10 @@ function SunUIConfig.GenerateOptionsInternal()
 							type = "toggle", order = 12,
 							name = "BigFocus",
 						},
+						CastBar = {
+							type = "toggle", order = 13,
+							name = "施法条开关",
+						},
 					}
 					},
 					group2 = {
@@ -1166,7 +1170,7 @@ function SunUIConfig.GenerateOptionsInternal()
 					},
 					group3 = {
 						type = "group", order = 3,
-						name = " ",guiInline = true,
+						name = " ",guiInline = true,disabled = (db.UnitFrameDB.CastBar == false),
 						args = {
 							playerCBuserplaced = {
 								type = "toggle", order = 1,
@@ -1602,24 +1606,15 @@ function SunUIConfig.GenerateOptionsInternal()
 						name = L["启用底部信息条"],
 						order = 2,
 					},
-					MemNum = {
-						type = "input",
-						name = L["一次显示插件数目"],
-						desc = L["一次显示插件数目"],
-						disabled = not db.InfoPanelDB.OpenTop,
-						order = 3,
-						get = function() return tostring(db.InfoPanelDB.MemNum) end,
-						set = function(_, value) db.InfoPanelDB.MemNum = tonumber(value) end,
-					},
 					Friend = {
 					type = "toggle",
 					name = FRIENDS,
-					order = 4,
+					order = 3,
 					},
 					Guild = {
 						type = "toggle",
 						name = GUILD,
-						order = 5,
+						order = 4,
 					},
 				}
 			},	
