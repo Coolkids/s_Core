@@ -7,6 +7,7 @@ local DEFAULT_HEIGHT = 500
 local AC = LibStub("AceConfig-3.0")
 local ACD = LibStub("AceConfigDialog-3.0")
 local Version = 20120323
+local aglin = false
 function SunUIConfig:LoadDefaults()
 	--Defaults
 	defaults = {
@@ -85,11 +86,11 @@ function SunUIConfig:LoadDefaults()
 				["Scale"] = 1,
 				["EnableSwingTimer"] = false,
 				["PetHeight"] = 10,
-				["TargetCastBarHeight"] = 6,
+				["TargetCastBarHeight"] = 10,
 				["EnableBarFader"] = false,
 				["BossWidth"] = 140,
 				["BossScale"] = 1,
-				["TargetCastBarWidth"] = 180,
+				["TargetCastBarWidth"] = 300,
 				["showparty"] = false,
 				["targetCBuserplaced"] = false,
 				["TargetAura"] = 1,
@@ -160,6 +161,8 @@ function SunUIConfig:LoadDefaults()
 				["ClassCDIconSize"] = 25,
 				["ClassCDIconDirection"] = 1,
 				["IPhoneLock"] = true,
+				["AutoQuest"] = true,
+				["FatigueWarner"] = true,
 			},
 			InfoPanelDB = {
 				["OpenTop"] = true,
@@ -288,11 +291,11 @@ function SunUIConfig:LoadDefaults()
 					190, -- [5]
 				},
 				["TargetCastbar"] = {
-					"TOP", -- [1]
-					"oUF_SunUITarget", -- [2]
-					"BOTTOM", -- [3]
+					"CENTER", -- [1]
+					"UIParent", -- [2]
+					"CENTER", -- [3]
 					0, -- [4]
-					-30, -- [5]
+					185, -- [5]
 				},
 				["Buff"] = {
 					"TOPRIGHT", -- [1]
@@ -539,7 +542,7 @@ function SunUIConfig.GenerateOptionsInternal()
 			Header = {
 				order = 1,
 				type = "header",
-				name = "6.10A",
+				name = "6.18A",
 				width = "full",		
 			},
 			Unlock = {
@@ -550,7 +553,7 @@ function SunUIConfig.GenerateOptionsInternal()
 					--ACD["Close"](ACD,"SunUIConfig")
 					if not UnitAffectingCombat("player") then
 						for _, value in pairs(MoveHandle) do value:Show() end
-						SlashCmdList.TOGGLEGRID()
+						if not aglin then SlashCmdList.TOGGLEGRID() aglin = true end
 					end
 					--GameTooltip_Hide()
 				end,
@@ -562,7 +565,7 @@ function SunUIConfig.GenerateOptionsInternal()
 				func = function()
 					if not UnitAffectingCombat("player") then
 						for _, value in pairs(MoveHandle) do value:Hide() end
-						SlashCmdList.TOGGLEGRID()
+						if aglin then SlashCmdList.TOGGLEGRID() aglin = false end
 					end
 				end,
 			},
@@ -1345,6 +1348,16 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = "SlideLock",
 								order = 16,
+							},
+							["AutoQuest"] = {
+								type = "toggle",
+								name = "AutoQuest",
+								order = 17,
+							},
+							["FatigueWarner"] = {
+								type = "toggle",
+								name = "FatigueWarner",
+								order = 18,
 							},
 						}
 					},
