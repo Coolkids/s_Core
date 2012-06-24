@@ -2,7 +2,7 @@
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("SunUIConfig", "AceConsole-3.0", "AceEvent-3.0")
 local db = {}
 local defaults
-local DEFAULT_WIDTH = 700
+local DEFAULT_WIDTH = 800
 local DEFAULT_HEIGHT = 500
 local AC = LibStub("AceConfig-3.0")
 local ACD = LibStub("AceConfigDialog-3.0")
@@ -49,6 +49,7 @@ function SunUIConfig:LoadDefaults()
 				["Fontsize"] = 12,
 				["CastBarHeight"] = 4,
 				["Combat"] = true,
+				["NotCombat"] = false,
 			},
 			TooltipDB = {
 				["FontSize"] = 12,
@@ -86,7 +87,7 @@ function SunUIConfig:LoadDefaults()
 				["Scale"] = 1,
 				["EnableSwingTimer"] = false,
 				["PetHeight"] = 10,
-				["TargetCastBarHeight"] = 10,
+				["TargetCastBarHeight"] = 20,
 				["EnableBarFader"] = false,
 				["BossWidth"] = 140,
 				["BossScale"] = 1,
@@ -114,6 +115,10 @@ function SunUIConfig:LoadDefaults()
 				["BigFocus"] = true,
 				["PlayerBuff"] = 4,
 				["CastBar"] = true,
+				["Party3D"] = false,
+				["TargetRange"] = false,
+				["RangeAlpha"] = 0.6,
+				["FocusDebuff"] = false,
 			},
 			MiniDB = {
 				["uiScale"] = 0.9,
@@ -295,7 +300,7 @@ function SunUIConfig:LoadDefaults()
 					"UIParent", -- [2]
 					"CENTER", -- [3]
 					0, -- [4]
-					185, -- [5]
+					95, -- [5]
 				},
 				["Buff"] = {
 					"TOPRIGHT", -- [1]
@@ -542,7 +547,7 @@ function SunUIConfig.GenerateOptionsInternal()
 			Header = {
 				order = 1,
 				type = "header",
-				name = "6.18A",
+				name = "6.21A",
 				width = "full",		
 			},
 			Unlock = {
@@ -872,10 +877,15 @@ function SunUIConfig.GenerateOptionsInternal()
 									name = L["启用战斗显示"],
 									order = 7,
 								},
+								NotCombat = {
+									type = "toggle",
+									name = "启用脱离战斗隐藏",
+									order = 8,
+								},
 								Showdebuff = {
 									type = "toggle",
 									name = L["启用debuff显示"],
-									order = 8,
+									order = 9,
 								},
 							}
 						},
@@ -1109,6 +1119,24 @@ function SunUIConfig.GenerateOptionsInternal()
 							type = "toggle", order = 13,
 							name = "施法条开关",
 						},
+						TargetRange = {
+							type = "toggle", order = 14,
+							name = "距离监视",
+							desc = "超过40码头像渐隐",
+						}, 
+						RangeAlpha = {
+							type = "range", order = 15,
+							name = "距离监视透明度",
+							desc = "超出距离头像透明度",
+							min = 0, max = 1, step = 0.1,
+							get = function() return db.UnitFrameDB.RangeAlpha end,
+							set = function(_, value) db.UnitFrameDB.RangeAlpha = value end,
+						}, 
+						FocusDebuff = {
+							type = "toggle", order = 16,disabled = not db.UnitFrameDB.showfocus,
+							name = "焦点debuff过滤",
+							desc = "只显示玩家释放的debuff",
+						}, 
 					}
 					},
 					group2 = {
@@ -1117,48 +1145,53 @@ function SunUIConfig.GenerateOptionsInternal()
 						args = {
 							ReverseHPbars = {
 								type = "toggle", order = 1,
-								name = L["反转血条"],			
+								name = "血条非透明模式",
+								desc = "不打钩为透明模式",
 								get = function() return db.UnitFrameDB.ReverseHPbars end,
 								set = function(_, value) db.UnitFrameDB.ReverseHPbars = value end,
 							},
-							showtot = {
+							ClassColor = {
 								type = "toggle", order = 2,
+								name = L["开启头像职业血条颜色"],			
+							},
+							showtot = {
+								type = "toggle", order = 3,
 								name = L["开启目标的目标"],			
 							},
 							showpet = {
-								type = "toggle", order = 3,
+								type = "toggle", order = 4,
 								name = L["开启宠物框体"],			
 							},
 							showfocus = {
-								type = "toggle", order = 4,
+								type = "toggle", order = 5,
 								name = L["开启焦点框体"],			
 							},
 							showparty = {
-								type = "toggle", order = 5,
+								type = "toggle", order = 6,
 								name = L["开启小队框体"],			
 							},
+							Party3D = {
+							type = "toggle", order = 7,disabled = not db.UnitFrameDB.showparty,
+							name = "小队头像",
+							},
 							showboss = {
-								type = "toggle", order = 6,
+								type = "toggle", order = 8,
 								name = L["开启boss框体"],			
 							},
 							showarena = {
-								type = "toggle", order = 7,
+								type = "toggle", order = 9,
 								name = L["开启竞技场框体"],			
 							},
 							EnableSwingTimer = {
-								type = "toggle", order = 8,
+								type = "toggle", order = 10,
 								name = L["开启物理攻击计时条"],			
 							},
 							EnableBarFader = {
-								type = "toggle", order = 9,
+								type = "toggle", order = 11,
 								name = L["开启头像渐隐"],			
 							},
-							ClassColor = {
-								type = "toggle", order = 10,
-								name = L["开启头像职业血条颜色"],			
-							},
 							TargetAura = {
-								type = "select", order = 11,
+								type = "select", order = 12,
 								name = L["目标增减益"],
 								values = {[1] = L["显示"], [2] =L["不显示"], [3] = "Only Player"},
 							},
@@ -1166,7 +1199,7 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "select",
 								name = "玩家框体BUFF显示",
 								desc = "玩家框体BUFF显示",
-								order = 12,
+								order = 13,
 								values = {[1] = "debuff", [2] = "buff", [3] = "debuff+buff", [4] = "none"},
 							},
 						}
@@ -1671,15 +1704,7 @@ function SunUIConfig.GenerateOptionsInternal()
 	}
 	SunUIConfig.Options.args.profiles = SunUIConfig.profile
 end
--- for group, options in pairs(SunUIConfig.profile) do
-		-- if not C[group] then C[group] = {} end
-		-- if C[group] then
-			-- for option, value in pairs(options) do
-				-- C[group][option] = value
-			-- end
-		-- end
-	-- end
--- MoveHandle = {}
+
 local function BuildFrame()
 	local f = CreateFrame("Frame", "SunUI_InstallFrame", UIParent)
 	f:SetSize(400, 400)
