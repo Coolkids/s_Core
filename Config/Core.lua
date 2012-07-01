@@ -477,6 +477,13 @@ function SunUIConfig:LoadDefaults()
 					-50, -- [4]
 					160, -- [5]
 				},
+				["healpriest"] = {
+					"CENTER", -- [1]
+					"UIParent", -- [2]
+					"CENTER", -- [3]
+					0, -- [4]
+					135, -- [5]
+				},
 			},
 		},
 	}
