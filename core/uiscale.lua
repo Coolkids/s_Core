@@ -1,5 +1,5 @@
-local S, C, L, DB = unpack(select(2, ...))
-local Module = LibStub("AceAddon-3.0"):GetAddon("Core"):NewModule("SunUI BaseData")
+local S, C, L, G = unpack(select(2, ...))
+local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("SunUI fixPX")
 
 --  自动设置聊天框体和UI缩放
 local function SetChatFrame()
@@ -94,17 +94,6 @@ SlashCmdList["AutoSet"] = function()
 end
 SLASH_AutoSet1 = "/AutoSet"
 
-function Module:OnInitialize()
-	if C["MiniDB"]["uiScale"] == nil then 
-		C["MiniDB"]["uiScale"] = SetUIScale()
-	end
-	local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/C["MiniDB"]["uiScale"]
-	local function scale(x)
-		return (mult*math.floor(x/mult+.5)) 
-	end
-	S.mult = mult
-	S.Scale = function(x) return scale(x) end
-end
 --fix 1px
 --------------------------------------------------------
 -- Graphics Settings
@@ -185,3 +174,15 @@ Graphic:SetScript("OnEvent", function(self, event)
 	-- unload
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end)
+
+function Module:OnInitialize()
+	if C["MiniDB"]["uiScale"] == nil then 
+		C["MiniDB"]["uiScale"] = SetUIScale()
+	end
+	local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/C["MiniDB"]["uiScale"]
+	local function scale(x)
+		return (mult*math.floor(x/mult+.5)) 
+	end
+	S.mult = mult
+	S.Scale = function(x) return scale(x) end
+end
