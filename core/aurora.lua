@@ -16,13 +16,13 @@ local _G = _G
 } ]]
 
 local media = {
-	["arrowUp"] = "Interface\\AddOns\\!SunUI\\media\\arrow-up-active",
-	["arrowDown"] = "Interface\\AddOns\\!SunUI\\media\\arrow-down-active",
-	["arrowLeft"] = "Interface\\AddOns\\!SunUI\\media\\arrow-left-active",
-	["arrowRight"] = "Interface\\AddOns\\!SunUI\\media\\arrow-right-active",
+	["arrowUp"] = "Interface\\AddOns\\SunUI\\media\\arrow-up-active",
+	["arrowDown"] = "Interface\\AddOns\\SunUI\\media\\arrow-down-active",
+	["arrowLeft"] = "Interface\\AddOns\\SunUI\\media\\arrow-left-active",
+	["arrowRight"] = "Interface\\AddOns\\SunUI\\media\\arrow-right-active",
 	["backdrop"] = "Interface\\ChatFrame\\ChatFrameBackground",
-	["checked"] = "Interface\\AddOns\\!SunUI\\media\\CheckButtonHilight",
-	["glow"] = "Interface\\AddOns\\!SunUI\\media\\glowTex",
+	["checked"] = "Interface\\AddOns\\SunUI\\media\\CheckButtonHilight",
+	["glow"] = "Interface\\AddOns\\SunUI\\media\\glowTex",
 }
 local frames = {}
 
@@ -363,7 +363,7 @@ function S.ReskinArrow(f, direction)
 	tex:Size(8, 8)
 	tex:SetPoint("CENTER")
 
-	tex:SetTexture("Interface\\AddOns\\!SunUI\\media\\arrow-"..direction.."-active")
+	tex:SetTexture("Interface\\AddOns\\SunUI\\media\\arrow-"..direction.."-active")
 end
 
 function S.ReskinCheck(f)
@@ -439,6 +439,7 @@ function S.ReskinSlider(f)
 end
 
 function S.ReskinExpandOrCollapse(f)
+	f:Size(13, 13)
 	S.Reskin(f, true)
 	f.SetNormalTexture = DB.dummy
 

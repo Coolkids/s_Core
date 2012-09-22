@@ -1325,10 +1325,10 @@ function SunUIConfig.GenerateOptionsInternal()
 						order = 1,
 						func = function()
 							if not UnitAffectingCombat("player") then
-								if IsAddOnLoaded("Freebgrid") then 
-									LoadAddOn('Freebgrid_Config')
+								if IsAddOnLoaded("SunUI_Freebgrid") then 
+									LoadAddOn('SunUI_Freebgrid_Config')
 									local RF = LibStub and LibStub("AceConfigDialog-3.0", true)
-											RF:Open("Freebgrid")
+											RF:Open("SunUI_Freebgrid")
 											RF:Close("SunUIConfig")
 								end
 							end
@@ -1339,13 +1339,13 @@ function SunUIConfig.GenerateOptionsInternal()
 					name = L["技能监视"] ,
 					order = 1,
 					func = function()
-						if not UnitAffectingCombat("player") then
-							if IsAddOnLoaded("RayWatcher") then 
+						--if not UnitAffectingCombat("player") then
+							--if IsAddOnLoaded("RayWatcher") then 
 								local bF = LibStub and LibStub("AceConfigDialog-3.0", true)
 										bF:Open("RayWatcherConfig")
 										bF:Close("SunUIConfig")
-							end
-						end
+							--end
+						--end
 					end
 					},
 				}
