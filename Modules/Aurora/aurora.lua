@@ -11,6 +11,23 @@ local media = {
 	["checked"] = "Interface\\AddOns\\SunUI\\media\\CheckButtonHilight",
 	["glow"] = "Interface\\AddOns\\SunUI\\media\\glowTex",
 }
+local function colourClose(f)
+	f.text:SetTextColor(1, .1, .1)
+end
+
+local function clearClose(f)
+	f.text:SetTextColor(1, 1, 1)
+end
+
+local function colourArrow(f)
+	if f:IsEnabled() then
+		f.downtex:SetVertexColor(r, g, b)
+	end
+end
+
+local function clearArrow(f)
+	f.downtex:SetVertexColor(1, 1, 1)
+end
 local frames = {}
 local alpha = .5
 local _G = _G
@@ -647,6 +664,7 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 			
 			bu.icon:SetTexCoord(.08, .92, .08, .92)
 			bu.icon:SetPoint("LEFT", bu, "LEFT")
+			bu.icon:SetSize(bu.icon:GetWidth()-8, bu.icon:GetHeight()-8)
 			bu.icon:SetDrawLayer("OVERLAY")
 			bu.icon.bg = S.CreateBG(bu.icon)
 			bu.icon.bg:SetDrawLayer("ARTWORK")
@@ -4917,7 +4935,7 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 			reskinnedRewards = true
 		end)
 
-		--[[ local tcoords = {
+		local tcoords = {
 			["WARRIOR"]     = {0.02, 0.23, 0.02, 0.23},
 			["MAGE"]        = {0.27, 0.47609375, 0.02, 0.23},
 			["ROGUE"]       = {0.51609375, 0.7221875, 0.02, 0.23},
@@ -4929,7 +4947,7 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 			["PALADIN"]     = {0.02, 0.23, 0.52, 0.73},
 			["DEATHKNIGHT"] = {0.27, .48, 0.52, .73},
 			["MONK"]		= {0.52, 0.71828125, 0.52, .73},
-		} ]]
+		}
 		
 		local UpdateIcons = function()
 			local index
@@ -4950,11 +4968,11 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 
 					bu.bg = S.CreateBG(bu.icon)
 				end
-
+				
 				index = offset + i
 				local name, _, _, _, _, _, _, _, _, _, classFileName  = GetGuildRosterInfo(index)
 				if name and index <= visibleMembers and bu.icon:IsShown() then
-					bu.icon:SetTexCoord(RAID_CLASS_COLORS[classFileName].r, RAID_CLASS_COLORS[classFileName].g, RAID_CLASS_COLORS[classFileName].b)
+					bu.icon:SetTexCoord(unpack(tcoords[classFileName]))
 					bu.bg:Show()
 				else
 					bu.bg:Hide()

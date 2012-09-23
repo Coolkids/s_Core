@@ -94,6 +94,6 @@ Minimap:HookScript("OnLeave", function()
 end)
 
 hooksecurefunc(Minimap, "SetPoint", function()
-			MBCF:ClearAllPoints()
-			PositionAndStyle()
+	MBCF:ClearAllPoints()
+	PositionAndStyle()
 end)

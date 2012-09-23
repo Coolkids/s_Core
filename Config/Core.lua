@@ -594,7 +594,7 @@ function SunUIConfig.GenerateOptionsInternal()
 							}, 
 							RaidBuffSize = {
 								type = "input", order = 2,
-								name = L["团队增益图标大小"], desc = L["团队增益图标大小"],
+								name = L["团队增益图标大小"], desc = L["团队增益图标大小"],disabled = function(info) return true end,
 								get = function() return tostring(db.ReminderDB.RaidBuffSize) end,
 								set = function(_, value) db.ReminderDB.RaidBuffSize = tonumber(value) end,
 							},

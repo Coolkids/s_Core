@@ -85,7 +85,7 @@ function Module:OnEnable()
 	-- Mail icon
 	MiniMapMailFrame:ClearAllPoints()
 	MiniMapMailFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 2, -6)
-	MiniMapMailIcon:SetTexture("Interface\\AddOns\\!SunUI\\media\\mail")
+	MiniMapMailIcon:SetTexture("Interface\\AddOns\\SunUI\\media\\mail")
 
 	-- Invites Icon
 	GameTimeCalendarInvitesTexture:ClearAllPoints()
@@ -152,12 +152,12 @@ function Module:OnEnable()
 	SubLoc:Hide()
 	SubText2:SetText("")
 	SubText:SetText("")
-	Minimap:SetScript('OnEnter', function() 
+	Minimap:HookScript('OnEnter', function() 
 		SubText:Show() 
 		SubText2:Show() 
 		SubText2:SetText(GetZoneText())
 		SubText:SetText(GetSubZoneText()) 
-		UIFrameFadeIn(SubLoc, 1.5, SubLoc:GetAlpha(), 1)
+		UIFrameFadeIn(SubLoc, 1, SubLoc:GetAlpha(), 1)
 		local pvp = GetZonePVPInfo()
 		if pvp == "friendly" then r,g,b = 0.1,1,0.1 
 			elseif pvp == "sanctuary" then r,g,b = 0.41,0.8,0.94 
@@ -169,10 +169,10 @@ function Module:OnEnable()
 		end
 		SubText:SetTextColor(r,g,b) 
 	end)
-	Minimap:SetScript('OnLeave', function() 
+	Minimap:HookScript('OnLeave', function() 
 		local fadeInfo = {}
 		fadeInfo.mode = "OUT"
-		fadeInfo.timeToFade = 1.5
+		fadeInfo.timeToFade = 1
 		fadeInfo.finishedFunc = function() SubLoc:Hide() end	--隐藏
 		fadeInfo.startAlpha = SubLoc:GetAlpha()
 		fadeInfo.endAlpha = 0
@@ -184,19 +184,17 @@ function Module:OnEnable()
 	MiniMapInstanceDifficulty:Hide()
 
 	local rd = CreateFrame("Frame", nil, Minimap)
-	rd:SetSize(24, 8)
 	rd:RegisterEvent("PLAYER_ENTERING_WORLD")
 	rd:RegisterEvent("PLAYER_DIFFICULTY_CHANGED")
 	rd:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
-	rd:SetPoint("TOPRIGHT", 0, -3)
 	local rdt = rd:CreateFontString(nil, "OVERLAY")
-	rdt:SetPoint("LEFT", rd)
-	rdt:SetJustifyH('LEFT')
+	rdt:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", -5, -5)
+	rdt:SetJustifyH('RIGHT')
 	rdt:SetTextColor()
-	rdt:SetFont(DB.Font, 16, "THINOUTLINE")
+	rdt:SetFontObject(GameFontNormal)
 	rdt:SetShadowOffset(S.mult, -S.mult)
 	rdt:SetShadowColor(0, 0, 0, 0.4)
-
+	rd:SetAllPoints(rdt)
 	local function diff()
 		local difficulty = GetInstanceDifficulty()
 		if difficulty == 1 then

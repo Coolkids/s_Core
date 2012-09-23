@@ -4,8 +4,10 @@ local Module = Core:NewModule("InfoPanelBottom")
 
 local function BuildClock()
 	local Clock = CreateFrame("Frame", "InfoPanelBottom1", UIParent)
-	Clock.Text = S.MakeFontString(Clock, 14*S.Scale(1)*C["MiniDB"]["FontScale"])
+	Clock.Text = S.MakeFontString(Clock)
 	Clock.Text:SetTextColor(DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b)
+	Clock.Text:SetShadowColor(0, 0, 0)
+	Clock.Text:SetShadowOffset(S.mult, -S.mult)
 	Clock.Text:SetPoint("LEFT", BottomBar, "LEFT", 10, 2)
 	Clock.Text:SetShadowOffset(S.mult, -S.mult)
 	Clock.Text:SetShadowColor(0, 0, 0, 0.4)
@@ -89,10 +91,9 @@ local function BuildFriend()
 	local Stat = CreateFrame("Frame", "InfoPanelBottom2", UIParent)
 	Stat:EnableMouse(true)
 
-	local Text  = Stat:CreateFontString(nil, "BORDER")
-	Text:SetFont(DB.Font, 14*S.Scale(1)*C["MiniDB"]["FontScale"], "THINOUTLINE")
+	local Text  = S.MakeFontString(Stat)
 	Text:SetTextColor(DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b)
-	Text:SetShadowOffset(1.25, -1.25)
+	Text:SetShadowOffset(S.mult, -S.mult)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:SetPoint("LEFT", InfoPanelBottom1, "RIGHT", 3, 0)
 	Stat:SetAllPoints(Text)
@@ -374,10 +375,9 @@ local function BuildGuild()
 	local Stat = CreateFrame("Frame", "InfoPanelBottom3", UIParent)
 	Stat:EnableMouse(true)
 
-	local Text  = Stat:CreateFontString(nil, "BORDER")
-	Text:SetFont(DB.Font, 14*S.Scale(1)*C["MiniDB"]["FontScale"], "THINOUTLINE")
+	local Text  = S.MakeFontString(Stat)
 	Text:SetTextColor(DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b)
-	Text:SetShadowOffset(1.25, -1.25)
+	Text:SetShadowOffset(S.mult, -S.mult)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:SetPoint("LEFT", InfoPanelBottom2 or InfoPanelBottom1, "RIGHT", 3, 0)
 	Stat:SetAllPoints(Text)
@@ -617,7 +617,7 @@ local function BuildDurability()
 		[10] = {17, L["副手"], 1000}, 
 	}
 	local Stat = CreateFrame("Frame", "InfoPanelBottom4", UIParent)
-	Text = S.MakeFontString(Stat, 14*S.Scale(1)*C["MiniDB"]["FontScale"])
+	Text = S.MakeFontString(Stat)
 	Text:SetPoint("LEFT", InfoPanelBottom3 or InfoPanelBottom2 or InfoPanelBottom1, "RIGHT", 3, 0)
 	Stat:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	Stat:RegisterEvent("MERCHANT_SHOW")
@@ -668,13 +668,11 @@ local function BuildStat2()
 	Stat:SetFrameStrata("MEDIUM")
 	Stat:SetFrameLevel(3)
 
-	local Text  = BottomBar:CreateFontString(nil, "BORDER")
-	Text:SetFont(DB.Font, 12*S.Scale(1)*C["MiniDB"]["FontScale"], "THINOUTLINE")
+	Text  = S.MakeFontString(Stat)
 	Text:SetTextColor(DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b)
-	Text:SetShadowOffset(1.25, -1.25)
+	Text:SetShadowOffset(S.mult, -S.mult)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:SetPoint("RIGHT", BottomBar, "RIGHT", -10, 2)
-	Stat:SetParent(Text:GetParent())
 	Stat:SetAllPoints(Text)
 	
 	local _G = getfenv(0)
@@ -723,20 +721,6 @@ local function BuildStat2()
 			if lv and lv > 0 and (lv > DB.level + 3 or lv < DB.level) then
 				GameTooltip:AddDoubleLine(lv, format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
 			end	
-		-- elseif DB.Role == "Caster" or DB.Role == "Melee" then
-			-- AddTooltipHeader(MAGIC_RESISTANCES_COLON)
-			
-			-- local baseResistance, effectiveResistance, posResitance, negResistance
-			-- for i = 2, 6 do
-				-- baseResistance, effectiveResistance, posResitance, negResistance = UnitResistance("player", i)
-				-- GameTooltip:AddDoubleLine(_G["DAMAGE_SCHOOL"..(i+1)], format(chanceString, (effectiveResistance / (effectiveResistance + (500 + DB.level + 2.5))) * 100),1,1,1)
-			-- end
-			
-			-- local spellpen = GetSpellPenetration()
-			-- if (DB.MyClass == "SHAMAN" or DB.Role == "Caster") and spellpen > 0 then
-				-- GameTooltip:AddLine' '
-				-- GameTooltip:AddDoubleLine(ITEM_MOD_SPELL_PENETRATION_SHORT, spellpen,1,1,1)
-			-- end
 		end
 		GameTooltip:Show()
 	end
@@ -806,13 +790,11 @@ local function BuildStat1()
 	Stat:SetFrameStrata("MEDIUM")
 	Stat:SetFrameLevel(3)
 
-	local Text  = BottomBar:CreateFontString(nil, "BORDER")
-	Text:SetFont(DB.Font, 12*S.Scale(1)*C["MiniDB"]["FontScale"], "THINOUTLINE")
+	local Text  = S.MakeFontString(Stat)
 	Text:SetTextColor(DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b)
-	Text:SetShadowOffset(1.25, -1.25)
+	Text:SetShadowOffset(S.mult, -S.mult)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:SetPoint("RIGHT", InfoPanelBottom5, "LEFT", -3, 0)
-	Stat:SetParent(Text:GetParent())
 	Stat:SetAllPoints(Text)
 	
 	local format = string.format
@@ -982,15 +964,13 @@ local function BuildSpecswitch()
 	local Stat = CreateFrame("Frame", "InfoPanelBottom7", UIParent)
 	Stat:SetFrameStrata("MEDIUM")
 	Stat:SetFrameLevel(3)
-	local Text  = BottomBar:CreateFontString(nil, "BORDER")
-	Text:SetFont(DB.Font, 12*S.Scale(1)*C["MiniDB"]["FontScale"], "THINOUTLINE")
+	local Text  = S.MakeFontString(Stat)
 	Text:SetTextColor(DB.MyClassColor.r,DB.MyClassColor.g,DB.MyClassColor.b)
-	Text:SetShadowOffset(1.25, -1.25)
+	Text:SetShadowOffset(S.mult, -S.mult)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:SetPoint("RIGHT", InfoPanelBottom6, "LEFT", -3, 0)
 	Text:SetText(NONE..TALENTS)
 	Stat:SetAllPoints(Text)
-	Stat:SetParent(Text:GetParent())
 	
 	local function OnEvent(self)
 		if not GetSpecialization() then

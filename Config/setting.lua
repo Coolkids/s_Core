@@ -246,6 +246,8 @@ G["MoveHandleDB"] = {
 	["expbar"] = {"BOTTOM", "UIParent", "BOTTOM", 0, 4},
 	--powerbar
 	["PowerBar"] = {"CENTER", "UIParent", "CENTER", 0, -80},
+	--成就移动
+	["AchievementHolder"] = {"CENTER", "UIParent", "CENTER", 0, 130},
 }
 G["PowerBarDB"] = {
 	["Open"] = true,

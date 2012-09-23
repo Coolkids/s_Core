@@ -1,10 +1,11 @@
 local S, C, L, DB = unpack(select(2, ...))
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local _G =_G
+local filename, fontHeight, _ = GameFontNormal:GetFont()
 -- just for creating text
-function S.MakeFontString(parent, fontHeight, fontStyle)
+function S.MakeFontString(parent, size, fontStyle)
 	local fs = parent:CreateFontString(nil, "OVERLAY")
-	fs:SetFont(DB.Font, fontHeight, fontStyle or "OUTLINE")
+	fs:SetFont(DB.Font, size or fontHeight, fontStyle or "OUTLINE")
 	fs:SetShadowColor(0, 0, 0)
 	fs:SetShadowOffset(1.25, -1.25)
 	return fs
@@ -136,7 +137,7 @@ function S.MakeMoveHandle(Frame, Text, key)
 	MoveHandle:SetFrameStrata("HIGH")
 	MoveHandle:SetBackdrop({bgFile = DB.Solid})
 	MoveHandle:SetBackdropColor(0, 0, 0, 0.9)
-	MoveHandle.Text = S.MakeFontString(MoveHandle, 10)
+	MoveHandle.Text = S.MakeFontString(MoveHandle)
 	MoveHandle.Text:SetPoint("CENTER")
 	MoveHandle.Text:SetText(Text)
 	MoveHandle:SetPoint(unpack(SunUIConfig.db.profile.MoveHandleDB[key]))
@@ -160,15 +161,7 @@ function S.MakeMove(Frame, Text, key, a)
 	MoveHandle:SetFrameStrata("HIGH")
 	MoveHandle:SetBackdrop({bgFile = DB.Solid})
 	MoveHandle:SetBackdropColor(0, 0, 0, 0.9)
-	if a < 0.5 then
-	MoveHandle.Text = S.MakeFontString(MoveHandle, 10*(1+a))
-	elseif a >= 0.5 and a < 1 then 
-	MoveHandle.Text = S.MakeFontString(MoveHandle, 9)
-	elseif a <= 1.5 and a >= 1 then
-	MoveHandle.Text = S.MakeFontString(MoveHandle, 11)
-	elseif a > 1.5 then
-	MoveHandle.Text = S.MakeFontString(MoveHandle, 8)
-	end
+	MoveHandle.Text = S.MakeFontString(MoveHandle)
 	MoveHandle.Text:SetPoint("CENTER")
 	MoveHandle.Text:SetText(Text)
 	MoveHandle:SetPoint(unpack(SunUIConfig.db.profile.MoveHandleDB[key]))

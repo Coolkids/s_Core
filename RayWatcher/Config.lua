@@ -98,7 +98,7 @@ ns.watchers ={
 			setpoint ={"TOP", UIParent, "BOTTOM", 101, 235},
 			size = 28,
 				-- 毒蛇钉刺
-				{ spellID =  1978 ,unitId = "target", caster = "player", filter = "DEBUFF" },
+				{ spellID =  118253 ,unitId = "target", caster = "player", filter = "DEBUFF" },
 				-- 驱散射击
 				{ spellID = 19503 ,unitId = "target", caster = "player", filter = "DEBUFF" },
 				-- 穿刺射击
@@ -577,6 +577,8 @@ ns.watchers ={
 				{ spellID = 73651, unitId = "player", caster = "player", filter = "BUFF" },
 				-- 毒伤
 				{ spellID = 32645, unitId = "player", caster = "player", filter = "BUFF" },
+				-- 赤红风暴
+				{ spellID = 122233, unitId = "player", caster = "player", filter = "BUFF" },
 		},
 		{
 			name = "玩家技能CD",
