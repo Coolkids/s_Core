@@ -82,14 +82,12 @@ local function OnEvent_UNIT_AURA(event, unit, ...)
 		if RaidBuffList[i] and RaidBuffList[i][1] then
 			BuffFrame[i]:SetAlpha(1)
 			BuffFrame[i].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[i][1])))
-			BuffFrame[i].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[i]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[i].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[i]:SetAlpha(1)
-					BuffFrame[i].Overlay:SetAlpha(0)
+					BuffFrame[i]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -99,14 +97,12 @@ local function OnEvent_UNIT_AURA(event, unit, ...)
 		if RaidBuffList[6] and RaidBuffList[6][1] then
 			BuffFrame[5]:SetAlpha(1)
 			BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[6][1])))
-			BuffFrame[5].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[6]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[5]:SetAlpha(1)
-					BuffFrame[5].Overlay:SetAlpha(0)
+					BuffFrame[5]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -115,14 +111,12 @@ local function OnEvent_UNIT_AURA(event, unit, ...)
 		if RaidBuffList[5] and RaidBuffList[5][1] then
 			BuffFrame[5]:SetAlpha(1)
 			BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[5][1])))
-			BuffFrame[5].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[5]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[5]:SetAlpha(1)
-					BuffFrame[5].Overlay:SetAlpha(0)
+					BuffFrame[5]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -132,14 +126,12 @@ local function OnEvent_UNIT_AURA(event, unit, ...)
 		if RaidBuffList[8] and RaidBuffList[8][1] then
 			BuffFrame[6]:SetAlpha(1)
 			BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[8][1])))
-			BuffFrame[6].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[8]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[6]:SetAlpha(1)
-					BuffFrame[6].Overlay:SetAlpha(0)
+					BuffFrame[6]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -148,14 +140,12 @@ local function OnEvent_UNIT_AURA(event, unit, ...)
 		if RaidBuffList[7] and RaidBuffList[7][1] then
 			BuffFrame[6]:SetAlpha(1)
 			BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[7][1])))
-			BuffFrame[6].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[7]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[6]:SetAlpha(1)
-					BuffFrame[6].Overlay:SetAlpha(0)
+					BuffFrame[6]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -172,14 +162,12 @@ local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
 		if RaidBuffList[i] and RaidBuffList[i][1] then
 			BuffFrame[i]:SetAlpha(1)
 			BuffFrame[i].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[i][1])))
-			BuffFrame[i].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[i]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[i].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[i]:SetAlpha(1)
-					BuffFrame[i].Overlay:SetAlpha(0)
+					BuffFrame[i]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -189,14 +177,12 @@ local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
 		if RaidBuffList[6] and RaidBuffList[6][1] then
 			BuffFrame[5]:SetAlpha(1)
 			BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[6][1])))
-			BuffFrame[5].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[6]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[5]:SetAlpha(1)
-					BuffFrame[5].Overlay:SetAlpha(0)
+					BuffFrame[5]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -205,14 +191,12 @@ local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
 		if RaidBuffList[5] and RaidBuffList[5][1] then
 			BuffFrame[5]:SetAlpha(1)
 			BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[5][1])))
-			BuffFrame[5].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[5]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[5].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[5]:SetAlpha(1)
-					BuffFrame[5].Overlay:SetAlpha(0)
+					BuffFrame[5]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -222,14 +206,12 @@ local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
 		if RaidBuffList[8] and RaidBuffList[8][1] then
 			BuffFrame[6]:SetAlpha(1)
 			BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[8][1])))
-			BuffFrame[6].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[8]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[6]:SetAlpha(1)
-					BuffFrame[6].Overlay:SetAlpha(0)
+					BuffFrame[6]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -238,14 +220,12 @@ local function OnEvent_PLAYER_ENTERING_WORLD(event, ...)
 		if RaidBuffList[7] and RaidBuffList[7][1] then
 			BuffFrame[6]:SetAlpha(1)
 			BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(RaidBuffList[7][1])))
-			BuffFrame[6].Overlay:SetAlpha(0.7)
 			for key, value in pairs(RaidBuffList[7]) do
 				local name = GetSpellInfo(value)
 				if name == nil then return end
 				if UnitAura("player", name) then
 					BuffFrame[6].Icon:SetTexture(select(3, GetSpellInfo(value)))
-					BuffFrame[6]:SetAlpha(1)
-					BuffFrame[6].Overlay:SetAlpha(0)
+					BuffFrame[6]:SetAlpha(0.2)
 					break
 				end
 			end
@@ -263,7 +243,6 @@ local function BuildBuffFrame()
 		Temp.Icon:SetTexCoord(.1, .9, .1, .9)
 		Temp.Icon:SetPoint("TOPLEFT", Temp, "TOPLEFT", 1, -1)
 		Temp.Icon:SetPoint("BOTTOMRIGHT", Temp, "BOTTOMRIGHT", -1, 1)
-		--Temp.Icon:SetAllPoints()
 		
 		if C["ReminderDB"].RaidBuffDirection == 1 then
 			if i == 1 then
@@ -278,10 +257,6 @@ local function BuildBuffFrame()
 				Temp:SetPoint("TOP", BuffFrame[i-1], "BOTTOM", 0, -2)
 			end
 		end
-		
-		Temp.Overlay = Temp:CreateTexture(nil, "OVERLAY")
-		Temp.Overlay:SetAllPoints()
-		Temp.Overlay:SetTexture(0, 0, 0)
 		Temp:SetAlpha(0)	
 		tinsert(BuffFrame,Temp)
 	end
