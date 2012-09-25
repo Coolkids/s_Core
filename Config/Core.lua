@@ -289,7 +289,7 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "toggle", order = 4,
 								name = "经验条垂直模式",		
 							},
-							EnableBarFader = {
+							ExpbarFadeOut = {
 								type = "toggle", order = 5,
 								name = "经验条渐隐",		
 							},
