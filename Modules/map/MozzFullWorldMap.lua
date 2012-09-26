@@ -12,8 +12,6 @@ SEE ReadMe.txt for latest Patch Notes for (Fan's Update) versions
 local S, _, _, DB = unpack(select(2, ...))
 if IsAddOnLoaded("MozzFullWorldMap") or IsAddOnLoaded("Mapster") or IsAddOnLoaded("Carbonite") then
 	return
-end then
-	return
 end
 local MozzFullWorldMap
 
