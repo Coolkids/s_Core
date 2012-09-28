@@ -11,7 +11,7 @@ warn:Hide()
 warn:RegisterEvent("UNIT_HEALTH")
 warn:SetScript("OnEvent", function(self, event, unit)
 	if unit ~= "player" then return end
-	if ( UnitHealth("player")/UnitHealthMax("player") < 0.25 and not UnitIsDead("player") ) then
+	if ( UnitHealth("player")/UnitHealthMax("player") < 0.25 ) and not UnitIsDead("player") then
 		self:Show()
 	else
 		self:Hide()

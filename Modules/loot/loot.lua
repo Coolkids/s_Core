@@ -192,7 +192,7 @@ local createSlot = function(id)
 
 end
 --title:SetFontObject(GameFontNormalLarge)
-title:SetFont(DB.Font, S.Scale(18), "OUTLINE")
+title:SetFont(DB.Font, S.Scale(20), "OUTLINE")
 title:SetTextColor(GameFontNormalLarge:GetTextColor())
 title:SetJustifyH"LEFT"
 title:SetPoint("TOPLEFT", addon, "TOPLEFT", 6, -4)
