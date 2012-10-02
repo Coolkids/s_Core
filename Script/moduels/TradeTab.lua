@@ -21,13 +21,14 @@ local Professions = {
 	[8] = { 3908, 3909, 3910, 12180, 26790, 51309, 751561, 110426 }, -- Tailoring --裁缝
 	[9] = { 2550, 3102, 3413, 18260, 33359, 51296, 88053, 104381 }, -- Cooking   --烹饪
 	[10] = { 3273, 3274, 7924, 10846, 27028, 45542, 74559, 110406 }, -- First Aid  --急救
-	[11] = { 53428 }, -- Runeforging
-	[12] = { 2656 }, -- Smelting
-	[13] = { 13262 }, -- Disenchant
-	[14] = { 51005 }, -- Milling
-	[15] = { 31252 }, -- Prospecting
-	[16] = { 818 }, -- Basic Campfire
-	[17] = { 1804 }, -- Pick Lock
+	[11] = { 78670, 88961, 89718, 89719, 89720, 89721, 89722, 110393 }, --考古
+	[12] = { 53428 }, -- Runeforging
+	[13] = { 2656 }, -- Smelting
+	[14] = { 13262 }, -- Disenchant
+	[15] = { 51005 }, -- Milling
+	[16] = { 31252 }, -- Prospecting
+	[17] = { 818 }, -- Basic Campfire
+	[18] = { 1804 }, -- Pick Lock
 }
 
 function ProfessionTabs:CacheProfessions()

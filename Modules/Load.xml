@@ -9,7 +9,10 @@
 	<Include file = "bags\load.xml"/>
 	<Include file = "buff\load.xml"/>
 	<Include file = "buffreminder\Load.xml"/>
+	<Include file="button\load.xml"/>
 	<Include file = "chat\load.xml"/>
+	<Include file ="Class\load.xml"/>
+	<Include file ="layout\load.xml"/>
 	<Include file = "loot\load.xml"/>
 	<Include file = "map\load.xml"/>
 	<Include file = "nameplates\load.xml"/>

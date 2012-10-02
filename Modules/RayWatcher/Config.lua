@@ -456,7 +456,7 @@ ns.watchers ={
 		{
 			name = "玩家右邊1",
 			direction = "RIGHT",
-			setpoint = {"CENTER", UIParent, "CENTER", 90, 30},
+			setpoint = {"CENTER", UIParent, "CENTER", 110, 30},
 			mode = "ICON",
 			size = 30,
 				-- 吸血鬼之触
@@ -475,7 +475,7 @@ ns.watchers ={
 		{
 			name = "玩家右邊2",
 			direction = "LEFT",
-			setpoint = {"CENTER",UIParent, "CENTER", -90, 30},
+			setpoint = {"CENTER",UIParent, "CENTER", -110, 30},
 			mode = "ICON",
 			size = 30,
 				-- 心靈震爆
