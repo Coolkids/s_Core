@@ -235,7 +235,7 @@ G["MoveHandleDB"] = {
 	--仇恨监视
 	["Threat"] = {"BOTTOM", "UIParent", "BOTTOM", -175, 262},
 	--宠物计时
-	["ShadowPet"] = {"BOTTOM", "UIParent", "BOTTOM", -318, 201},
+	["ShadowPet"] = {"BOTTOM", "UIParent", "BOTTOM", -322, 201},
 	--信息条
 	["InfoPanel"] = {"TOPLEFT", "Minimap", "TOPRIGHT", 5,3},
 	--Mini
@@ -267,7 +267,7 @@ G["WarnDB"] = {
 	["FontSize"] = 15,
 	["Health"] = true,
 }
-G["InterruptDB"] = {
+G["AnnounceDB"] = {
 	["Open"] = true,
 	["Interrupt"] = true,
 	["Channel"] = true,

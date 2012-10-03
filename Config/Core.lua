@@ -26,7 +26,7 @@ function SunUIConfig:LoadDefaults()
 			MoveHandleDB = G["MoveHandleDB"],
 			PowerBarDB = G["PowerBarDB"],
 			WarnDB = G["WarnDB"],
-			InterruptDB = G["InterruptDB"],
+			AnnounceDB = G["AnnounceDB"],
 		},
 	}
 end	
@@ -1463,12 +1463,12 @@ function SunUIConfig.GenerateOptionsInternal()
 					},
 				},
 			},
-			InterruptDB = {
+			AnnounceDB = {
 				order = 18,
 				type = "group",
 				name = "施法通告",
-				get = function(info) return db.InterruptDB[ info[#info] ] end,
-				set = function(info, value) db.InterruptDB[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+				get = function(info) return db.AnnounceDB[ info[#info] ] end,
+				set = function(info, value) db.AnnounceDB[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
 				args = {
 					group1 = {
 						type = "group", order = 1,
@@ -1483,7 +1483,7 @@ function SunUIConfig.GenerateOptionsInternal()
 						}
 					},
 					group2 = {
-						type = "group", order = 2, guiInline = true, disabled = function(info) return not db.InterruptDB.Open end,
+						type = "group", order = 2, guiInline = true, disabled = function(info) return not db.AnnounceDB.Open end,
 						name = "",
 						args = {
 							Interrupt = {
