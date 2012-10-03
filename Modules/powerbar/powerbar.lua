@@ -643,13 +643,13 @@ function Module:HealthPowerBar()
 	
 	local spar =  bars:CreateTexture(nil, "OVERLAY")
 	spar:SetTexture("Interface\\Addons\\SunUI\\Media\\Arrow")
-	spar:SetBlendMode("ADD")
+	--spar:SetBlendMode("ADD")
 	spar:SetVertexColor(1, 0, 0, 1) 
 	spar:SetSize(16, 16)
-	spar:SetAlpha(.8)
 	spar:SetPoint("LEFT", bars:GetStatusBarTexture(), "RIGHT", -8, -14)
 	local healthtext = S.MakeFontString(bars, select(2, GameFontNormalSmall:GetFont()))
 	healthtext:SetPoint("TOP", spar, "BOTTOM", 0, 5)
+	healthtext:SetTextColor(1, 0.22, 0.52)
 	
 	bars.SetValue_ = bars.SetValue
 	bars.SetValue = Smooth
@@ -662,14 +662,13 @@ function Module:HealthPowerBar()
 	power:SetMinMaxValues(0, UnitPowerMax("player"))
 	local powerspar =  power:CreateTexture(nil, "OVERLAY")
 	powerspar:SetTexture("Interface\\Addons\\SunUI\\Media\\ArrowT")
-	powerspar:SetBlendMode("ADD")
+	--powerspar:SetBlendMode("ADD")
 	powerspar:SetVertexColor(.3,.45,.65, 1) 
 	powerspar:SetSize(16, 16)
-	powerspar:SetAlpha(.8)
 	powerspar:SetPoint("LEFT", power:GetStatusBarTexture(), "RIGHT", -8, 14)
 	local powertext = S.MakeFontString(bars, select(2, GameFontNormalSmall:GetFont()))
 	powertext:SetPoint("BOTTOM", powerspar, "TOP", 0, -5)
-	
+	powertext:SetTextColor(0, 0.76, 1)
 	power.SetValue_ = power.SetValue
 	power.SetValue = Smooth
 	

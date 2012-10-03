@@ -141,7 +141,6 @@ G["MiniDB"] = {
 	["Resurrect"] = false,
 	["igonoreOld"] = false,
 	["HideRaidWarn"] = true,
-	["Interrupt"] = true,
 	["HideRaid"] = true,
 	["AutoSell"] = true,
 	["FastError"] = true,
@@ -267,4 +266,14 @@ G["WarnDB"] = {
 	["Height"] = 64,
 	["FontSize"] = 15,
 	["Health"] = true,
+}
+G["InterruptDB"] = {
+	["Open"] = true,
+	["Interrupt"] = true,
+	["Channel"] = true,
+	["Mislead"] = true,
+	["BaoM"] = true,
+	["Give"] = true,
+	["Resurrect"] = true,
+	["Heal"] = true,
 }
