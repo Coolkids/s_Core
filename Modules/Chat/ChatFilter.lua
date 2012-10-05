@@ -52,6 +52,15 @@ function Module:OnInitialize()
 			"dps",
 		},
 		["DangerWords"] = {
+			"**",
+			"→",
+			"←",
+			"進行最後一擊",
+			"进行最后一击",
+			"[仇恨]",
+			"[误导]",
+			"[誤導]",
+			"生命危急",
 			"塞.?纳.*团.?队",
 			"赤.?焰.?星.?魂",
 			"平.?[台臺]",
@@ -101,12 +110,20 @@ function Module:OnInitialize()
 		["WhiteList"] = {
 		},
 		["BlackList"] = {
-		"大脚",
-		"魔盒",
-		"大腳",
-		"FishUI",
-		"準備開火",
-		"代刷",
+			"大脚",
+			"魔盒",
+			"大腳",
+			"FishUI",
+			"準備開火",
+			"代刷",
+			"**?",
+			"?**",
+			"→?",
+			"?←",
+			"進行最後一擊",
+			"进行最后一击",
+			"[仇恨]",
+			"生命危急",
 		},
 	}
 	-----------------------------------------------------------------------
@@ -543,4 +560,15 @@ function Module:OnInitialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ChatFilter_TalentSpec)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_ACHIEVEMENT", ChatFilter_Achievement)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD_ACHIEVEMENT", ChatFilter_Achievement)
+	
+	local function KillRaidAlerter(self, event, msg)
+		if (strmatch(msg, "^(%*%*).+(%*%*)$")) or (strmatch(msg, "(大腳).+(提示)")) or (strmatch(msg, "(大脚).+(提示)")) or (strmatch(msg, "(魔盒).+(提示)")) then
+			return true
+		end
+	end
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", KillRaidAlerter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_WARNING", KillRaidAlerter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", KillRaidAlerter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", KillRaidAlerter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_MONSTER_PARTY", KillRaidAlerter)
 end

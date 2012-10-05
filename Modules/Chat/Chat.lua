@@ -34,28 +34,28 @@ ChatTypeInfo.OFFICER.sticky = 0
 ChatTypeInfo.WHISPER.sticky = 1
 ChatTypeInfo.CHANNEL.sticky = 1
 ChatTypeInfo.BN_WHISPER.sticky = 0
--- L["综合"], --General
--- L["交易"], --Trade
--- L["世界防务"], --WorldDefense
--- L["本地防御"], --LocalDefense
--- L["寻求组队"], --LookingForGroup
--- L["工会招募"], --GuildRecruitment
-
-_G.CHAT_BATTLEGROUND_GET = "|Hchannel:Battleground|h"..L["战场"].."|h %s:\32"
-_G.CHAT_BATTLEGROUND_LEADER_GET = "|Hchannel:Battleground|h"..L["战场领袖"].."|h %s:\32"
-_G.CHAT_GUILD_GET = "|Hchannel:Guild|h"..L["工会"].."|h %s:\32"
-_G.CHAT_OFFICER_GET = "|Hchannel:o|h"..L["官员"].."|h %s:\32"
-_G.CHAT_PARTY_GET = "|Hchannel:Party|h"..L["小队"].."|h %s:\32"
-_G.CHAT_PARTY_GUIDE_GET = "|Hchannel:party|h"..L["地城领袖"].."|h %s:\32"
-_G.CHAT_PARTY_LEADER_GET = "|Hchannel:party|h"..L["小队队长"].."|h %s:\32"
-_G.CHAT_RAID_GET = "|Hchannel:raid|h"..L["团队"].."|h %s:\32"
-_G.CHAT_RAID_LEADER_GET = "|Hchannel:raid|h"..L["团队领袖"].."|h %s:\32"
-_G.CHAT_RAID_WARNING_GET = L["团队警告"].." %s:\32"
+---------------- > Channel names
+-- Global strings
+_G.CHAT_BATTLEGROUND_GET = "|Hchannel:Battleground|h".."[BG]".."|h %s:\32"
+_G.CHAT_BATTLEGROUND_LEADER_GET = "|Hchannel:Battleground|h".."[BG]".."|h %s:\32"
+_G.CHAT_GUILD_GET = "|Hchannel:Guild|h".."[G]".."|h %s:\32"
+_G.CHAT_OFFICER_GET = "|Hchannel:o|h".."[O]".."|h %s:\32"
+_G.CHAT_PARTY_GET = "|Hchannel:Party|h".."[P]".."|h %s:\32"
+_G.CHAT_PARTY_GUIDE_GET = "|Hchannel:party|h".."[P]".."|h %s:\32"
+_G.CHAT_PARTY_LEADER_GET = "|Hchannel:party|h".."[P]".."|h %s:\32"
+_G.CHAT_RAID_GET = "|Hchannel:raid|h".."[R]".."|h %s:\32"
+_G.CHAT_RAID_LEADER_GET = "|Hchannel:raid|h".."[R]".."|h %s:\32"
+_G.CHAT_RAID_WARNING_GET = "[W]".." %s:\32"
+_G.CHAT_SAY_GET = "%s:\32"
+_G.CHAT_YELL_GET = "%s:\32"
 
 _G.CHAT_FLAG_AFK = "|cffFF0000".."[AFK]".."|r "
 _G.CHAT_FLAG_DND = "|cffE7E716".."[DND]".."|r "
 _G.CHAT_FLAG_GM = "|cff4154F5".."[GM]".."|r "
  
+_G.ERR_FRIEND_ONLINE_SS = "|Hplayer:%s|h[%s]|h ".." |cff298F00 Online|r".."!"
+_G.ERR_FRIEND_OFFLINE_S = "%s ".."|cffff0000 Offline|r".."!"
+
 -------------- > Custom timestamps color
 
 ChatFrame2ButtonFrameBottomButton:RegisterEvent("PLAYER_LOGIN")
@@ -220,9 +220,6 @@ hooksecurefunc('FloatingChatFrame_OnMouseScroll', function(self, dir)
 		end
 	end
 end)
-
-
-
 
 ---------------- > Batch ChatCopy Module
 local lines = {}

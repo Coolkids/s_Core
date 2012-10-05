@@ -5,8 +5,8 @@ local cfg = {
 }
 
 local L = {
-	fish = "Fishy loot",
-	empty = "Empty slot",
+	fish = "Еігу",
+	empty = "Пе",
 }
 local addon = CreateFrame("Button", "SunUI_Loot")
 local title = addon:CreateFontString(nil, "OVERLAY")
@@ -136,7 +136,6 @@ local createSlot = function(id)
 	frame:SetPoint("RIGHT", -8, 0)
 	frame:SetHeight(cfg.iconsize)
 	frame:SetID(id)
-	
 	frame:SetScript("OnEnter", OnEnter)
 	frame:SetScript("OnLeave", OnLeave)
 	frame:SetScript("OnClick", OnClick)
