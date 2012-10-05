@@ -403,7 +403,7 @@ function Module:CreatePetBar()
     bar:SetWidth(C["ButtonSize"]*num+C["ButtonSpacing"]*(num-1))
     bar:SetHeight(C["ButtonSize"])
     bar:SetScale(C["PetBarSacle"])
-  
+	PetActionBarFrame:SetParent(bar)
     MoveHandle.SunUIPetBar = S.MakeMove(bar, "SunUI宠物条", "petbar", C["PetBarSacle"])
 	
 	local PetBarUpdate = function(self, event)
@@ -489,7 +489,8 @@ function Module:CreatePetBar()
 	bar:RegisterEvent("UNIT_FLAGS")
 	bar:RegisterEvent("UNIT_AURA")
 	bar:SetScript("OnEvent", function(self, event, arg1)
-		if event == "PLAYER_ENTERING_WORLD" then	
+		if event == "PLAYER_ENTERING_WORLD" then
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		PetActionBarFrame.showgrid = 1
 			local button		
 			for i = 1, 10 do

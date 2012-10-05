@@ -8,10 +8,10 @@ local L = {
 	fish = "Fishy loot",
 	empty = "Empty slot",
 }
-local addon = CreateFrame("Button", "m_Loot")
+local addon = CreateFrame("Button", "SunUI_Loot")
 local title = addon:CreateFontString(nil, "OVERLAY")
-local lb = CreateFrame("Button", "m_LootAdv", addon, "UIPanelScrollDownButtonTemplate")		-- Link button
-local LDD = CreateFrame("Frame", "m_LootLDD", addon, "UIDropDownMenuTemplate")				-- Link dropdown menu frame
+local lb = CreateFrame("Button", "Loot_D", addon, "UIPanelScrollDownButtonTemplate")		-- Link button
+local LDD = CreateFrame("Frame", "Loot_b", addon, "XUIDropDownMenuTemplate")				-- Link dropdown menu frame
 
 local sq, ss, sn
 local OnEnter = function(self)
@@ -26,7 +26,7 @@ end
 
 
 local function OnLinkClick(self)
-    ToggleDropDownMenu(1, nil, LDD, lb, 0, 0)
+    XToggleDropDownMenu(1, nil, LDD, lb, 0, 0)
 end
 
 local function LDD_OnClick(self)
@@ -51,13 +51,14 @@ function Announce(chn)
     end
 end
 
-local function LDD_Initialize()  
-    local info = {}
+local function LDD_Initialize(self, level)  
+    level = level or 1
+	local info = {}
     
     info.text = "Announce to"
     info.notCheckable = true
     info.isTitle = true
-    UIDropDownMenu_AddButton(info)
+    XUIDropDownMenu_AddButton(info, level)
     
     --announce chanels
     info = {}
@@ -65,28 +66,28 @@ local function LDD_Initialize()
     info.value = "raid"
     info.notCheckable = 1
     info.func = LDD_OnClick
-    UIDropDownMenu_AddButton(info)
+    XUIDropDownMenu_AddButton(info, level)
     
     info = {}
     info.text = "  guild"
     info.value = "guild"
     info.notCheckable = 1
     info.func = LDD_OnClick
-    UIDropDownMenu_AddButton(info)
+    XUIDropDownMenu_AddButton(info, level)
 	
 	info = {}
     info.text = "  party"
     info.value = "party"
     info.notCheckable = 1
     info.func = LDD_OnClick
-    UIDropDownMenu_AddButton(info)
+    XUIDropDownMenu_AddButton(info, level)
 
     info = {}
     info.text = "  say"
     info.value = "say"
     info.notCheckable = 1
     info.func = LDD_OnClick
-    UIDropDownMenu_AddButton(info)
+    XUIDropDownMenu_AddButton(info, level)
     
     info = nil
 end
@@ -231,7 +232,7 @@ lb:SetFrameStrata("TOOLTIP")
 lb:RegisterForClicks("RightButtonUp", "LeftButtonUp")
 lb:SetScript("OnClick", OnLinkClick)
 lb:Hide()
-UIDropDownMenu_Initialize(LDD, LDD_Initialize, "MENU")
+XUIDropDownMenu_Initialize(LDD, LDD_Initialize, "MENU")
 
 addon.slots = {}
 addon.LOOT_CLOSED = function(self)
@@ -350,12 +351,12 @@ end
 
 
 addon.OPEN_MASTER_LOOT_LIST = function(self)
-	ToggleDropDownMenu(1, nil, GroupLootDropDown, addon.slots[ss], 0, 0)
+	XToggleDropDownMenu(1, nil, GroupLootDropDown, addon.slots[ss], 0, 0)
 	--ToggleDropDownMenu(1, nil, GroupLootDropDown, LootFrame.selectedLootButton, 0, 0)
 end
 
 addon.UPDATE_MASTER_LOOT_LIST = function(self)
-	UIDropDownMenu_Refresh(GroupLootDropDown)
+	XUIDropDownMenu_Refresh(GroupLootDropDown)
 end
 
 addon:SetScript("OnEvent", function(self, event, ...)
@@ -371,7 +372,7 @@ addon:Hide()
 
 -- Fuzz
 LootFrame:UnregisterAllEvents()
-table.insert(UISpecialFrames, "m_Loot")
+table.insert(UISpecialFrames, "SunUI_Loot")
 
 --[[ StaticPopupDialogs["CONFIRM_LOOT_DISTRIBUTION"].OnAccept = function(self, data)
 	GiveMasterLoot(self:GetID(), data)

@@ -34,7 +34,7 @@ function Module:OnInitialize()
 		["FilterMultiLine"] = true, --Filter the multiple messages. // 过滤多行信息
 		["AllowLines"] = 3, --How many lines can be allowd. // 允许的最大行数
 		
-		["FilterRepeat"] = true, --Filter the repeat messages. // 过滤重复聊天信息
+		["FilterRepeat"] = false, --Filter the repeat messages. // 过滤重复聊天信息
 		["RepeatAlike"] = 95, --Set the similarity between the messages. // 设定重复信息相似度
 		["RepeatInterval"] = 60, --Set the interval between the messages. // 设定重复信息间隔时间
 		["RepeatMaxCache"] = 200, --Set the max cache from the messages. // 设定最多缓存多少条消息
