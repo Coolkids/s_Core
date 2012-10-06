@@ -19,10 +19,16 @@ local addon = CreateFrame("Button", "SunUI_Loot")
 local title = CreateFrame("Frame", nil, addon)
 title.text = S.MakeFontString(addon)
 title.text:SetPoint("CENTER", title, "CENTER")
-title:SetHeight(50)
-title:SetPoint("BOTTOMLEFT", addon, "TOPLEFT", 0, 8)
-title:SetPoint("BOTTOMRIGHT", addon, "TOPRIGHT", 0, 8)
+title:SetHeight(25)
+title:SetPoint("BOTTOMLEFT", addon, "TOPLEFT", 0, 11)
+title:SetPoint("BOTTOMRIGHT", addon, "TOPRIGHT", 0, 11)
 title:CreateShadow("Background")
+LootTargetPortrait=CreateFrame("PlayerModel",nil,addon)
+LootTargetPortrait:SetPoint("TOPRIGHT",title,"TOPLEFT",-11,0)
+LootTargetPortrait:SetHeight(50)
+LootTargetPortrait:SetWidth(50)
+LootTargetPortrait:CreateShadow("Background")
+	
 local lb = CreateFrame("Button", "Loot_D", addon, "UIPanelScrollDownButtonTemplate")		-- Link button
 local LDD = CreateFrame("Frame", "Loot_b", addon, "XUIDropDownMenuTemplate")				-- Link dropdown menu frame
 lb:SetFrameStrata("FULLSCREEN")
@@ -189,12 +195,10 @@ local createSlot = function(id)
 	frame.count = count
 
 	local name = frame:CreateFontString(nil, "OVERLAY")
-	name:SetJustifyH"LEFT"
+	name:SetJustifyH"CENTER"
 	name:ClearAllPoints()
-	name:SetPoint("RIGHT", frame)
-	name:SetPoint("LEFT", icon, "RIGHT",8,0)
+	name:SetPoint("CENTER", frame)
 	name:SetNonSpaceWrap(true)
-	--name:SetFont(DB.Font, S.Scale(12), "OUTLINE")
 	name:SetFontObject(GameFontWhite)
 
 	name:SetWidth(120)
@@ -245,8 +249,7 @@ XUIDropDownMenu_Initialize(LDD, LDD_Initialize, "MENU")
 addon.slots = {}
 addon.LOOT_CLOSED = function(self)
 	StaticPopup_Hide"LOOT_BIND"
-	self:Hide()
-
+	S.FadeOutFrameDamage(self, 0.5)
 	for _, v in pairs(self.slots) do
 		v:Hide()
 	end
@@ -254,6 +257,7 @@ addon.LOOT_CLOSED = function(self)
 end
 addon.LOOT_OPENED = function(self, event, autoloot)
 	self:Show()
+	UIFrameFadeIn(self, 0.5, 0, 1)
 	lb:Show()
 	if(not self:IsShown()) then
 		CloseLoot(not autoLoot)
@@ -268,7 +272,17 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 	else
 		title.text:SetText(LOOT)
 	end
-
+	if(UnitExists("target") and not IsFishingLoot()) then
+		LootTargetPortrait:SetUnit("target")
+		LootTargetPortrait:SetCamera(0)
+	elseif IsFishingLoot() then
+		LootTargetPortrait:ClearModel()
+		LootTargetPortrait:SetModel("PARTICLES\\Lootfx.m2")
+		LootTargetPortrait:SetCamera(0)
+	else
+		LootTargetPortrait:ClearModel()
+		LootTargetPortrait:SetModel("PARTICLES\\Lootfx.m2")
+	end
 	-- Blizzard uses strings here
 	if(GetCVar("lootUnderMouse") == "1") then
 		local x, y = GetCursorPosition()
@@ -329,11 +343,8 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 	local color = ITEM_QUALITY_COLORS[m]
 	self:SetBackdropBorderColor(color.r, color.g, color.b, .8)
 	self:SetHeight(math.max((items*(cfg.iconsize+10))+27), 20)
-	self:SetWidth(250)
-	title:SetWidth(220)
-	title:SetHeight(16)
+	self:SetWidth(210)
 	
-
 	local closebutton = CreateFrame("Button", nil)
 	closebutton:SetParent( self )
 	closebutton:SetWidth(20)
@@ -346,9 +357,7 @@ end
 
 addon.LOOT_SLOT_CLEARED = function(self, event, slot)
 	if(not self:IsShown()) then return end
-
 	addon.slots[slot]:Hide()
-	
 end
 
 
