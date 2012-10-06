@@ -9,10 +9,12 @@ local L = {
 	empty = "Пе",
 }
 local addon = CreateFrame("Button", "SunUI_Loot")
+
 local title = addon:CreateFontString(nil, "OVERLAY")
 local lb = CreateFrame("Button", "Loot_D", addon, "UIPanelScrollDownButtonTemplate")		-- Link button
 local LDD = CreateFrame("Frame", "Loot_b", addon, "XUIDropDownMenuTemplate")				-- Link dropdown menu frame
-
+lb:SetFrameStrata("FULLSCREEN")
+LDD:SetFrameStrata("FULLSCREEN")
 local sq, ss, sn
 local OnEnter = function(self)
 	local slot = self:GetID()
@@ -140,7 +142,7 @@ local createSlot = function(id)
 	frame:SetScript("OnLeave", OnLeave)
 	frame:SetScript("OnClick", OnClick)
 	frame:SetScript("OnUpdate", OnUpdate)
-
+	frame:SetFrameStrata("FULLSCREEN")
 	local iconFrame = CreateFrame("Frame", nil, frame)
 	iconFrame:SetHeight(cfg.iconsize)
 	iconFrame:SetWidth(cfg.iconsize)
@@ -196,7 +198,6 @@ title:SetFont(DB.Font, S.Scale(20), "OUTLINE")
 title:SetTextColor(GameFontNormalLarge:GetTextColor())
 title:SetJustifyH"LEFT"
 title:SetPoint("TOPLEFT", addon, "TOPLEFT", 6, -4)
-
 addon:SetScript("OnMouseDown", function(self) self:StartMoving() end)
 addon:SetScript("OnMouseUp", function(self) self:StopMovingOrSizing() end)
 addon:SetScript("OnHide", function(self)
@@ -213,13 +214,12 @@ addon:CreateShadow("Background")
 addon:SetWidth(256)
 addon:SetHeight(64)
 addon:SetBackdropColor(0, 0, 0, 1)
-
+addon:SetFrameStrata("FULLSCREEN")
 
 
 addon:SetClampedToScreen(true)
 addon:SetClampRectInsets(0, 0, 14, 0)
 addon:SetHitRectInsets(0, 0, -14, 0)
-addon:SetFrameStrata"HIGH"
 addon:SetToplevel(true)
 
 lb:ClearAllPoints()

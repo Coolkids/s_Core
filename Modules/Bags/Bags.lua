@@ -552,7 +552,7 @@ function Bag:CreateBagFrame(type)
 	local name = type..'Frame'
 	local f = CreateFrame('Button', name, UIParent)
 	S.SetBD(f)
-	--f:SetFrameStrata("MEDIUM")
+	f:SetFrameStrata("DIALOG")
 	f:SetMovable(true)
 	f:SetClampedToScreen(true)
 	f:RegisterForDrag("LeftButton")
@@ -677,10 +677,13 @@ function Bag:InitBags()
 	f.sortButton:Size(55, 10)
 	f.sortButton.ttText = "整理背包"
 	f.sortButton.ttText2 = "整理背包"
-	f.sortButton.ttText2desc = "整理背包"
+	f.sortButton.ttText2desc = "左键逆向,右键正向"
 	f.sortButton:SetScript("OnEnter", Tooltip_Show)
 	f.sortButton:SetScript("OnLeave", Tooltip_Hide)	
-	f.sortButton:SetScript('OnClick', function() JPack:Pack() end)
+	f.sortButton:SetScript('OnMouseDown', function(self, button) 
+		if InCombatLockdown() then return end
+		if button == "RightButton" then JPack:Pack(nil, 1) else JPack:Pack(nil, 2) end 
+	end)
 	S.Reskin(f.sortButton)
 	
 	--Bags Button
@@ -733,20 +736,21 @@ function Bag:InitBank()
 	f.sortButton = CreateFrame('Button', nil, f)
 	f.sortButton:Point('TOPLEFT', f, 'TOPLEFT', 14, -4)
 	f.sortButton:Size(85, 10)
-	--f.sortButton:SetTemplate('Default', true)
-	f.sortButton.ttText = "整理背包"
-	f.sortButton.ttText2 = "按住shift:"
-	f.sortButton.ttText2desc = "整理特殊背包"
+	f.sortButton.ttText = "整理银行"
+	f.sortButton.ttText2 = "整理银行"
+	f.sortButton.ttText2desc = "左键逆向,右键正向"
 	f.sortButton:SetScript("OnEnter", Tooltip_Show)
 	f.sortButton:SetScript("OnLeave", Tooltip_Hide)	
-	f.sortButton:SetScript('OnClick', function() JPack:Pack() end)
+	f.sortButton:SetScript('OnMouseDown', function(self, button) 
+		if button == "RightButton" then JPack:Pack(nil, 1) else JPack:Pack(nil, 2) end 
+	end)
 	S.Reskin(f.sortButton)
 	
 	--Bags Button
 	f.bagsButton = CreateFrame('Button', nil, f)
 	f.bagsButton:Point('LEFT', f.sortButton, 'RIGHT', 3, 0)
 	f.bagsButton:Size(85, 10)
-	f.bagsButton.ttText = "显示背包"
+	f.bagsButton.ttText = "显示银行背包"
 	f.bagsButton:SetScript("OnEnter", Tooltip_Show)
 	f.bagsButton:SetScript("OnLeave", Tooltip_Hide)	
 	f.bagsButton:SetScript('OnClick', function() 
@@ -1090,8 +1094,8 @@ TradeFrame:HookScript("OnHide", function() Bag:CloseBags() end)
 --Stop Blizzard bank bags from functioning.
 BankFrame:UnregisterAllEvents()
 
---StackSplitFrame:SetFrameStrata('MEDIUM')
---LootFrame:SetFrameStrata('HIGH')
+StackSplitFrame:SetFrameStrata('DIALOG')
+LootFrame:SetFrameStrata('DIALOG')
 
 StaticPopupDialogs["BUY_BANK_SLOT"] = {
 	text = CONFIRM_BUY_BANK_SLOT,
