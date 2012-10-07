@@ -36,7 +36,7 @@ elseif DB.MyClass == 'WARLOCK' then
 elseif DB.MyClass == 'WARRIOR' then
 	Unusable = {{16}, {7}}
 elseif DB.MyClass == 'MONK' then
-	Unusable = {{2, 3, 4, 6, 7, 9, 13, 14, 15, 16}, {4, 5, 6}}
+	Unusable = {{2, 3, 4, 6, 9, 13, 14, 15, 16}, {4, 5, 6, 7}}
 end
 
 for class = 1, 2 do
