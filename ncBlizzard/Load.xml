@@ -1,0 +1,9 @@
+﻿<!-- -->
+
+
+
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file = "InspectFix.lua"/>
+	<Script file = "GuildRosterSelectedFix.lua"/>	
+</Ui>
