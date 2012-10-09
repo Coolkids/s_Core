@@ -124,7 +124,7 @@ function S.Reskin(f, noGlow)
 	f:SetHighlightTexture("")
 	f:SetPushedTexture("")
 	f:SetDisabledTexture("")
-	S.CreateBack(f)
+	
 	if f.Left then f.Left:SetAlpha(0) end
 	if f.Middle then f.Middle:SetAlpha(0) end
 	if f.Right then f.Right:SetAlpha(0) end
@@ -132,8 +132,8 @@ function S.Reskin(f, noGlow)
 	if f.RightSeparator then f.RightSeparator:Hide() end
 
 	S.CreateBD(f, .0)
-
-	S.CreateGradient(f)
+	S.CreateBack(f)
+	--S.CreateGradient(f)
 
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
