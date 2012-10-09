@@ -2501,7 +2501,8 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 			if isDone and not expanded and winnerIdx then
 				local name, class = C_LootHistory.GetPlayerInfo(frame.itemIdx, winnerIdx)
 				if name then
-					frame.WinnerName:SetVertexColor(r, g, b)
+					local color = RAID_CLASS_COLORS[class]
+					frame.WinnerName:SetVertexColor(color.r, color.g, color.b)
 				end
 			end
 
@@ -2514,7 +2515,8 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 				local name, class = C_LootHistory.GetPlayerInfo(playerFrame.itemIdx, playerFrame.playerIdx)
 
 				if name then
-					playerFrame.PlayerName:SetTextColor(r, g, b)
+					local color = RAID_CLASS_COLORS[class]
+					playerFrame.PlayerName:SetTextColor(color.r, color.g, color.b)
 				end
 			end
 		end)
@@ -2579,8 +2581,8 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 
 						playerFrame.styled = true
 					end
-					playerFrame.Name:SetTextColor(r, g, b)
-					playerFrame.Highlight:SetVertexColor(r, g, b, .2)
+					--playerFrame.Name:SetTextColor(r, g, b)
+					--playerFrame.Highlight:SetVertexColor(r, g, b, .2)
 				else
 					break
 				end

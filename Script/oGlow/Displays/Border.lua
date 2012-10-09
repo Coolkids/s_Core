@@ -12,7 +12,10 @@ local createBorder = function(self, point)
 		else
 			bc = CreateFrame("Frame", nil, self)
 		end
-		bc:CreateBorder()
+		bc:SetBackdrop({
+			edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",   --, 
+			edgeSize = S.mult+0.2, 
+		})
 		bc:SetAllPoints(self)
 		self.oGlowBorder = bc
 	end
