@@ -1,5 +1,6 @@
 ﻿local S, C, L, DB= unpack(select(2, ...))
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("SunUIConfig", "AceConsole-3.0", "AceEvent-3.0")
+local _
 local db = {}
 local defaults
 local DEFAULT_WIDTH = 800
