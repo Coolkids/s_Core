@@ -1580,9 +1580,6 @@ local function BuildFrame()
 	option2:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -20, 20)
 	option2:SetSize(128, 25)
 	S.Reskin(option2)
-	--local close = CreateFrame("Button", "SunUI_Install_CloseButton", f, "UIPanelCloseButton")
-	--close:SetPoint("TOPRIGHT", f, "TOPRIGHT")
-	--S.ReskinClose(close)
 	--SetUpChat
 	local function SetChat()
 		local channels = {"SAY","EMOTE","YELL","GUILD","OFFICER","GUILD_ACHIEVEMENT","ACHIEVEMENT","WHISPER","PARTY","PARTY_LEADER","RAID","RAID_LEADER","RAID_WARNING","BATTLEGROUND","BATTLEGROUND_LEADER","CHANNEL1","CHANNEL2","CHANNEL3","CHANNEL4","CHANNEL5","CHANNEL6","CHANNEL7",}
@@ -1597,7 +1594,6 @@ local function BuildFrame()
 		ChatFrame1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 3, 33)
 		ChatFrame1:SetWidth(327)
 		ChatFrame1:SetHeight(122)
-		ChatFrame1:SetUserPlaced(true)
 		ChatFrame1:SetClampedToScreen(false)
 		for i = 1,10 do FCF_SetWindowAlpha(_G["ChatFrame"..i], 0) end
 		FCF_SavePositionAndDimensions(ChatFrame1)
