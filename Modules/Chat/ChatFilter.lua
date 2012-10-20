@@ -544,7 +544,6 @@ function Module:OnInitialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ChatFilter_TalentSpec)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_ACHIEVEMENT", ChatFilter_Achievement)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD_ACHIEVEMENT", ChatFilter_Achievement)
-	
 	local function KillRaidAlerter(self, event, msg)
 		if strmatch(msg, "^(%*%*).+(%*%*)$") then
 			return true
@@ -555,4 +554,5 @@ function Module:OnInitialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", KillRaidAlerter)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", KillRaidAlerter)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_MONSTER_PARTY", KillRaidAlerter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", KillRaidAlerter)
 end
