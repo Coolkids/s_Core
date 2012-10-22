@@ -447,6 +447,12 @@ ns.watchers ={
 			direction = "RIGHT",
 			setpoint = {unpack(targetdebuff1)},
 			size = 28,
+				-- 吸血鬼之触
+				{ spellID = 34914, unitId = "target", caster = "player", filter = "DEBUFF" },
+				-- 暗言术:痛
+				{ spellID =   589, unitId = "target", caster = "player", filter = "DEBUFF" },
+				-- 噬灵疫病
+				{ spellID =  2944, unitId = "target", caster = "player", filter = "DEBUFF" },
 				-- 虚弱灵魂
 				{ spellID =  6788, unitId = "target", caster = "player", filter = "DEBUFF" },
 				-- T12 4件特效
@@ -470,25 +476,11 @@ ns.watchers ={
 			setpoint = {unpack(msright)},
 			mode = "ICON",
 			size = 25,
-				-- 吸血鬼之触
-				{ spellID = 34914, unitId = "target", caster = "player", filter = "DEBUFF" },
-				-- 暗言术:痛
-				{ spellID =   589, unitId = "target", caster = "player", filter = "DEBUFF" },
-				-- 噬灵疫病
-				{ spellID =  2944, unitId = "target", caster = "player", filter = "DEBUFF" },
 				--CD
 				--愈合祷言
 				{ spellID = 33076, filter = "CD" },
 				-- 治疗之环
 				{ spellID = 34861, filter = "CD" },
-				
-		},
-		{
-			name = "玩家右邊2",
-			direction = "RIGHT",
-			setpoint = {unpack(msleft)},
-			mode = "ICON",
-			size = 25,
 				-- 心靈震爆
 				{ spellID = 8092, filter = "CD" },
 				-- 神圣之箭
@@ -500,6 +492,15 @@ ns.watchers ={
 				{ spellID = 88684, filter = "CD" },
 				-- 辉环
 				{ spellID = 120517, filter = "CD" },
+				
+		},
+		{
+			name = "玩家右邊2",
+			direction = "RIGHT",
+			setpoint = {unpack(msleft)},
+			mode = "ICON",
+			size = 25,
+				
 		},
 	},
 	["WARLOCK"]={
