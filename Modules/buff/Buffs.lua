@@ -2,15 +2,14 @@
 local S, C, L, DB = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("Buff")
 local _
+local font = "Interface\\Addons\\SunUI\\Media\\font.ttf"
 -- making frame to hold all buff frame elements
 local PositionTempEnchant = function()
 	TemporaryEnchantFrame:SetParent(BuffFrameHolder)
 	TemporaryEnchantFrame:ClearAllPoints()
 	TemporaryEnchantFrame:SetAllPoints(BuffFrameHolder)
 end
-local function durationSetText(duration, arg1, arg2)
-	duration:SetText(format("|cffffffff"..string.gsub(arg1, " ", "").."|r", arg2))
-end
+
 local function CreateBuffStyle(buff, t)
 	if not buff or (buff and buff.styled) then return end
 	local bn = buff:GetName()
@@ -26,14 +25,13 @@ local function CreateBuffStyle(buff, t)
 		buff:SetSize(C["BuffDB"]["IconSize"],C["BuffDB"]["IconSize"])
 		duration:SetParent(h)
 		duration:ClearAllPoints()
-		duration:Point("TOP", h, "BOTTOM", 2, -2)
-		duration:SetFont(DB.Font, C["BuffDB"]["FontSize"]*S.Scale(1), "THINOUTLINE")
-		hooksecurefunc(duration, "SetFormattedText", durationSetText)
+		duration:Point("TOP", h, "BOTTOM", 2, 3)
+		duration:SetFont(font, C["BuffDB"]["FontSize"]*S.Scale(1), "THINOUTLINE")
 		
 		count:SetParent(h)
 		count:ClearAllPoints()
 		count:SetPoint("TOPRIGHT", h, 3, -1)
-		count:SetFont(DB.Font, C["BuffDB"]["FontSize"]*S.Scale(1), "THINOUTLINE")
+		count:SetFont(font, C["BuffDB"]["FontSize"]*S.Scale(1), "THINOUTLINE")
 		buff:CreateShadow()
 		buff:StyleButton(true)
 	end
@@ -186,8 +184,6 @@ hooksecurefunc("AuraButton_UpdateDuration", function(auraButton, timeLeft)
 			Duration:SetVertexColor(0.4, 0.4, 1)
 		elseif (timeLeft < 86400 and timeLeft >= 3600) then
 			Duration:SetVertexColor(0.4, 1, 1)
-		elseif (timeLeft < 3600 and timeLeft >= 60) then
-			Duration:SetVertexColor(1, 1, 1)
 		elseif (timeLeft < 60 and timeLeft >= 15) then
 			Duration:SetVertexColor(1, 1, 0)
 		elseif timeLeft < 15 then
