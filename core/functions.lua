@@ -259,7 +259,7 @@ function S.CreateBack(f, r1,g1,b1,a1,r2,g2,b2,a2)
 	local gradient = f:CreateTexture(nil, "BACKGROUND")
 	gradient:SetPoint("TOPLEFT")
 	gradient:SetPoint("BOTTOMRIGHT")
-	gradient:SetTexture("Interface\\Addons\\SunUI\\Media\\statusbar7")
+	gradient:SetTexture(DB.Statusbar)
 	if a1 and a2 then 
 		gradient:SetGradientAlpha("VERTICAL", r1 or .3, g1 or  .3, b1 or  .3, a1, r2 or  .1, g2 or  .1, b2 or  .1, a2)
 	else
