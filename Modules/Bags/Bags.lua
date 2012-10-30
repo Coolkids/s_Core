@@ -187,13 +187,13 @@ function B:UpdateSlot(bagID, slotID)
 			--slot.iconTexture:SetInside()
 			--slot:StyleButton()
 			slot:SetBackdropColor(0, 0, 0)
-			slot.border:SetBackdropBorderColor(1.0, 0.2, 0.2)
+			slot.border:SetBackdropBorderColor(1, 0.8, 0.2)
 			slot.questIcon:Show()
 		elseif questId or isQuestItem then
 			--slot.iconTexture:SetInside()
 			--slot:StyleButton()
 			slot:SetBackdropColor(0, 0, 0)
-			slot.border:SetBackdropBorderColor(1.0, 1, 0)
+			slot.border:SetBackdropBorderColor(1, 1, 0)
 		elseif slot.rarity and slot.rarity > 1 then
 			local r, g, b = GetItemQualityColor(slot.rarity)
 			--slot.iconTexture:SetInside()
@@ -394,7 +394,7 @@ function B:Layout(isBank)
 					f.Bags[bagID][slotID].count:SetFont(DB.Font, S.mult*12, "OUTLINE")
 					f.Bags[bagID][slotID].questIcon = _G[f.Bags[bagID][slotID]:GetName().."IconQuestTexture"]
 					f.Bags[bagID][slotID].questIcon:SetTexture(TEXTURE_ITEM_QUEST_BANG)
-					f.Bags[bagID][slotID].questIcon:SetInside(f.Bags[bagID][slotID])
+					f.Bags[bagID][slotID].questIcon:SetAllPoints(f.Bags[bagID][slotID])
 					f.Bags[bagID][slotID].questIcon:SetTexCoord(.08, .92, .08, .92)
 					f.Bags[bagID][slotID].questIcon:Hide()
 					f.Bags[bagID][slotID].iconTexture = _G[f.Bags[bagID][slotID]:GetName().."IconTexture"]
@@ -575,8 +575,8 @@ function B:ContructContainerFrame(name, isBank)
 		f.sortButton = CreateFrame("Button", nil, f)
 		f.sortButton:Point("TOPLEFT", f, "TOPLEFT", 14, -4)
 		f.sortButton:Size(55, 10)
-		f.sortButton.ttText = L["整理背包"]
-		f.sortButton.ttText2 = "整理背包"
+		f.sortButton.ttText = "整理银行"
+		f.sortButton.ttText2 = "整理银行"
 		f.sortButton.ttText2desc = "左键逆向,右键正向"
 		f.sortButton:SetScript("OnEnter", self.Tooltip_Show)
 		f.sortButton:SetScript("OnLeave", self.Tooltip_Hide)
@@ -674,7 +674,7 @@ function B:ContructContainerFrame(name, isBank)
 		f.sortButton:Point("TOPLEFT", f, "TOPLEFT", 14, -4)
 		f.sortButton:Size(55, 10)
 		f.sortButton.ttText = L["整理背包"]
-		f.sortButton.ttText2 = "整理银行"
+		f.sortButton.ttText2 = "整理背包"
 		f.sortButton.ttText2desc = "左键逆向,右键正向"
 		f.sortButton:SetScript("OnEnter", self.Tooltip_Show)
 		f.sortButton:SetScript("OnLeave", self.Tooltip_Hide)
