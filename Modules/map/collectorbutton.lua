@@ -1,5 +1,4 @@
 ﻿local S, C, L, DB = unpack(select(2, ...))
-local _
 local BlackList = { 
 	["MiniMapTracking"] = true,
 	["MiniMapVoiceChatFrame"] = true,
@@ -15,7 +14,9 @@ local BlackList = {
 	["FeedbackUIButton"] = true,
 	["HelpOpenTicketButton"] = true,
 }
-
+local List = {
+	["BagSync_MinimapButton"] = true,
+}
 local buttons = {}
 local MBCF = CreateFrame("Frame", "MinimapButtonCollectFrame", UIParent)
 MBCF:SetFrameStrata("BACKGROUND")
@@ -54,12 +55,27 @@ end
 local MinimapButtonCollect = CreateFrame("Frame")
 MinimapButtonCollect:RegisterEvent("PLAYER_ENTERING_WORLD")
 MinimapButtonCollect:SetScript("OnEvent", function(self)
-	for i, child in ipairs({Minimap:GetChildren()}) do
-		if not BlackList[child:GetName()] then
-			if child:GetObjectType() == 'Button' and child:GetNumRegions() >= 3 then
-				child:SetParent("MinimapButtonCollectFrame")
-				tinsert(buttons, child)
+	for i, child in pairs({Minimap:GetChildren()}) do
+			if child:GetName() and not BlackList[child:GetName()] then
+				if child:GetObjectType() == "Button" and child:GetNumRegions() >= 3 then
+					child:SetParent("MinimapButtonCollectFrame")
+					for j = 1, child:GetNumRegions() do
+						local region = select(j, child:GetRegions())
+						if region:GetObjectType() == "Texture" then
+							local texture = region:GetTexture()
+							if texture == "Interface\\Minimap\\MiniMap-TrackingBorder" or texture == "Interface\\Minimap\\UI-Minimap-Background" or texture == "Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight" then
+								region:Kill()
+							end
+						end
+					end
+					tinsert(buttons, child)
+				end
 			end
+		end
+	for k,v in pairs(List) do
+		if _G[k] then 
+			tinsert(buttons, _G[k])
+			_G[k]:SetParent("MinimapButtonCollectFrame")
 		end
 	end
 	if #buttons == 0 then 
