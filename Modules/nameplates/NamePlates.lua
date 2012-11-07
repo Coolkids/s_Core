@@ -183,8 +183,11 @@ local function UpdateThreat(frame,elapsed)
 	
 	if not frame.oldglow:IsShown() then
 		frame.hp.hpGlow:SetBackdropBorderColor(0, 0, 0)
+		frame.hp.border:SetBackdropBorderColor(0, 0, 0, 1)
 	else
-		frame.hp.hpGlow:SetBackdropBorderColor(frame.oldglow:GetVertexColor())
+		local r, g, b = frame.oldglow:GetVertexColor()
+		frame.hp.hpGlow:SetBackdropBorderColor(r, g, b)
+		frame.hp.border:SetBackdropBorderColor(0, 0, 0, 0)
 	end
 	
 	-- show current health value
@@ -522,7 +525,7 @@ local function SkinObjects(frame)
 	
 	hp.pct = hp:CreateFontString(nil, "OVERLAY")	
 	hp.pct:SetFont(DB.Font, C["Fontsize"], "THINOUTLINE")
-	hp.pct:SetPoint("LEFT", hp, "RIGHT", 5, 0)
+	hp.pct:SetPoint("CENTER", hp, "CENTER", 0, 0)
 
 	local offset = UIParent:GetScale() / cb:GetEffectiveScale()
 	cb:CreateShadow()
