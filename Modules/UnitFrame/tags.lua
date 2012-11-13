@@ -91,7 +91,7 @@ oUF.Tags.Events['sunui:color'] = 'UNIT_REACTION UNIT_HEALTH UNIT_POWER'
 -- type and level information
 oUF.Tags.Methods['sunui:info'] = function(u) 
 	local level = UnitLevel(u)
-    local race = UnitRace(u) or nil
+    local race = UnitRace(u) or ""
 	local typ = UnitClassification(u)
 	local color = GetQuestDifficultyColor(level)
 	if level <= 0 then
