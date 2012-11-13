@@ -232,6 +232,8 @@ G["MoveHandleDB"] = {
 	["AchievementHolder"] = {"RIGHT", "UIParent", "RIGHT", -220, -100},
 	--警告框体
 	["Warn"] = {"TOP", "UIParent", "TOP", 0, -35},
+	--燃火
+	["Ignite"] = {"BOTTOM", "UIParent", "BOTTOM",  285,  168},
 }
 G["PowerBarDB"] = {
 	["Open"] = true,
