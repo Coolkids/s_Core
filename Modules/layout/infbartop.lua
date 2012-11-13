@@ -118,13 +118,16 @@ local Stat = CreateFrame("Frame", "InfoPanel1", TopInfoPanel)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine("System",0,.6,1)
 		GameTooltip:AddLine(" ")
-	
+		local free, total = 0, 0
+		for i = 0, NUM_BAG_SLOTS do
+			free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
+		end
 		local _, _, latencyHome, latencyWorld = GetNetStats()
 		local bandwidth = GetAvailableBandwidth()
 		local r1, g1, b1 = S.ColorGradient(latencyHome/900, 0, 1, 0, 1, 1, 0, 1, 0, 0)
 		local r2, g2, b2 = S.ColorGradient(latencyWorld/900, 0, 1, 0, 1, 1, 0, 1, 0, 0)
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L["延迟"], 0.4, 0.78, 1)
+		GameTooltip:AddLine("System", 0.4, 0.78, 1)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddDoubleLine("FPS", fps, 0.75, 0.9, 1)
 		GameTooltip:AddDoubleLine(L["本地延迟"], latencyHome.."ms", 0.75, 0.9, 1, r1, g1, b1)
@@ -134,6 +137,10 @@ local Stat = CreateFrame("Frame", "InfoPanel1", TopInfoPanel)
 			GameTooltip:AddDoubleLine(L["下载"]..": " , string.format("%.2f%%", GetDownloadedPercentage() *100),0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
 			GameTooltip:AddLine(" ")
 		end
+		GameTooltip:AddLine(" ")
+		local i, a = string.find(NUM_FREE_SLOTS, "%(")
+		local j, b = string.find(NUM_FREE_SLOTS, "%)")
+		GameTooltip:AddDoubleLine(format(NUM_FREE_SLOTS, free), string.sub(NUM_FREE_SLOTS, i+1, j-1)..":"..total, 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
 		GameTooltip:Show()
 	end)
 	Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -194,13 +201,13 @@ local function formatMemory(n)
 	end
 end
 
-local function mySort(x,y)
-	return x.mem > y.mem
-end
-
 local function OnTooltipShow(self)
-	GameTooltip:AddLine("内存占用", .6,.8,1)
+	GameTooltip:AddLine("MEMORY", .6,.8,1)
+	GameTooltip:AddLine(" ")
 	local grandtotal = collectgarbage("count")
+	local function mySort(x,y)
+		return x.mem > y.mem
+	end
 	if not self.timer or self.timer + 5 < time() then
 		self.timer = time()
 		wipe(memTbl)
@@ -302,7 +309,6 @@ local function BuildGold()
 			return format("%s".."|cffeda55fc|r", copper)
 		end
 	end
-	
 	local function formatTextMoney(money)
 		return format("%.0f|cffffd700%s|r", money * 0.0001, "g")
 	end
@@ -313,7 +319,6 @@ local function BuildGold()
 		cash = format("%d".."|cffffd700g|r".." %d".."|cffc7c7cfs|r".." %d".."|cffeda55fc|r", gold, silver, copper)		
 		return cash
 	end	
-
 	local function OnEvent(self, event)
 		if event == "PLAYER_ENTERING_WORLD" then
 			OldMoney = GetMoney()
@@ -331,7 +336,7 @@ local function BuildGold()
 		Text:SetText(formatTextMoney(NewMoney))
 		-- Setup Money Tooltip
 		self:SetAllPoints(Text)
-
+		
 		local myPlayerRealm = GetCVar("realmName");
 		local myPlayerName  = UnitName("player");				
 		if (SunUIConfig == nil) then SunUIConfig = {}; end
@@ -340,10 +345,8 @@ local function BuildGold()
 		SunUIConfig.gold[myPlayerRealm][myPlayerName] = GetMoney();
 		self:SetScript("OnEnter", function()
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-				self.hovered = true 
-
 				GameTooltip:ClearLines()
-				GameTooltip:AddLine(CURRENCY,0,.6,1)
+				GameTooltip:AddLine(CURRENCY,.6,.8,1)
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine("目前: ",.6,.8,1)
 				GameTooltip:AddDoubleLine("收入:", formatMoney(Profit), 1, 1, 1, 0, 1, 0)
@@ -356,7 +359,7 @@ local function BuildGold()
 				GameTooltip:AddLine' '								
 			
 				local totalGold = 0				
-				GameTooltip:AddLine("当前ID: ",.6,.8,1)			
+				GameTooltip:AddLine("已知ID: ",.6,.8,1)			
 				local thisRealmList = SunUIConfig.gold[myPlayerRealm];
 				for k,v in pairs(thisRealmList) do
 					GameTooltip:AddDoubleLine(k, FormatTooltipMoney(v), 1, 1, 1, 1, 1, 1)
