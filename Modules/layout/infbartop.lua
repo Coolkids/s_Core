@@ -135,12 +135,9 @@ local Stat = CreateFrame("Frame", "InfoPanel1", TopInfoPanel)
 		if bandwidth ~= 0 then
 			GameTooltip:AddDoubleLine(L["带宽"]..": " , string.format("%.2f Mbps", bandwidth),0.69, 0.31, 0.31,0.84, 0.75, 0.65)
 			GameTooltip:AddDoubleLine(L["下载"]..": " , string.format("%.2f%%", GetDownloadedPercentage() *100),0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
-			GameTooltip:AddLine(" ")
 		end
 		GameTooltip:AddLine(" ")
-		local i, a = string.find(NUM_FREE_SLOTS, "%(")
-		local j, b = string.find(NUM_FREE_SLOTS, "%)")
-		GameTooltip:AddDoubleLine(format(NUM_FREE_SLOTS, free), string.sub(NUM_FREE_SLOTS, i+1, j-1)..":"..total, 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
+		GameTooltip:AddDoubleLine(format(NUM_FREE_SLOTS, free), total, 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
 		GameTooltip:Show()
 	end)
 	Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)

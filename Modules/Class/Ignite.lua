@@ -38,6 +38,7 @@ local function TalentUpdate()
 			else
 				self:RegisterEvent("UNIT_AURA")
 				self:RegisterEvent("PLAYER_TARGET_CHANGED")
+				self:Hide()
 			end
 		end
 	end)
