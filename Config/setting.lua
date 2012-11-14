@@ -123,7 +123,6 @@ G["MiniDB"] = {
 	["AutoRepair"] = false,
 	["IPhoneLock"] = true,
 	["AutoQuest"] = true,
-	["FatigueWarner"] = true,
 	["DNDFilter"] = true,
 	["TimeStamps"] = true,
 	["MiniMapPanels"] = true,

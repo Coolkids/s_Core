@@ -27,7 +27,7 @@ local function RaidTools()
 	wm:SetScript("OnEnter", function(self)
 		UIFrameFadeIn(self, 0.5, self:GetAlpha(), 1)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-		GameTooltip:AddLine("团队工具", .6,.8,1)
+		GameTooltip:AddLine(L["团队工具"], .6,.8,1)
 		GameTooltip:Show()
 	end)
 	wm:SetScript("OnLeave", function(self) 
@@ -137,7 +137,7 @@ local Stat = CreateFrame("Frame", "InfoPanel1", TopInfoPanel)
 			GameTooltip:AddDoubleLine(L["下载"]..": " , string.format("%.2f%%", GetDownloadedPercentage() *100),0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
 		end
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(format(NUM_FREE_SLOTS, free), total, 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
+		GameTooltip:AddDoubleLine(format(NUM_FREE_SLOTS, free), L["总计"]..total, 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
 		GameTooltip:Show()
 	end)
 	Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -234,9 +234,9 @@ local function OnTooltipShow(self)
 				or gtotal <= 1024*18 and {1,0.5} -- 25
 				or {1,0.1}
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine("非暴雪插件总计", formatMemory(gtotal), .6,.8,1, color[1], color[2], 0)
-	GameTooltip:AddDoubleLine("一共占用", formatMemory(grandtotal), .6,.8,1, 0, 1, 0)
-	GameTooltip:AddLine("|cffeda55f点击回收内存", 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["非暴雪插件总计"], formatMemory(gtotal), .6,.8,1, color[1], color[2], 0)
+	GameTooltip:AddDoubleLine(L["一共占用"], formatMemory(grandtotal), .6,.8,1, 0, 1, 0)
+	GameTooltip:AddLine(L["回收内存"], 1, 1, 1)
 end
 
 local function BuildMemory()
@@ -345,26 +345,26 @@ local function BuildGold()
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(CURRENCY,.6,.8,1)
 				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine("目前: ",.6,.8,1)
-				GameTooltip:AddDoubleLine("收入:", formatMoney(Profit), 1, 1, 1, 0, 1, 0)
-				GameTooltip:AddDoubleLine("花费:", formatMoney(Spent), 1, 1, 1, 1, 0, 0)
+				GameTooltip:AddLine(L["目前"],.6,.8,1)
+				GameTooltip:AddDoubleLine(L["收入"], formatMoney(Profit), 1, 1, 1, 0, 1, 0)
+				GameTooltip:AddDoubleLine(L["花费"], formatMoney(Spent), 1, 1, 1, 1, 0, 0)
 				if Profit < Spent then
-					GameTooltip:AddDoubleLine("亏损:", formatMoney(Profit-Spent), 1, 1, 1, 1, 0, 0)
+					GameTooltip:AddDoubleLine(L["亏损"], formatMoney(Profit-Spent), 1, 1, 1, 1, 0, 0)
 				elseif (Profit-Spent)>0 then
 					GameTooltip:AddDoubleLine("利润:", formatMoney(Profit-Spent), 1, 1, 1, 0, 1, 0)
 				end				
 				GameTooltip:AddLine' '								
 			
 				local totalGold = 0				
-				GameTooltip:AddLine("已知ID: ",.6,.8,1)			
+				GameTooltip:AddLine("ID: ",.6,.8,1)			
 				local thisRealmList = SunUIConfig.gold[myPlayerRealm];
 				for k,v in pairs(thisRealmList) do
 					GameTooltip:AddDoubleLine(k, FormatTooltipMoney(v), 1, 1, 1, 1, 1, 1)
 					totalGold=totalGold+v;
 				end 
 				GameTooltip:AddLine' '
-				GameTooltip:AddLine("服务器: ",.6,.8,1)
-				GameTooltip:AddDoubleLine("总计: ", FormatTooltipMoney(totalGold), 1, 1, 1, 1, 1, 1)
+				GameTooltip:AddLine(L["服务器"],.6,.8,1)
+				GameTooltip:AddDoubleLine(L["总计"], FormatTooltipMoney(totalGold), 1, 1, 1, 1, 1, 1)
 
 				for i = 1, MAX_WATCHED_TOKENS do
 					local name, count, extraCurrencyType, icon, itemID = GetBackpackCurrencyInfo(i)
@@ -444,7 +444,7 @@ function Module:OnInitialize()
 		maphide:SetScript("OnEnter", function(self)
 			UIFrameFadeIn(self, 0.5, self:GetAlpha(), 1)
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-			GameTooltip:AddLine("隐藏小地图", .6,.8,1)
+			GameTooltip:AddLine(L["隐藏小地图"], .6,.8,1)
 			GameTooltip:Show()
 		end)
 		maphide:SetScript("OnLeave", function(self) 
@@ -473,13 +473,13 @@ function Module:OnInitialize()
 				end
 			end
 			if not findframe then
-				DEFAULT_CHAT_FRAME:AddMessage("SunUI:暂时不兼容其他伤害统计.")
+				DEFAULT_CHAT_FRAME:AddMessage(L["暂时不兼容其他伤害统计"])
 			end
 		end)
 		mapdamage:SetScript("OnEnter", function(self)
 			UIFrameFadeIn(self, 2, self:GetAlpha(), 1)
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-			GameTooltip:AddLine("隐藏伤害统计", .6,.8,1)
+			GameTooltip:AddLine(L["隐藏伤害统计"], .6,.8,1)
 			GameTooltip:Show()
 		end)
 		mapdamage:SetScript("OnLeave", function(self) 

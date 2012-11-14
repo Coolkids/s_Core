@@ -50,7 +50,7 @@ function Module:BuildExpBar()
 		ExpBar.Rest:SetOrientation("VERTICAL")
 		S.CreateBack(h, true) 
 	end
-	MoveHandle.ExpBar = S.MakeMoveHandle(ExpBar, "经验条", "expbar")
+	MoveHandle.ExpBar = S.MakeMoveHandle(ExpBar, L["经验条"], "expbar")
 	
 	ExpBar:SetScript("OnEnter", function(self)
 		if InCombatLockdown() then return end
