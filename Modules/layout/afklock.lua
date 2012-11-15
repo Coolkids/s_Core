@@ -39,7 +39,7 @@ local function AltzFrame()
 		altztop.afk = altztop:CreateFontString(nil, "OVERLAY")
 		altztop.afk:SetPoint("TOP", altztop.text, "BOTTOM", 0, -5)
 		altztop.afk:SetFont(DB.Font, 24, "NONE")
-		altztop.afk:SetText("|cffb3b3b3"..L["您现在处于"].."|r|cff00d2ffAFK|r|cffb3b3b3"..L["状态"].."r")
+		altztop.afk:SetText("|cffb3b3b3"..L["您现在处于"].."|r|cff00d2ffAFK|r|cffb3b3b3"..L["状态"].."|r")
 		
 		altztop.text2 = altztop:CreateFontString(nil, "OVERLAY")
 		altztop.text2:SetPoint("BOTTOM", altztop, "BOTTOM", 0, 5)
