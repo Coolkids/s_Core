@@ -466,7 +466,6 @@ local function UpdateCastbar(frame)
     frame:SetPoint("TOP",frame.border,0,0)
     frame:SetPoint("BOTTOM",frame.border,0,0)
     frame:SetPoint("LEFT",frame.border,0,0)
-
 	if not frame.shield:IsShown() then
 		frame:SetStatusBarColor(.5,.65,.85)
 	else
@@ -529,6 +528,8 @@ local function SkinObjects(frame)
 	hp:CreateShadow()
 	hp.hpGlow = hp.shadow
 	S.CreateBack(hp)
+	S.CreateMark(hp)
+	S.CreateMark(cb)
 	-- hp.hpGlow = CreateFrame("Frame", nil, hp)
 	-- hp.hpGlow:SetPoint("TOPLEFT", hp, "TOPLEFT", -3.5, 3.5)
 	-- hp.hpGlow:SetPoint("BOTTOMRIGHT", hp, "BOTTOMRIGHT", 3.5, -3.5)
