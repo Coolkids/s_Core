@@ -182,9 +182,11 @@ local function UpdateThreat(frame,elapsed)
 	frame.hp:SetStatusBarColor(frame.r, frame.g, frame.b)
 	
 	if not frame.oldglow:IsShown() then
+		frame.hp.hpGlow:SetScale(1)
 		frame.hp.hpGlow:SetBackdropBorderColor(0, 0, 0)
 		frame.hp.border:SetBackdropBorderColor(0, 0, 0, 1)
 	else
+		frame.hp.hpGlow:SetScale(0.5)
 		local r, g, b = frame.oldglow:GetVertexColor()
 		frame.hp.hpGlow:SetBackdropBorderColor(r, g, b)
 		frame.hp.border:SetBackdropBorderColor(0, 0, 0, 0)
