@@ -25,16 +25,22 @@ function Module:OnEnable()
 	PMinimap.texture:SetBlendMode("ADD")
 	
 	PMinimap.texture.anim = PMinimap.texture:CreateAnimationGroup()
-
-	PMinimap.texture.anim.fadein = PMinimap.texture.anim:CreateAnimation("ALPHA")
-	PMinimap.texture.anim.fadein:SetChange(1)
-	PMinimap.texture.anim.fadein:SetOrder(2)
-	PMinimap.texture.anim.fadein:SetDuration(3)
 	
 	PMinimap.texture.anim.fadeout = PMinimap.texture.anim:CreateAnimation("ALPHA")
 	PMinimap.texture.anim.fadeout:SetChange(-1)
 	PMinimap.texture.anim.fadeout:SetOrder(1)
 	PMinimap.texture.anim.fadeout:SetDuration(3)
+
+	PMinimap.texture.anim.fade = PMinimap.texture.anim:CreateAnimation("ALPHA")
+	PMinimap.texture.anim.fade:SetChange(0)
+	PMinimap.texture.anim.fade:SetOrder(2)
+	PMinimap.texture.anim.fade:SetDuration(3)
+	
+	PMinimap.texture.anim.fadein = PMinimap.texture.anim:CreateAnimation("ALPHA")
+	PMinimap.texture.anim.fadein:SetChange(1)
+	PMinimap.texture.anim.fadein:SetOrder(3)
+	PMinimap.texture.anim.fadein:SetDuration(3)
+	
 	PMinimap.texture.anim:SetLooping("REPEAT")
 	PMinimap.texture.anim:Play()
 
