@@ -538,6 +538,7 @@ local function SkinObjects(frame)
 	hp.hpGlow = hp.border
 	local texture = hp:GetStatusBarTexture()
 	hp.toptexture = texture
+	S.CreateMark(hp)
 	S.CreateMark(cb)
 	local hpbg = CreateFrame("Frame", nil, hp)
 	hpbg:SetAllPoints(hp)
