@@ -345,6 +345,7 @@ function Module:CreateEclipse()
 	lb:SetStatusBarColor(0.27, 0.47, 0.74)
 	local s = lb:GetStatusBarTexture()
 	S.CreateTop(s, 0.27, 0.47, 0.74)
+	S.CreateMark(lb)
 	eb.LunarBar = lb
 	local sb = CreateFrame('StatusBar', nil, eb)
 	sb:SetPoint('LEFT', lb:GetStatusBarTexture(), 'RIGHT', 0, 0)
@@ -371,9 +372,9 @@ function Module:CreateEclipse()
 		if event == "ECLIPSE_DIRECTION_CHANGE" or event == "PLAYER_ENTERING_WORLD" then
 			local dir = GetEclipseDirection()
 			if dir=="sun" then
-				ebInd:SetText("|cff4478BC>>>|r")
+				ebInd:SetText("|cff4478BC-->|r")
 			elseif dir=="moon" then
-				ebInd:SetText("|cffE5994C<<<|r")
+				ebInd:SetText("|cffE5994C<--|r")
 			end
 		end
 		if event == "PLAYER_TALENT_UPDATE" or event == "UPDATE_SHAPESHIFT_FORM" or event == "PLAYER_REGEN_DISABLED" then
