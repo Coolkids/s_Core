@@ -841,8 +841,8 @@ lib.addHarmony = function(f)
 	chibar:RegisterEvent("UNIT_POWER")
 	chibar:RegisterEvent("UNIT_DISPLAYPOWER")
 	chibar:SetScript("OnEvent",function()
-		local chinum = UnitPower("player",SPELL_POWER_LIGHT_FORCE)
-		local chimax = UnitPowerMax("player",SPELL_POWER_LIGHT_FORCE)
+		local chinum = UnitPower("player",SPELL_POWER_CHI)
+		local chimax = UnitPowerMax("player",SPELL_POWER_CHI)
 		if chinum ~= chimax then
 			if chimax == 4 then
 				chibar[5]:Hide()

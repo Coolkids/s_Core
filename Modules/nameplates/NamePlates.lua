@@ -169,8 +169,8 @@ local totems = {
 }
 
 local function UpdateThreat(frame,elapsed)
-	if(frame.region:IsShown()) then
-		local _, val = frame.region:GetVertexColor()
+	if(frame.threat:IsShown()) then
+		local _, val = frame.threat:GetVertexColor()
 		if(val > 0.7) then
 			frame.name:SetTextColor(1, 1, 0)
 		else
@@ -517,10 +517,11 @@ local function OnHide(frame)
 
 	frame:SetScript("OnUpdate", nil)
 end
-local function SkinObjects(frame)
+local function SkinObjects(frame, nameFrame)
 	local hp, cb = frame:GetChildren()
 
-	local threat, hpborder, overlay, oldname, level, bossicon, raidicon, elite = frame:GetRegions()
+	local threat, hpborder, overlay, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
+	local oldname = nameFrame:GetRegions()
 	local _, cbborder, cbshield, cbicon = cb:GetRegions()
 	
 	frame.healthOriginal = hp
@@ -564,7 +565,8 @@ local function SkinObjects(frame)
 	hp.pct = hp:CreateFontString(nil, "OVERLAY")	
 	hp.pct:SetFont(DB.Font, C["Fontsize"], "THINOUTLINE")
 	hp.pct:SetPoint("CENTER", hp, "CENTER", 0, 0)
-
+	hp:HookScript("OnShow", UpdateObjects)
+	
 	local offset = UIParent:GetScale() / cb:GetEffectiveScale()
 	cb:CreateShadow()
 	S.CreateBack(cb)
@@ -645,7 +647,7 @@ local function CheckBlacklist(frame, ...)
 end
 local function CheckUnit_Guid(frame, ...)
 	--local numParty, numRaid = GetNumPartyMembers(), GetNumRaidMembers()
-	if UnitExists("target") and frame:GetAlpha() == 1 and UnitName("target") == frame.oldname:GetText() then
+	if UnitExists("target") and fframe:GetParent():GetAlpha() == 1 and UnitName("target") == frame.oldname:GetText() then
 		frame.guid = UnitGUID("target")
 		frame.unit = "target"
 		OnAura(frame, "target")
@@ -694,11 +696,9 @@ local select = select
 local function HookFrames(...)
 	for index = 1, select('#', ...) do
 		local frame = select(index, ...)
-		local region = frame:GetRegions()
-		
+	
 		if(not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == 'Texture') then
-			SkinObjects(frame)
-			frame.region = region
+			SkinObjects(frame:GetChildren())
 			frame.isSkinned = true
 		end
 	end
