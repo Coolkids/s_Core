@@ -1,7 +1,5 @@
 local S, C, L, DB = unpack(select(2, ...))
-if IsAddOnLoaded("Aurora") then
-	return 
-end
+if IsAddOnLoaded("Aurora") then return end
 local _
 local media = {
 	["arrowUp"] = "Interface\\AddOns\\SunUI\\media\\arrow-up-active",

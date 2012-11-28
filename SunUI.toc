@@ -5,6 +5,7 @@
 ## Author:dtzy, Ray, 楼上的你妈妈叫你吃饭, other Authors, Coolkid
 ## SavedVariables: SunUIConfig, RayWatcherDB, stAddonProfiles, stLockedAddons
 ## SavedVariablesPerCharacter: CoreVersion
+## RequiredDeps: Blizzard_CombatText
 ## X-WoWBox-Ver: 1
 ## X-WoWBox-ID: 3341
 
