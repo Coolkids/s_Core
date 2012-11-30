@@ -434,7 +434,6 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 			PetModelFrameRotateLeftButton:Hide()
 			PetModelFrameRotateRightButton:Hide()
 			PetModelFrameShadowOverlay:Hide()
-			PetPaperDollXPBar1:Hide()
 			PetPaperDollPetModelBg:SetAlpha(0)
 		end
 
@@ -3446,7 +3445,7 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 		AuctionProgressBarText:SetPoint("CENTER", 0, 1)
 
 		S.ReskinClose(AuctionProgressFrameCancelButton, "LEFT", AuctionProgressBar, "RIGHT", 4, 0)
-		select(15, AuctionProgressFrameCancelButton:GetRegions()):Point("CENTER", 0, 2)
+		select(14, AuctionProgressFrameCancelButton:GetRegions()):Point("CENTER", 0, 2)
 
 		AuctionFrame:DisableDrawLayer("ARTWORK")
 		AuctionPortraitTexture:Hide()

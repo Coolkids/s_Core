@@ -176,19 +176,11 @@ local function UpdateThreat(frame,elapsed)
 		else
 			frame.name:SetTextColor(1, 0, 0)
 		end
+		--S.CreateTop(frame.hp.toptexture, frame.r, frame.g, frame.b)
 	else
 		frame.name:SetTextColor(1, 1, 1)
 	end
-	frame.hp:SetStatusBarColor(frame.r, frame.g, frame.b)
-	S.CreateTop(frame.hp.toptexture, frame.r, frame.g, frame.b)
-	-- if not frame.oldglow:IsShown() then
-		-- frame.hp.hpGlow:SetBackdropBorderColor(0, 0, 0)
-	-- else
-		-- local r, g, b = frame.oldglow:GetVertexColor()
-		-- frame.hp.hpGlow:SetBackdropBorderColor(r, g, b)
-	-- end
 	
-	-- show current health value
     local minHealth, maxHealth = frame.healthOriginal:GetMinMaxValues()
     local valueHealth = frame.healthOriginal:GetValue()
 	local d =(valueHealth/maxHealth)*100
@@ -373,24 +365,20 @@ local function OnAura(frame, unit)
 end
 
 local function UpdateObjects(frame)
-	frame = frame:GetParent()
+	local frame = frame:GetParent()
 	local r, g, b = frame.hp:GetStatusBarColor()
 		local newr, newg, newb
 		if g + b == 0 then
 			newr, newg, newb = 0.7, 0.2, 0.1
-			frame.hp:SetStatusBarColor(0.7, 0.2, 0.1)
 			S.CreateTop(frame.hp.toptexture, 0.7, 0.2, 0.1)
 		elseif r + b == 0 then
 			newr, newg, newb = 0.2, 0.6, 0.1
-			frame.hp:SetStatusBarColor(0.2, 0.6, 0.1)
 			S.CreateTop(frame.hp.toptexture, 0.2, 0.6, 0.1)
 		elseif r + g == 0 then
 			newr, newg, newb = 0.31, 0.45, 0.63
-			frame.hp:SetStatusBarColor(0.31, 0.45, 0.63)
 			S.CreateTop(frame.hp.toptexture, 0.31, 0.45, 0.63)
 		elseif 2 - (r + g) < 0.05 and b == 0 then
 			newr, newg, newb = 0.71, 0.71, 0.35
-			frame.hp:SetStatusBarColor(0.71, 0.71, 0.35)
 			S.CreateTop(frame.hp.toptexture, 0.71, 0.71, 0.35)
 		else
 			newr, newg, newb = r, g, b
@@ -407,10 +395,6 @@ local function UpdateObjects(frame)
 	frame.highlight:ClearAllPoints()
 	frame.highlight:SetAllPoints(frame.hp)
 
-	-- color hp bg dependend on hp color
-    --local BGr, BGg, BGb = frame.hp:GetStatusBarColor()
-	--frame.hp.hpbg2:SetVertexColor(BGr*0.18, BGg*0.18, BGb*0.18)
-	
 	local level, elite, mylevel = tonumber(frame.level:GetText()), frame.elite:IsShown(), UnitLevel("player")
 	local lvlr, lvlg, lvlb = frame.level:GetTextColor()
 	frame.level:ClearAllPoints()
@@ -421,7 +405,7 @@ local function UpdateObjects(frame)
 		frame.name:SetText('|cffDC3C2D'..frame.level:GetText()..'|r '..frame.oldname:GetText())
 	elseif not elite and level == mylevel then
 		frame.name:SetText(frame.oldname:GetText())
-	else
+	elseif level then
 		frame.level:SetText(level..(elite and "+" or ""))
 		frame.name:SetText(format('|cff%02x%02x%02x', lvlr*255, lvlg*255, lvlb*255)..frame.level:GetText()..'|r '..frame.oldname:GetText())
 	end
@@ -520,7 +504,7 @@ end
 local function SkinObjects(frame, nameFrame)
 	local hp, cb = frame:GetChildren()
 
-	local threat, hpborder, overlay, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
+	local threat, hpborder, overlay, level, bossicon, raidicon, elite = frame:GetRegions()
 	local oldname = nameFrame:GetRegions()
 	local _, cbborder, cbshield, cbicon = cb:GetRegions()
 	
@@ -549,18 +533,10 @@ local function SkinObjects(frame, nameFrame)
 	gradient:SetPoint("BOTTOMRIGHT")
 	gradient:SetTexture(DB.Statusbar)
 	gradient:SetGradientAlpha("VERTICAL",  0, 0, 0, 0.6, .35, .35, .35, .65)
-	-- hp.hpGlow = CreateFrame("Frame", nil, hp)
-	-- hp.hpGlow:SetPoint("TOPLEFT", hp, "TOPLEFT", -3.5, 3.5)
-	-- hp.hpGlow:SetPoint("BOTTOMRIGHT", hp, "BOTTOMRIGHT", 3.5, -3.5)
-	-- hp.hpGlow:SetBackdrop(backdrop)
-	-- hp.hpGlow:SetBackdropColor(0, 0, 0)
-	-- hp.hpGlow:SetBackdropBorderColor(0, 0, 0)
-
-	-- pixel art starts here... making targeting border as the commented method above deforms after reloading UI
- 	
-	--hp.value = hp:CreateFontString(nil, "OVERLAY")	
-	--hp.value:SetFont(DB.Font, C["Fontsize"]*S.Scale(1), "THINOUTLINE")
-	--hp.value:SetPoint("LEFT", hp, "RIGHT", 5, 0)
+	 
+	if not frame.threat then
+		frame.threat = threat
+	end
 	
 	hp.pct = hp:CreateFontString(nil, "OVERLAY")	
 	hp.pct:SetFont(DB.Font, C["Fontsize"], "THINOUTLINE")
@@ -592,10 +568,11 @@ local function SkinObjects(frame, nameFrame)
 	frame.oldname = oldname
 	frame.name = name
 	
-	frame.level = level
-	level:SetFont(DB.Font, C["Fontsize"]*S.Scale(1), "THINOUTLINE")
-	--level:SetShadowOffset(1.25, -1.25)
 	
+	--level:SetFont(DB.Font, C["Fontsize"]*S.Scale(1), "THINOUTLINE")
+	--level:SetShadowOffset(1.25, -1.25)
+	frame.level = level
+
 	--Highlight
 	overlay:SetTexture(1,1,1,0.15)
 	overlay:SetAllPoints(hp)
@@ -647,7 +624,7 @@ local function CheckBlacklist(frame, ...)
 end
 local function CheckUnit_Guid(frame, ...)
 	--local numParty, numRaid = GetNumPartyMembers(), GetNumRaidMembers()
-	if UnitExists("target") and fframe:GetParent():GetAlpha() == 1 and UnitName("target") == frame.oldname:GetText() then
+	if UnitExists("target") and frame:GetParent():GetAlpha() == 1 and UnitName("target") == frame.oldname:GetText() then
 		frame.guid = UnitGUID("target")
 		frame.unit = "target"
 		OnAura(frame, "target")
@@ -697,7 +674,7 @@ local function HookFrames(...)
 	for index = 1, select('#', ...) do
 		local frame = select(index, ...)
 	
-		if(not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == 'Texture') then
+		if not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d")) then
 			SkinObjects(frame:GetChildren())
 			frame.isSkinned = true
 		end
@@ -717,17 +694,13 @@ NamePlates:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 function Module:OnInitialize()
 	C = C["NameplateDB"]
 	if C["enable"] ~= true then return end
-	CreateFrame('Frame'):SetScript('OnUpdate', function(self, elapsed)
+	NamePlates:SetScript('OnUpdate', function(self, elapsed)
 		if(WorldFrame:GetNumChildren() ~= numChildren) then
 			numChildren = WorldFrame:GetNumChildren()
 			HookFrames(WorldFrame:GetChildren())
 		end
-		if(self.elapsed and self.elapsed > 0.1) then
-			--for frame in pairs(frames) do
-				ForEachPlate(UpdateThreat, self.elapsed)
-				--UpdateThreat(frame)
-				--UpdateTarget(frame)
-			--end
+		if(self.elapsed and self.elapsed > 0.2) then
+			ForEachPlate(UpdateThreat, self.elapsed)
 			self.elapsed = 0
 		else
 			self.elapsed = (self.elapsed or 0) + elapsed
