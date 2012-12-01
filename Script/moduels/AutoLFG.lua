@@ -42,11 +42,10 @@ function Module:OnInitialize()
 		S.CreateMark(ALFG.durationBar)
 		
 		ALFG.durationTime:SetFontObject(GameFontNormalLarge)
-		do local f,s,g =  ALFG.durationTime:GetFont()
-			ALFG.durationTime:SetFont(f,12,g)
-			ALFG.durationTime:SetText("")
-			ALFG.durationTime:SetPoint("RIGHT",LFGDungeonReadyDialogLeaveQueueButton,-8,0)
-		end
+		local f,s,g =  ALFG.durationTime:GetFont()
+		ALFG.durationTime:SetFont(f,12,g)
+		ALFG.durationTime:SetText("")
+		ALFG.durationTime:SetPoint("RIGHT",LFGDungeonReadyDialogLeaveQueueButton,-8,0)
 	end
 
 	local PostUpdateDurationBar = function()
@@ -60,7 +59,7 @@ function Module:OnInitialize()
 			if obj.nextUpdate > interval then
 				local newTime = GetTime()
 				if (newTime - oldTime) < duration then
-					--print((newTime - oldTime)) duration - (newTime - oldTime)
+					--print((newTime - oldTime)) --duration - (newTime - oldTime)
 					ALFG.durationBar:SetValue(duration - (newTime - oldTime))
 					ALFG.durationTime:SetText(string.format("%d",(duration - (newTime - oldTime))))		
 					flag = flag + 1
@@ -77,27 +76,28 @@ function Module:OnInitialize()
 	end
 
 	local IgnoreOldDungeon = function()
-		local killedInfo = LFGDungeonReadyDialogInstanceInfoFrame.statusText:GetText()
-			local nameInfo = LFGDungeonReadyDialogInstanceInfoFrame.name:GetText()	
-			local curKilled = 0
-			local maxKilled = 0
-			if killedInfo then
-				local i,j = string.find(killedInfo,"%/")
-				curKilled = string.sub(killedInfo,i-1,j-1)
-				maxKilled = string.sub(killedInfo,i+1,i+1)
-				if tonumber(curKilled) > 0 and C["igonoreOld"] then
-					leaveLFG(nameInfo,curKilled,maxKilled)
-				end
+		local proposalExists, id, typeID, subtypeID, name, texture, role, hasResponded, bogus, completedEncounters, numMembers, isLeader, extra, totalEncounters = GetLFGProposal(); 
+		if totalEncounters and totalEncounters > 0 then
+			LFGDungeonReadyDialogInstanceInfoFrame.statusText:SetFormattedText(BOSSES_KILLED, completedEncounters, totalEncounters)
+			if C["igonoreOld"] then
+				leaveLFG(name,completedEncounters,totalEncounters)
 			end
+		end
 	end
 
 	--init
-	do DurationWidget() end
+	DurationWidget()
 	ALFG:RegisterEvent("LFG_PROPOSAL_SHOW")
+	ALFG:RegisterEvent("LFG_PROPOSAL_UPDATE")
 	ALFG:SetScript("OnEvent",function(self,e)
-		if LFGDungeonReadyDialog:IsShown() then
-			PostUpdateDurationBar()
-			IgnoreOldDungeon()	
+		if e == "LFG_PROPOSAL_SHOW" then
+			if LFGDungeonReadyDialog:IsShown() then
+				PostUpdateDurationBar()
+				IgnoreOldDungeon()	
+			end
+		end
+		if e == "LFG_PROPOSAL_UPDATE" then
+			IgnoreOldDungeon()
 		end
 	end)
 
