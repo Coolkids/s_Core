@@ -7,11 +7,11 @@ function Module:OnInitialize()
 
 	local Locale = {
 		zhCN = {
-			ignore = "|cffffff00AutoLFG:自动离开队列(%s:已击杀%d/%d个首领)|r",
+			ignore = "|cffffff00AutoLFG:警告!! 队列(%s:已击杀%d/%d个首领)|r",
 		},
-		zhTW = {ignore = "|cffffff00AutoLFG:自動離開隊列(%s:已擊殺%d/%d個首領)|r",},
+		zhTW = {ignore = "|cffffff00AutoLFG:警告!! 隊列(%s:已擊殺%d/%d個首領)|r",},
 		enUS = {
-			ignore = "|cffffff00AutoLFG:Auto leave the queue(%s:%d/%d Bosses defeated)|r"
+			ignore = "|cffffff00AutoLFG:the queue(%s:%d/%d Bosses defeated)|r"
 		},
 	}
 	local L = Locale[GetLocale()]
@@ -23,20 +23,20 @@ function Module:OnInitialize()
 	LFGDungeonReadyDialog.nextUpdate = 0
 
 	local leaveLFG = function(name,curKilled,maxKilled)
-		LFGDungeonReadyDialogLeaveQueueButton:Click()
+		--LFGDungeonReadyDialogLeaveQueueButton:Click()
 		print(string.format(L.ignore,name,curKilled,maxKilled))
 	end
 
 	local DurationWidget = function()
-		ALFG:SetSize(LFGDungeonReadyDialog:GetWidth()*0.8,5)
+		ALFG:SetSize(LFGDungeonReadyDialog:GetWidth()*0.8,6)
 		ALFG:SetPoint("BOTTOM",LFGDungeonReadyDialog,0,12)
 		ALFG.durationBar:SetStatusBarTexture(DB.Statusbar)
-		ALFG.durationBar:SetPoint("TOPLEFT", ALFG)
-		ALFG.durationBar:SetPoint("BOTTOMRIGHT", ALFG)
+		ALFG.durationBar:SetPoint("TOPLEFT", ALFG, 1, -1)
+		ALFG.durationBar:SetPoint("BOTTOMRIGHT", ALFG, -1, 1)
 		ALFG.durationBar:SetMinMaxValues(0, 40)
 		ALFG.durationBar:SetFrameLevel(LFGDungeonReadyDialog:GetFrameLevel()+1)
-		--ALFG:CreateBorder()
-		ALFG.durationBar:CreateShadow()
+		ALFG:CreateBorder()
+		--ALFG.durationBar:CreateShadow()
 		S.CreateBack(ALFG.durationBar)
 		S.CreateTop(ALFG.durationBar:GetStatusBarTexture(), 1,.7, 0)
 		S.CreateMark(ALFG.durationBar)
