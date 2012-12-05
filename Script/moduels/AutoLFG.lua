@@ -28,12 +28,7 @@ local DurationWidget = function()
 	ALFG.durationTime:SetText("")
 	ALFG.durationTime:SetPoint("RIGHT",LFGDungeonReadyDialogLeaveQueueButton,-8,0)
 end
-local IgnoreOldDungeon = function()
-	local proposalExists, id, typeID, subtypeID, name, texture, role, hasResponded, bogus, completedEncounters, numMembers, isLeader, extra, totalEncounters = GetLFGProposal(); 
-	if totalEncounters and totalEncounters > 0 then
-		LFGDungeonReadyDialogInstanceInfoFrame.statusText:SetFormattedText(BOSSES_KILLED, completedEncounters, totalEncounters)
-	end
-end
+
 local PostUpdateDurationBar = function()
 	local obj =	LFGDungeonReadyDialog	
 	local oldTime = GetTime()
@@ -58,12 +53,8 @@ end
 --init
 DurationWidget()
 ALFG:RegisterEvent("LFG_PROPOSAL_SHOW")
-ALFG:RegisterEvent("LFG_PROPOSAL_UPDATE")
 ALFG:SetScript("OnEvent",function(self,e)
-	if e == "LFG_PROPOSAL_SHOW" then
-		if LFGDungeonReadyDialog:IsShown() then
-			PostUpdateDurationBar()
-		end
+	if LFGDungeonReadyDialog:IsShown() then
+		PostUpdateDurationBar()
 	end
-	IgnoreOldDungeon()
 end)
