@@ -3,7 +3,6 @@
 ----------------------------------------------------------------------------------------
 --	Auto popup for currency cap(EnoughPoints by gi2k15)
 ----------------------------------------------------------------------------------------
-local L_POPUP_CURRENCY_CAP = "Waring"
 
 StaticPopupDialogs.EnoughPoints = {
 	button1 = OKAY,
@@ -45,7 +44,8 @@ frame:SetScript("OnEvent", function(self, event, ...) self[event](self, event, .
 frame:RegisterEvent("ADDON_LOADED")
 
 function frame:ADDON_LOADED(event, name)
-	if name == "ShestakUI" then
+	if name == "SunUI" then
+		print(123)
 		self:RegisterEvent("PLAYER_LOGIN")
 		self:RegisterEvent("PLAYER_ENTERING_WORLD")
 		self:RegisterEvent("LFG_UPDATE")
@@ -59,8 +59,8 @@ function frame:CheckBadges(kind)
 		StaticPopupDialogs.EnoughPoints.OnHide = nil
 	end
 	local name, currentAmount = GetCurrencyInfo(badge[kind])
-	if currentAmount >= defaults[kind].max then
-		StaticPopupDialogs.EnoughPoints.text = L_POPUP_CURRENCY_CAP..":\n |cffffff00"..tostring(currentAmount).."|r |cff00aa00["..name.."]|r."
+	if (currentAmount >= (defaults[kind].max - 200)) then
+		StaticPopupDialogs.EnoughPoints.text = "|r |cff00aa00["..name.."]|r".."|cffffff00"..tostring(currentAmount).."/"..tostring(defaults[kind].max)
 		StaticPopup_Show("EnoughPoints")
 	end
 end
