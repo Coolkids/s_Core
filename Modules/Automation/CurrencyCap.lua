@@ -45,7 +45,6 @@ frame:RegisterEvent("ADDON_LOADED")
 
 function frame:ADDON_LOADED(event, name)
 	if name == "SunUI" then
-		print(123)
 		self:RegisterEvent("PLAYER_LOGIN")
 		self:RegisterEvent("PLAYER_ENTERING_WORLD")
 		self:RegisterEvent("LFG_UPDATE")
