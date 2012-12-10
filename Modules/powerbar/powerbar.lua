@@ -655,7 +655,7 @@ local function UpdateHealthSmooth(self)
 end
 
 function Module:HealthPowerBar()
-	if not C["Health"] then return end
+	if not C["HealthPower"] then return end
 	local bars = CreateFrame("Statusbar", nil, UIParent)
 	bars:SetSize(C["Width"], C["Height"])
 	local a,b,c,d,e = unpack(SunUIConfig.db.profile.MoveHandleDB.PowerBar)

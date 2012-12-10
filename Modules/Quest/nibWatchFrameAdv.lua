@@ -264,7 +264,7 @@ hooksecurefunc("WatchFrameItem_UpdateCooldown", function(self)
 
 		border:SetTexture(nil)
 
-		self:StyleButton()
+		self:StyleButton(true)
 
 		self.skinned = true
 	end
