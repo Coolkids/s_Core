@@ -642,18 +642,7 @@ local function MatchGUID(frame, destGUID, spellID)
 		end
 	end
 end
---dead
-local function MatchDDeadGUID(frame, destGUID)
-	--print(frame, destGUID, spellID)
-	if not frame.guid then return end
-	if frame.guid == destGUID then
-		for k,icon in ipairs(frame.icons) do 
-			if icon.spellID then
-				icon:Hide()
-			end 
-		end
-	end
-end
+
 --Run a function for all visible nameplates, we use this for the blacklist, to check unitguid, and to hide drunken text
 local function ForEachPlate(functionToRun, ...)
 	for frame in pairs(frames) do
