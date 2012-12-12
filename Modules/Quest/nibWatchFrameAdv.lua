@@ -250,22 +250,12 @@ hooksecurefunc("WatchFrameItem_UpdateCooldown", function(self)
 		local count = _G[self:GetName().."Count"]
 		local hotkey = _G[self:GetName().."HotKey"]
 
-		--self:SetSize(C.actionbar.button_size, C.actionbar.button_size)
 		self:CreateShadow()
-
 		icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		--icon:SetPoint("TOPLEFT", self, 2, -2)
-		--icon:SetPoint("BOTTOMRIGHT", self, -2, 2)
-
 		count:ClearAllPoints()
 		count:SetPoint("BOTTOMRIGHT", 0, 2)
-		--count:SetFont(C.font.action_bars_font, C.font.action_bars_font_size, C.font.action_bars_font_style)
-		--count:SetShadowOffset(C.font.action_bars_font_shadow and 1 or 0, C.font.action_bars_font_shadow and -1 or 0)
-
 		border:SetTexture(nil)
-
 		self:StyleButton(true)
-
 		self.skinned = true
 	end
 end)
