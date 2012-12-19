@@ -494,7 +494,8 @@ function Module:UpdateSize(val)
 		end
 	end
 end
-local function ShowGrid()
+local function ShowGrid(event, str, value)
+	if str ~= "ALWAYS_SHOW_MULTIBARS_TEXT" then return end
 	if GetCVar("alwaysShowActionBars") == "1" then 
 		SetActionBarToggles(1, 1, 1, 1, 0)
 		ActionButton_HideGrid = DB.dummy
@@ -561,7 +562,7 @@ function Module:OnEnable()
 	Module:CreatePetBar()
 	Module:CreateStanceBar()
 	Module:CreateExitVehicle()
-	ShowGrid()
+	ShowGrid(nil, "ALWAYS_SHOW_MULTIBARS_TEXT", nil)
 	Module:RegisterEvent("CVAR_UPDATE", ShowGrid)
 	Module:RegisterEvent("LOSS_OF_CONTROL_ADDED", HideLossCD)
 	Module:RegisterEvent("LOSS_OF_CONTROL_UPDATE", HideLossCD)

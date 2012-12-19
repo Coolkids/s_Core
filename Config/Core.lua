@@ -388,7 +388,11 @@ function SunUIConfig.GenerateOptionsInternal()
 						desc = L["图标大小"],
 						order = 1,
 						get = function() return tostring(db.BuffDB.IconSize) end,
-						set = function(_, value) db.BuffDB.IconSize = tonumber(value) end,
+						set = function(_, value) 
+							db.BuffDB.IconSize = tonumber(value) 
+							local Buff = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Buff")
+							Buff:UpdateSet()
+						end,
 					},
 					IconPerRow = {
 						type = "input",
