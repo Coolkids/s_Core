@@ -2,7 +2,7 @@
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("SunUIPowerBar", "AceTimer-3.0", "AceEvent-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local powercolor = {}
-local space = 6
+local space = (DB.MyClass == "DEATHKNIGHT") and 2 or 6
 local Holder = CreateFrame("Statusbar", nil, UIParent)
 local mainframe = {}
 local threeframe = {}
@@ -629,7 +629,7 @@ function Module:HealthPowerBar()
 	spar:SetTexture("Interface\\Addons\\SunUI\\Media\\Arrow")
 	spar:SetVertexColor(1, 0, 0, 1) 
 	spar:SetSize(16, 16)
-	spar:SetPoint("TOP", bars:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -4)
+	spar:SetPoint("TOP", bars:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -2)
 	local healthtext = S.MakeFontString(bars)
 	healthtext:SetPoint("TOP", spar, "BOTTOM", 0, 7)
 	healthtext:SetTextColor(1, 0.22, 0.52)
@@ -647,7 +647,7 @@ function Module:HealthPowerBar()
 	powerspar:SetTexture("Interface\\Addons\\SunUI\\Media\\ArrowT")
 	powerspar:SetVertexColor(.3,.45,.65, 1) 
 	powerspar:SetSize(16, 16)
-	powerspar:SetPoint("BOTTOM", power:GetStatusBarTexture(), "TOPRIGHT", 0, 4)
+	powerspar:SetPoint("BOTTOM", power:GetStatusBarTexture(), "TOPRIGHT", 0, 2)
 	local powertext = S.MakeFontString(bars)
 	powertext:SetPoint("BOTTOM", powerspar, "TOP", 0, -5)
 	tinsert(mainframe, power)
