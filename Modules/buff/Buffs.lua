@@ -111,7 +111,7 @@ function Buff:OverrideDebuffAnchors(buttonName, i)
 	if i == 1 then
 		buff:SetPoint("CENTER", debuffholder)
 	else
-		buff:SetPoint("RIGHT", _G[buttonName..(i-1)], "LEFT", -8, 0)
+		--buff:SetPoint("RIGHT", _G[buttonName..(i-1)], "LEFT", -8, 0)
 		if C["DebuffDirection"] == 1 then
 			if i%C["IconPerRow"] == 1 then
 				buff:SetPoint("TOP", PreRow, "BOTTOM", 0, -23)
