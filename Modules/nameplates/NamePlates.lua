@@ -491,10 +491,12 @@ local function SkinObjects(frame, nameFrame)
 
 	hp:SetStatusBarTexture(DB.Statusbar)
 	frame.hp = hp
-	hp:CreateShadow()
-	hp.shadow:Hide()
+	if not hp.shadow then
+		hp:CreateShadow()
+		hp.shadow:Hide()
+		S.CreateMark(hp)
+	end
 	hp.border:SetFrameLevel(0)
-	S.CreateMark(hp)
 	hp.hpGlow = hp.border
 	
 	local hpbg = CreateFrame("Frame", nil, hp)
