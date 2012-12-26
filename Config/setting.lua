@@ -1,4 +1,4 @@
-﻿local S, C, L, G = unpack(select(2, ...))
+local S, C, L, G = unpack(select(2, ...))
 
 -----------------------------------------
 -- This is the default configuration file
@@ -232,6 +232,8 @@ G["MoveHandleDB"] = {
 	["Warn"] = {"TOP", "UIParent", "TOP", 0, -35},
 	--燃火
 	["Ignite"] = {"BOTTOM", "UIParent", "BOTTOM",  285,  168},
+	--职业斩杀
+	["ClassTools"] = {"TOP", "UIParent", "TOP", 0, -35},
 }
 G["PowerBarDB"] = {
 	["Open"] = true,
@@ -268,4 +270,13 @@ G["BagDB"] = {
 }
 G["EquipmentDB"] = {
 	["Enable"] = true,
+}
+G["ClassToolsDB"] = {
+	["Enable"] = true,
+	["Size"] = 48,
+	["Scale"] = 1,
+	["EnableIgniteWatch"] = true,
+	["IgniteWatchSize"] = 24,
+	["EnableSpiritShellWatch"] = true,
+	["SpiritShellWatchSize"] = 24,
 }

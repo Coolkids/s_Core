@@ -1,4 +1,4 @@
-﻿local S, C, L, DB= unpack(select(2, ...))
+local S, C, L, DB= unpack(select(2, ...))
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("SunUIConfig", "AceConsole-3.0", "AceEvent-3.0")
 local _
 local db = {}
@@ -32,7 +32,8 @@ function SunUIConfig:LoadDefaults()
 			WarnDB = G["WarnDB"],
 			AnnounceDB = G["AnnounceDB"],
 			BagDB = G["BagDB"],
-			EquipmentDB = G["EquipmentDB"]
+			EquipmentDB = G["EquipmentDB"],
+			ClassToolsDB = G["ClassToolsDB"],
 		},
 	}
 end	
@@ -55,7 +56,7 @@ function SunUIConfig:Load()
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 	db = self.db.profile
-	
+
 	self:SetupOptions()
 end
 
@@ -71,7 +72,7 @@ function SunUIConfig:SetupOptions()
 	self.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db);
 	AC:RegisterOptionsTable("SunUIProfiles", self.profile)
 	self.profile.order = -10
-	
+
 	self.SetupOptions = nil
 end
 
@@ -94,7 +95,7 @@ function SunUIConfig.GenerateOptionsInternal()
 		timeout = 0,
 		whileDead = 1,
 	}
-	
+
 	SunUIConfig.Options = {
 		type = "group",
 		name = "|cff00d2ffSun|r|cffffffffUI|r",
@@ -339,7 +340,7 @@ function SunUIConfig.GenerateOptionsInternal()
 								disabled = function(info) return db.ActionBarDB.AllFade end,
 								name = L["姿态栏渐隐"],		
 							},
-							
+
 							PetBarFade = {
 								type = "toggle", order = 9,
 								disabled = function(info) return db.ActionBarDB.AllFade end,
@@ -400,7 +401,12 @@ function SunUIConfig.GenerateOptionsInternal()
 						desc = L["每行图标数"],
 						order = 2,
 						get = function() return tostring(db.BuffDB.IconPerRow) end,
-						set = function(_, value) db.BuffDB.IconPerRow = tonumber(value) end,
+						set = function(_, value) 
+							db.BuffDB.IconPerRow = tonumber(value) 
+							local Buff = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Buff")
+							Buff:UpdateBuffDirection()
+							Buff:UpdateDebuffDirection()
+						end,
 					},
 					BuffDirection = {
 						type = "select",
@@ -408,6 +414,12 @@ function SunUIConfig.GenerateOptionsInternal()
 						desc = L["BUFF增长方向"],
 						order = 3,
 						values = {[1] = L["从右向左"], [2] = L["从左向右"]},
+						get = function() return db.BuffDB.BuffDirection end,
+						set = function(_, value) 
+							db.BuffDB.BuffDirection = value
+							local Buff = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Buff")
+							Buff:UpdateBuffDirection()
+						end,
 					},
 					DebuffDirection = {
 						type = "select",
@@ -415,6 +427,12 @@ function SunUIConfig.GenerateOptionsInternal()
 						desc = L["DEBUFF增长方向"],
 						order = 4,
 						values = {[1] = L["从右向左"], [2] = L["从左向右"]},
+						get = function() return db.BuffDB.DebuffDirection end,
+						set = function(_, value) 
+							db.BuffDB.DebuffDirection = value
+							local Buff = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Buff")
+							Buff:UpdateDebuffDirection()
+						end,
 					},
 					FontSize = {
 						type = "input",
@@ -1535,6 +1553,103 @@ function SunUIConfig.GenerateOptionsInternal()
 									SetName:Equipment()
 								end,
 								values = equipment,	
+							},
+						}
+					},
+				},
+			},
+			ClassToolsDB = {
+				order = 19,
+				type = "group",
+				name = "Class Tools",
+				get = function(info) return db.ClassToolsDB[ info[#info] ] end,
+				set = function(info, value) db.ClassToolsDB[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+				args = {
+					group1 = {
+						type = "group", order = 1, guiInline = true,
+						name = "",
+						args = {
+							Enable = {
+								type = "toggle",
+								name = "Enable ClassTools",
+								order = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.Enable = value 
+									local CT = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassTools")
+									CT:UpdateSet()
+								end,
+							},
+							Size = {
+								type = "range", order = 2, disabled = function(info) return not db.ClassToolsDB.Enable end,
+								name = "Size",
+								min = 20, max = 100, step = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.Size = value 
+									local CT = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassTools")
+									CT:UpdateSet()
+								end,
+							},
+							Scale = {
+								type = "range", order = 3, disabled = function(info) return not db.ClassToolsDB.Enable end,
+								name = "Scale",
+								min = 0.1, max = 2, step = 0.1,
+								set = function(info, value) 
+									db.ClassToolsDB.Scale = value 
+									local CT = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassTools")
+									CT:UpdateSet()
+								end,
+							},
+						}
+					},
+					group2 = {
+						type = "group", order = 2, guiInline = true,
+						name = "",
+						args = {
+							EnableIgniteWatch = {
+								type = "toggle",
+								name = "Enable IgniteWatch",
+								order = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.EnableIgniteWatch = value 
+									local IW = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("IgniteWatch")
+									IW:UpdateSet()
+								end,
+							},
+							IgniteWatchSize = {
+								type = "range", order = 2, disabled = function(info) return not db.ClassToolsDB.EnableIgniteWatch end,
+								name = "Size",
+								min = 20, max = 100, step = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.IgniteWatchSize = value 
+									local IW = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("IgniteWatch")
+									IW:UpdateSet()
+								end,
+							},
+						}
+					},
+					group3 = {
+						type = "group", order = 2, guiInline = true,
+						name = "",
+						args = {
+							EnableSpiritShellWatch = {
+								type = "toggle",
+								name = "Enable SpiritShell Watch",
+								order = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.EnableSpiritShellWatch = value 
+									local SSW = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SpiritShell_Watch")
+									SSW:UpdateSet()
+								end,
+							},
+							SpiritShellWatchSize = {
+								type = "range", order = 2, disabled = function(info) return not db.ClassToolsDB.EnableSpiritShellWatch end,
+								name = "Size",
+								min = 20, max = 100, step = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.SpiritShellWatchSize = value 
+									local SSW = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SpiritShell_Watch")
+									SSW:UpdateSet()
+								end,
 							},
 						}
 					},

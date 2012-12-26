@@ -432,7 +432,7 @@ local function ChatFilter_Rubbish(self, event, msg, player, _, _, _, flag, _, _,
 				end
 			end
 			if (guid and tonumber(guid) and tonumber(guid:sub(-12, -9), 16) >0) then return end
-			if (Config.FilterRaidAlert and (strfind(msg, "%*%*(.+)%*%*") or strfind(msg, "失誤於") or strfind(msg, "失误于") or strfind(string.lower(msg), "fishui") or strfind(msg, "fails(.+)%((.+)%)"))) then return true end
+			if (Config.FilterRaidAlert and (strfind(msg, "%*%*(.+)%*%*") or strfind(msg, "失誤於") or strfind(msg, "失誤在") or strfind(msg, "失误于") or strfind(string.lower(msg), "fishui") or strfind(msg, "fails(.+)%((.+)%)"))) then return true end
 			if (Config.FilterQuestReport and strfind(msg, L["QuestReport"])) then return true end
 			if (Config.FilterRepeat or Config.FilterMultiLine) then
 				for i = 1, getn(reportmsg) do

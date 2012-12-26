@@ -494,6 +494,7 @@ local function SkinObjects(frame, nameFrame)
 	hp:CreateShadow()
 	hp.shadow:Hide()
 	hp.border:SetFrameLevel(0)
+	S.CreateMark(hp)
 	hp.hpGlow = hp.border
 	
 	local hpbg = CreateFrame("Frame", nil, hp)
