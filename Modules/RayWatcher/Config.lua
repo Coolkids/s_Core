@@ -1136,6 +1136,8 @@ ns.watchers ={
 				{ spellID = 116740, unitId = "player", caster = "player", filter = "BUFF" },   
 				--业报之触 
 				{ spellID = 125174, unitId = "player", caster = "player", filter = "BUFF" }, 
+				--符咒 
+				{ spellID = 116267, unitId = "player", caster = "player", filter = "BUFF" }, 
 		},
 		{
 			name = "玩家饰品附魔触发buff",

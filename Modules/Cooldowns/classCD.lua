@@ -1635,11 +1635,10 @@ local StartTimer = function(name, spellId, cd)
 	tinsert(bars, bar)
 	CCD:UpdatePositions()
 end
-function CCD:COMBAT_LOG_EVENT_UNFILTERED(null, null, event, ...)
+function CCD:COMBAT_LOG_EVENT_UNFILTERED(null, ...)
 	local _, eventType, _, _, sourceName, sourceFlags = ...
 	if band(sourceFlags, filter) == 0 or sourceName ~= DB.PlayerName then return end
 	local spellId = select(12, ...)
-	--print(spellId)
 	if class_spells[spellId] and EVENT[eventType] then
 		StartTimer(sourceName, spellId, class_spells[spellId].cd)
 	end

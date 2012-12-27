@@ -646,8 +646,10 @@ local function HookFrames(...)
 end
 
 function N:COMBAT_LOG_EVENT_UNFILTERED(times, temp, event, ...)
+	
 	if event == "SPELL_AURA_REMOVED" then
 		local _, sourceGUID, _, _, _, destGUID, _, _, _, spellID = ...
+		--print(sourceGUID,UnitGUID("player"))
 		if sourceGUID == UnitGUID("player") then
 			--print(spellID)
 			ForEachPlate(MatchGUID, destGUID, spellID)
