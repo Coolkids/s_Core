@@ -545,7 +545,7 @@ function Module:FuckWarlock()
 end
 function Module:Mage()
 	if DB.MyClass ~= "MAGE" then return end
-	local MageBars = CreateFrame("Frame", nil, Holder)
+	MageBars = CreateFrame("Frame", nil, Holder)
 	MageBars:SetSize(C["Width"], C["Height"])
 	MageBars:SetPoint("CENTER", Holder)
 	tinsert(mainframe, MageBars)
@@ -564,7 +564,7 @@ function Module:Mage()
 			MageBars[i]:SetPoint("LEFT", MageBars[i-1], "RIGHT", space, 0)
 		end
 	end
-	MageBars:RegisterEvent("PLAYER_ENTERING_WORLD")
+
 	MageBars:RegisterEvent("UNIT_AURA")
 
 	MageBars:SetScript("OnEvent",function(self,event,unit)
@@ -755,9 +755,8 @@ function Module:ACTIVE_TALENT_GROUP_CHANGED()
 		for i = 1,6 do
 			MageBars[i]:Hide()
 		end
-		MageBars:UnregisterEvent()
+		MageBars:UnregisterEvent("UNIT_AURA")
 	elseif DB.MyClass == "MAGE"  and spec == 1 then
-		MageBars:RegisterEvent("PLAYER_ENTERING_WORLD")
 		MageBars:RegisterEvent("UNIT_AURA")
 	end
 end

@@ -89,6 +89,7 @@ local function SkinTooltips()
 		f.BorderBottomLeft:SetTexture(nil)
 	end
 	S.ReskinClose(FloatingBattlePetTooltip.CloseButton)
+	table.insert(UISpecialFrames, "FloatingBattlePetTooltip")
 end
 
 local function SkinPetBattleFrame()

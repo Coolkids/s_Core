@@ -234,6 +234,8 @@ G["MoveHandleDB"] = {
 	["Ignite"] = {"BOTTOM", "UIParent", "BOTTOM",  285,  168},
 	--职业斩杀
 	["ClassTools"] = {"TOP", "UIParent", "TOP", 0, -35},
+	--职业助手
+	["RuneOfPower"] = {"TOP", "UIParent", "TOP", 0, -35},
 }
 G["PowerBarDB"] = {
 	["Open"] = true,
@@ -279,4 +281,6 @@ G["ClassToolsDB"] = {
 	["IgniteWatchSize"] = 24,
 	["EnableSpiritShellWatch"] = true,
 	["SpiritShellWatchSize"] = 24,
+	["ROPEnable"] = true,
+	["ROPSize"] = 24,
 }

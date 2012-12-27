@@ -155,26 +155,51 @@ function SunUIConfig.GenerateOptionsInternal()
 							type = "select", order = 1,
 							name = L["bar1布局"], desc = L["请选择主动作条布局"],
 							values = {[1] = L["12x1布局"], [2] =L["6x2布局"]},
+							get = function(info) return db.ActionBarDB.Bar1Layout end,
+							set = function(info, value) db.ActionBarDB.Bar1Layout = value
+								local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+								Module:UpdateSpace()
+							end,
 						},
 						Bar2Layout = {
 							type = "select", order = 2,
 							name = L["bar2布局"], desc = L["请选择主动作条布局"],
 							values = {[1] = L["12x1布局"], [2] =L["6x2布局"]},
+							get = function(info) return db.ActionBarDB.Bar2Layout end,
+							set = function(info, value) db.ActionBarDB.Bar2Layout = value
+								local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+								Module:UpdateSpace()
+							end,
 						},
 						Bar3Layout = {
 							type = "select", order = 3,
 							name = L["bar3布局"], desc = L["请选择主动作条布局"],
 							values = {[1] = L["12x1布局"], [2] =L["6x2布局"]},
+							get = function(info) return db.ActionBarDB.Bar3Layout end,
+							set = function(info, value) db.ActionBarDB.Bar3Layout = value
+								local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+								Module:UpdateSpace()
+							end,
 						},	
 						Bar4Layout = {
 							type = "select", order = 4,
 							name = L["bar4布局"], desc = L["请选择主动作条布局"],
 							values = {[1] = L["12x1布局"], [2] =L["6x2布局"]},
+							get = function(info) return db.ActionBarDB.Bar4Layout end,
+							set = function(info, value) db.ActionBarDB.Bar4Layout = value
+								local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+								Module:UpdateSpace()
+							end,
 						},	
 						Bar5Layout = {
 							type = "select", order = 5,
 							name = L["bar5布局"], desc = L["请选择主动作条布局"].."\n need"..L["不要4方块布局"],disabled = function(info) return (db.ActionBarDB.Big4Layout == 1) end,
 							values = {[1] = "12x1布局", [2] = "6x2布局"},
+							get = function(info) return db.ActionBarDB.Bar5Layout end,
+							set = function(info, value) db.ActionBarDB.Bar5Layout = value
+								local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+								Module:UpdateSpace()
+							end,
 						},	
 						Big4Layout = {
 							type = "select", order = 6,
@@ -197,7 +222,12 @@ function SunUIConfig.GenerateOptionsInternal()
 							},
 							CooldownFlash = {
 								type = "toggle", order = 3,
-								name = L["冷却闪光"],		
+								name = L["冷却闪光"],	
+								get = function(info) return db.ActionBarDB.CooldownFlash end,
+								set = function(info, value) db.ActionBarDB.CooldownFlash = value
+									local CF = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("CooldownFlash")
+									CF:UpdateSet()
+								end,
 							},
 							UnLock = {
 								type = "execute",
@@ -218,8 +248,8 @@ function SunUIConfig.GenerateOptionsInternal()
 								name = L["动作条按钮大小"], desc = L["动作条按钮大小"],
 								min = 16, max = 64, step = 1,
 								set = function(info, value) 
-									db.ActionBarDB[ info[#info] ] = value
-									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar", "AceEvent-3.0")
+									db.ActionBarDB.ButtonSize = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
 									Module:UpdateSize(value)
 								end,
 							},
@@ -227,6 +257,11 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "range", order = 2,
 								name = L["动作条间距大小"], desc = L["动作条间距大小"],
 								min = 0, max = 6, step = 1,
+								get = function(info) return db.ActionBarDB.ButtonSpacing end,
+								set = function(info, value) db.ActionBarDB.ButtonSpacing = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+									Module:UpdateSpace()
+								end,
 							},
 							FontSize = {
 								type = "range", order = 3,
@@ -242,26 +277,38 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "range", order = 5,
 								name = L["主动作条缩放大小"], desc = L["主动作条缩放大小"],
 								min = 0, max = 3, step = 0.1,
+								get = function(info) return db.ActionBarDB.MainBarSacle end,
+								set = function(info, value) db.ActionBarDB.MainBarSacle = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+									Module:UpdateMainScale()
+								end,
 							},
 							ExtraBarSacle = {
 								type = "range", order = 6,
 								name = L["特殊按钮缩放大小"], desc = L["特殊按钮缩放大小"],
 								min = 0, max = 3, step = 0.1,
+								get = function(info) return db.ActionBarDB.ExtraBarSacle end,
+								set = function(info, value) db.ActionBarDB.ExtraBarSacle = value
+									SunUIExtraActionBar:SetScale(value)
+								end,
 							},
 							PetBarSacle = {
 								type = "range", order = 7,
 								name = L["宠物条缩放大小"], desc = L["宠物条缩放大小"],
 								min = 0, max = 3, step = 0.1,
+								get = function(info) return db.ActionBarDB.PetBarSacle end,
+								set = function(info, value) db.ActionBarDB.PetBarSacle = value
+									SunUIPetBar:SetScale(value)
+								end,
 							},
 							StanceBarSacle = {
 								type = "range", order = 8,
 								name = L["姿态栏缩放大小"], desc = L["姿态栏缩放大小"],
 								min = 0, max = 3, step = 0.1,
-							},
-							TotemBarSacle = {
-								type = "range", order = 9,
-								name = L["图腾栏缩放大小"], desc = L["图腾栏缩放大小"],
-								min = 0, max = 3, step = 0.1,
+								get = function(info) return db.ActionBarDB.StanceBarSacle end,
+								set = function(info, value) db.ActionBarDB.StanceBarSacle = value
+									SunUIStanceBar:SetScale(value)
+								end,
 							},
 						}
 					},
@@ -276,29 +323,53 @@ function SunUIConfig.GenerateOptionsInternal()
 								order = 1,
 								disabled = function(info) return not db.ActionBarDB.CooldownFlash end,
 								get = function() return tostring(db.ActionBarDB.CooldownFlashSize) end,
-								set = function(_, value) db.ActionBarDB.CooldownFlashSize = tonumber(value) end,
+								set = function(_, value) 
+									db.ActionBarDB.CooldownFlashSize = tonumber(value) 
+									local CF = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("CooldownFlash")
+									CF:UpdateSize()
+								end,
 							},
 							ExpbarWidth= {
 								type = "input",
 								name = L["经验条宽度"],
 								order = 2,
 								get = function() return tostring(db.ActionBarDB.ExpbarWidth) end,
-								set = function(_, value) db.ActionBarDB.ExpbarWidth = tonumber(value) end,
+								set = function(_, value) 
+									db.ActionBarDB.ExpbarWidth = tonumber(value) 
+									local EB = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ExpBar")
+									EB:UpdateSize()
+								end,
 							},
 							ExpbarHeight= {
 								type = "input",
 								name = L["经验条高度"],
 								order = 3,
 								get = function() return tostring(db.ActionBarDB.ExpbarHeight) end,
-								set = function(_, value) db.ActionBarDB.ExpbarHeight = tonumber(value) end,
+								set = function(_, value) 
+									db.ActionBarDB.ExpbarHeight = tonumber(value) 
+									local EB = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ExpBar")
+									EB:UpdateSize()
+								end,
 							},
 							ExpbarUp = {
 								type = "toggle", order = 4,
-								name = L["经验条垂直模式"],		
+								name = L["经验条垂直模式"],
+								get = function() return db.ActionBarDB.ExpbarUp end,
+								set = function(_, value) 
+									db.ActionBarDB.ExpbarUp = value
+									local EB = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ExpBar")
+									EB:UpdateSize()
+								end,
 							},
 							ExpbarFadeOut = {
 								type = "toggle", order = 5,
-								name = L["经验条渐隐"],		
+								name = L["经验条渐隐"],
+								get = function() return db.ActionBarDB.ExpbarFadeOut end,
+								set = function(_, value) 
+									db.ActionBarDB.ExpbarFadeOut = value
+									local EB = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ExpBar")
+									EB:UpdateFade()
+								end,
 							},
 						}
 					},
@@ -353,24 +424,44 @@ function SunUIConfig.GenerateOptionsInternal()
 						name = " ",guiInline = true, disabled =function(info) return (db.ActionBarDB.Big4Layout ~= 1) end,
 						args = {
 							BigSize1 = {
-								type = "range", order = 1,
-								name = L["Big1大小"], desc = L["动作条按钮大小"],
-								min = 6, max = 80, step = 1,
+								type = "range", order = 1, desc = "大小设置为小于10的时候为关闭按钮",
+								name = L["Big1大小"],
+								min = 9, max = 80, step = 1,
+								set = function(info, value) 
+									db.ActionBarDB.BigSize1 = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+									Module:UpdateBigButtonSize()
+								end,
 							},
 							BigSize2 = {
-								type = "range", order = 2,
-								name = L["Big2大小"], desc = L["动作条按钮大小"],
-								min = 6, max = 80, step = 1,
+								type = "range", order = 2, desc = "大小设置为小于10的时候为关闭按钮",
+								name = L["Big2大小"],
+								min = 9, max = 80, step = 1,
+								set = function(info, value) 
+									db.ActionBarDB.BigSize2 = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+									Module:UpdateBigButtonSize()
+								end,
 							},
 							BigSize3 = {
-								type = "range", order = 3,
-								name = L["Big3大小"], desc = L["动作条按钮大小"],
-								min = 6, max = 80, step = 1,
+								type = "range", order = 3, desc = "大小设置为小于10的时候为关闭按钮",
+								name = L["Big3大小"],
+								min = 9, max = 80, step = 1,
+								set = function(info, value) 
+									db.ActionBarDB.BigSize3 = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+									Module:UpdateBigButtonSize()
+								end,
 							},
 							BigSize4 = {
-								type = "range", order = 4,
-								name = L["Big4大小"], desc = L["动作条按钮大小"],
-								min = 6, max = 80, step = 1,
+								type = "range", order = 4, desc = "大小设置为小于10的时候为关闭按钮",
+								name = L["Big4大小"],
+								min = 9, max = 80, step = 1,
+								set = function(info, value) 
+									db.ActionBarDB.BigSize4 = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("actionbar")
+									Module:UpdateBigButtonSize()
+								end,
 							},
 						}
 					},
@@ -538,7 +629,7 @@ function SunUIConfig.GenerateOptionsInternal()
 				type = "group",
 				name = L["鼠标提示"],
 				get = function(info) return db.TooltipDB[ info[#info] ] end,
-				set = function(info, value) db.TooltipDB[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+				set = function(info, value) db.TooltipDB[ info[#info] ] = value end,
 				args = {
 					Cursor = {
 						type = "toggle",
@@ -970,7 +1061,7 @@ function SunUIConfig.GenerateOptionsInternal()
 							},
 							Icicle = {
 								type = "toggle",
-								name = L["PVP冷却计时"], desc = L["警告"],
+								name = L["PVP冷却计时"],
 								order = 6,
 							},
 							MiniMapPanels = {
@@ -1094,8 +1185,14 @@ function SunUIConfig.GenerateOptionsInternal()
 						args = {
 							ClassCDOpen = {
 								type = "toggle",
-								name = L["启动内置CD"], desc = L["警告"],
+								name = L["启动内置CD"],
 								order = 1,
+								get = function() return db.MiniDB.ClassCDOpen end,
+								set = function(_, value) 
+									db.MiniDB.ClassCDOpen = value
+									local CCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassCD")
+									CCD:UpdateSet()
+								end,
 							},
 							group = {
 								type = "group", order = 2,
@@ -1113,7 +1210,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										desc = L["图标大小"], disabled = function(info) return not db.MiniDB.ClassCDIcon end,
 										order = 2,
 										get = function() return tostring(db.MiniDB.ClassCDIconSize) end,
-										set = function(_, value) db.MiniDB.ClassCDIconSize = tonumber(value) end,
+										set = function(_, value) 
+											db.MiniDB.ClassCDIconSize = tonumber(value) 
+											local CCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassCD")
+											CCD:UpdateSize()
+										end,
 									},
 									ClassCDIconDirection = {
 										type = "select",
@@ -1122,7 +1223,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										order = 3, disabled =function(info) return not db.MiniDB.ClassCDIcon end,
 										values = {[1] = L["从左向右"], [2] = L["从右向左"]},
 										get = function() return db.MiniDB.ClassCDIconDirection end,
-										set = function(_, value) db.MiniDB.ClassCDIconDirection = value end,
+										set = function(_, value) 
+											db.MiniDB.ClassCDIconDirection = value
+											local CCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassCD")
+											CCD:UpdatePositions()
+										end,
 									},
 									ClassFontSize = {
 										type = "range", order = 4,
@@ -1137,7 +1242,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										desc = L["框体宽度"], disabled = function(info) return db.MiniDB.ClassCDIcon end,
 										order = 5,
 										get = function() return tostring(db.MiniDB.ClassCDWidth) end,
-										set = function(_, value) db.MiniDB.ClassCDWidth = tonumber(value) end,
+										set = function(_, value) 
+											db.MiniDB.ClassCDWidth = tonumber(value) 
+											local CCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassCD")
+											CCD:UpdateSize()
+										end,
 									},
 									ClassCDHeight = {
 										type = "input",
@@ -1145,7 +1254,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										desc = L["框体高度"],
 										order = 6, disabled =  function(info) return db.MiniDB.ClassCDIcon end,
 										get = function() return tostring(db.MiniDB.ClassCDHeight) end,
-										set = function(_, value) db.MiniDB.ClassCDHeight = tonumber(value) end,
+										set = function(_, value) 
+											db.MiniDB.ClassCDHeight = tonumber(value)
+											local CCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassCD")
+											CCD:UpdateSize()
+										end,
 									},
 									ClassCDDirection = {
 										type = "select",
@@ -1154,7 +1267,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										order = 7, disabled = function(info) return db.MiniDB.ClassCDIcon end,
 										values = {[1] = L["向下"], [2] = L["向上"]},
 										get = function() return db.MiniDB.ClassCDDirection end,
-										set = function(_, value) db.MiniDB.ClassCDDirection = value end,
+										set = function(_, value) 
+											db.MiniDB.ClassCDDirection = value 
+											local CCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("ClassCD")
+											CCD:UpdatePositions()
+										end,
 									},
 								}		
 							},
@@ -1168,6 +1285,12 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = L["打开团队技能CD监视"],
 								order = 1,
+								get = function() return db.MiniDB.RaidCD end,
+								set = function(_, value) 
+									db.MiniDB.RaidCD = value 
+									local RCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("RaidCD")
+									RCD:UpdateSet()
+								end,
 							},
 							group = {
 								type = "group", order = 2,
@@ -1187,7 +1310,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										desc = L["框体宽度"],
 										order = 2,
 										get = function() return tostring(db.MiniDB.RaidCDWidth) end,
-										set = function(_, value) db.MiniDB.RaidCDWidth = tonumber(value) end,
+										set = function(_, value) 
+											db.MiniDB.RaidCDWidth = tonumber(value) 
+											local RCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("RaidCD")
+											RCD:UpdateSize()
+										end,
 									},
 									RaidCDHeight = {
 										type = "input",
@@ -1195,7 +1322,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										desc = L["框体高度"],
 										order = 3,
 										get = function() return tostring(db.MiniDB.RaidCDHeight) end,
-										set = function(_, value) db.MiniDB.RaidCDHeight = tonumber(value) end,
+										set = function(_, value) 
+											db.MiniDB.RaidCDHeight = tonumber(value) 
+											local RCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("RaidCD")
+											RCD:UpdateSize()
+										end,
 									},
 									RaidCDDirection = {
 										type = "select",
@@ -1204,7 +1335,11 @@ function SunUIConfig.GenerateOptionsInternal()
 										order = 4,
 										values = {[1] = L["向下"], [2] = L["向上"]},
 										get = function() return db.MiniDB.RaidCDDirection end,
-										set = function(_, value) db.MiniDB.RaidCDDirection = value end,
+										set = function(_, value) 
+											db.MiniDB.RaidCDDirection = value
+											local RCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("RaidCD")
+											RCD:UpdatePositions()
+										end,
 									},
 								}		
 							},
@@ -1315,7 +1450,7 @@ function SunUIConfig.GenerateOptionsInternal()
 				type = "group",
 				name = L["警告提示"],
 				get = function(info) return db.WarnDB[ info[#info] ] end,
-				set = function(info, value) db.WarnDB[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+				set = function(info, value) db.WarnDB[ info[#info] ] = value end,
 				args = {
 					group1 = {
 						type = "group", order = 1,
@@ -1325,6 +1460,12 @@ function SunUIConfig.GenerateOptionsInternal()
 							type = "toggle",
 							name = L["启用警告提示"],
 							order = 1,
+							get = function() return db.WarnDB.Open end,
+							set = function(_, value) 
+								db.WarnDB.Open = value
+								local W = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Warnning")
+								W:UpdateSet()
+							end,
 							},
 						}
 					},
@@ -1332,29 +1473,35 @@ function SunUIConfig.GenerateOptionsInternal()
 						type = "group", order = 2, guiInline = true, disabled = function(info) return not db.WarnDB.Open end,
 						name = "",
 						args = {
-							Width = {
-								type = "input",
-								name = L["框体宽度"],
-								order = 1,
-								get = function() return tostring(db.WarnDB.Width) end,
-								set = function(_, value) db.WarnDB.Width = tonumber(value) end,
-							},
-							Height = {
-								type = "input",
-								name = L["框体高度"],
-								order = 1,
-								get = function() return tostring(db.WarnDB.Height) end,
-								set = function(_, value) db.WarnDB.Height = tonumber(value) end,
-							},
-							FontSize = {
-								type = "range", order = 3,
-								name = L["字体大小"],
-								min = 1, max = 28, step = 1,
-							},
+							-- Width = {
+								-- type = "input",
+								-- name = L["框体宽度"],
+								-- order = 1,
+								-- get = function() return tostring(db.WarnDB.Width) end,
+								-- set = function(_, value) db.WarnDB.Width = tonumber(value) end,
+							-- },
+							-- Height = {
+								-- type = "input",
+								-- name = L["框体高度"],
+								-- order = 1,
+								-- get = function() return tostring(db.WarnDB.Height) end,
+								-- set = function(_, value) db.WarnDB.Height = tonumber(value) end,
+							-- },
+							-- FontSize = {
+								-- type = "range", order = 3,
+								-- name = L["字体大小"],
+								-- min = 1, max = 28, step = 1,
+							-- },
 							Health = {
 							type = "toggle",
 							name = L["低血量"], desc = L["开启低血量报警"],
 							order = 4,
+							get = function() return db.WarnDB.Health end,
+							set = function(_, value) 
+								db.WarnDB.Health = value
+								local W = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Warnning")
+								W:UpdateSet()
+							end,
 							},
 						}
 					},
@@ -1365,7 +1512,11 @@ function SunUIConfig.GenerateOptionsInternal()
 				type = "group",
 				name = L["施法通告"],
 				get = function(info) return db.AnnounceDB[ info[#info] ] end,
-				set = function(info, value) db.AnnounceDB[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+				set = function(info, value) 
+					db.AnnounceDB[ info[#info] ] = value
+					local A = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Announce")
+					A:UpdateSet() 
+				end,
 				args = {
 					group1 = {
 						type = "group", order = 1,
@@ -1628,7 +1779,7 @@ function SunUIConfig.GenerateOptionsInternal()
 						}
 					},
 					group3 = {
-						type = "group", order = 2, guiInline = true,
+						type = "group", order = 3, guiInline = true,
 						name = "",
 						args = {
 							EnableSpiritShellWatch = {
@@ -1649,6 +1800,32 @@ function SunUIConfig.GenerateOptionsInternal()
 									db.ClassToolsDB.SpiritShellWatchSize = value 
 									local SSW = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SpiritShell_Watch")
 									SSW:UpdateSet()
+								end,
+							},
+						}
+					},
+					group4 = {
+						type = "group", order = 4, guiInline = true,
+						name = "",
+						args = {
+							ROPEnable = {
+								type = "toggle",
+								name = "Enable SpiritShell Watch",
+								order = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.ROPEnable = value 
+									local ROP = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("RuneOfPower")
+									ROP:UpdateSet()
+								end,
+							},
+							ROPSize = {
+								type = "range", order = 2, disabled = function(info) return not db.ClassToolsDB.ROPEnable end,
+								name = "Size",
+								min = 20, max = 100, step = 1,
+								set = function(info, value) 
+									db.ClassToolsDB.ROPSize = value 
+									local ROP = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("RuneOfPower")
+									ROP:UpdateSize()
 								end,
 							},
 						}

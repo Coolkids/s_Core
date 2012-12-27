@@ -8,26 +8,76 @@ local datebase = {
 		[1] = {},
 		[2] = {},
 		[3] = {
-			["spellid"] = 32379,
+			["spellid"] = 32379,	--暗言术：死
 			["per"] = 0.2,
 			["level"] = 50,
 		},
 	},
 	["HUNTER"] = {
 		[0] = {
-			["spellid"] = 53351,
+			["spellid"] = 53351,	--杀戮射击
 			["per"] = 0.2,
 			["level"] = 50,
 		}
 	},
 	["MAGE"] = {},
-	["WARLOCK"] = {},
-	["PALADIN"] = {},
-	["ROGUE"] = {},
+	["WARLOCK"] = {
+		[1] = {
+			["spellid"] = 1120,	--灵魂吸取
+			["per"] = 0.2,
+			["level"] = 85,
+		},
+		[2] = {},
+		[3] = {
+			["spellid"] = 17877,	--暗影灼烧
+			["per"] = 0.2,
+			["level"] = 85,
+		},
+	},
+	["PALADIN"] = {
+		[1] = {},
+		[2] = {},
+		[3] = {
+			["spellid"] = 24275,	--愤怒之锤
+			["per"] = 0.2,
+			["level"] = 50,
+		},
+	},
+	["ROGUE"] = {
+		[0] = {
+			["spellid"] = 111240,	--斩击
+			["per"] = 0.35,
+			["level"] = 85,
+		},
+	},
 	["DRUID"] = {},
 	["SHAMAN"] = {},
-	["WARRIOR"] = {},
-	["DEATHKNIGHT"] = {},
+	["WARRIOR"] = {
+		[1] = {
+			["spellid"] = 5308,	--斩杀
+			["per"] = 0.2,
+			["level"] = 85,
+		},
+		[2] = {
+			["spellid"] = 5308,	--斩杀
+			["per"] = 0.2,
+			["level"] = 85,
+		},
+		[3] = {},
+	},
+	["DEATHKNIGHT"] = {
+		[1] = {},
+		[2] = {
+			["spellid"] = 130736,	--灵魂收割
+			["per"] = 0.35,
+			["level"] = 85,
+		},
+		[3] = {
+			["spellid"] = 130736,	--灵魂收割
+			["per"] = 0.35,
+			["level"] = 85,
+		},
+	},
 	["MONK"] = {},
 }
 --Parent
@@ -50,9 +100,9 @@ local function SetFrameTexture()
 		CT:UnregisterAllEvents()
 		return
 	end
-	if datebase[DB.MyClass][0] then
+	if datebase[DB.MyClass][0].spellid then
 		texture = GetSpellTexture(v.spellid)
-		Frame.spellid = v. spellid
+		Frame.spellid = v.spellid
 		Frame.per = v.per
 		Frame.level = v.level
 		CT:RegisterEvent("UNIT_HEALTH")
@@ -63,7 +113,7 @@ local function SetFrameTexture()
 	end
 	if datebase[DB.MyClass][spec].spellid then 
 		texture = GetSpellTexture(datebase[DB.MyClass][spec].spellid)
-		Frame.spellid = datebase[DB.MyClass][spec]. spellid
+		Frame.spellid = datebase[DB.MyClass][spec].spellid
 		Frame.per = datebase[DB.MyClass][spec].per
 		Frame.level = datebase[DB.MyClass][spec].level
 		CT:RegisterEvent("UNIT_HEALTH")

@@ -11,15 +11,6 @@ local newAddMsg = {}
 for i = 1, 18 do
 	CHAT_FONT_HEIGHTS[i] = i+6
 end
-local LinkHover = {}; LinkHover.show = {	-- enable (true) or disable (false) LinkHover functionality for different things in chat
-	["achievement"] = true,
-	["enchant"]     = true,
-	["glyph"]       = true,
-	["item"]        = true,
-	["quest"]       = true,
-	["spell"]       = true,
-	["talent"]      = true,
-	["unit"]        = true,}
 
 -- 打开输入框回到上次对话
 ChatTypeInfo.SAY.sticky = 0
@@ -170,31 +161,6 @@ eb_mouseoff = function()
 end
 hooksecurefunc("ChatFrame_OpenChat",eb_mouseon)
 hooksecurefunc("ChatEdit_SendText",eb_mouseoff)
-
----------------- > Show tooltips when hovering a link in chat (credits to Adys for his LinkHover)
-function LinkHover.OnHyperlinkEnter(_this, linkData, link)
-	local t = linkData:match("^(.-):")
-	if LinkHover.show[t] and IsAltKeyDown() then
-		ShowUIPanel(GameTooltip)
-		GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")
-		GameTooltip:SetHyperlink(link)
-		GameTooltip:Show()
-	end
-end
-function LinkHover.OnHyperlinkLeave(_this, linkData, link)
-	local t = linkData:match("^(.-):")
-	if LinkHover.show[t] then
-		HideUIPanel(GameTooltip)
-	end
-end
-local function LinkHoverOnLoad()
-	for i = 1, NUM_CHAT_WINDOWS do
-		local f = _G["ChatFrame"..i]
-		f:SetScript("OnHyperlinkEnter", LinkHover.OnHyperlinkEnter)
-		f:SetScript("OnHyperlinkLeave", LinkHover.OnHyperlinkLeave)
-	end
-end
-LinkHoverOnLoad()
 
 ----------------------------------------------------------------------------------------
 --	Copy Chat
