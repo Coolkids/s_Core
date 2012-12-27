@@ -5,6 +5,7 @@ local start, duration
 
 local datebase = {
 	["PRIEST"] = {
+		[0] = {},
 		[1] = {},
 		[2] = {},
 		[3] = {
@@ -18,10 +19,14 @@ local datebase = {
 			["spellid"] = 53351,	--杀戮射击
 			["per"] = 0.2,
 			["level"] = 50,
-		}
+		},
+		[1] = {},
+		[2] = {},
+		[3] = {},
 	},
 	["MAGE"] = {},
 	["WARLOCK"] = {
+		[0] = {},
 		[1] = {
 			["spellid"] = 1120,	--灵魂吸取
 			["per"] = 0.2,
@@ -35,6 +40,7 @@ local datebase = {
 		},
 	},
 	["PALADIN"] = {
+		[0] = {},
 		[1] = {},
 		[2] = {},
 		[3] = {
@@ -49,10 +55,14 @@ local datebase = {
 			["per"] = 0.35,
 			["level"] = 85,
 		},
+		[1] = {},
+		[2] = {},
+		[3] = {},
 	},
 	["DRUID"] = {},
 	["SHAMAN"] = {},
 	["WARRIOR"] = {
+		[0] = {},
 		[1] = {
 			["spellid"] = 5308,	--斩杀
 			["per"] = 0.2,
@@ -66,6 +76,7 @@ local datebase = {
 		[3] = {},
 	},
 	["DEATHKNIGHT"] = {
+		[0] = {},
 		[1] = {},
 		[2] = {
 			["spellid"] = 130736,	--灵魂收割
@@ -96,15 +107,16 @@ Frame.Icon:SetAllPoints(Frame)
 local function SetFrameTexture()
 	local spec = GetSpecialization()
 	local texture
+	print(#datebase[DB.MyClass])
 	if #datebase[DB.MyClass] == 0 then 
 		CT:UnregisterAllEvents()
 		return
 	end
 	if datebase[DB.MyClass][0].spellid then
-		texture = GetSpellTexture(v.spellid)
-		Frame.spellid = v.spellid
-		Frame.per = v.per
-		Frame.level = v.level
+		texture = GetSpellTexture(datebase[DB.MyClass][0].spellid)
+		Frame.spellid = datebase[DB.MyClass][0].spellid
+		Frame.per = datebase[DB.MyClass][0].per
+		Frame.level = datebase[DB.MyClass][0].level
 		CT:RegisterEvent("UNIT_HEALTH")
 		CT:RegisterEvent("PLAYER_TARGET_CHANGED")
 		CT:RegisterEvent("SPELL_UPDATE_COOLDOWN")
