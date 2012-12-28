@@ -1,5 +1,5 @@
 local addon, ns = ...
-local S, C, L, DB, _ = unpack(select(2, ...))
+local S, L, DB, _, C = unpack(select(2, ...))
 if IsAddOnLoaded("Stuf") or IsAddOnLoaded("PitBull4") or IsAddOnLoaded("ShadowedUnitFrames") then
 	return
 end

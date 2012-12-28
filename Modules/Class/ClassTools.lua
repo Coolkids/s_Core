@@ -1,4 +1,4 @@
-local S, C, L, DB = unpack(select(2, ...))
+local S, L, DB, _, C = unpack(select(2, ...))
 local CT = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("ClassTools", "AceEvent-3.0", "AceTimer-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local start, duration
@@ -107,7 +107,7 @@ Frame.Icon:SetAllPoints(Frame)
 local function SetFrameTexture()
 	local spec = GetSpecialization()
 	local texture
-	print(#datebase[DB.MyClass])
+	--print(#datebase[DB.MyClass])
 	if #datebase[DB.MyClass] == 0 then 
 		CT:UnregisterAllEvents()
 		return

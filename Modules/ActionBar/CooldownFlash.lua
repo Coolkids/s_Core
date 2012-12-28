@@ -1,9 +1,7 @@
-local S, C, L, DB = unpack(select(2, ...))
- 
+local S, L, DB, _, C = unpack(select(2, ...))
 local lib = LibStub("LibCooldown")
 local CF = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("CooldownFlash", "AceEvent-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
-local _
 local flash = CreateFrame("Frame", nil, UIParent)
 flash.icon = flash:CreateTexture(nil, "OVERLAY")
 flash.icon:SetAllPoints(flash)

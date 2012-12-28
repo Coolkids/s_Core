@@ -1,7 +1,7 @@
-local S, C, L, DB = unpack(select(2, ...))
-local _
+local S, L, DB, _, C = unpack(select(2, ...))
 if (DB.MyClass ~= "PRIEST" and DB.MyClass ~= "SHAMAN") then return end
 local PT = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("Pet Time", "AceEvent-3.0", "AceTimer-3.0")
+local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local _G = _G
 
 local spellname, timeing, spellid
@@ -68,7 +68,8 @@ function PT:UpdateTime()
 		bar:Hide()
 	end
 end
-function PT:OnEnable()	
+function PT:OnEnable()
+	C = SunUIConfig.db.profile
 	bar:SetSize(C["UnitFrameDB"]["PetWidth"]*C["UnitFrameDB"]["PetScale"], 6)
 	MoveHandle.ShadowPet = S.MakeMoveHandle(bar, "暗影魔计时条", "ShadowPet")
 	PT:ScheduleRepeatingTimer("UpdateTime", 0.2)

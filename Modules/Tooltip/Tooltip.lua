@@ -1,9 +1,7 @@
-﻿local S, C, L, DB = unpack(select(2, ...))
-
+﻿local S, L, DB, _, C = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("Tooltips", "AceEvent-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local _G = _G
-local _
 local reactionlist  = {
 	[1] = FACTION_STANDING_LABEL1,
 	[2] = FACTION_STANDING_LABEL2,

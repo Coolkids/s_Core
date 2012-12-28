@@ -1,10 +1,9 @@
 -- Engines
-local S, C, L, DB = unpack(select(2, ...))
+local S, L, DB, _, C = unpack(select(2, ...))
 local Buff = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("Buff", "AceHook-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local holder = CreateFrame("Frame", "BuffFrameHolder", UIParent)
 local debuffholder = CreateFrame("Frame", "DeBuffFrameHolder", UIParent)
-local _
 local font = "Interface\\Addons\\SunUI\\Media\\font.ttf"
 -- making frame to hold all buff frame elements
 local function PositionTempEnchant()

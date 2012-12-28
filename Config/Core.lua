@@ -1,6 +1,5 @@
-local S, C, L, DB= unpack(select(2, ...))
+local S, L, G, _, C = unpack(select(2, ...))
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("SunUIConfig", "AceConsole-3.0", "AceEvent-3.0")
-local _
 local db = {}
 local defaults
 local DEFAULT_WIDTH = 800
@@ -14,7 +13,6 @@ function SunUIConfig:LoadDefaults()
 	for i = 1, equipmenttotal do
 		equipment[i] = GetEquipmentSetInfo(i)
 	end
-	local _, _, _, G = unpack(SunUI)
 	--Defaults
 	defaults = {
 		profile = {
@@ -86,7 +84,6 @@ function SunUIConfig.GenerateOptions()
 end
 
 function SunUIConfig.GenerateOptionsInternal()
-	local _, _, L, _ = unpack(SunUI)
 	StaticPopupDialogs["CFG_RELOAD"] = {
 		text = L["改变参数需重载应用设置"],
 		button1 = ACCEPT,
@@ -1043,11 +1040,21 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = L["启用出售垃圾"],
 								order = 1,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local AS = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("AutoSell")
+									AS:UpdateSet()
+								end,
 							},
 							AutoRepair = {
 								type = "toggle",
 								name = L["启用自动修理"],
 								order = 2,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local AR = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("AutoRepair")
+									AR:UpdateSet()
+								end,
 							},
 							ChatFilter = {
 								type = "toggle",
@@ -1058,11 +1065,21 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = L["启用系统红字屏蔽"],
 								order = 4,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local FE = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("FastError")
+									FE:UpdateSet()
+								end,
 							},
 							Icicle = {
 								type = "toggle",
 								name = L["PVP冷却计时"],
 								order = 6,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local IC = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Icicle")
+									IC:UpdateSet()
+								end,
 							},
 							MiniMapPanels = {
 								type = "toggle",
@@ -1073,6 +1090,11 @@ function SunUIConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = L["启用自动邀请"],
 								order = 9,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local ST = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Settings")
+									ST:UpdateSet()
+								end,
 							},
 							INVITE_WORD = {
 								type = "input",
@@ -1099,18 +1121,33 @@ function SunUIConfig.GenerateOptionsInternal()
 								name = "Quick Disenchat",
 								desc = L["快速分解"],
 								order = 14,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local ST = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Settings")
+									ST:UpdateSet()
+								end,
 							},
 							Resurrect = {
 								type = "toggle",
 								name = "Auto AcceptResurrect",
 								desc = L["自动接受复活"],
 								order = 15,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local ST = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("Settings")
+									ST:UpdateSet()
+								end,
 							},
 							IPhoneLock = {
 								type = "toggle",
 								name = "SlideLock",
 								desc = L["AFK锁屏"],
 								order = 16,
+								get = function(info) return db.MiniDB[ info[#info] ] end,
+								set = function(info, value) db.MiniDB[ info[#info] ] = value
+									local AL = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("AFKLock")
+									AL:UpdateSet()
+								end,
 							},
 							AutoQuest = {
 								type = "toggle",

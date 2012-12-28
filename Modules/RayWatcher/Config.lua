@@ -12,7 +12,7 @@
 ---------------------------------------------------------------------------------------------------
 
 local _, ns = ...
-local S, C, L, DB = unpack(SunUI)
+local S, L, DB, _ = unpack(SunUI)
 ns.font = DB.Font
 ns.fontsize = 14
 ns.fontflag = 'THINOUTLINE'

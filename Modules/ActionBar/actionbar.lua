@@ -1,6 +1,5 @@
-local S, C, L, DB = unpack(select(2, ...))
+local S, L, DB, _, C = unpack(select(2, ...))
 local _G = _G
-local C
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("actionbar", "AceEvent-3.0", "AceHook-3.0")
 local LibActionButton = LibStub and LibStub("LibActionButton-1.0", true)
 local activeButtons = LibActionButton and LibActionButton.activeButtons or ActionBarActionEventsFrame.frames

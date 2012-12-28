@@ -2,8 +2,7 @@
 --	Raid cooldowns(alRaidCD by Allez)
 --  Modify by Ljxx.net at 2011.10.7
 ----------------------------------------------------------------------------------------
-local S, C, L, DB = unpack(select(2, ...))
-local _
+local S, L, DB, _, C = unpack(select(2, ...))
 local RCD = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("RaidCD", "AceEvent-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local show = {

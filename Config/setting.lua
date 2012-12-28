@@ -1,4 +1,4 @@
-local S, C, L, G = unpack(select(2, ...))
+local S, L, G, _ = unpack(select(2, ...))
 
 -----------------------------------------
 -- This is the default configuration file

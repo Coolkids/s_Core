@@ -1,5 +1,4 @@
-local S, C, L, DB = unpack(select(2, ...))
-local _
+local S, L, DB, _, C = unpack(select(2, ...))
 if DB.MyClass ~= "MAGE" then return end
 local ROP = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("RuneOfPower", "AceEvent-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
@@ -65,16 +64,25 @@ function ROP:UpdateSize()
 end
 function ROP:UpdateSet()
 	if C["ROPEnable"] then
-		ROP:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		self:RegisterEvent("PLAYER_TALENT_UPDATE")
 	else
 		button1:Hide()
 		button2:Hide()
-		ROP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		self:UnregisterEvent("PLAYER_TALENT_UPDATE")
+		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	end
+end
+function ROP:PLAYER_TALENT_UPDATE()
+	if IsSpellKnown(spellid) then
+		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	else
+		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	end
 end
 function ROP:OnInitialize()
 	C = SunUIConfig.db.profile.ClassToolsDB
-	ROP:UpdateSize()
+	self:UpdateSize()
 	self:UpdateSet()
 	MoveHandle.ROP = S.MakeMoveHandle(button1, select(1, GetSpellInfo(spellid)), "RuneOfPower")
 end

@@ -1,9 +1,9 @@
-﻿local S, C, L, DB = unpack(select(2, ...))
+﻿local S, L, DB, _, C = unpack(select(2, ...))
 if IsAddOnLoaded("Prat-3.0") or IsAddOnLoaded("Chatter") then
 	return
 end
-local _
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("Chat", "AceEvent-3.0")
+local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local _G = _G
 local fontsize = 10                          --other variables
 local tscol = "64C2F5"						-- Timestamp coloring
@@ -263,21 +263,21 @@ for i = 1, 10 do
 end
 
 function Module:OnEnable()
-	---------------- > afk/dnd msg filter
-	if C["MiniDB"]["DNDFilter"] then  
+	C = SunUIConfig.db.profile.MiniDB
+	if C["DNDFilter"] then  
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL_JOIN", function(msg) return true end)
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL_LEAVE", function(msg) return true end)
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_AFK", function(msg) return true end)
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_DND", function(msg) return true end)
 	end
-	if C["MiniDB"]["TimeStamps"] then 
+	if C["TimeStamps"] then 
 		if GetCVar("showTimestamps") == "none" then  
 			SetCVar("showTimestamps", [[%H:%M:%S]])
 		end
 	else
 		SetCVar("showTimestamps", "none")
 	end
-	if C["MiniDB"]["ChatBackground"] then 
+	if C["ChatBackground"] then 
 		for i = 1, NUM_CHAT_WINDOWS do
 			local cf = _G['ChatFrame'..i]
 			if cf then
