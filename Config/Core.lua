@@ -1189,6 +1189,15 @@ function SunUIConfig.GenerateOptionsInternal()
 								name = L["显示未探索地区"],
 								order = 23,
 							},
+							uistyle= {
+								type = "select",
+								name = "ui style",
+								order = 24,
+								values = {
+									["plane"] = "plane",
+									["stereo"] = "stereo",
+								},
+							},
 						}
 					},
 					group2 = {

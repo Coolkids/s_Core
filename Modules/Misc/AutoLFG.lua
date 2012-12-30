@@ -1,7 +1,6 @@
 ﻿--thanks susnow
 local S, L, DB, _, C = unpack(select(2, ...))
-local _
-local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("AutoLFG")
+local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("AutoLFG", "AceEvent-3.0")
 
 local ALFG = CreateFrame("Frame",nil,LFGDungeonReadyDialog)
 ALFG.durationBar = CreateFrame("StatusBar",nil,ALFG)
@@ -49,12 +48,12 @@ local PostUpdateDurationBar = function()
 		end
 	end)
 end
-
---init
-DurationWidget()
-ALFG:RegisterEvent("LFG_PROPOSAL_SHOW")
-ALFG:SetScript("OnEvent",function(self,e)
+function Module:LFG_PROPOSAL_SHOW()
 	if LFGDungeonReadyDialog:IsShown() then
 		PostUpdateDurationBar()
 	end
-end)
+end
+function Module:OnInitialize()
+	DurationWidget()
+	self:RegisterEvent("LFG_PROPOSAL_SHOW")
+end

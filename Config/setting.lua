@@ -139,6 +139,7 @@ G["MiniDB"] = {
 	["FastError"] = true,
 	["ChatBackground"] = false,
 	["UIscale"] = true,
+	["uistyle"] = "stereo",
 	["AutoUIscale"] = false,
 	["Combat"] = false, 
 	["FogClear"] = true,

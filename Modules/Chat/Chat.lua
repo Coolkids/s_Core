@@ -131,10 +131,7 @@ local function ApplyChatStyle(self)
 		end 
 	end
 end
--- calls
-for i = 1, NUM_CHAT_WINDOWS do
-    ApplyChatStyle(_G["ChatFrame"..i])
-end
+
 -- temporary chats
 hooksecurefunc("FCF_OpenTemporaryWindow", ApplyChatStyle)
 FloatingChatFrame_OnMouseScroll = function(self, dir)
@@ -263,6 +260,9 @@ for i = 1, 10 do
 end
 
 function Module:OnEnable()
+	for i = 1, NUM_CHAT_WINDOWS do
+		ApplyChatStyle(_G["ChatFrame"..i])
+	end
 	C = SunUIConfig.db.profile.MiniDB
 	if C["DNDFilter"] then  
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL_JOIN", function(msg) return true end)
