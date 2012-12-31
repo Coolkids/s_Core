@@ -17,7 +17,7 @@ local datebase = {
 	["HUNTER"] = {
 		[0] = {
 			["spellid"] = 53351,	--杀戮射击
-			["per"] = 0.2,
+			["per"] = 1.2,
 			["level"] = 50,
 		},
 		[1] = {},
@@ -145,6 +145,10 @@ function CT:UpdateSet()
 		Frame:SetSize(C["Size"], C["Size"])
 		Frame:SetScale(C["Scale"])
 		CT:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+		CT:RegisterEvent("PLAYER_ENTERING_WORLD", function()
+			CT:UnregisterEvent("PLAYER_ENTERING_WORLD")
+			CT:ACTIVE_TALENT_GROUP_CHANGED()
+		end)
 	else
 		Frame:Hide()
 		CT:UnregisterAllEvents()
