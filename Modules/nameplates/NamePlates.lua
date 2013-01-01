@@ -1,6 +1,7 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local N = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("NamePlates", "AceEvent-3.0", "AceTimer-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
+local LSM = LibStub("LibSharedMedia-3.0", true)
 local   cfg={
 	TotemIcon = true, 				-- Toggle totem icons
 	TotemSize = 20,				-- Totem icon size
@@ -486,8 +487,8 @@ local function SkinObjects(frame, nameFrame)
 	overlay:SetTexture(DB.Statusbar)
 	overlay:SetVertexColor(0.25, 0.25, 0.25, 0)
 	frame.highlight = overlay
-
-	hp:SetStatusBarTexture(DB.Statusbar)
+	
+	hp:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 	frame.hp = hp
 	if not hp.shadow then
 		hp:CreateShadow()

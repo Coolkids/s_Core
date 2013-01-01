@@ -106,7 +106,7 @@ do
 
 		frame:SetSize(settings.width, settings.height) 
 
-		frame:SetStatusBarTexture(settings.texture) 
+		frame:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 
 		S.CreateTop(frame:GetStatusBarTexture(), r, g, b)
 		S.CreateMark(frame)

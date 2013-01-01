@@ -1,7 +1,7 @@
 ﻿--thanks susnow
 local S, L, DB, _, C = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("AutoLFG", "AceEvent-3.0")
-
+local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local ALFG = CreateFrame("Frame",nil,LFGDungeonReadyDialog)
 ALFG.durationBar = CreateFrame("StatusBar",nil,ALFG)
 ALFG.durationBar.Border = CreateFrame("Frame",nil,ALFG.durationBar)
@@ -12,7 +12,7 @@ LFGDungeonReadyDialog.nextUpdate = 0
 local DurationWidget = function()
 	ALFG:SetSize(LFGDungeonReadyDialog:GetWidth()*0.8,6)
 	ALFG:SetPoint("BOTTOM",LFGDungeonReadyDialog,0,12)
-	ALFG.durationBar:SetStatusBarTexture(DB.Statusbar)
+	ALFG.durationBar:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 	ALFG.durationBar:SetPoint("TOPLEFT", ALFG, 1, -1)
 	ALFG.durationBar:SetPoint("BOTTOMRIGHT", ALFG, -1, 1)
 	ALFG.durationBar:SetMinMaxValues(0, 40)

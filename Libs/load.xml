@@ -10,7 +10,7 @@
 	<Include file="ACE3\load.xml"/>
 	
 	
-	<Script file="LibCooldown.lua"/>
+	<Script file="LibSharedMedia-3.0\LibSharedMedia-3.0.lua"/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->
