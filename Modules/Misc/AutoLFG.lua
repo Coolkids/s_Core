@@ -4,7 +4,6 @@ local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("AutoLFG", "A
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local ALFG = CreateFrame("Frame",nil,LFGDungeonReadyDialog)
 ALFG.durationBar = CreateFrame("StatusBar",nil,ALFG)
-ALFG.durationBar.Border = CreateFrame("Frame",nil,ALFG.durationBar)
 ALFG.durationTime	= S.MakeFontString(ALFG.durationBar, 12, "NONE")
 
 LFGDungeonReadyDialog.nextUpdate = 0

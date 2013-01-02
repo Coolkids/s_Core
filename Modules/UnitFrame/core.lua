@@ -122,7 +122,7 @@ local function  gen_hpbar(f)
 	else
 		s:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 		s.SetStatusBarColor = function(t, r, g, b)
-		S.CreateTop(s:GetStatusBarTexture(), r, g, b)
+			S.CreateTop(s:GetStatusBarTexture(), r, g, b)
 		end
 		s:SetAlpha(0.9)
 		bg:SetAlpha(1)

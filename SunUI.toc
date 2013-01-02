@@ -8,6 +8,6 @@
 ## SavedVariablesPerCharacter: CoreVersion
 ## RequiredDeps: Blizzard_CombatText
 ## X-WoWBox-Ver: 1
-## X-WoWBox-ID: 3341
+## X-WoWBox-ID: 3458
 
 load.xml

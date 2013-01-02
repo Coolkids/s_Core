@@ -1,5 +1,5 @@
 local S, L, DB, _, C = unpack(select(2, ...))
-local _
+local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local MB = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("MirrorBars", "AceEvent-3.0")
 local settings = { 
    width = 252, 

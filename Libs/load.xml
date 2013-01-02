@@ -6,11 +6,7 @@
 
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	
 	<Include file="ACE3\load.xml"/>
-	
-	
-	<Script file="LibSharedMedia-3.0\LibSharedMedia-3.0.lua"/>
 </Ui>
 
 <!--	<Script file="Load.lua"/>  -->
