@@ -17,7 +17,7 @@ local datebase = {
 	["HUNTER"] = {
 		[0] = {
 			["spellid"] = 53351,	--杀戮射击
-			["per"] = 1.2,
+			["per"] = 0.2,
 			["level"] = 50,
 		},
 		[1] = {},

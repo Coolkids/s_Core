@@ -1340,6 +1340,7 @@ local function CreateTargetStyle(self, unit)
 	end
     gen_portrait(self)
 	gen_threat(self)
+	gen_InfoIcons(self)
 	if U["TargetAura"] ~= 2 then
 		createAuras(self)
 	end
