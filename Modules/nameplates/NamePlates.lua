@@ -185,7 +185,10 @@ end
 --0.96 0.55 0.73 --圣骑士
 --0.53333216905594 0.53333216905594 0.99999779462814
 local function Color(frame)
-	local r, g, b = frame.hp:GetStatusBarColor()
+	local r, g, b = frame.healthOriginal:GetStatusBarColor()
+	frame.hp:SetMinMaxValues(frame.healthOriginal:GetMinMaxValues())
+	frame.hp:SetValue(frame.healthOriginal:GetValue() - 1) -- Blizzard bug fix
+	frame.hp:SetValue(frame.healthOriginal:GetValue())
 	frame.isTapped = false
 	--print(r, g, b)
 	if r > 0.52 and r < 0.55 and r == g and b > 0.98 then   -- Tapped
@@ -397,6 +400,9 @@ end
 local function UpdateObjects(frame)
 	local frame = frame:GetParent()
 	Color(frame)
+	frame.hp:SetMinMaxValues(frame.healthOriginal:GetMinMaxValues())
+	frame.hp:SetValue(frame.healthOriginal:GetValue() - 1) -- Blizzard bug fix
+	frame.hp:SetValue(frame.healthOriginal:GetValue())
 	frame.hp:ClearAllPoints()
 	frame.hp:SetSize(C["HPWidth"], C["HPHeight"])	
 	frame.hp:SetPoint('CENTER', frame, 0, 10)
@@ -494,22 +500,30 @@ local function SkinObjects(frame, nameFrame)
 	overlay:SetTexture(DB.Statusbar)
 	overlay:SetVertexColor(0.25, 0.25, 0.25, 0)
 	frame.highlight = overlay
-	if not S.IsCoolkid() then
-		hp:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
-	else
-		hp:SetStatusBarTexture("Interface\\AddOns\\SunUI\\media\\statusbars\\statusbar8")
-	end
-	frame.hp = hp
-	if not hp.shadow then
-		hp:CreateShadow()
-		hp.shadow:Hide()
-		S.CreateMark(hp)
-	end
-	hp.border:SetFrameLevel(0)
-	hp.hpGlow = hp.border
 	
-	local hpbg = CreateFrame("Frame", nil, hp)
-	hpbg:SetAllPoints(hp)
+	
+	
+	--hp.border:SetFrameLevel(0)
+	--hp.hpGlow = hp.border
+	local newhp = CreateFrame("Statusbar", nil, frame)
+	newhp:SetFrameLevel(hp:GetFrameLevel())
+	newhp:SetFrameStrata(hp:GetFrameStrata())
+	if not S.IsCoolkid() then
+		newhp:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
+	else
+		newhp:SetStatusBarTexture("Interface\\AddOns\\SunUI\\media\\statusbars\\statusbar8")
+	end
+	if not newhp.shadow then
+		newhp:CreateShadow()
+		newhp.shadow:Hide()
+		S.CreateMark(newhp)
+		newhp.border:SetFrameLevel(0)
+	end
+	S.SmoothBar(newhp)
+	frame.healthOriginal = hp
+	frame.hp = newhp
+	local hpbg = CreateFrame("Frame", nil, newhp)
+	hpbg:SetAllPoints(newhp)
 	hpbg:SetFrameLevel(0)
 	local gradient = hpbg:CreateTexture(nil, "BACKGROUND")
 	gradient:SetPoint("TOPLEFT")
@@ -521,16 +535,16 @@ local function SkinObjects(frame, nameFrame)
 		frame.threat = threat
 	end
 	
-	hp.pct = hp:CreateFontString(nil, "OVERLAY")	
-	hp.pct:SetFont(DB.Font, C["Fontsize"]-1, "THINOUTLINE")
-	hp.pct:SetPoint("CENTER", hp, "CENTER", 0, 0)
+	newhp.pct = newhp:CreateFontString(nil, "OVERLAY")	
+	newhp.pct:SetFont(DB.Font, C["Fontsize"]-1, "THINOUTLINE")
+	newhp.pct:SetPoint("CENTER", newhp, "CENTER", 0, 0)
 	
 	local offset = UIParent:GetScale() / cb:GetEffectiveScale()
 	cb:CreateShadow()
 	S.CreateBack(cb)
 
 	cbicon:ClearAllPoints()
-	cbicon:SetPoint("TOPRIGHT", hp, "TOPLEFT", -4, 1)		
+	cbicon:SetPoint("TOPRIGHT", newhp, "TOPLEFT", -4, 1)		
 	cbicon:SetSize(C["CastBarIconSize"], C["CastBarIconSize"])
 	cbicon:SetTexCoord(.07, .93, .07, .93)
 	S.CreateShadow(cb, cbicon)
@@ -547,9 +561,9 @@ local function SkinObjects(frame, nameFrame)
 	end
 	frame.cb = cb
 
-	local name = hp:CreateFontString(nil, 'OVERLAY')
-	name:SetPoint('BOTTOMLEFT', hp, 'TOPLEFT', -10, 4)
-	name:SetPoint('BOTTOMRIGHT', hp, 'TOPRIGHT', 10, 4)
+	local name = newhp:CreateFontString(nil, 'OVERLAY')
+	name:SetPoint('BOTTOMLEFT', newhp, 'TOPLEFT', -10, 4)
+	name:SetPoint('BOTTOMRIGHT', newhp, 'TOPRIGHT', 10, 4)
 	name:SetFont(DB.Font, C["Fontsize"]*S.Scale(1), "THINOUTLINE")
 	frame.oldname = oldname
 	frame.name = name
@@ -561,11 +575,11 @@ local function SkinObjects(frame, nameFrame)
 
 	--Highlight
 	overlay:SetTexture(1,1,1,0.01)
-	overlay:SetAllPoints(hp)
+	overlay:SetAllPoints(newhp)
 	frame.overlay = overlay
 	-- totem icon
 	local icon = frame:CreateTexture(nil, "BACKGROUND")
-	icon:Point("BOTTOMRIGHT", hp, "BOTTOMLEFT", -5, 0)
+	icon:Point("BOTTOMRIGHT", newhp, "BOTTOMLEFT", -5, 0)
 	icon:SetSize(cfg.TotemSize, cfg.TotemSize)
 	icon:Hide()
 	frame.icon = icon
@@ -588,17 +602,17 @@ local function SkinObjects(frame, nameFrame)
 
 	frame.oldglow = threat
 	threat:SetTexture(nil)
-	
+	QueueObject(frame, hp)
 	QueueObject(frame, hpborder)
 	QueueObject(frame, cbshield)
 	QueueObject(frame, cbborder)
 	QueueObject(frame, oldname)
 
-	UpdateObjects(hp)
+	UpdateObjects(newhp)
 	UpdateCastbar(cb)
 	frame:RegisterEvent("UNIT_AURA")
 	frame:HookScript("OnHide", OnHide)
-	hp:HookScript("OnShow", UpdateObjects)
+	newhp:HookScript("OnShow", UpdateObjects)
 	frames[frame] = true
 end
 local function CheckBlacklist(frame, ...)

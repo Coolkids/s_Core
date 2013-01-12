@@ -228,7 +228,9 @@ local function gen_hpstrings(f, unit)
     if f.mystyle == "arenatarget" or f.mystyle == "partypet" then
 		f:Tag(name, '[sunui:color][sunui:shortname]')
 		f:Tag(hpval, '[sunui:hpraid]')
-    else
+    elseif  f.mystyle == "pet" then
+		f:Tag(hpval, '[perhp]'.."%")
+	else
 		f:Tag(name, '[sunui:color][sunui:longname]')
 		f:Tag(hpval, '[sunui:hp]')
     end
@@ -238,6 +240,7 @@ local function gen_hpstrings(f, unit)
 		Event:RegisterEvent("PLAYER_REGEN_ENABLED")
 		Event:RegisterEvent("PLAYER_ENTERING_WORLD")
 		Event:SetScript("OnEvent", function(self, event, ...)
+			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 			if event == "PLAYER_REGEN_DISABLED" then
 				UIFrameFadeIn(name, 0.5, 0, 1)
 				UIFrameFadeIn(hpval, 0.5, 0, 1)
@@ -328,6 +331,7 @@ local function gen_ppstrings(f, unit)
 		Event:RegisterEvent("PLAYER_REGEN_ENABLED")
 		Event:RegisterEvent("PLAYER_ENTERING_WORLD")
 		Event:SetScript("OnEvent", function(self, event, ...)
+			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 			if event == "PLAYER_REGEN_DISABLED" then
 				UIFrameFadeIn(info, 0.5, 0, 1)
 				UIFrameFadeIn(pp, 0.5, 0, 1)
@@ -785,6 +789,7 @@ local function warlockpower(f)
 			S.CreateTop(s, r, g, b)
 		end
 		if i == 1 then
+			S.CreateMark(bars[i])
 			bars[i]:SetPoint("LEFT", bars)
 			bars[i]:SetWidth((f.width-space*(4-1))/4)
 		else
@@ -928,7 +933,9 @@ local function gen_EclipseBar(f)
 	lb:SetSize(f.width, 6)
 	lb:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 	local s = lb:GetStatusBarTexture()
+	S.CreateMark(lb)
 	S.CreateTop(s, 0.27, 0.47, 0.74)
+	S.SmoothBar(lb)
 	eb.LunarBar = lb
 	local sb = CreateFrame('StatusBar', nil, eb)
 	sb:SetPoint('LEFT', lb:GetStatusBarTexture(), 'RIGHT', 0, 0)
@@ -1108,6 +1115,7 @@ local function gen_swing_timer(f)
 		VengeanceBar:SetSize(f.Power:GetHeight()+2, f.Health:GetHeight()+f.Power:GetHeight()+6)
 		VengeanceBar:CreateShadow()
 		S.CreateBack(VengeanceBar, true)
+		S.SmoothBar(VengeanceBar)
 		VengeanceBar:SetOrientation("VERTICAL")
 		VengeanceBar.shadow:SetBackdropColor(.12, .12, .12, 1)
 		VengeanceBar.Text = VengeanceBar:CreateFontString(nil, "OVERLAY")
@@ -1126,33 +1134,9 @@ local function gen_swing_timer(f)
 	end
 end
    -- 仇恨
-local function Smooth(self, value)
-	if value == self:GetValue() then
-		self.smoothing = nil
-	else
-		self.smoothing = value
-	end
-end
-local function UpdateHealthSmooth(self)
-	if self.smoothing == nil then return end
-	local val = self.smoothing
-	local limit = 30/GetFramerate()
-	local cur = self:GetValue()
-	local new = cur + min((val-cur)/3, max(val-cur, limit))
-
-	if new ~= new then
-		new = val
-	end
-
-	self:SetValue_(new)
-	if cur == val or abs(new - val) < 2 then
-		self:SetValue_(val)
-		self.smoothing = nil
-	end
-end
 local function gen_threat(f)
 	if U["EnableThreat"] == false then return end
-	local ThreatBar = CreateFrame("Statusbar", "ThreatBar", f)
+	local ThreatBar = CreateFrame("Statusbar", nil, f)
 	ThreatBar:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 	ThreatBar:SetPoint("TOPRIGHT", f.Health, "TOPLEFT", -5, 0)
 	ThreatBar:SetSize(f.Power:GetHeight()+2, f.Health:GetHeight()+f.Power:GetHeight()+6)
@@ -1160,7 +1144,7 @@ local function gen_threat(f)
 	S.CreateBack(ThreatBar, true)
 	ThreatBar:SetOrientation("VERTICAL")
 	ThreatBar:SetMinMaxValues(0, 100)
-	
+	S.SmoothBar(ThreatBar)
 	local function OnEvent(self, event, ...)
 		
 		local party = GetNumGroupMembers()
@@ -1201,11 +1185,8 @@ local function gen_threat(f)
 			else
 				self:SetAlpha(0)
 			end	
-			UpdateHealthSmooth(self)
 		end
 	end
-	ThreatBar.SetValue_ = ThreatBar.SetValue
-	ThreatBar.SetValue = Smooth
 	ThreatBar:RegisterEvent("PLAYER_ENTERING_WORLD")
 	ThreatBar:RegisterEvent("PLAYER_REGEN_ENABLED")
 	ThreatBar:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -1233,6 +1214,7 @@ local function gen_alt_powerbar(f)
 	apb:Point("TOP", f.Power, "BOTTOM", 0, -6)
 	apb:CreateShadow()
 	S.CreateBack(apb)
+	S.SmoothBar(apb)
 	--apb:Show()
 	--apb.Hide = function() end
 	f.AltPowerBar = apb
@@ -1244,7 +1226,7 @@ local function gen_alt_powerbar(f)
 		local texture = apb:GetStatusBarTexture()
 		local r, g, b = oUF.ColorGradient((max-value), max, unpack(oUF.colors.smooth))
 		S.CreateTop(texture, r, g, b)
-		apb.text:SetText(value.."/"..max)
+		apb.text:SetText(ceil(value).."/"..max)
 	end)
 end
 local BarFader = function(self) 
