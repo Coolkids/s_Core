@@ -167,13 +167,14 @@ local function  gen_hpbar(f)
 		f.Resting:SetVertexColor(0.8, 0.8, 0.8)
 	end
 	
+	if f.mystyle == "player" and f.mystyle == "target" then
 	--LFD
-	local LFDRole = h:CreateTexture(nil, "OVERLAY")
-    LFDRole:SetSize(16, 16)
-    LFDRole:Point("TOPLEFT", f, -15, 10)
-	f.LFDRole = LFDRole
-	f.LFDRole:SetTexture("Interface\\AddOns\\SunUI\\media\\UnitFrame\\lfd_role")
-	
+		local LFDRole = h:CreateTexture(nil, "OVERLAY")
+		LFDRole:SetSize(16, 16)
+		LFDRole:Point("TOPLEFT", f, -15, 10)
+		f.LFDRole = LFDRole
+		f.LFDRole:SetTexture("Interface\\AddOns\\SunUI\\media\\UnitFrame\\lfd_role")
+	end
 	local mhpb = CreateFrame("StatusBar", nil, f)
 	mhpb:SetFrameLevel(bg:GetFrameLevel()+1)
 	mhpb:SetPoint("LEFT", s:GetStatusBarTexture(), "RIGHT")
@@ -236,15 +237,18 @@ local function gen_hpstrings(f, unit)
 		f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
 		f.tagname:SetPoint("LEFT", f.taginfo, "RIGHT")
 	elseif f.mystyle == "arenatarget" or f.mystyle == "partypet" or f.mystyle == "tot" then
-		f.tagname:SetPoint("RIGHT", f.Health, "RIGHT", -3, 0)
+		f.tagname:SetPoint("RIGHT", f.Health, "RIGHT", 3, 0)
 		f.tagpp:Hide()
 		f.taghp:Hide()
 		f.taginfo:Hide()
 	elseif f.mystyle == "pet" then
 		f.tagname:Hide()
 		f.tagpp:Hide()
-		f.taghp:SetPoint("RIGHT", f.Health, "RIGHT", -3, 0)
+		f.taghp:SetPoint("RIGHT", f.Health, "RIGHT", 3, 0)
 		f.taginfo:Hide()
+	elseif f.mystyle == "focus" then
+		f.tagname:SetPoint("LEFT", f.Health, "LEFT")
+		f.taghp:SetPoint("RIGHT", f.Health, "RIGHT", 3, 0)
 	end
 	
 	if f.mystyle == "arenatarget" or f.mystyle == "partypet" then
@@ -252,7 +256,11 @@ local function gen_hpstrings(f, unit)
 	else
 		f:Tag(f.tagname, '[sunui:color][sunui:longname]')
 	end
-	f:Tag(f.taghp, '[sunui:hp]'.."-"..'[perhp]'.."%")
+	if f.mystyle ~= "focus" then
+		f:Tag(f.taghp, '[sunui:hp]'.."-"..'[perhp]'.."%")
+	else
+		f:Tag(f.taghp, '[perhp]'.."%")
+	end
 	if class == "DRUID" then
 		f:Tag(f.tagpp, '[sunui:druidpower] [sunui:pp]')
     else
@@ -373,7 +381,7 @@ local function gen_castbar(f)
     i:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	S.CreateShadow(s, i)
 	
-	if f.mystyle ~= "pet" then
+	if f.mystyle ~= "pet" and f.mystyle ~= "boss" then
 		s.SetStatusBarColor = function(t, r, g, b)
 			S.CreateTop(s:GetStatusBarTexture(), r, g, b)
 		end
@@ -388,7 +396,7 @@ local function gen_castbar(f)
 		MoveHandle.Castbarfouce = S.MakeMoveHandle(s, L["焦点施法条"], "FocusCastbar")
 		i:SetPoint("RIGHT", s, "LEFT", 0, 0)
 		--sp:SetHeight(s:GetHeight()*2.5)
-    elseif f.mystyle == "pet" then
+    elseif f.mystyle == "pet" or f.mystyle == "boss" then
 		s:SetAllPoints(f.Health)
 		s:SetScale(f:GetScale())
 		i:SetSize(f.height,f.height)
@@ -708,7 +716,7 @@ local function createDebuffs(f)
 		d.size = 16
 		d:SetHeight((d.size+d.spacing)*2)
 		d:SetWidth((d.size+d.spacing)*8)
-		d:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
+		d:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 5)
     end
 	d.PostCreateIcon = PostCreateIcon
 	d.PostUpdateIcon = PostUpdateIcon
@@ -1225,7 +1233,7 @@ local function gen_alt_powerbar(f)
 	end)
 	f.AltPowerBar:SetScript("OnHide", function()
 		if f.mystyle == "player" then
-			f.tagpp:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -15)
+			f.tagpp:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
 		elseif f.mystyle == "target" then
 			f.tagpp:SetPoint("TOPRIGHT", f.Health, "BOTTOMRIGHT", 0, -8)
 			f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
@@ -1357,6 +1365,7 @@ local function CreateToTStyle(self, unit)
 		self.Health.colorReaction = true
 	end
 	self.Health.Smooth = true
+	self.Power.Smooth = true
     self.Power.colorPower = true
     self.Power.multiplier = 0.3	
 	if U["TargetRange"] then
