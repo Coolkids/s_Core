@@ -186,9 +186,6 @@ end
 --0.53333216905594 0.53333216905594 0.99999779462814
 local function Color(frame)
 	local r, g, b = frame.healthOriginal:GetStatusBarColor()
-	frame.hp:SetMinMaxValues(frame.healthOriginal:GetMinMaxValues())
-	frame.hp:SetValue(frame.healthOriginal:GetValue() - 1) -- Blizzard bug fix
-	frame.hp:SetValue(frame.healthOriginal:GetValue())
 	frame.isTapped = false
 	--print(r, g, b)
 	if r > 0.52 and r < 0.55 and r == g and b > 0.98 then   -- Tapped
@@ -229,12 +226,12 @@ local function UpdateThreat(frame, elapsed)
 		frame.name:SetTextColor(1, 1, 1)
 	end
 	--print(frame.r, frame.g, frame.b)
-	
-	
-    local minHealth, maxHealth = frame.hp:GetMinMaxValues()
-    local valueHealth = frame.hp:GetValue()
+end
+local function ShowHealth(frame)
+	local minHealth, maxHealth = frame.healthOriginal:GetMinMaxValues()
+    local valueHealth = frame.healthOriginal:GetValue()
 	local d =(valueHealth/maxHealth)*100
-
+	frame.hp:SetValue(valueHealth)
 	if(d < 100) and valueHealth > 1 then
 		frame.hp.pct:SetText(format("%.1f %s",d,"%"))
 	else
@@ -243,6 +240,13 @@ local function UpdateThreat(frame, elapsed)
 
 	if cfg.TotemIcon then
 		TotemIcon(frame)
+	end
+end
+local function AdjustNameLevel(frame, ...)
+	if UnitName("target") == frame.name:GetText() and frame:GetParent():GetAlpha() == 1 then
+		frame.name:SetDrawLayer("OVERLAY")
+	else
+		frame.name:SetDrawLayer("BORDER")
 	end
 end
 local function UpdateAuraAnchors(frame)
@@ -400,9 +404,6 @@ end
 local function UpdateObjects(frame)
 	local frame = frame:GetParent()
 	Color(frame)
-	frame.hp:SetMinMaxValues(frame.healthOriginal:GetMinMaxValues())
-	frame.hp:SetValue(frame.healthOriginal:GetValue() - 1) -- Blizzard bug fix
-	frame.hp:SetValue(frame.healthOriginal:GetValue())
 	frame.hp:ClearAllPoints()
 	frame.hp:SetSize(C["HPWidth"], C["HPHeight"])	
 	frame.hp:SetPoint('CENTER', frame, 0, 10)
@@ -501,27 +502,26 @@ local function SkinObjects(frame, nameFrame)
 	overlay:SetVertexColor(0.25, 0.25, 0.25, 0)
 	frame.highlight = overlay
 	
-	
-	
-	--hp.border:SetFrameLevel(0)
-	--hp.hpGlow = hp.border
+	-- Health Bar
+	frame.healthOriginal = hp
 	local newhp = CreateFrame("Statusbar", nil, frame)
 	newhp:SetFrameLevel(hp:GetFrameLevel())
 	newhp:SetFrameStrata(hp:GetFrameStrata())
+	S.SmoothBar(newhp)
 	if not S.IsCoolkid() then
 		newhp:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 	else
 		newhp:SetStatusBarTexture("Interface\\AddOns\\SunUI\\media\\statusbars\\statusbar8")
 	end
+	frame.hp = newhp
 	if not newhp.shadow then
 		newhp:CreateShadow()
 		newhp.shadow:Hide()
 		S.CreateMark(newhp)
-		newhp.border:SetFrameLevel(0)
 	end
-	S.SmoothBar(newhp)
-	frame.healthOriginal = hp
-	frame.hp = newhp
+	newhp.border:SetFrameLevel(0)
+	newhp.hpGlow = hp.border
+	
 	local hpbg = CreateFrame("Frame", nil, newhp)
 	hpbg:SetAllPoints(newhp)
 	hpbg:SetFrameLevel(0)
@@ -602,12 +602,13 @@ local function SkinObjects(frame, nameFrame)
 
 	frame.oldglow = threat
 	threat:SetTexture(nil)
-	QueueObject(frame, hp)
+	
 	QueueObject(frame, hpborder)
 	QueueObject(frame, cbshield)
 	QueueObject(frame, cbborder)
 	QueueObject(frame, oldname)
-
+	
+	QueueObject(frame, hp)
 	UpdateObjects(newhp)
 	UpdateCastbar(cb)
 	frame:RegisterEvent("UNIT_AURA")
@@ -705,11 +706,14 @@ function N:OnInitialize()
 
 		if self.elapsed and self.elapsed > 0.2 then
 			ForEachPlate(UpdateThreat, self.elapsed)
+			ForEachPlate(AdjustNameLevel)
 			self.elapsed = 0
 		else
 			self.elapsed = (self.elapsed or 0) + elapsed
 		end
+		
 		ForEachPlate(Color)
+		ForEachPlate(ShowHealth)
 		ForEachPlate(CheckBlacklist)
 		ForEachPlate(CheckUnit_Guid)
 	end)
