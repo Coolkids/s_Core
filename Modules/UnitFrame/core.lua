@@ -232,9 +232,9 @@ local function gen_hpstrings(f, unit)
 		f.tagname:Hide()
 	elseif f.mystyle == "target" or f.mystyle == "arena" or f.mystyle == "boss" or f.mystyle == "party" then
 		f.tagpp:SetPoint("TOPRIGHT", f.Health, "BOTTOMRIGHT", 0, -8)
-		f.taghp:SetPoint("RIGHT", f.tagpp, "LEFT", -3, 0)
+		f.taghp:SetPoint("RIGHT", f.tagpp, "LEFT")
 		f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
-		f.tagname:SetPoint("LEFT", f.taginfo, "RIGHT", 3, 0)
+		f.tagname:SetPoint("LEFT", f.taginfo, "RIGHT")
 	elseif f.mystyle == "arenatarget" or f.mystyle == "partypet" or f.mystyle == "tot" then
 		f.tagname:SetPoint("RIGHT", f.Health, "RIGHT", -3, -2)
 		f.tagpp:Hide()
@@ -1218,27 +1218,17 @@ local function gen_alt_powerbar(f)
 	f.AltPowerBar:SetScript("OnShow", function()
 		if f.mystyle == "player" then
 			f.tagpp:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -15)
-			f.taghp:SetPoint("LEFT", f.tagpp, "RIGHT", 3, 0)
-			f.taginfo:Hide()
-			f.tagname:Hide()
 		elseif f.mystyle == "target" then
 			f.tagpp:SetPoint("TOPRIGHT", f.Health, "BOTTOMRIGHT", 0, -15)
-			f.taghp:SetPoint("RIGHT", f.tagpp, "LEFT", -3, 0)
 			f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -15)
-			f.tagname:SetPoint("LEFT", f.taginfo, "RIGHT", 3, 0)
 		end
 	end)
 	f.AltPowerBar:SetScript("OnHide", function()
 		if f.mystyle == "player" then
 			f.tagpp:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
-			f.taghp:SetPoint("LEFT", f.tagpp, "RIGHT", 3, 0)
-			f.taginfo:Hide()
-			f.tagname:Hide()
 		elseif f.mystyle == "target" then
 			f.tagpp:SetPoint("TOPRIGHT", f.Health, "BOTTOMRIGHT", 0, -8)
-			f.taghp:SetPoint("RIGHT", f.tagpp, "LEFT", -3, 0)
 			f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
-			f.tagname:SetPoint("LEFT", f.taginfo, "RIGHT", 3, 0)
 		end
 	end)
 	
