@@ -147,7 +147,7 @@ local function  gen_hpbar(f)
 		s.SetStatusBarColor = function(t, r, g, b)
 			S.CreateTop(s:GetStatusBarTexture(), r, g, b)
 		end
-		s:SetAlpha(0.9)
+		s:SetAlpha(1)
 		bg:SetAlpha(1)
 		if U["ClassColor"] then 
 			S.CreateTop(bg.b, 0.15, 0.15, 0.15)
@@ -231,19 +231,19 @@ local function gen_hpstrings(f, unit)
 		f.taginfo:Hide()
 		f.tagname:Hide()
 	elseif f.mystyle == "target" or f.mystyle == "arena" or f.mystyle == "boss" or f.mystyle == "party" then
+		f.taghp:SetPoint("RIGHT", f.Health, "RIGHT", 0, 0)
 		f.tagpp:SetPoint("TOPRIGHT", f.Health, "BOTTOMRIGHT", 0, -8)
-		f.taghp:SetPoint("RIGHT", f.tagpp, "LEFT")
 		f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
 		f.tagname:SetPoint("LEFT", f.taginfo, "RIGHT")
 	elseif f.mystyle == "arenatarget" or f.mystyle == "partypet" or f.mystyle == "tot" then
-		f.tagname:SetPoint("RIGHT", f.Health, "RIGHT", -3, -2)
+		f.tagname:SetPoint("RIGHT", f.Health, "RIGHT", -3, 0)
 		f.tagpp:Hide()
 		f.taghp:Hide()
 		f.taginfo:Hide()
 	elseif f.mystyle == "pet" then
 		f.tagname:Hide()
 		f.tagpp:Hide()
-		f.taghp:SetPoint("RIGHT", f.Health, "RIGHT", -3, -2)
+		f.taghp:SetPoint("RIGHT", f.Health, "RIGHT", -3, 0)
 		f.taginfo:Hide()
 	end
 	
@@ -252,7 +252,7 @@ local function gen_hpstrings(f, unit)
 	else
 		f:Tag(f.tagname, '[sunui:color][sunui:longname]')
 	end
-	f:Tag(f.taghp, '[sunui:hp]')
+	f:Tag(f.taghp, '[sunui:hp]'.."-"..'[perhp]'.."%")
 	if class == "DRUID" then
 		f:Tag(f.tagpp, '[sunui:druidpower] [sunui:pp]')
     else
@@ -1225,7 +1225,7 @@ local function gen_alt_powerbar(f)
 	end)
 	f.AltPowerBar:SetScript("OnHide", function()
 		if f.mystyle == "player" then
-			f.tagpp:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
+			f.tagpp:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -15)
 		elseif f.mystyle == "target" then
 			f.tagpp:SetPoint("TOPRIGHT", f.Health, "BOTTOMRIGHT", 0, -8)
 			f.taginfo:SetPoint("TOPLEFT", f.Health, "BOTTOMLEFT", 0, -8)
