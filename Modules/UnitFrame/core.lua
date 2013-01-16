@@ -256,7 +256,7 @@ local function gen_hpstrings(f, unit)
 	else
 		f:Tag(f.tagname, '[sunui:color][sunui:longname]')
 	end
-	if f.mystyle == "target" and f.mystyle == "player" and f.mystyle == "party" and f.mystyle == "arena" then
+	if f.mystyle == "target" or f.mystyle == "player" or f.mystyle == "party" or f.mystyle == "arena" then
 		f:Tag(f.taghp, '[sunui:hp]'.."-"..'[perhp]'.."%")
 	else
 		f:Tag(f.taghp, '[perhp]'.."%")
@@ -400,7 +400,11 @@ local function gen_castbar(f)
 		s:SetAllPoints(f.Health)
 		s:SetScale(f:GetScale())
 		i:SetSize(f.height,f.height)
-		i:SetPoint("TOPRIGHT", f.Health, "TOPLEFT", -5, 0)
+		if f.mystyle == "pet" then
+			i:SetPoint("TOPRIGHT", f.Health, "TOPLEFT", -5, 0)
+		else
+			i:SetPoint("BOTTOMRIGHT", f.Health, "TOPLEFT", -5, 5)
+		end
 		s:SetStatusBarColor(0, 0, 0, 0)
 		s.SetStatusBarColor = function() end
 		sp = s:CreateTexture(nil, "OVERLAY")
@@ -424,7 +428,7 @@ local function gen_castbar(f)
 			s:Point("TOPRIGHT",f.Power,"BOTTOMRIGHT",0,-4)
 		end
 		--latency only for player unit
-		local z = s:CreateTexture(nil, "OVERLAY")
+		local z = s:CreateTexture(nil, "OVERLAY", 3)
 		z:SetBlendMode("ADD")
 		z:SetWidth(1) -- it should never fill the entire castbar when GetNetStats() returns 0
 		z:SetPoint("TOPRIGHT")
@@ -438,6 +442,7 @@ local function gen_castbar(f)
 		l:SetJustifyH("RIGHT")
 		l:SetTextColor(.8,.31,.45)
 		s.Lag = l
+		--f:RegisterEvent("UNIT_SPELLCAST_START", cast.OnCastSent)
 		f:RegisterEvent("UNIT_SPELLCAST_SENT", cast.OnCastSent)
 	elseif f.mystyle == "target" and not U["targetCBuserplaced"] then
 		s:Size(U["TargetCastBarWidth"],U["TargetCastBarHeight"])
@@ -1108,7 +1113,7 @@ local function gen_swing_timer(f)
 		local VengeanceBar = CreateFrame("Statusbar", "VengeanceBar", f)
 		VengeanceBar:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 		VengeanceBar:SetPoint("TOPLEFT", f.Health, "TOPRIGHT", 5, 0)
-		VengeanceBar:SetSize(f.Power:GetHeight()+2, f.Health:GetHeight()+f.Power:GetHeight()+6)
+		VengeanceBar:SetSize(4, f.Health:GetHeight()+4)
 		VengeanceBar:CreateShadow()
 		S.CreateBack(VengeanceBar, true)
 		S.SmoothBar(VengeanceBar)
@@ -1135,7 +1140,7 @@ local function gen_threat(f)
 	local ThreatBar = CreateFrame("Statusbar", nil, f)
 	ThreatBar:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
 	ThreatBar:SetPoint("TOPRIGHT", f.Health, "TOPLEFT", -5, 0)
-	ThreatBar:SetSize(f.Power:GetHeight()+2, f.Health:GetHeight()+f.Power:GetHeight()+6)
+	ThreatBar:SetSize(4, f.Health:GetHeight()+4)
 	ThreatBar:CreateShadow()
 	S.CreateBack(ThreatBar, true)
 	ThreatBar:SetOrientation("VERTICAL")
