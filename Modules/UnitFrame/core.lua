@@ -164,7 +164,7 @@ local function  gen_hpbar(f)
 		ri:SetPoint("BOTTOMRIGHT", h, "TOPLEFT", 0, 0)
 		f.Resting = ri
 		f.Resting:SetTexture("Interface\\AddOns\\SunUI\\media\\UnitFrame\\rested")
-		f.Resting:SetVertexColor(0.8, 0.8, 0.8)
+		f.Resting:SetVertexColor(138/255, 1, 48/255)
 	end
 	
 	if f.mystyle == "player" and f.mystyle == "target" then
