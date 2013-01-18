@@ -1214,6 +1214,7 @@ local function gen_alt_powerbar(f)
 	apb:SetStatusBarColor(1, 1, 0)
 	apb:Point("TOP", headframe, "BOTTOM", 0, -4)
 	apb:CreateShadow()
+	S.CreateMark(apb)
 	S.CreateBack(apb)
 	S.SmoothBar(apb)
 	f.AltPowerBar = apb
