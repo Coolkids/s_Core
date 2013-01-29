@@ -5,13 +5,13 @@ local S, L, DB, _, C = unpack(select(2, ...))
 local UF = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("UnitFrame")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local P,U
-local space = (DB.MyClass == "DEATHKNIGHT") and 2 or 6
+local class = DB.MyClass
+local space = (class == "DEATHKNIGHT") and 2 or 6
 oUF.colors.power['MANA'] = {.3,.45,.65}
 oUF.colors.power['RAGE'] = {.7,.3,.3}
 oUF.colors.power['FOCUS'] = {.7,.45,.25}
 --oUF.colors.power['ENERGY'] = {.65,.65,.35}
 oUF.colors.power['RUNIC_POWER'] = {.45,.45,.75}
-local class = DB.MyClass
 local headframe
 -----------------------------
 -- FUNCTIONS

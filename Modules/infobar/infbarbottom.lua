@@ -739,8 +739,12 @@ local function BuildStat2()
 
 	local function UpdateCaster(self)
 		local spellcrit = GetSpellCritChance(1)
-
-		Text:SetFormattedText(displayFloatString, SPELL_CRIT_CHANCE..": ", spellcrit)
+		if DB.Role == "Healer" then
+			local base, combat = GetManaRegen()
+			Text:SetFormattedText("%s%d", MANA_REGEN..":", combat * 5)
+		else
+			Text:SetFormattedText(displayFloatString, SPELL_CRIT_CHANCE..": ", spellcrit)
+		end
 		--Setup Tooltip
 		self:SetAllPoints(Text)
 	end
@@ -779,7 +783,7 @@ local function BuildStat2()
 		else
 			if DB.Role == "Tank" then
 				UpdateTank(self)
-			elseif DB.Role == "Caster" then
+			elseif DB.Role == "Caster" or DB.Role == "Healer" then
 				UpdateCaster(self)
 			elseif DB.Role == "Melee" then
 				UpdateMelee(self)
@@ -860,9 +864,10 @@ local function BuildStat1()
 				GameTooltip:AddDoubleLine(PARRY_CHANCE, format(chanceString, parry),1,1,1)
 				GameTooltip:AddDoubleLine(BLOCK_CHANCE, format(chanceString, block),1,1,1)
 				GameTooltip:AddDoubleLine(MISS_CHANCE, format(chanceString, basemisschance),1,1,1)
-			elseif DB.Role == "Caster" then
+			elseif DB.Role == "Caster" or DB.Role == "Healer" then
 				GameTooltip:AddDoubleLine(STAT_HIT_CHANCE, format(modifierString, GetCombatRating(CR_HIT_SPELL), GetCombatRatingBonus(CR_HIT_SPELL)), 1, 1, 1)
 				GameTooltip:AddDoubleLine(STAT_HASTE, format(modifierString, GetCombatRating(CR_HASTE_SPELL), GetCombatRatingBonus(CR_HASTE_SPELL)), 1, 1, 1)
+				GameTooltip:AddDoubleLine(SPELL_CRIT_CHANCE, format(modifierString, GetCombatRating(CR_CRIT_SPELL), GetCombatRatingBonus(CR_CRIT_SPELL)), 1, 1, 1)
 				local base, combat = GetManaRegen()
 				GameTooltip:AddDoubleLine(MANA_REGEN, format(manaRegenString, base * 5, combat * 5), 1, 1, 1)
 			elseif DB.Role == "Melee" then
@@ -1013,7 +1018,7 @@ local function BuildStat1()
 		else
 			if DB.Role == "Tank" then 
 				UpdateTank(self)
-			elseif DB.Role == "Caster" then
+			elseif DB.Role == "Caster" or DB.Role == "Healer"  then
 				UpdateCaster(self)
 			elseif DB.Role == "Melee" then
 				UpdateMelee(self)
