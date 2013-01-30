@@ -1138,31 +1138,63 @@ local function DungeonHelper()
 	Text:SetText("")
 	Stat:SetAllPoints(Text)
 	
-	--[[ for i = 1, GetNumRandomDungeons() do
-		local id, name = GetLFGRandomDungeonInfo(i)
-		print(id .. ": " .. name)
-		462 -- 随机MOP5H
-	end ]]
-	local function OnEvent()
+	--for i = 1, GetNumRandomDungeons() do
+		--local id, name = GetLFGRandomDungeonInfo(i)
+		--print(id .. ": " .. name)
+		--462 -- 随机MOP5H
+	--end
+	local str = BATTLEGROUND_HOLIDAY   --"戰鬥的號角";
+	local tank = "|TInterface\\Addons\\SunUI_Freebgrid\\media\\lfd_role.tga:"..DB.FontSize..":"..DB.FontSize..":0:0:64:64:0:17:22:41|t"
+	local healer = "|TInterface\\Addons\\SunUI_Freebgrid\\media\\lfd_role.tga:"..DB.FontSize..":"..DB.FontSize..":0:0:64:64:21:39:0:19|t"
+	local damager = "|TInterface\\Addons\\SunUI_Freebgrid\\media\\lfd_role.tga:"..DB.FontSize..":"..DB.FontSize..":0:0:64:64:21:39:23:42|t"
+	local id = 462
+	--print(tank, healer, damager)
+	local function ShowGameToolTip(self)
 		local text = ""
-		local _, forTank, forHealer, forDamage, _, _, _ = GetLFGRoleShortageRewards(462, 1)
+		local _, forTank, forHealer, forDamage, _, _, _ = GetLFGRoleShortageRewards(id, 1)
+		local id, name = GetLFGRandomDungeonInfo(8)
+		--print(name)
 		if forTank then 
-			text = text.."|cFFE06D1B"..TANK.."|r"
+			text = text..tank
 		end
 		if forHealer then 
-			text = " "..text.."|cFF1B70E0"..HEALER.."|r"
+			text = " "..text..healer
 		end
 		if forDamage then 
-			text = " "..text.."|cFFE01B35"..DAMAGER.."|r"
+			text = " "..text..damager
 		end
-		if forTank or forHealer or forDamage then
-			text = text .. L["奖励"]
+		if text == "" then text = "N/A" end
+		
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(str, 0,.6,1)
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddDoubleLine(name, text, 1, 1, 1, 1, 1, 1)
+		GameTooltip:Show()
+		text = nil
+	end
+	
+	local function OnEvent()
+		local text = ""
+		local _, forTank, forHealer, forDamage, _, _, _ = GetLFGRoleShortageRewards(id, 1)
+		if forTank then 
+			text = text..tank
 		end
-		Text:SetText(text)
+		if forHealer then 
+			text = " "..text..healer
+		end
+		if forDamage then 
+			text = " "..text..damager
+		end
+		if text == "" then text = ":N/A" end
+		Text:SetText(str..text)
 		text = nil
 	end
 	Stat:SetScript("OnEvent", OnEvent)
-
+	Stat:SetScript("OnEnter", ShowGameToolTip)
+	Stat:SetScript("OnLeave", GameTooltip_Hide)
+	Stat:SetScript("OnMouseDown", function() PVEFrame_ToggleFrame("GroupFinderFrame", LFDParentFrame) end)
+	
 	Stat:RegisterEvent("LFG_OFFER_CONTINUE")
 	Stat:RegisterEvent("LFG_ROLE_CHECK_ROLE_CHOSEN")
 	Stat:RegisterEvent("LFG_QUEUE_STATUS_UPDATE")
