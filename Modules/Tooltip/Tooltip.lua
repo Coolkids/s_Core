@@ -262,12 +262,12 @@ local function On_PLAYER_ENTERING_WORLD()
 					r = FACTION_BAR_COLORS[reaction].r;
 					g = FACTION_BAR_COLORS[reaction].g;
 					b = FACTION_BAR_COLORS[reaction].b;
-					GameTooltipStatusBar:SetStatusBarColor(r, g, b)
+					--GameTooltipStatusBar:SetStatusBarColor(r, g, b)
 					S.CreateTop(tooptexture, r, g, b)
 				end
 			end
 			if UnitIsPlayer(unit) then
-				GameTooltipStatusBar:SetStatusBarColor(unpack({GameTooltip_UnitColor(unit)}))
+				--GameTooltipStatusBar:SetStatusBarColor(unpack({GameTooltip_UnitColor(unit)}))
 				local r, g, b = unpack({GameTooltip_UnitColor(unit)})
 				S.CreateTop(tooptexture, r, g, b)
 			end

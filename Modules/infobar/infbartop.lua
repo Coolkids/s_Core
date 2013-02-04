@@ -152,13 +152,19 @@ local memTbl = {}
 local IsAddOnLoaded = _G.IsAddOnLoaded
 local GetAddOnMemoryUsage = _G.GetAddOnMemoryUsage
 local GetAddOnInfo = _G.GetAddOnInfo
+local function mySort(x,y)
+	return x.mem > y.mem
+end
 local function MemUseCalc()
+	wipe(memTbl)
 	UpdateAddOnMemoryUsage()
 	local total = 0
 	for i = 1, GetNumAddOns() do
 		if IsAddOnLoaded(i) then
 			local memused = GetAddOnMemoryUsage(i)
 			total = total + memused
+			local addon, name = GetAddOnInfo(i)
+			tinsert(memTbl, {addon = name or addon, mem = GetAddOnMemoryUsage(i)})
 		end
 	end
 	gtotal = total
@@ -167,6 +173,7 @@ local function MemUseCalc()
 	else
 		MemUse = format("%.1f "..L_KB, total)
 	end
+	table.sort(memTbl, mySort)
 end
 function Module:Update()
 	local current = format("%.1f", _G.collectgarbage("count") / 1024)
@@ -195,30 +202,9 @@ local function formatMemory(n)
 end
 
 local function OnTooltipShow(self)
-	local up = "|TInterface\\Addons\\SunUI\\media\\Infobar\\up.tga:"..DB.FontSize..":"..DB.FontSize.."|t"
-	local down = "|TInterface\\Addons\\SunUI\\media\\Infobar\\down.tga:"..DB.FontSize..":"..DB.FontSize.."|t"
-	local equal = "|TInterface\\Addons\\SunUI\\media\\Infobar\\equal.tga:"..DB.FontSize..":"..DB.FontSize.."|t"
 	GameTooltip:AddLine("MEMORY", .6,.8,1)
 	GameTooltip:AddLine(" ")
 	local grandtotal = collectgarbage("count")
-	local function mySort(x,y)
-		return x.mem > y.mem
-	end
-	if not self.timer or self.timer + 5 < time() then
-		self.timer = time()
-		wipe(memTbl)
-		for i = 1, GetNumAddOns() do
-			if IsAddOnLoaded(i) then
-				local addon, name = GetAddOnInfo(i)
-				tinsert(memTbl, {addon = name or addon, index = i, mem = GetAddOnMemoryUsage(i), oldmen = GetAddOnMemoryUsage(i)})
-			end
-		end
-		UpdateAddOnMemoryUsage()
-		table.sort(memTbl, mySort)
-	end
-	for k,v in pairs(memTbl) do
-		v.mem = GetAddOnMemoryUsage(v.index)
-	end
 	local txt = "|cffFFD700%d|r|cffffffff.|r %s"
 	for k, v in pairs(memTbl) do
 		local color = v.mem <= 102.4 and {0,1} -- 0 - 100
@@ -227,12 +213,7 @@ local function OnTooltipShow(self)
 					or v.mem <= 2560 and {1,0.75} -- 1mb - 2.5mb
 					or v.mem <= 5120 and {1,0.5} -- 2.5mb - 5mb
 					or {1,0.1}
-		local str = formatMemory(v.mem)
-		if (v.mem - v.oldmen) > 0 then str = str.." "..up 
-		elseif (v.mem - v.oldmen) < 0 then str = str.." "..down
-		elseif (v.mem - v.oldmen) == 0 then str = str.." "..equal
-		end
-		GameTooltip:AddDoubleLine(format(txt, k, v.addon), str, 1,1,1, color[1], color[2], 0)
+		GameTooltip:AddDoubleLine(format(txt, k, v.addon), formatMemory(v.mem), 1,1,1, color[1], color[2], 0)
 	end
 	local color = gtotal <= 1024*3 and {0,1} -- 1
 				or gtotal <= 1024*7 and {0.75,1} -- 5
@@ -242,7 +223,7 @@ local function OnTooltipShow(self)
 				or {1,0.1}
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["非暴雪插件总计"], formatMemory(gtotal), .6,.8,1, color[1], color[2], 0)
-	GameTooltip:AddDoubleLine(L["一共占用"], formatMemory(grandtotal), .6,.8,1, 0, 1, 0)
+	GameTooltip:AddDoubleLine(L["一共占用"], formatMemory(grandtotal), .6,.8,1, 1, 0.75, 0)
 	GameTooltip:AddLine(L["回收内存"], 1, 1, 1)
 end
 
