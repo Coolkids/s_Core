@@ -3,7 +3,7 @@ local _G = _G
 local B = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("Bags", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local Unusable
-local font = "Interface\\Addons\\SunUI\\Media\\font.ttf"
+
 if DB.MyClass == "DEATHKNIGHT" then
 	Unusable = {{3, 4, 10, 11, 13, 14, 15, 16}, {6}}
 elseif DB.MyClass == "DRUID" then
@@ -383,7 +383,7 @@ function B:Layout(isBank)
 					f.Bags[bagID][slotID]:SetCheckedTexture(nil)
 					f.Bags[bagID][slotID].count:ClearAllPoints()
 					f.Bags[bagID][slotID].count:Point("BOTTOMRIGHT", 0, 2)
-					f.Bags[bagID][slotID].count:SetFont(font, S.mult*12, "OUTLINE")
+					f.Bags[bagID][slotID].count:SetFont(DB.Font, DB.FontSize, "OUTLINE")
 					f.Bags[bagID][slotID].questIcon = _G[f.Bags[bagID][slotID]:GetName().."IconQuestTexture"]
 					f.Bags[bagID][slotID].questIcon:SetTexture(TEXTURE_ITEM_QUEST_BANG)
 					f.Bags[bagID][slotID].questIcon:SetAllPoints(f.Bags[bagID][slotID])
@@ -632,7 +632,7 @@ function B:ContructContainerFrame(name, isBank)
 		f.editBox:SetScript("OnTextChanged", self.UpdateSearch)
 		f.editBox:SetScript("OnChar", self.UpdateSearch)
 		f.editBox:SetText(SEARCH)
-		f.editBox:SetFont(DB.Font, 11, "OUTLINE")
+		f.editBox:SetFont(DB.Font, DB.FontSize, "OUTLINE")
 		f.editBox:SetShadowColor(0, 0, 0)
 		f.editBox:SetShadowOffset(1.25, -1.25)
 		f.editBox.border = CreateFrame("Frame", nil, f.editBox)
@@ -701,7 +701,7 @@ function B:ContructContainerFrame(name, isBank)
 			f.currencyButton[i].icon:SetTexCoord(.08, .92, .08, .92)
 			f.currencyButton[i].text = f.currencyButton[i]:CreateFontString(nil, "OVERLAY")
 			f.currencyButton[i].text:Point("LEFT", f.currencyButton[i], "RIGHT", 2, 0)
-			f.currencyButton[i].text:SetFont(DB.Font, 14, "OUTLINE")
+			f.currencyButton[i].text:SetFont(DB.Font, DB.FontSize, "OUTLINE")
 			f.currencyButton[i].text:SetShadowColor(0, 0, 0)
 			f.currencyButton[i].text:SetShadowOffset(1.25, -1.25)
 			f.currencyButton[i]:SetScript("OnEnter", B.Token_OnEnter)
@@ -829,14 +829,14 @@ StaticPopupDialogs["BUY_BANK_SLOT"] = {
 }
 
 StaticPopupDialogs["CANNOT_BUY_BANK_SLOT"] = {
-	text = "不能购买更多的银行栏位了!",
+	text = ERR_BANKSLOT_FAILED_TOO_MANY,
 	button1 = ACCEPT,
 	timeout = 0,
 	whileDead = 1,	
 }
 
 StaticPopupDialogs["NO_BANK_BAGS"] = {
-	text = "你必须先购买一个银行栏位!",
+	text = format(SPELL_FAILED_NEED_AMMO_POUCH, BAGSLOTTEXT),
 	button1 = ACCEPT,
 	timeout = 0,
 	whileDead = 1,	
