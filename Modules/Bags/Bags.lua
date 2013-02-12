@@ -590,7 +590,7 @@ function B:ContructContainerFrame(name, isBank)
 			if numSlots >= 1 then
 				ToggleFrame(f.ContainerHolder)
 			else
-				SStaticPopup_Show("NO_BANK_BAGS")
+				StaticPopup_Show("NO_BANK_BAGS")
 			end
 		end)
 		S.Reskin(f.bagsButton)
@@ -606,9 +606,9 @@ function B:ContructContainerFrame(name, isBank)
 		f.purchaseBagButton:SetScript("OnClick", function()
 			local _, full = GetNumBankSlots()
 			if not full then
-				SStaticPopup_Show("BUY_BANK_SLOT")
+				StaticPopup_Show("BUY_BANK_SLOT")
 			else
-				SStaticPopup_Show("CANNOT_BUY_BANK_SLOT")
+				StaticPopup_Show("CANNOT_BUY_BANK_SLOT")
 			end
 		end)
 		S.Reskin(f.purchaseBagButton)
@@ -813,7 +813,7 @@ function B:OnEnable()
 	self:HookScript(TradeFrame, "OnHide", "CloseBags")
 end
 
-SStaticPopupDialogs["BUY_BANK_SLOT"] = {
+StaticPopupDialogs["BUY_BANK_SLOT"] = {
 	text = CONFIRM_BUY_BANK_SLOT,
 	button1 = YES,
 	button2 = NO,
@@ -828,14 +828,14 @@ SStaticPopupDialogs["BUY_BANK_SLOT"] = {
 	hideOnEscape = 1,
 }
 
-SStaticPopupDialogs["CANNOT_BUY_BANK_SLOT"] = {
+StaticPopupDialogs["CANNOT_BUY_BANK_SLOT"] = {
 	text = "不能购买更多的银行栏位了!",
 	button1 = ACCEPT,
 	timeout = 0,
 	whileDead = 1,	
 }
 
-SStaticPopupDialogs["NO_BANK_BAGS"] = {
+StaticPopupDialogs["NO_BANK_BAGS"] = {
 	text = "你必须先购买一个银行栏位!",
 	button1 = ACCEPT,
 	timeout = 0,

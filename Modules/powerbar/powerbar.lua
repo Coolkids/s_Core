@@ -2,7 +2,7 @@ local S, L, DB, _, C = unpack(select(2, ...))
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("SunUIPowerBar", "AceTimer-3.0", "AceEvent-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local powercolor = {}
-local space = (DB.MyClass == "DEATHKNIGHT") and 2 or 6
+local space = (DB.MyClass == "DEATHKNIGHT" or DB.MyClass == "SHAMAN") and 2 or 6
 local Holder = CreateFrame("Statusbar", nil, UIParent)
 local mainframe = {}
 local threeframe = {}
@@ -55,15 +55,14 @@ function Module:CreateShadowOrbs()
 	end
 	ShadowOrbs:RegisterEvent("UNIT_POWER")
 	ShadowOrbs:RegisterEvent("UNIT_DISPLAYPOWER")
-	ShadowOrbs:SetScript("OnEvent",function(self, event, unit)
+	ShadowOrbs:SetScript("OnEvent",function(self, event, unit, powerType)
+		if( unit ~= "player" or (powerType and powerType ~= 'SHADOW_ORBS')) then return end
 		local numShadowOrbs = UnitPower('player', SPELL_POWER_SHADOW_ORBS)
-		if unit == "player" then
-			for i = 1,maxShadowOrbs do
-				if i <= numShadowOrbs then
-					ShadowOrbs[i]:Show()
-				else
-					ShadowOrbs[i]:Hide()
-				end
+		for i = 1,maxShadowOrbs do
+			if i <= numShadowOrbs then
+				ShadowOrbs[i]:Show()
+			else
+				ShadowOrbs[i]:Hide()
 			end
 		end
 	end)
@@ -94,29 +93,28 @@ function Module:CreateMonkBar()
 	end
 	chibar:RegisterEvent("UNIT_POWER")
 	chibar:RegisterEvent("UNIT_DISPLAYPOWER")
-	chibar:SetScript("OnEvent",function(self, event, unit)
+	chibar:SetScript("OnEvent",function(self, event, unit, powerType)
+		if( unit ~= "player" or (powerType and powerType ~= 'CHI')) then return end
 		local chinum = UnitPower("player",SPELL_POWER_CHI)
 		local chimax = UnitPowerMax("player",SPELL_POWER_CHI)
-		if unit == "player" then
-			if chinum ~= chimax then
-				if chimax == 4 then
-					chibar[5]:Hide()
-					for i = 1,4 do
-						chibar[i]:SetWidth((C["Width"]-space*(4-1))/4)
-					end
-				elseif chimax == 5 then
-					chibar[5]:Show()
-					for i = 1,5 do
-						chibar[i]:SetWidth((C["Width"]-space*(5-1))/5)
-					end
+		if chinum ~= chimax then
+			if chimax == 4 then
+				chibar[5]:Hide()
+				for i = 1,4 do
+					chibar[i]:SetWidth((C["Width"]-space*(4-1))/4)
+				end
+			elseif chimax == 5 then
+				chibar[5]:Show()
+				for i = 1,5 do
+					chibar[i]:SetWidth((C["Width"]-space*(5-1))/5)
 				end
 			end
-			for i = 1,chimax do
-				if i <= chinum then
-					chibar[i]:Show()
-				else
-					chibar[i]:Hide()
-				end
+		end
+		for i = 1,chimax do
+			if i <= chinum then
+				chibar[i]:Show()
+			else
+				chibar[i]:Hide()
 			end
 		end
 	end)
@@ -179,7 +177,7 @@ function Module:CreateQSDKPower()
 		RuneFrame.Show = RuneFrame.Hide
 		RuneFrame:Hide()
 	elseif DB.MyClass == "PALADIN" then
-		count = UnitPowerMax('player', SPELL_POWER_HOLY_POWER)
+		count = 5
 	end
 	local bars = CreateFrame("Frame", nil, Holder)
 	bars:SetSize(C["Width"], C["Height"])
@@ -218,14 +216,29 @@ function Module:CreateQSDKPower()
 		bars:RegisterEvent("UNIT_POWER")
 		bars:RegisterEvent("UNIT_DISPLAYPOWER")
 		bars:SetScript("OnEvent",function(self, event, unit)
-			if unit == "player" then
-				local num = UnitPower('player', SPELL_POWER_HOLY_POWER)
-				for i = 1,count do
-					if i <= num then
-						bars[i]:Show()
-					else
-						bars[i]:Hide()
+			if( unit ~= "player" or (powerType and powerType ~= 'HOLY_POWER')) then return end
+			local num = UnitPower('player', SPELL_POWER_HOLY_POWER)
+			local maxnum = UnitPowerMax('player', SPELL_POWER_HOLY_POWER)
+			if num ~= maxnum then
+				if maxnum == 3 then
+					bars[4]:Hide()
+					bars[5]:Hide()
+					for i = 1,3 do
+						bars[i]:SetWidth((C["Width"]-space*(3-1))/3)
 					end
+				elseif maxnum == 5 then
+					bars[4]:Show()
+					bars[5]:Show()
+					for i = 1,5 do
+						bars[i]:SetWidth((C["Width"]-space*(5-1))/5)
+					end
+				end
+			end
+			for i = 1,count do
+				if i <= num then
+					bars[i]:Show()
+				else
+					bars[i]:Hide()
 				end
 			end
 		end)
@@ -277,7 +290,7 @@ function Module:CreateCombatPoint()
 			end
 		end
 		if event == "UNIT_COMBO_POINTS" or event == "PLAYER_TARGET_CHANGED" then
-			cp = GetComboPoints('player', 'target')
+			local cp = GetComboPoints('player', 'target')
 			for i=1, MAX_COMBO_POINTS do
 				if(i <= cp) then
 					self[i]:Show()
@@ -355,7 +368,7 @@ function Module:CreateEclipse()
 			end
 		end
 		if event == "UNIT_POWER" then
-			if(unit ~= "player" or (event == 'UNIT_POWER' and powerType ~= 'ECLIPSE')) then return end
+			if(unit ~= "player" or (powerType and powerType ~= 'ECLIPSE')) then return end
 
 			local power = UnitPower('player', SPELL_POWER_ECLIPSE)
 			local maxPower = UnitPowerMax('player', SPELL_POWER_ECLIPSE)
@@ -573,9 +586,8 @@ function Module:Mage()
 	MageBars:RegisterEvent("UNIT_AURA")
 
 	MageBars:SetScript("OnEvent",function(self,event,unit)
-		local num = select(4, UnitDebuff("player", GetSpellInfo(36032)))
-		if num == nil then num = 0 end
 		if unit ~= "player" then return end
+		local num = select(4, UnitDebuff("player", GetSpellInfo(36032))) or 0
 		for i = 1,6 do
 			if i <= num then
 				self[i]:Show()
@@ -711,8 +723,6 @@ function Module:HealthPowerBar()
 	healthtext:SetPoint("TOP", spar, "BOTTOM", 0, 7)
 	healthtext:SetTextColor(1, 0.22, 0.52)
 
-
-
 	local power = CreateFrame("Statusbar", nil, bars)
 	power:SetSize(C["Width"], C["Height"])
 	power:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
@@ -743,8 +753,6 @@ function Module:HealthPowerBar()
 	end)
 	bars:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 	bars:RegisterEvent("PLAYER_ENTERING_WORLD")
-	bars:RegisterEvent("PLAYER_REGEN_ENABLED")
-	bars:RegisterEvent("PLAYER_REGEN_DISABLED")
 	bars:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	bars:RegisterEvent("PLAYER_LEVEL_UP")
 	bars:RegisterEvent("UNIT_INVENTORY_CHANGED")

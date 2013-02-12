@@ -63,7 +63,7 @@ function SunUIConfig:Load()
 end
 
 function SunUIConfig:OnProfileChanged(event, database, newProfileKey)
-	SStaticPopup_Show("CFG_RELOAD")
+	StaticPopup_Show("CFG_RELOAD")
 end
 
 function SunUIConfig:SetupOptions()
@@ -88,7 +88,7 @@ function SunUIConfig.GenerateOptions()
 end
 
 function SunUIConfig.GenerateOptionsInternal()
-	SStaticPopupDialogs["CFG_RELOAD"] = {
+	StaticPopupDialogs["CFG_RELOAD"] = {
 		text = L["改变参数需重载应用设置"],
 		button1 = ACCEPT,
 		button2 = CANCEL,
@@ -1948,19 +1948,19 @@ end
 function SunUIConfig:OnEnable()
 	local Button = CreateFrame("Button", "SunUIGameMenuButton", GameMenuFrame, "GameMenuButtonTemplate")
 		S.Reskin(Button)
-		Button:SetSize(GameMenuButtonHelp:GetWidth(), GameMenuButtonHelp:GetHeight())
+		Button:SetSize(_G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight())
 		Button:SetText("|cffDDA0DDSun|r|cff44CCFFUI|r")
-		Button:SetPoint(GameMenuButtonHelp:GetPoint())
+		Button:SetPoint(_G["GameMenuButtonHelp"]:GetPoint())
 		Button:SetScript("OnClick", function()
 			if not UnitAffectingCombat("player") then
-				HideUIPanel(GameMenuFrame)
+				HideUIPanel(_G["GameMenuFrame"])
 				SunUIConfig:ShowConfig()
 			else
-				HideUIPanel(GameMenuFrame)
+				HideUIPanel(_G["GameMenuFrame"])
 				print(L["战斗中无法打开控制台"])
 			end
 		end)
-	GameMenuButtonHelp:SetPoint("TOP", Button, "BOTTOM", 0, -1)
-	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight()+Button:GetHeight())	
+	_G["GameMenuButtonHelp"]:SetPoint("TOP", Button, "BOTTOM", 0, -1)
+	_G["GameMenuFrame"]:SetHeight(_G["GameMenuFrame"]:GetHeight()+Button:GetHeight())	
 	SunUIConfig:RegisterChatCommand("sunui", "ShowConfig")
 end
