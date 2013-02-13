@@ -1504,9 +1504,9 @@ function SunUIConfig.GenerateOptionsInternal()
 								min = 0, max = 1, step = 0.01,
 							},
 							Fade = {
-							type = "toggle",
-							name = L["渐隐"],
-							order = 4,
+								type = "toggle",
+								name = L["渐隐"],
+								order = 4,
 								get = function() return db.PowerBarDB.Fade end,
 								set = function(_, value)
 									db.PowerBarDB.Fade = value
@@ -1515,9 +1515,15 @@ function SunUIConfig.GenerateOptionsInternal()
 								end,
 							},
 							HealthPower = {
-							type = "toggle",
-							name = L["生命值"],
-							order = 5,
+								type = "toggle",
+								name = L["生命值"],
+								order = 5,
+								get = function() return db.PowerBarDB.HealthPower end,
+								set = function(_, value)
+									db.PowerBarDB.HealthPower = value
+									local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIPowerBar")
+									Module:UpdateHealthBar()
+								end,
 							},
 						}
 					},

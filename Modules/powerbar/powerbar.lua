@@ -9,7 +9,7 @@ local threeframe = {}
 local fourframe = {}
 local fiveframe = {}
 local sixframe = {}
-
+local healthbar
 for power, color in next, PowerBarColor do
 	if (type(power) == "string") then
 		if power == "MANA" then 
@@ -701,75 +701,88 @@ function Module:Shaman()
 end
 
 function Module:HealthPowerBar()
-	if not C["HealthPower"] then return end
-	local bars = CreateFrame("Statusbar", nil, Holder)
-	bars:SetSize(C["Width"], C["Height"])
-	bars:SetPoint("CENTER", Holder)
-	bars:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
-	bars:SetMinMaxValues(0, UnitHealthMax("player"))
-	bars:SetValue(UnitHealth("player"))
-	bars:SetStatusBarColor(0.1, 0.8, 0.1, 0)
+	healthbar = CreateFrame("Statusbar", nil, Holder)
+	healthbar:SetSize(C["Width"], C["Height"])
+	healthbar:SetPoint("CENTER", Holder)
+	healthbar:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
+	healthbar:SetMinMaxValues(0, UnitHealthMax("player"))
+	healthbar:SetValue(UnitHealth("player"))
+	healthbar:SetStatusBarColor(0.1, 0.8, 0.1, 0)
 	if DB.MyClass ~= "WARLOCK" and DB.MyClass ~= "SHAMAN" then
-		S.CreateBack(bars)
-		S.CreateBD(bars, 0)
+		S.CreateBack(healthbar)
+		S.CreateBD(healthbar, 0)
 	end
-	tinsert(mainframe, bars)
-	local spar =  bars:CreateTexture(nil, "OVERLAY")
+	tinsert(mainframe, healthbar)
+	local spar =  healthbar:CreateTexture(nil, "OVERLAY")
 	spar:SetTexture("Interface\\Addons\\SunUI\\Media\\Arrow")
 	spar:SetVertexColor(1, 0, 0, 1) 
 	spar:SetSize(16, 16)
-	spar:SetPoint("TOP", bars:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -2)
-	local healthtext = S.MakeFontString(bars)
-	healthtext:SetPoint("TOP", spar, "BOTTOM", 0, 7)
-	healthtext:SetTextColor(1, 0.22, 0.52)
+	spar:SetPoint("TOP", healthbar:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -2)
+	
+	healthbar.healthtext = S.MakeFontString(healthbar)
+	healthbar.healthtext:SetPoint("TOP", spar, "BOTTOM", 0, 7)
+	healthbar.healthtext:SetTextColor(1, 0.22, 0.52)
 
-	local power = CreateFrame("Statusbar", nil, bars)
-	power:SetSize(C["Width"], C["Height"])
-	power:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
-	power:SetAllPoints(bars)
-	power:SetStatusBarColor(0.1, 0.8, 0.1, 0)
-	power:SetMinMaxValues(0, UnitPowerMax("player"))
-	local powerspar =  power:CreateTexture(nil, "OVERLAY")
+	healthbar.power = CreateFrame("Statusbar", nil, healthbar)
+	healthbar.power:SetSize(C["Width"], C["Height"])
+	healthbar.power:SetStatusBarTexture(SunUIConfig.db.profile.MiniDB.uitexturePath)
+	healthbar.power:SetAllPoints(healthbar)
+	healthbar.power:SetStatusBarColor(0.1, 0.8, 0.1, 0)
+	healthbar.power:SetMinMaxValues(0, UnitPowerMax("player"))
+	local powerspar =  healthbar.power:CreateTexture(nil, "OVERLAY")
 	powerspar:SetTexture("Interface\\Addons\\SunUI\\Media\\ArrowT")
 	powerspar:SetVertexColor(.3,.45,.65, 1) 
 	powerspar:SetSize(16, 16)
-	powerspar:SetPoint("BOTTOM", power:GetStatusBarTexture(), "TOPRIGHT", 0, 2)
-	local powertext = S.MakeFontString(bars)
-	powertext:SetPoint("BOTTOM", powerspar, "TOP", 0, -5)
-	tinsert(mainframe, power)
-	S.SmoothBar(bars)
-	S.SmoothBar(power)
-	bars:SetScript("OnUpdate", function(self, elapsed)
-		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed < .2 then
-			local healthnum = UnitHealth("player")
-			local powernum = UnitPower("player")
-			self:SetValue(healthnum)
-			power:SetValue(powernum)
-			healthtext:SetText(S.ShortValue(healthnum))
-			powertext:SetText(S.ShortValue(powernum))
-		return end
-		self.elapsed = 0
-	end)
-	bars:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
-	bars:RegisterEvent("PLAYER_ENTERING_WORLD")
-	bars:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-	bars:RegisterEvent("PLAYER_LEVEL_UP")
-	bars:RegisterEvent("UNIT_INVENTORY_CHANGED")
-	bars:SetScript("OnEvent", function(self, event)
+	powerspar:SetPoint("BOTTOM", healthbar.power:GetStatusBarTexture(), "TOPRIGHT", 0, 2)
+	
+	healthbar.powertext = S.MakeFontString(healthbar)
+	healthbar.powertext:SetPoint("BOTTOM", powerspar, "TOP", 0, -5)
+	tinsert(mainframe, healthbar.power)
+	S.SmoothBar(healthbar)
+	S.SmoothBar(healthbar.power)
+	
+	healthbar:SetScript("OnEvent", function(self, event)
 		if event == "UPDATE_SHAPESHIFT_FORM" or event == "PLAYER_ENTERING_WORLD" or event == "ACTIVE_TALENT_GROUP_CHANGED" then
 			self:SetMinMaxValues(0, UnitHealthMax("player"))
-			power:SetMinMaxValues(0, UnitPowerMax("player"))
+			self.power:SetMinMaxValues(0, UnitPowerMax("player"))
 			local _, powerclass = UnitPowerType("player")
-			powertext:SetTextColor(unpack(powercolor[powerclass]))
+			healthbar.powertext:SetTextColor(unpack(powercolor[powerclass]))
 		end
 		if event == "PLAYER_LEVEL_UP" or event == "UNIT_INVENTORY_CHANGED" then
 				self:SetMinMaxValues(0, UnitHealthMax("player"))
-				power:SetMinMaxValues(0, UnitPowerMax("player"))
+				self.power:SetMinMaxValues(0, UnitPowerMax("player"))
 		end
 	end)
+	
+	self:UpdateHealthBar()
 end
 
+function Module:UpdateHealthBar()
+	if C["HealthPower"] then 
+		healthbar:Show() 
+		healthbar:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+		healthbar:RegisterEvent("PLAYER_ENTERING_WORLD")
+		healthbar:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+		healthbar:RegisterEvent("PLAYER_LEVEL_UP")
+		healthbar:RegisterEvent("UNIT_INVENTORY_CHANGED")
+		healthbar:SetScript("OnUpdate", function(self, elapsed)
+			self.elapsed = (self.elapsed or 0) + elapsed
+			if self.elapsed < .2 then
+				local healthnum = UnitHealth("player")
+				local powernum = UnitPower("player")
+				self:SetValue(healthnum)
+				self.power:SetValue(powernum)
+				self.healthtext:SetText(S.ShortValue(healthnum))
+				self.powertext:SetText(S.ShortValue(powernum))
+			return end
+			self.elapsed = 0
+		end)
+	else
+		healthbar:Hide()
+		healthbar:SetScript("OnUpdate", nil)
+		healthbar:UnregisterAllEvents()
+	end
+end
 function Module:UpdateSize()
 	for k, v in ipairs(mainframe) do 
 		if v then 
