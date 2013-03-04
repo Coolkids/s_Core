@@ -46,9 +46,25 @@ local Update = function(self, event, unit, powerType)
 
 	local num = UnitPower('player', SPELL_POWER_HOLY_POWER)
 	local nummax = UnitPowerMax('player', SPELL_POWER_HOLY_POWER)
+	local spacing = select(4, hp[4]:GetPoint())
 	
-	for i = 1, nummax do
-		if(i <= num) then
+	if num ~= nummax then
+		if nummax == 3 then
+			hp[4]:Hide()
+			hp[5]:Hide()
+			for i = 1,3 do
+				hp[i]:SetWidth((hp:GetWidth()-spacing*(3-1))/3)
+			end
+		elseif nummax == 5 then
+			hp[4]:Show()
+			hp[5]:Show()
+			for i = 1,5 do
+				hp[i]:SetWidth((hp:GetWidth()-spacing*(5-1))/5)
+			end
+		end
+	end
+	for i = 1, 5 do
+		if i <= num then
 			hp[i]:Show()
 		else
 			hp[i]:Hide()
