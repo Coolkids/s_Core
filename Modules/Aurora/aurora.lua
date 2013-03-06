@@ -7,7 +7,7 @@ local media = DB.media
 local AuroraConfig = DB.AuroraConfig
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 
-function Module:ADDON_LOADED()
+function Module:ADDON_LOADED(event, addon)
 	for module, moduleFunc in pairs(DB.AuroraModules) do
 		if type(moduleFunc) == "function" then
 			if module == addon then
