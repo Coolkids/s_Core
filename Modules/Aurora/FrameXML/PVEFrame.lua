@@ -2,7 +2,7 @@ local S, L, DB, _, C = unpack(select(2, ...))
 
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local function PVEFrame()
+local function SkinFrame()
 	PVEFrame:DisableDrawLayer("ARTWORK")
 	PVEFrameLeftInset:DisableDrawLayer("BORDER")
 	PVEFrameBlueBg:Hide()
@@ -52,4 +52,4 @@ local function PVEFrame()
 end
 
 
-tinsert(DB.AuroraModules["SunUI"], PVEFrame)
+tinsert(DB.AuroraModules["SunUI"], SkinFrame)
