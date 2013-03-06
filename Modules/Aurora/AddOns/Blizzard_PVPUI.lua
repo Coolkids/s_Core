@@ -163,7 +163,7 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 	ConquestFrame.Arena3v3:Point("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
 	ConquestFrame.Arena5v5:Point("TOP", ConquestFrame.Arena3v3, "BOTTOM", 0, -1)
 
-	local classColour = DB.classcolours[select(2, UnitClass("player"))]
+	local classColour = DB.MyClassColor
 	ConquestFrame.RatedBG.TeamNameText:SetText(UnitName("player"))
 	ConquestFrame.RatedBG.TeamNameText:SetTextColor(classColour.r, classColour.g, classColour.b)
 
