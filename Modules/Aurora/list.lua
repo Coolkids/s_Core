@@ -1,5 +1,6 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 DB.AuroraModules = {}
+DB.AuroraModules["SunUI"] = {}
 DB.media = {
 	["arrowUp"] = "Interface\\AddOns\\SunUI\\media\\arrow-up-active",
 	["arrowDown"] = "Interface\\AddOns\\SunUI\\media\\arrow-down-active",

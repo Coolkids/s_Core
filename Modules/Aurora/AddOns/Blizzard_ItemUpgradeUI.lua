@@ -1,6 +1,8 @@
-local F, C = unpack(select(2, ...))
+local S, L, DB, _, C = unpack(select(2, ...))
 
-C.modules["Blizzard_ItemUpgradeUI"] = function()
+local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
+local AuroraConfig = DB.AuroraConfig
+DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
 	ItemUpgradeFrame:DisableDrawLayer("BACKGROUND")
 	ItemUpgradeFrame:DisableDrawLayer("BORDER")
 	ItemUpgradeFrameMoneyFrameLeft:Hide()
