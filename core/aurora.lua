@@ -5,14 +5,13 @@ local AA = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("AuroraAPI", "Ace
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 
 local media = {
-	["arrowUp"] = "Interface\\AddOns\\Aurora\\media\\arrow-up-active",
-	["arrowDown"] = "Interface\\AddOns\\Aurora\\media\\arrow-down-active",
-	["arrowLeft"] = "Interface\\AddOns\\Aurora\\media\\arrow-left-active",
-	["arrowRight"] = "Interface\\AddOns\\Aurora\\media\\arrow-right-active",
+	["arrowUp"] = "Interface\\AddOns\\SunUI\\media\\arrow-up-active",
+	["arrowDown"] = "Interface\\AddOns\\SunUI\\media\\arrow-down-active",
+	["arrowLeft"] = "Interface\\AddOns\\SunUI\\media\\arrow-left-active",
+	["arrowRight"] = "Interface\\AddOns\\SunUI\\media\\arrow-right-active",
 	["backdrop"] = "Interface\\ChatFrame\\ChatFrameBackground",
-	["checked"] = "Interface\\AddOns\\Aurora\\media\\CheckButtonHilight",
-	["font"] = "Interface\\AddOns\\Aurora\\media\\font.ttf",
-	["glow"] = "Interface\\AddOns\\Aurora\\media\\glow",
+	["checked"] = "Interface\\AddOns\\SunUI\\media\\CheckButtonHilight",
+	["glow"] = "Interface\\AddOns\\SunUI\\media\\glowTex",
 }
 
 local gradOr, startR, startG, startB, startAlpha, endR, endG, endB, endAlpha = "VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35
