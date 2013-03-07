@@ -655,6 +655,9 @@ function Module:ADDON_LOADED(event, addon)
 
 			button.enableButton:GetCheckedTexture():SetDesaturated(true)
 		end)
+		
+		S.Reskin(LFDQueueFrameRandomScrollFrameChildFrame.bonusRepFrame.ChooseButton)
+		S.Reskin(ScenarioQueueFrameRandomScrollFrameChildFrame.bonusRepFrame.ChooseButton)
 
 		-- Raid Finder
 
