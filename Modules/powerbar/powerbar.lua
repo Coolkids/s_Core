@@ -482,7 +482,6 @@ function Module:FuckWarlock()
 						S.CreateTop(s, Colors[SPEC_WARLOCK_DESTRUCTION][1], Colors[SPEC_WARLOCK_DESTRUCTION][2], Colors[SPEC_WARLOCK_DESTRUCTION][3])
 					end
 
-					if maxembers == 3 then wsb[4]:Hide() else wsb[4]:Show() end
 				elseif spec == SPEC_WARLOCK_AFFLICTION then
 					local maxshards = 4
 
@@ -497,7 +496,6 @@ function Module:FuckWarlock()
 						S.CreateTop(s, Colors[SPEC_WARLOCK_AFFLICTION][1], Colors[SPEC_WARLOCK_AFFLICTION][2], Colors[SPEC_WARLOCK_AFFLICTION][3])
 					end
 
-					if maxshards == 3 then wsb[4]:Hide() else wsb[4]:Show() end
 				elseif spec == SPEC_WARLOCK_DEMONOLOGY then
 					wsb[2]:Hide()
 					wsb[3]:Hide()
