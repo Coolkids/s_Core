@@ -215,20 +215,20 @@ local function UpdateThreat(frame, elapsed)
 		local r, g, b = frame.threat:GetVertexColor()
 		frame.hp.shadow:Show()
 		--print(r, g,b)
-		if(r > 0.7) then
+		if g + b == 0 then
 			if DB.Role == "Tank" then
 				S.CreateTop(frame.hp:GetStatusBarTexture(), .2, .6, .1)
 			else
-				frame.name:SetTextColor(1, 1, 0)
-				frame.hp.shadow:SetBackdropBorderColor(1, 1, 0, 1)
+				frame.name:SetTextColor(1, 0.2, 0.2)
+				frame.hp.shadow:SetBackdropBorderColor(1, 0.2, 0.2, 1)
 			end
 		else
 			if DB.Role == "Tank" then
 				--print(1213)
-				S.CreateTop(frame.hp:GetStatusBarTexture(), .7, .2, .1)
+				S.CreateTop(frame.hp:GetStatusBarTexture(), 240/255, 154/255, 17/255)
 			else
-				frame.name:SetTextColor(1, 0.2, 0.2)
-				frame.hp.shadow:SetBackdropBorderColor(1, 0.2, 0.2, 1)
+				frame.name:SetTextColor(1, 1, 0)
+				frame.hp.shadow:SetBackdropBorderColor(1, 1, 0, 1)
 			end
 		end
 	else
