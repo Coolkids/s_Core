@@ -3,24 +3,23 @@ if not (GetLocale() == "zhCN") then return end
 local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("ClearFont_zhCN", "AceEvent-3.0", "AceHook-3.0")
 local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
 local CF_SCALE
---字体见鬼去把
 -- 指出在哪里寻找字体
---local CLEAR_FONT_BASE = "Fonts\\"
+local CLEAR_FONT_BASE = "Fonts\\"
 
 -- 金币、堆叠、按键绑定等字体
-local CLEAR_FONT_NUMBER = DB.Font
+local CLEAR_FONT_NUMBER = CLEAR_FONT_BASE.."ARHei.TTF"
 -- 生命条、经验条上的字体
-local CLEAR_FONT_EXP = DB.Font
+local CLEAR_FONT_EXP = CLEAR_FONT_BASE.."ARHei.TTF"
 -- 任务说明和书信、石碑的正文字体
-local CLEAR_FONT_QUEST = DB.Font
+local CLEAR_FONT_QUEST = CLEAR_FONT_BASE.."ARKai_T.TTF"
 -- 战斗伤害数值提示
-local CLEAR_FONT_DAMAGE = DB.Font
+local CLEAR_FONT_DAMAGE = CLEAR_FONT_BASE.."ARKai_C.TTF"
 -- 游戏界面中的主要字体
-local CLEAR_FONT = DB.Font
+local CLEAR_FONT = CLEAR_FONT_BASE.."ARKai_T.TTF"
 -- 物品、技能的说明字体
-local CLEAR_FONT_ITEM = DB.Font
+local CLEAR_FONT_ITEM = CLEAR_FONT_BASE.."ARKai_T.TTF"
 -- 聊天字体
-local CLEAR_FONT_CHAT = DB.Font
+local CLEAR_FONT_CHAT = CLEAR_FONT_BASE.."ARHei.TTF"
 local CF_SCALE = 1
 local function CanSetFont(object) 
    return (type(object)=="table" 
