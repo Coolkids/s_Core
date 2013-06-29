@@ -12,6 +12,8 @@ local media = {
 	["backdrop"] = "Interface\\ChatFrame\\ChatFrameBackground",
 	["checked"] = "Interface\\AddOns\\SunUI\\media\\CheckButtonHilight",
 	["glow"] = "Interface\\AddOns\\SunUI\\media\\glowTex",
+	["gradient"] = "Interface\\AddOns\\SunUI\\media\\gradient",
+	["roleIcons"] = "Interface\\Addons\\SunUI\\media\\UI-LFG-ICON-ROLES",
 }
 
 local gradOr, startR, startG, startB, startAlpha, endR, endG, endB, endAlpha = "VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35

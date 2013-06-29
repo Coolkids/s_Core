@@ -1,24 +1,26 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_GuildUI"] = function()
-	
-	S.ReskinPortraitFrame(GuildFrame, true)
-	S.CreateBD(GuildMemberDetailFrame)
-	S.CreateBD(GuildMemberNoteBackground, .25)
-	S.CreateBD(GuildMemberOfficerNoteBackground, .25)
-	S.CreateBD(GuildLogFrame)
-	S.CreateBD(GuildLogContainer, .25)
-	S.CreateBD(GuildNewsFiltersFrame)
-	S.CreateBD(GuildTextEditFrame)
-	S.CreateBD(GuildTextEditContainer, .25)
-	S.CreateBD(GuildRecruitmentInterestFrame, .25)
-	S.CreateBD(GuildRecruitmentAvailabilityFrame, .25)
-	S.CreateBD(GuildRecruitmentRolesFrame, .25)
-	S.CreateBD(GuildRecruitmentLevelFrame, .25)
+	 
+
+	F.ReskinPortraitFrame(GuildFrame, true)
+	F.CreateBD(GuildMemberDetailFrame)
+	F.CreateBD(GuildMemberNoteBackground, .25)
+	F.CreateBD(GuildMemberOfficerNoteBackground, .25)
+	F.CreateBD(GuildLogFrame)
+	F.CreateBD(GuildLogContainer, .25)
+	F.CreateBD(GuildNewsFiltersFrame)
+	F.CreateBD(GuildTextEditFrame)
+	F.CreateBD(GuildTextEditContainer, .25)
+	F.CreateBD(GuildRecruitmentInterestFrame, .25)
+	F.CreateBD(GuildRecruitmentAvailabilityFrame, .25)
+	F.CreateBD(GuildRecruitmentRolesFrame, .25)
+	F.CreateBD(GuildRecruitmentLevelFrame, .25)
 	for i = 1, 5 do
-		S.ReskinTab(_G["GuildFrameTab"..i])
+		F.ReskinTab(_G["GuildFrameTab"..i])
 	end
 	GuildFrameTabardBackground:Hide()
 	GuildFrameTabardEmblem:Hide()
@@ -93,62 +95,62 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 		end
 	end)
 
-	S.ReskinClose(GuildNewsFiltersFrameCloseButton)
-	S.ReskinClose(GuildLogFrameCloseButton)
-	S.ReskinClose(GuildMemberDetailCloseButton)
-	S.ReskinClose(GuildTextEditFrameCloseButton)
-	S.ReskinScroll(GuildPerksContainerScrollBar)
-	S.ReskinScroll(GuildRosterContainerScrollBar)
-	S.ReskinScroll(GuildNewsContainerScrollBar)
-	S.ReskinScroll(GuildRewardsContainerScrollBar)
-	S.ReskinScroll(GuildInfoDetailsFrameScrollBar)
-	S.ReskinScroll(GuildLogScrollFrameScrollBar)
-	S.ReskinScroll(GuildTextEditScrollFrameScrollBar)
-	S.ReskinScroll(GuildInfoFrameApplicantsContainerScrollBar)
-	S.ReskinDropDown(GuildRosterViewDropdown)
-	S.ReskinDropDown(GuildMemberRankDropdown)
-	S.ReskinInput(GuildRecruitmentCommentInputFrame)
-	GuildRecruitmentCommentInputFrame:Width(312)
-	GuildRecruitmentCommentEditBox:Width(284)
+	F.ReskinClose(GuildNewsFiltersFrameCloseButton)
+	F.ReskinClose(GuildLogFrameCloseButton)
+	F.ReskinClose(GuildMemberDetailCloseButton)
+	F.ReskinClose(GuildTextEditFrameCloseButton)
+	F.ReskinScroll(GuildPerksContainerScrollBar)
+	F.ReskinScroll(GuildRosterContainerScrollBar)
+	F.ReskinScroll(GuildNewsContainerScrollBar)
+	F.ReskinScroll(GuildRewardsContainerScrollBar)
+	F.ReskinScroll(GuildInfoDetailsFrameScrollBar)
+	F.ReskinScroll(GuildLogScrollFrameScrollBar)
+	F.ReskinScroll(GuildTextEditScrollFrameScrollBar)
+	F.ReskinScroll(GuildInfoFrameApplicantsContainerScrollBar)
+	F.ReskinDropDown(GuildRosterViewDropdown)
+	F.ReskinDropDown(GuildMemberRankDropdown)
+	F.ReskinInput(GuildRecruitmentCommentInputFrame)
+	GuildRecruitmentCommentInputFrame:SetWidth(312)
+	GuildRecruitmentCommentEditBox:SetWidth(284)
 	GuildRecruitmentCommentFrame:ClearAllPoints()
-	GuildRecruitmentCommentFrame:Point("TOPLEFT", GuildRecruitmentLevelFrame, "BOTTOMLEFT", 0, 1)
-	S.ReskinCheck(GuildRosterShowOfflineButton)
+	GuildRecruitmentCommentFrame:SetPoint("TOPLEFT", GuildRecruitmentLevelFrame, "BOTTOMLEFT", 0, 1)
+	F.ReskinCheck(GuildRosterShowOfflineButton)
 	for i = 1, 7 do
-		S.ReskinCheck(_G["GuildNewsFilterButton"..i])
+		F.ReskinCheck(_G["GuildNewsFilterButton"..i])
 	end
 
 	local a1, p, a2, x, y = GuildNewsBossModel:GetPoint()
 	GuildNewsBossModel:ClearAllPoints()
-	GuildNewsBossModel:Point(a1, p, a2, x+5, y)
+	GuildNewsBossModel:SetPoint(a1, p, a2, x+5, y)
 
 	local f = CreateFrame("Frame", nil, GuildNewsBossModel)
-	f:Point("TOPLEFT", 0, 1)
-	f:Point("BOTTOMRIGHT", 1, -52)
+	f:SetPoint("TOPLEFT", 0, 1)
+	f:SetPoint("BOTTOMRIGHT", 1, -52)
 	f:SetFrameLevel(GuildNewsBossModel:GetFrameLevel()-1)
-	S.CreateBD(f)
+	F.CreateBD(f)
 
 	local line = CreateFrame("Frame", nil, GuildNewsBossModel)
-	line:Point("BOTTOMLEFT", 0, -1)
-	line:Point("BOTTOMRIGHT", 0, -1)
-	line:Height(1)
+	line:SetPoint("BOTTOMLEFT", 0, -1)
+	line:SetPoint("BOTTOMRIGHT", 0, -1)
+	line:SetHeight(1)
 	line:SetFrameLevel(GuildNewsBossModel:GetFrameLevel()-1)
-	S.CreateBD(line, 0)
+	F.CreateBD(line, 0)
 
-	GuildNewsFiltersFrame:Width(224)
-	GuildNewsFiltersFrame:Point("TOPLEFT", GuildFrame, "TOPRIGHT", 1, -20)
-	GuildMemberDetailFrame:Point("TOPLEFT", GuildFrame, "TOPRIGHT", 1, -28)
-	GuildLogFrame:Point("TOPLEFT", GuildFrame, "TOPRIGHT", 1, 0)
-	GuildTextEditFrame:Point("TOPLEFT", GuildFrame, "TOPRIGHT", 1, 0)
+	GuildNewsFiltersFrame:SetWidth(224)
+	GuildNewsFiltersFrame:SetPoint("TOPLEFT", GuildFrame, "TOPRIGHT", 1, -20)
+	GuildMemberDetailFrame:SetPoint("TOPLEFT", GuildFrame, "TOPRIGHT", 1, -28)
+	GuildLogFrame:SetPoint("TOPLEFT", GuildFrame, "TOPRIGHT", 1, 0)
+	GuildTextEditFrame:SetPoint("TOPLEFT", GuildFrame, "TOPRIGHT", 1, 0)
 
 	for i = 1, 5 do
 		local bu = _G["GuildInfoFrameApplicantsContainerButton"..i]
-		S.CreateBD(bu, .25)
+		F.CreateBD(bu, .25)
 		bu:SetHighlightTexture("")
-		bu:GetRegions():SetTexture(DB.media.backdrop)
+		bu:GetRegions():SetTexture(C.media.backdrop)
 		bu:GetRegions():SetVertexColor(r, g, b, .2)
 	end
 
-	GuildFactionBarProgress:SetTexture(DB.media.backdrop)
+	GuildFactionBarProgress:SetTexture(C.media.backdrop)
 	GuildFactionBarLeft:Hide()
 	GuildFactionBarMiddle:Hide()
 	GuildFactionBarRight:Hide()
@@ -156,14 +158,14 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 	GuildFactionBarBG:Hide()
 	GuildFactionBarCap:SetAlpha(0)
 	GuildFactionBar.bg = CreateFrame("Frame", nil, GuildFactionFrame)
-	GuildFactionBar.bg:Point("TOPLEFT", GuildFactionFrame, -1, -1)
-	GuildFactionBar.bg:Point("BOTTOMRIGHT", GuildFactionFrame, -3, 0)
+	GuildFactionBar.bg:SetPoint("TOPLEFT", GuildFactionFrame, -1, -1)
+	GuildFactionBar.bg:SetPoint("BOTTOMRIGHT", GuildFactionFrame, -3, 0)
 	GuildFactionBar.bg:SetFrameLevel(0)
-	S.CreateBD(GuildFactionBar.bg, .25)
+	F.CreateBD(GuildFactionBar.bg, .25)
 
 	GuildXPFrame:ClearAllPoints()
-	GuildXPFrame:Point("TOP", GuildFrame, "TOP", 0, -40)
-	GuildXPBarProgress:SetTexture(DB.media.backdrop)
+	GuildXPFrame:SetPoint("TOP", GuildFrame, "TOP", 0, -40)
+	GuildXPBarProgress:SetTexture(C.media.backdrop)
 	GuildXPBarLeft:SetAlpha(0)
 	GuildXPBarRight:SetAlpha(0)
 	GuildXPBarMiddle:SetAlpha(0)
@@ -176,10 +178,10 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 	GuildXPBarDivider3:Hide()
 	GuildXPBarDivider4:Hide()
 	GuildXPBar.bg = CreateFrame("Frame", nil, GuildXPBar)
-	GuildXPBar.bg:Point("TOPLEFT", GuildXPBar, 0, -3)
-	GuildXPBar.bg:Point("BOTTOMRIGHT", GuildXPBar, 0, 1)
+	GuildXPBar.bg:SetPoint("TOPLEFT", GuildXPBar, 0, -3)
+	GuildXPBar.bg:SetPoint("BOTTOMRIGHT", GuildXPBar, 0, 1)
 	GuildXPBar.bg:SetFrameLevel(0)
-	S.CreateBD(GuildXPBar.bg, .25)
+	F.CreateBD(GuildXPBar.bg, .25)
 
 	local perkbuttons = {"GuildLatestPerkButton", "GuildNextPerkButton"}
 	for _, button in pairs(perkbuttons) do
@@ -190,30 +192,30 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 		na:SetAlpha(0)
 		ic:SetTexCoord(.08, .92, .08, .92)
 		ic:SetDrawLayer("OVERLAY")
-		S.CreateBG(ic)
+		F.CreateBG(ic)
 
 		bu.bg = CreateFrame("Frame", nil, bu)
-		bu.bg:Point("TOPLEFT", 0, -1)
-		bu.bg:Point("BOTTOMRIGHT", 0, 2)
+		bu.bg:SetPoint("TOPLEFT", 0, -1)
+		bu.bg:SetPoint("BOTTOMRIGHT", 0, 2)
 		bu.bg:SetFrameLevel(0)
-		S.CreateBD(bu.bg, .25)
+		F.CreateBD(bu.bg, .25)
 	end
 
 	select(5, GuildLatestPerkButton:GetRegions()):Hide()
 	select(6, GuildLatestPerkButton:GetRegions()):Hide()
 
 	for _, bu in pairs(GuildPerksContainer.buttons) do
-		bu.DisableDrawLayer = S.dummy
+		bu.DisableDrawLayer = F.dummy
 
 		for i = 1, 6 do
 			select(i, bu:GetRegions()):SetAlpha(0)
 		end
 
 		bu.icon:SetTexCoord(.08, .92, .08, .92)
-		S.CreateBG(bu.icon)
+		F.CreateBG(bu.icon)
 	end
 
-	GuildPerksContainerButton1:Point("LEFT", -1, 0)
+	GuildPerksContainerButton1:SetPoint("LEFT", -1, 0)
 
 	for _, bu in pairs(GuildRewardsContainer.buttons) do
 		local nt = bu:GetNormalTexture()
@@ -222,17 +224,17 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 		bu.disabledBG:SetTexture("")
 
 		local bg = CreateFrame("Frame", nil, bu)
-		bg:Point("TOPLEFT", 0, -1)
+		bg:SetPoint("TOPLEFT", 0, -1)
 		bg:SetPoint("BOTTOMRIGHT")
-		S.CreateBD(bg, 0)
+		F.CreateBD(bg, 0)
 
-		nt:SetTexture(DB.media.backdrop)
+		nt:SetTexture(C.media.backdrop)
 		nt:SetVertexColor(0, 0, 0, .25)
-		nt:Point("TOPLEFT", 0, -1)
-		nt:Point("BOTTOMRIGHT", 0, 1)
+		nt:SetPoint("TOPLEFT", 0, -1)
+		nt:SetPoint("BOTTOMRIGHT", 0, 1)
 
 		bu.icon:SetTexCoord(.08, .92, .08, .92)
-		S.CreateBG(bu.icon)
+		F.CreateBG(bu.icon)
 	end
 
 	local tcoords = {
@@ -263,10 +265,10 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 			local bu = GuildRosterContainer.buttons[i]
 
 			if not bu.bg then
-				bu:SetHighlightTexture(DB.media.backdrop)
+				bu:SetHighlightTexture(C.media.backdrop)
 				bu:GetHighlightTexture():SetVertexColor(r, g, b, .2)
 
-				bu.bg = S.CreateBG(bu.icon)
+				bu.bg = F.CreateBG(bu.icon)
 			end
 
 			index = offset + i
@@ -285,30 +287,30 @@ DB.AuroraModules["Blizzard_GuildUI"] = function()
 
 	GuildLevelFrame:SetAlpha(0)
 	local closebutton = select(4, GuildTextEditFrame:GetChildren())
-	S.Reskin(closebutton)
+	F.Reskin(closebutton)
 	local logbutton = select(3, GuildLogFrame:GetChildren())
-	S.Reskin(logbutton)
+	F.Reskin(logbutton)
 	local gbuttons = {"GuildAddMemberButton", "GuildViewLogButton", "GuildControlButton", "GuildTextEditFrameAcceptButton", "GuildMemberGroupInviteButton", "GuildMemberRemoveButton", "GuildRecruitmentInviteButton", "GuildRecruitmentMessageButton", "GuildRecruitmentDeclineButton", "GuildPerksToggleButton", "GuildRecruitmentListGuildButton"}
 	for i = 1, #gbuttons do
-		S.Reskin(_G[gbuttons[i]])
+		F.Reskin(_G[gbuttons[i]])
 	end
 
 	local checkboxes = {"GuildRecruitmentQuestButton", "GuildRecruitmentDungeonButton", "GuildRecruitmentRaidButton", "GuildRecruitmentPvPButton", "GuildRecruitmentRPButton", "GuildRecruitmentWeekdaysButton", "GuildRecruitmentWeekendsButton"}
 	for i = 1, #checkboxes do
-		S.ReskinCheck(_G[checkboxes[i]])
+		F.ReskinCheck(_G[checkboxes[i]])
 	end
 
-	S.ReskinCheck(GuildRecruitmentTankButton:GetChildren())
-	S.ReskinCheck(GuildRecruitmentHealerButton:GetChildren())
-	S.ReskinCheck(GuildRecruitmentDamagerButton:GetChildren())
+	F.ReskinCheck(GuildRecruitmentTankButton:GetChildren())
+	F.ReskinCheck(GuildRecruitmentHealerButton:GetChildren())
+	F.ReskinCheck(GuildRecruitmentDamagerButton:GetChildren())
 
-	S.ReskinRadio(GuildRecruitmentLevelAnyButton)
-	S.ReskinRadio(GuildRecruitmentLevelMaxButton)
+	F.ReskinRadio(GuildRecruitmentLevelAnyButton)
+	F.ReskinRadio(GuildRecruitmentLevelMaxButton)
 
 	for i = 1, 3 do
 		for j = 1, 6 do
 			select(j, _G["GuildInfoFrameTab"..i]:GetRegions()):Hide()
-			select(j, _G["GuildInfoFrameTab"..i]:GetRegions()).Show = S.dummy
+			select(j, _G["GuildInfoFrameTab"..i]:GetRegions()).Show = F.dummy
 		end
 	end
 end

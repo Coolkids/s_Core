@@ -59,8 +59,8 @@ function WM:PLAYER_ENTERING_WORLD()
 	for i = 1, 4 do 
 		_G["WorldMapParty"..i]:SetWidth(24) 
 		_G["WorldMapParty"..i]:SetHeight(24) 
-		end 
-		for i = 1, 40 do 
+	end 
+	for i = 1, 40 do 
 		_G["WorldMapRaid"..i]:SetWidth(24) 
 		_G["WorldMapRaid"..i]:SetHeight(24) 
 	end
@@ -71,6 +71,7 @@ function WM:PLAYER_ENTERING_WORLD()
 end
 
 function WM:PLAYER_REGEN_DISABLED()
+	WorldMapFrameSizeDownButton:Disable();
 	WorldMapFrameSizeUpButton:Disable()
 	WorldMap_ToggleSizeDown()
 	WorldMapBlobFrame:DrawBlob(WORLDMAP_SETTINGS.selectedQuestId, false)
@@ -78,6 +79,7 @@ function WM:PLAYER_REGEN_DISABLED()
 end
 
 function WM:PLAYER_REGEN_ENABLED()
+	WorldMapFrameSizeDownButton:Enable()
 	WorldMapFrameSizeUpButton:Enable()
 end
 
@@ -135,14 +137,12 @@ function WM:SkinWorldMap()
 	WorldMapShowDropDown:ClearAllPoints()
 	WorldMapShowDropDown:SetPoint("TOPRIGHT", WorldMapButton, "BOTTOMRIGHT", 18, 2)
 
-	S.ReskinCheck(WorldMapQuestShowObjectives)
 	S.Reskin(WorldMapZoomOutButton)
 	WorldMapZoomOutButton:Point("LEFT", WorldMapZoneDropDown, "RIGHT", 0, 4)
 	WorldMapLevelUpButton:Point("TOPLEFT", WorldMapLevelDropDown, "TOPRIGHT", -2, 8)
 	WorldMapLevelDownButton:Point("BOTTOMLEFT", WorldMapLevelDropDown, "BOTTOMRIGHT", -2, 2)
 
 	S.ReskinCheck(WorldMapTrackQuest)
-	S.ReskinCheck(WorldMapShowDigSites)
 	WorldMapFrameSizeUpButton:SetFrameStrata("HIGH")
 	WorldMapFrameSizeUpButton.SetFrameStrata = function() end
 	WorldMapFrameSizeDownButton:SetFrameStrata("HIGH")
@@ -191,14 +191,10 @@ function WM:SmallSkin()
 	WorldMapTooltip:SetFrameStrata("TOOLTIP")
 	WorldMapLevelDropDown.Show = function() end
 	WorldMapLevelDropDown:Hide()
-	WorldMapQuestShowObjectives:SetScale(map_scale)
-	WorldMapQuestShowObjectives:SetScale(map_scale)
-	WorldMapShowDigSites:SetScale(map_scale)
 	WorldMapTrackQuest:SetScale(map_scale)
 	WorldMapLevelDownButton:SetScale(map_scale)
 	WorldMapLevelUpButton:SetScale(map_scale)
 	WorldMapFrame_SetOpacity(WORLDMAP_SETTINGS.opacity)
-	WorldMapQuestShowObjectives_AdjustPosition()
 end
 
 function WM:LargeSkin()
@@ -215,10 +211,8 @@ function WM:LargeSkin()
 	WorldMapFrame.backdrop:ClearAllPoints()
 	WorldMapFrame.backdrop:Point("TOPLEFT", WorldMapDetailFrame, "TOPLEFT", -25, 70)
 	WorldMapFrame.backdrop:Point("BOTTOMRIGHT", WorldMapDetailFrame, "BOTTOMRIGHT", 25, -30)
-	WorldMapQuestShowObjectives:SetScale(1)
 	WorldMapTrackQuest:SetScale(1)
 	WorldMapFrameCloseButton:SetScale(1)
-	WorldMapShowDigSites:SetScale(1)
 	WorldMapLevelDownButton:SetScale(1)
 	WorldMapLevelUpButton:SetScale(1)
 	WorldMapFrame:EnableKeyboard(nil)

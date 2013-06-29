@@ -1,8 +1,12 @@
 local S, L, DB, _, C = unpack(select(2, ...))
-
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
+	local ItemUpgradeFrame = ItemUpgradeFrame
+	local ItemButton = ItemUpgradeFrame.ItemButton
+
 	ItemUpgradeFrame:DisableDrawLayer("BACKGROUND")
 	ItemUpgradeFrame:DisableDrawLayer("BORDER")
 	ItemUpgradeFrameMoneyFrameLeft:Hide()
@@ -11,51 +15,53 @@ DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
 	ItemUpgradeFrame.ButtonFrame:GetRegions():Hide()
 	ItemUpgradeFrame.ButtonFrame.ButtonBorder:Hide()
 	ItemUpgradeFrame.ButtonFrame.ButtonBottomBorder:Hide()
-	ItemUpgradeFrame.ItemButton.Frame:Hide()
-	ItemUpgradeFrame.ItemButton.Grabber:Hide()
-	ItemUpgradeFrame.ItemButton.TextFrame:Hide()
-	ItemUpgradeFrame.ItemButton.TextGrabber:Hide()
+	ItemButton.Frame:Hide()
+	ItemButton.Grabber:Hide()
+	ItemButton.TextFrame:Hide()
+	ItemButton.TextGrabber:Hide()
 
-	S.CreateBD(ItemUpgradeFrame.ItemButton, .25)
-	ItemUpgradeFrame.ItemButton:SetHighlightTexture("")
-	ItemUpgradeFrame.ItemButton:SetPushedTexture("")
-	ItemUpgradeFrame.ItemButton.IconTexture:Point("TOPLEFT", 1, -1)
-	ItemUpgradeFrame.ItemButton.IconTexture:Point("BOTTOMRIGHT", -1, 1)
+	F.CreateBD(ItemButton, .25)
+	ItemButton:SetHighlightTexture("")
+	ItemButton:SetPushedTexture("")
+	ItemButton.IconTexture:SetPoint("TOPLEFT", 1, -1)
+	ItemButton.IconTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 
-	local bg = CreateFrame("Frame", nil, ItemUpgradeFrame.ItemButton)
-	bg:Size(341, 50)
-	bg:Point("LEFT", ItemUpgradeFrame.ItemButton, "RIGHT", -1, 0)
-	bg:SetFrameLevel(ItemUpgradeFrame.ItemButton:GetFrameLevel()-1)
-	S.CreateBD(bg, .25)
+	local bg = CreateFrame("Frame", nil, ItemButton)
+	bg:SetSize(341, 50)
+	bg:SetPoint("LEFT", ItemButton, "RIGHT", -1, 0)
+	bg:SetFrameLevel(ItemButton:GetFrameLevel()-1)
+	F.CreateBD(bg, .25)
 
-	ItemUpgradeFrame.ItemButton:HookScript("OnEnter", function(self)
+	ItemButton:HookScript("OnEnter", function(self)
 		self:SetBackdropBorderColor(1, .56, .85)
 	end)
-	ItemUpgradeFrame.ItemButton:HookScript("OnLeave", function(self)
+	ItemButton:HookScript("OnLeave", function(self)
 		self:SetBackdropBorderColor(0, 0, 0)
 	end)
 
+	ItemButton.Cost.Icon:SetTexCoord(.08, .92, .08, .92)
+	ItemButton.Cost.Icon.bg = F.CreateBG(ItemButton.Cost.Icon)
+
 	hooksecurefunc("ItemUpgradeFrame_Update", function()
 		if GetItemUpgradeItemInfo() then
-			ItemUpgradeFrame.ItemButton.IconTexture:SetTexCoord(.08, .92, .08, .92)
+			ItemButton.IconTexture:SetTexCoord(.08, .92, .08, .92)
+			ItemButton.Cost.Icon.bg:Show()
 		else
-			ItemUpgradeFrame.ItemButton.IconTexture:SetTexture("")
+			ItemButton.IconTexture:SetTexture("")
+			ItemButton.Cost.Icon.bg:Hide()
 		end
 	end)
 
-	ItemUpgradeFrame.ItemButton.CurrencyIcon:SetTexCoord(.08, .92, .08, .92)
-	S.CreateBG(ItemUpgradeFrame.ItemButton.CurrencyIcon)
-
 	local currency = ItemUpgradeFrameMoneyFrame.Currency
-	currency.icon:Point("LEFT", currency.count, "RIGHT", 1, 0)
+	currency.icon:SetPoint("LEFT", currency.count, "RIGHT", 1, 0)
 	currency.icon:SetTexCoord(.08, .92, .08, .92)
-	S.CreateBG(currency.icon)
+	F.CreateBG(currency.icon)
 
 	local bg = CreateFrame("Frame", nil, ItemUpgradeFrame)
 	bg:SetAllPoints(ItemUpgradeFrame)
 	bg:SetFrameLevel(ItemUpgradeFrame:GetFrameLevel()-1)
-	S.CreateBD(bg)
+	F.CreateBD(bg)
 
-	S.ReskinPortraitFrame(ItemUpgradeFrame)
-	S.Reskin(ItemUpgradeFrameUpgradeButton)
+	F.ReskinPortraitFrame(ItemUpgradeFrame)
+	F.Reskin(ItemUpgradeFrameUpgradeButton)
 end

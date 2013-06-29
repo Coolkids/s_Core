@@ -9,6 +9,8 @@ DB.media = {
 	["backdrop"] = "Interface\\ChatFrame\\ChatFrameBackground",
 	["checked"] = "Interface\\AddOns\\SunUI\\media\\CheckButtonHilight",
 	["glow"] = "Interface\\AddOns\\SunUI\\media\\glowTex",
+	["gradient"] = "Interface\\AddOns\\SunUI\\media\\gradient",
+	["roleIcons"] = "Interface\\Addons\\SunUI\\media\\UI-LFG-ICON-ROLES",
 }
 DB.AuroraConfig = {
 	["alpha"] = 0.5,

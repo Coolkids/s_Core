@@ -1,3 +1,7 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="LFDFrame.lua"/>
+	<Script file="LFGFrame.lua"/>
 	<Script file="PVEFrame.lua"/>
+	<Script file="RolePoll.lua"/>
+	<Script file="StaticPopup.lua"/>
 </Ui>

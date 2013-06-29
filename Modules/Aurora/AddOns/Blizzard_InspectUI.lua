@@ -1,7 +1,8 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_InspectUI"] = function()
 		InspectModelFrame:DisableDrawLayer("OVERLAY")
 		InspectPVPTeam1:DisableDrawLayer("BACKGROUND")
@@ -46,12 +47,12 @@ DB.AuroraModules["Blizzard_InspectUI"] = function()
 				bu.icon:SetDrawLayer("ARTWORK")
 				bu.icon:SetTexCoord(.08, .92, .08, .92)
 
-				S.CreateBG(bu.icon)
+				F.CreateBG(bu.icon)
 			end
 		end
 
 		InspectTalentFrame.InspectSpec.specIcon:SetTexCoord(.08, .92, .08, .92)
-		S.CreateBG(InspectTalentFrame.InspectSpec.specIcon)
+		F.CreateBG(InspectTalentFrame.InspectSpec.specIcon)
 
 		local function updateIcon(self)
 			local spec = nil
@@ -102,16 +103,16 @@ DB.AuroraModules["Blizzard_InspectUI"] = function()
 
 			glyph.glyph:SetDrawLayer("ARTWORK")
 			glyph.glyph:SetTexCoord(.08, .92, .08, .92)
-			S.CreateBDFrame(glyph.glyph)
+			F.CreateBDFrame(glyph.glyph)
 		end
 
 		for i = 1, 4 do
 			local tab = _G["InspectFrameTab"..i]
-			S.ReskinTab(tab)
+			F.ReskinTab(tab)
 			if i ~= 1 then
-				tab:Point("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
+				tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
 			end
 		end
 
-		S.ReskinPortraitFrame(InspectFrame, true)
+		F.ReskinPortraitFrame(InspectFrame, true)
 end

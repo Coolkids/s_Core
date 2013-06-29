@@ -1,7 +1,8 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 		EncounterJournalEncounterFrameInfo:DisableDrawLayer("BACKGROUND")
 		EncounterJournal:DisableDrawLayer("BORDER")
@@ -30,7 +31,8 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 			select(i, EncounterJournalInstanceSelectDungeonTab:GetRegions()):SetAlpha(0)
 			select(i, EncounterJournalInstanceSelectRaidTab:GetRegions()):SetAlpha(0)
 		end
-		EncounterJournalEncounterFrameModelFrameShadow:Hide()
+		EncounterJournalEncounterFrameInfoModelFrameShadow:Hide()
+		EncounterJournalEncounterFrameInfoModelFrame.dungeonBG:Hide()
 		EncounterJournalEncounterFrameInfoDifficultyUpLeft:SetAlpha(0)
 		EncounterJournalEncounterFrameInfoDifficultyUpRIGHT:SetAlpha(0)
 		EncounterJournalEncounterFrameInfoDifficultyDownLeft:SetAlpha(0)
@@ -45,21 +47,23 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 		select(6, EncounterJournalEncounterFrameInfoLootScrollFrameFilterToggle:GetRegions()):Hide()
 		EncounterJournalSearchResultsBg:Hide()
 
-		S.SetBD(EncounterJournal)
-		S.CreateBD(EncounterJournalSearchResults, .75)
+		F.SetBD(EncounterJournal)
+		F.CreateBD(EncounterJournalSearchResults, .75)
 
 		EncounterJournalEncounterFrameInfoBossTab:ClearAllPoints()
-		EncounterJournalEncounterFrameInfoBossTab:Point("TOPRIGHT", EncounterJournalEncounterFrame, "TOPRIGHT", 75, 20)
+		EncounterJournalEncounterFrameInfoBossTab:SetPoint("TOPRIGHT", EncounterJournalEncounterFrame, "TOPRIGHT", 75, 20)
 		EncounterJournalEncounterFrameInfoLootTab:ClearAllPoints()
-		EncounterJournalEncounterFrameInfoLootTab:Point("TOP", EncounterJournalEncounterFrameInfoBossTab, "BOTTOM", 0, -4)
+		EncounterJournalEncounterFrameInfoLootTab:SetPoint("TOP", EncounterJournalEncounterFrameInfoBossTab, "BOTTOM", 0, -4)
+		EncounterJournalEncounterFrameInfoModelTab:ClearAllPoints()
+		EncounterJournalEncounterFrameInfoModelTab:SetPoint("TOP", EncounterJournalEncounterFrameInfoLootTab, "BOTTOM", 0, -4)
 
-		local tabs = {EncounterJournalEncounterFrameInfoBossTab, EncounterJournalEncounterFrameInfoLootTab}
+		local tabs = {EncounterJournalEncounterFrameInfoBossTab, EncounterJournalEncounterFrameInfoLootTab, EncounterJournalEncounterFrameInfoModelTab}
 		for _, tab in pairs(tabs) do
 			tab:SetScale(.75)
 
 			tab:SetBackdrop({
-				bgFile = DB.media.backdrop,
-				edgeFile = DB.media.backdrop,
+				bgFile = C.media.backdrop,
+				edgeFile = C.media.backdrop,
 				edgeSize = 1 / .75,
 			})
 
@@ -74,11 +78,14 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 
 		EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1:SetNormalTexture("")
 		EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1:SetHighlightTexture("")
+		EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1:SetPushedTexture("")
 
-		local bg = CreateFrame("Frame", nil, EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1)
-		bg:Point("TOPLEFT", 4, -4)
-		bg:Point("BOTTOMRIGHT", -5, 3)
-		S.CreateBD(bg, 0)
+		do
+			local bg = CreateFrame("Frame", nil, EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1)
+			bg:SetPoint("TOPLEFT", 4, -4)
+			bg:SetPoint("BOTTOMRIGHT", -5, 3)
+			F.CreateBD(bg, 0)
+		end
 
 		local index = 2
 
@@ -89,11 +96,12 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 
 				bu:SetNormalTexture("")
 				bu:SetHighlightTexture("")
+				bu:SetPushedTexture("")
 
 				local bg = CreateFrame("Frame", nil, bu)
-				bg:Point("TOPLEFT", 4, -4)
-				bg:Point("BOTTOMRIGHT", -5, 3)
-				S.CreateBD(bg, 0)
+				bg:SetPoint("TOPLEFT", 4, -4)
+				bg:SetPoint("BOTTOMRIGHT", -5, 3)
+				F.CreateBD(bg, 0)
 
 				index = index + 1
 			end
@@ -108,7 +116,7 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 		EncounterJournalEncounterFrameInfoDetailsScrollFrameScrollChildDescription:SetShadowOffset(1, -1)
 		EncounterJournalEncounterFrameInfoEncounterTitle:SetTextColor(1, 1, 1)
 
-		S.CreateBDFrame(EncounterJournalEncounterFrameModelFrame, .25)
+		F.CreateBDFrame(EncounterJournalEncounterFrameInfoModelFrame, .25)
 
 		hooksecurefunc("EncounterJournal_DisplayInstance", function()
 			local bossIndex = 1;
@@ -119,9 +127,9 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 				if not bossButton.reskinned then
 					bossButton.reskinned = true
 
-					S.Reskin(bossButton, true)
+					F.Reskin(bossButton, true)
 					bossButton.text:SetTextColor(1, 1, 1)
-					bossButton.text.SetTextColor = S.dummy
+					bossButton.text.SetTextColor = F.dummy
 				end
 
 
@@ -138,18 +146,18 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 				if not header.reskinned then
 					header.reskinned = true
 
-					header.flashAnim.Play = S.dummy
+					header.flashAnim.Play = F.dummy
 
 					header.description:SetTextColor(1, 1, 1)
 					header.description:SetShadowOffset(1, -1)
 					header.button.title:SetTextColor(1, 1, 1)
-					header.button.title.SetTextColor = S.dummy
+					header.button.title.SetTextColor = F.dummy
 					header.button.expandedIcon:SetTextColor(1, 1, 1)
-					header.button.expandedIcon.SetTextColor = S.dummy
+					header.button.expandedIcon.SetTextColor = F.dummy
 					header.descriptionBG:SetAlpha(0)
 					header.descriptionBGBottom:SetAlpha(0)
 
-					S.Reskin(header.button, true)
+					F.Reskin(header.button, true)
 
 					header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
 
@@ -170,9 +178,9 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 					_G[name.."HeaderButtonHighlightRight"]:Hide()
 
 					header.button.bg = header.button:CreateTexture(nil, "BACKGROUND")
-					header.button.bg:Point("TOPLEFT", header.button.abilityIcon, -1, 1)
-					header.button.bg:Point("BOTTOMRIGHT", header.button.abilityIcon, 1, -1)
-					header.button.bg:SetTexture(DB.media.backdrop)
+					header.button.bg:SetPoint("TOPLEFT", header.button.abilityIcon, -1, 1)
+					header.button.bg:SetPoint("BOTTOMRIGHT", header.button.abilityIcon, 1, -1)
+					header.button.bg:SetTexture(C.media.backdrop)
 					header.button.bg:SetVertexColor(0, 0, 0)
 				end
 
@@ -200,21 +208,21 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 			item.bossTexture:SetAlpha(0)
 			item.bosslessTexture:SetAlpha(0)
 
-			item.icon:Point("TOPLEFT", 1, -1)
+			item.icon:SetPoint("TOPLEFT", 1, -1)
 			item.icon:SetTexCoord(.08, .92, .08, .92)
 			item.icon:SetDrawLayer("OVERLAY")
-			S.CreateBG(item.icon)
+			F.CreateBG(item.icon)
 
 			local bg = CreateFrame("Frame", nil, item)
 			bg:SetPoint("TOPLEFT")
-			bg:Point("BOTTOMRIGHT", 0, 1)
+			bg:SetPoint("BOTTOMRIGHT", 0, 1)
 			bg:SetFrameStrata("BACKGROUND")
-			S.CreateBD(bg, 0)
+			F.CreateBD(bg, 0)
 
 			local tex = item:CreateTexture(nil, "BACKGROUND")
 			tex:SetPoint("TOPLEFT")
-			tex:Point("BOTTOMRIGHT", -1, 2)
-			tex:SetTexture(DB.media.backdrop)
+			tex:SetPoint("BOTTOMRIGHT", -1, 2)
+			tex:SetTexture(C.media.backdrop)
 			tex:SetVertexColor(0, 0, 0, .25)
 		end
 
@@ -227,18 +235,19 @@ DB.AuroraModules["Blizzard_EncounterJournal"] = function()
 			end
 		end)
 
-		S.Reskin(EncounterJournalNavBarHomeButton)
-		S.Reskin(EncounterJournalInstanceSelectDungeonTab)
-		S.Reskin(EncounterJournalInstanceSelectRaidTab)
-		S.Reskin(EncounterJournalEncounterFrameInfoDifficulty)
-		S.Reskin(EncounterJournalEncounterFrameInfoResetButton)
-		S.Reskin(EncounterJournalEncounterFrameInfoLootScrollFrameFilterToggle)
-		S.ReskinClose(EncounterJournalCloseButton)
-		S.ReskinClose(EncounterJournalSearchResultsCloseButton)
-		S.ReskinInput(EncounterJournalSearchBox)
-		S.ReskinScroll(EncounterJournalInstanceSelectScrollFrameScrollBar)
-		S.ReskinScroll(EncounterJournalEncounterFrameInstanceFrameLoreScrollFrameScrollBar)
-		S.ReskinScroll(EncounterJournalEncounterFrameInfoDetailsScrollFrameScrollBar)
-		S.ReskinScroll(EncounterJournalEncounterFrameInfoLootScrollFrameScrollBar)
-		S.ReskinScroll(EncounterJournalSearchResultsScrollFrameScrollBar)
+		F.Reskin(EncounterJournalNavBarHomeButton)
+		F.Reskin(EncounterJournalInstanceSelectDungeonTab)
+		F.Reskin(EncounterJournalInstanceSelectRaidTab)
+		F.Reskin(EncounterJournalEncounterFrameInfoDifficulty)
+		F.Reskin(EncounterJournalEncounterFrameInfoResetButton)
+		F.Reskin(EncounterJournalEncounterFrameInfoLootScrollFrameFilterToggle)
+		F.ReskinClose(EncounterJournalCloseButton)
+		F.ReskinClose(EncounterJournalSearchResultsCloseButton)
+		F.ReskinInput(EncounterJournalSearchBox)
+		F.ReskinScroll(EncounterJournalInstanceSelectScrollFrameScrollBar)
+		F.ReskinScroll(EncounterJournalEncounterFrameInstanceFrameLoreScrollFrameScrollBar)
+		F.ReskinScroll(EncounterJournalEncounterFrameInfoBossesScrollFrameScrollBar)
+		F.ReskinScroll(EncounterJournalEncounterFrameInfoDetailsScrollFrameScrollBar)
+		F.ReskinScroll(EncounterJournalEncounterFrameInfoLootScrollFrameScrollBar)
+		F.ReskinScroll(EncounterJournalSearchResultsScrollFrameScrollBar)
 end

@@ -1,7 +1,9 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_TrainerUI"] = function()
 	ClassTrainerFrameBottomInset:DisableDrawLayer("BORDER")
 	ClassTrainerFrame.BG:Hide()
@@ -12,24 +14,24 @@ DB.AuroraModules["Blizzard_TrainerUI"] = function()
 	ClassTrainerStatusBarSkillRank:SetPoint("CENTER", ClassTrainerStatusBar, "CENTER", 0, 0)
 
 	local bg = CreateFrame("Frame", nil, ClassTrainerFrameSkillStepButton)
-	bg:Point("TOPLEFT", 42, -2)
-	bg:Point("BOTTOMRIGHT", 0, 2)
+	bg:SetPoint("TOPLEFT", 42, -2)
+	bg:SetPoint("BOTTOMRIGHT", 0, 2)
 	bg:SetFrameLevel(ClassTrainerFrameSkillStepButton:GetFrameLevel()-1)
-	S.CreateBD(bg, .25)
+	F.CreateBD(bg, .25)
 
 	ClassTrainerFrameSkillStepButton:SetNormalTexture("")
 	ClassTrainerFrameSkillStepButton:SetHighlightTexture("")
 	ClassTrainerFrameSkillStepButton.disabledBG:SetTexture("")
 
-	ClassTrainerFrameSkillStepButton.selectedTex:Point("TOPLEFT", 43, -3)
-	ClassTrainerFrameSkillStepButton.selectedTex:Point("BOTTOMRIGHT", -1, 3)
-	ClassTrainerFrameSkillStepButton.selectedTex:SetTexture(DB.media.backdrop)
+	ClassTrainerFrameSkillStepButton.selectedTex:SetPoint("TOPLEFT", 43, -3)
+	ClassTrainerFrameSkillStepButton.selectedTex:SetPoint("BOTTOMRIGHT", -1, 3)
+	ClassTrainerFrameSkillStepButton.selectedTex:SetTexture(C.media.backdrop)
 	ClassTrainerFrameSkillStepButton.selectedTex:SetVertexColor(r, g, b, .2)
 
 	local icbg = CreateFrame("Frame", nil, ClassTrainerFrameSkillStepButton)
-	icbg:Point("TOPLEFT", ClassTrainerFrameSkillStepButtonIcon, -1, 1)
-	icbg:Point("BOTTOMRIGHT", ClassTrainerFrameSkillStepButtonIcon, 1, -1)
-	S.CreateBD(icbg, 0)
+	icbg:SetPoint("TOPLEFT", ClassTrainerFrameSkillStepButtonIcon, -1, 1)
+	icbg:SetPoint("BOTTOMRIGHT", ClassTrainerFrameSkillStepButtonIcon, 1, -1)
+	F.CreateBD(icbg, 0)
 
 	ClassTrainerFrameSkillStepButtonIcon:SetTexCoord(.08, .92, .08, .92)
 
@@ -37,28 +39,28 @@ DB.AuroraModules["Blizzard_TrainerUI"] = function()
 		for _, bu in next, ClassTrainerFrame.scrollFrame.buttons do
 			if not bu.styled then
 				local bg = CreateFrame("Frame", nil, bu)
-				bg:Point("TOPLEFT", 42, -6)
-				bg:Point("BOTTOMRIGHT", 0, 6)
+				bg:SetPoint("TOPLEFT", 42, -6)
+				bg:SetPoint("BOTTOMRIGHT", 0, 6)
 				bg:SetFrameLevel(bu:GetFrameLevel()-1)
-				S.CreateBD(bg, .25)
+				F.CreateBD(bg, .25)
 
 				bu.name:SetParent(bg)
-				bu.name:Point("TOPLEFT", bu.icon, "TOPRIGHT", 6, -2)
+				bu.name:SetPoint("TOPLEFT", bu.icon, "TOPRIGHT", 6, -2)
 				bu.subText:SetParent(bg)
 				bu.money:SetParent(bg)
-				bu.money:Point("TOPRIGHT", bu, "TOPRIGHT", 5, -8)
+				bu.money:SetPoint("TOPRIGHT", bu, "TOPRIGHT", 5, -8)
 				bu:SetNormalTexture("")
 				bu:SetHighlightTexture("")
 				bu.disabledBG:Hide()
-				bu.disabledBG.Show = S.dummy
+				bu.disabledBG.Show = F.dummy
 
-				bu.selectedTex:Point("TOPLEFT", 43, -6)
-				bu.selectedTex:Point("BOTTOMRIGHT", -1, 7)
-				bu.selectedTex:SetTexture(DB.media.backdrop)
+				bu.selectedTex:SetPoint("TOPLEFT", 43, -6)
+				bu.selectedTex:SetPoint("BOTTOMRIGHT", -1, 7)
+				bu.selectedTex:SetTexture(C.media.backdrop)
 				bu.selectedTex:SetVertexColor(r, g, b, .2)
 
 				bu.icon:SetTexCoord(.08, .92, .08, .92)
-				S.CreateBG(bu.icon)
+				F.CreateBG(bu.icon)
 
 				bu.styled = true
 			end
@@ -69,19 +71,19 @@ DB.AuroraModules["Blizzard_TrainerUI"] = function()
 	ClassTrainerStatusBarMiddle:Hide()
 	ClassTrainerStatusBarRight:Hide()
 	ClassTrainerStatusBarBackground:Hide()
-	ClassTrainerStatusBar:Point("TOPLEFT", ClassTrainerFrame, "TOPLEFT", 64, -35)
-	ClassTrainerStatusBar:SetStatusBarTexture(DB.media.backdrop)
+	ClassTrainerStatusBar:SetPoint("TOPLEFT", ClassTrainerFrame, "TOPLEFT", 64, -35)
+	ClassTrainerStatusBar:SetStatusBarTexture(C.media.backdrop)
 
 	ClassTrainerStatusBar:GetStatusBarTexture():SetGradient("VERTICAL", .1, .3, .9, .2, .4, 1)
 
 	local bd = CreateFrame("Frame", nil, ClassTrainerStatusBar)
-	bd:Point("TOPLEFT", -1, 1)
-	bd:Point("BOTTOMRIGHT", 1, -1)
+	bd:SetPoint("TOPLEFT", -1, 1)
+	bd:SetPoint("BOTTOMRIGHT", 1, -1)
 	bd:SetFrameLevel(ClassTrainerStatusBar:GetFrameLevel()-1)
-	S.CreateBD(bd, .25)
+	F.CreateBD(bd, .25)
 
-	S.ReskinPortraitFrame(ClassTrainerFrame, true)
-	S.Reskin(ClassTrainerTrainButton)
-	S.ReskinScroll(ClassTrainerScrollFrameScrollBar)
-	S.ReskinDropDown(ClassTrainerFrameFilterDropDown)
+	F.ReskinPortraitFrame(ClassTrainerFrame, true)
+	F.Reskin(ClassTrainerTrainButton)
+	F.ReskinScroll(ClassTrainerScrollFrameScrollBar)
+	F.ReskinDropDown(ClassTrainerFrameFilterDropDown)
 end

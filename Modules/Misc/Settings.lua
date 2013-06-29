@@ -104,8 +104,7 @@ cloakcb:RegisterEvent("UNIT_MODEL_CHANGED")
 
 helmcb:SetChecked(ShowingHelm())
 cloakcb:SetChecked(ShowingCloak())
-S.ReskinCheck(helmcb)
-S.ReskinCheck(cloakcb)
+
 
 local function aotuClick()
 	for i = 1, STATICPOPUP_NUMDIALOGS do
@@ -169,4 +168,6 @@ end
 function Module:OnEnable()
 	_G["TimeManagerClockButton"]:Hide()
 	GameTimeFrame:Hide()
+	S.ReskinCheck(helmcb)
+	S.ReskinCheck(cloakcb)
 end

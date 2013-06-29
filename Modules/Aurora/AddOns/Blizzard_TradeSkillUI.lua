@@ -1,16 +1,17 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
-	S.CreateBD(TradeSkillGuildFrame)
-	S.CreateSD(TradeSkillGuildFrame)
-	S.CreateBD(TradeSkillGuildFrameContainer, .25)
+	F.CreateBD(TradeSkillGuildFrame)
+	F.CreateSD(TradeSkillGuildFrame)
+	F.CreateBD(TradeSkillGuildFrameContainer, .25)
 	TradeSkillFramePortrait:Hide()
-	TradeSkillFramePortrait.Show = S.dummy
+	TradeSkillFramePortrait.Show = F.dummy
 	for i = 18, 20 do
 		select(i, TradeSkillFrame:GetRegions()):Hide()
-		select(i, TradeSkillFrame:GetRegions()).Show = S.dummy
+		select(i, TradeSkillFrame:GetRegions()).Show = F.dummy
 	end
 	TradeSkillHorizontalBarLeft:Hide()
 	select(22, TradeSkillFrame:GetRegions()):Hide()
@@ -31,29 +32,29 @@ DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
 	TradeSkillRankFrameBorder:Hide()
 	TradeSkillRankFrameBackground:Hide()
 
-	TradeSkillDetailScrollFrame:Height(176)
+	TradeSkillDetailScrollFrame:SetHeight(176)
 
 	local a1, p, a2, x, y = TradeSkillGuildFrame:GetPoint()
 	TradeSkillGuildFrame:ClearAllPoints()
-	TradeSkillGuildFrame:Point(a1, p, a2, x + 16, y)
+	TradeSkillGuildFrame:SetPoint(a1, p, a2, x + 16, y)
 
-	TradeSkillLinkButton:Point("LEFT", 0, -1)
+	TradeSkillLinkButton:SetPoint("LEFT", 0, -1)
 
-	S.Reskin(TradeSkillCreateButton)
-	S.Reskin(TradeSkillCreateAllButton)
-	S.Reskin(TradeSkillCancelButton)
-	S.Reskin(TradeSkillViewGuildCraftersButton)
-	S.Reskin(TradeSkillFilterButton)
+	F.Reskin(TradeSkillCreateButton)
+	F.Reskin(TradeSkillCreateAllButton)
+	F.Reskin(TradeSkillCancelButton)
+	F.Reskin(TradeSkillViewGuildCraftersButton)
+	F.Reskin(TradeSkillFilterButton)
 
-	TradeSkillRankFrame:SetStatusBarTexture(DB.media.backdrop)
-	TradeSkillRankFrame.SetStatusBarColor = S.dummy
+	TradeSkillRankFrame:SetStatusBarTexture(C.media.backdrop)
+	TradeSkillRankFrame.SetStatusBarColor = F.dummy
 	TradeSkillRankFrame:GetStatusBarTexture():SetGradient("VERTICAL", .1, .3, .9, .2, .4, 1)
 
 	local bg = CreateFrame("Frame", nil, TradeSkillRankFrame)
-	bg:Point("TOPLEFT", -1, 1)
-	bg:Point("BOTTOMRIGHT", 1, -1)
+	bg:SetPoint("TOPLEFT", -1, 1)
+	bg:SetPoint("BOTTOMRIGHT", 1, -1)
 	bg:SetFrameLevel(TradeSkillRankFrame:GetFrameLevel()-1)
-	S.CreateBD(bg, .25)
+	F.CreateBD(bg, .25)
 
 	for i = 1, MAX_TRADE_SKILL_REAGENTS do
 		local bu = _G["TradeSkillReagent"..i]
@@ -63,13 +64,13 @@ DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
 
 		ic:SetTexCoord(.08, .92, .08, .92)
 		ic:SetDrawLayer("ARTWORK")
-		S.CreateBG(ic)
+		F.CreateBG(ic)
 
 		local bd = CreateFrame("Frame", nil, bu)
-		bd:Point("TOPLEFT", 39, -1)
-		bd:Point("BOTTOMRIGHT", 0, 1)
+		bd:SetPoint("TOPLEFT", 39, -1)
+		bd:SetPoint("BOTTOMRIGHT", 0, 1)
 		bd:SetFrameLevel(0)
-		S.CreateBD(bd, .25)
+		F.CreateBD(bd, .25)
 
 		_G["TradeSkillReagent"..i.."Name"]:SetParent(bd)
 	end
@@ -78,46 +79,42 @@ DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
 		local ic = TradeSkillSkillIcon:GetNormalTexture()
 		if ic then
 			ic:SetTexCoord(.08, .92, .08, .92)
-			ic:Point("TOPLEFT", 1, -1)
-			ic:Point("BOTTOMRIGHT", -1, 1)
-			S.CreateBD(TradeSkillSkillIcon)
+			ic:SetPoint("TOPLEFT", 1, -1)
+			ic:SetPoint("BOTTOMRIGHT", -1, 1)
+			F.CreateBD(TradeSkillSkillIcon)
 		else
 			TradeSkillSkillIcon:SetBackdrop(nil)
 		end
 	end)
 
-	local colourExpandOrCollapse = S.colourExpandOrCollapse
-	local clearExpandOrCollapse = S.clearExpandOrCollapse
-
-	local gradOr, startR, startG, startB, startAlpha, endR, endG, endB, endAlpha = unpack(AuroraConfig.gradientAlpha)
+	local colourExpandOrCollapse = F.colourExpandOrCollapse
+	local clearExpandOrCollapse = F.clearExpandOrCollapse
 
 	local function styleSkillButton(skillButton)
 		skillButton:SetNormalTexture("")
-		skillButton.SetNormalTexture = S.dummy
+		skillButton.SetNormalTexture = F.dummy
 		skillButton:SetPushedTexture("")
 
 		skillButton.bg = CreateFrame("Frame", nil, skillButton)
-		skillButton.bg:Size(13, 13)
-		skillButton.bg:Point("LEFT", 4, 1)
+		skillButton.bg:SetSize(13, 13)
+		skillButton.bg:SetPoint("LEFT", 4, 1)
 		skillButton.bg:SetFrameLevel(skillButton:GetFrameLevel()-1)
-		S.CreateBD(skillButton.bg, 0)
+		F.CreateBD(skillButton.bg, 0)
 
-		skillButton.tex = skillButton:CreateTexture(nil, "BACKGROUND")
-		skillButton.tex:Point("TOPLEFT", skillButton.bg, 1, -1)
-		skillButton.tex:Point("BOTTOMRIGHT", skillButton.bg, -1, 1)
-		skillButton.tex:SetTexture(DB.media.backdrop)
-		skillButton.tex:SetGradientAlpha(gradOr, startR, startG, startB, startAlpha, endR, endG, endB, endAlpha)
+		skillButton.tex = F.CreateGradient(skillButton)
+		skillButton.tex:SetPoint("TOPLEFT", skillButton.bg, 1, -1)
+		skillButton.tex:SetPoint("BOTTOMRIGHT", skillButton.bg, -1, 1)
 
 		skillButton.minus = skillButton:CreateTexture(nil, "OVERLAY")
-		skillButton.minus:Size(7, 1)
+		skillButton.minus:SetSize(7, 1)
 		skillButton.minus:SetPoint("CENTER", skillButton.bg)
-		skillButton.minus:SetTexture(DB.media.backdrop)
+		skillButton.minus:SetTexture(C.media.backdrop)
 		skillButton.minus:SetVertexColor(1, 1, 1)
 
 		skillButton.plus = skillButton:CreateTexture(nil, "OVERLAY")
-		skillButton.plus:Size(1, 7)
+		skillButton.plus:SetSize(1, 7)
 		skillButton.plus:SetPoint("CENTER", skillButton.bg)
-		skillButton.plus:SetTexture(DB.media.backdrop)
+		skillButton.plus:SetTexture(C.media.backdrop)
 		skillButton.plus:SetVertexColor(1, 1, 1)
 
 		skillButton:HookScript("OnEnter", colourExpandOrCollapse)
@@ -155,16 +152,16 @@ DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
 
 				local buttonHighlight = _G["TradeSkillSkill"..buttonIndex.."Highlight"]
 				buttonHighlight:SetTexture("")
-				buttonHighlight.SetTexture = S.dummy
+				buttonHighlight.SetTexture = F.dummy
 
 				skillButton.SubSkillRankBar.BorderLeft:Hide()
 				skillButton.SubSkillRankBar.BorderRight:Hide()
 				skillButton.SubSkillRankBar.BorderMid:Hide()
 
-				skillButton.SubSkillRankBar:Height(12)
-				skillButton.SubSkillRankBar:SetStatusBarTexture(DB.media.backdrop)
+				skillButton.SubSkillRankBar:SetHeight(12)
+				skillButton.SubSkillRankBar:SetStatusBarTexture(C.media.backdrop)
 				skillButton.SubSkillRankBar:GetStatusBarTexture():SetGradient("VERTICAL", .1, .3, .9, .2, .4, 1)
-				S.CreateBDFrame(skillButton.SubSkillRankBar, .25)
+				F.CreateBDFrame(skillButton.SubSkillRankBar, .25)
 
 				styleSkillButton(skillButton)
 			end
@@ -172,9 +169,9 @@ DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
 			if skillIndex <= numTradeSkills then
 				if skillType == "header" or skillType == "subheader" then
 					if skillType == "subheader" then
-						skillButton.bg:Point("LEFT", 24, 1)
+						skillButton.bg:SetPoint("LEFT", 24, 1)
 					else
-						skillButton.bg:Point("LEFT", 4, 1)
+						skillButton.bg:SetPoint("LEFT", 4, 1)
 					end
 
 					skillButton.bg:Show()
@@ -201,16 +198,16 @@ DB.AuroraModules["Blizzard_TradeSkillUI"] = function()
 		end
 	end)
 
-	TradeSkillIncrementButton:Point("RIGHT", TradeSkillCreateButton, "LEFT", -9, 0)
+	TradeSkillIncrementButton:SetPoint("RIGHT", TradeSkillCreateButton, "LEFT", -9, 0)
 
-	S.ReskinPortraitFrame(TradeSkillFrame, true)
-	S.ReskinClose(TradeSkillGuildFrameCloseButton)
-	S.ReskinScroll(TradeSkillDetailScrollFrameScrollBar)
-	S.ReskinScroll(TradeSkillListScrollFrameScrollBar)
-	S.ReskinScroll(TradeSkillGuildCraftersFrameScrollBar)
-	S.ReskinInput(TradeSkillInputBox, nil, 33)
-	S.ReskinInput(TradeSkillFrameSearchBox)
-	S.ReskinArrow(TradeSkillDecrementButton, "left")
-	S.ReskinArrow(TradeSkillIncrementButton, "right")
-	S.ReskinArrow(TradeSkillLinkButton, "right")
+	F.ReskinPortraitFrame(TradeSkillFrame, true)
+	F.ReskinClose(TradeSkillGuildFrameCloseButton)
+	F.ReskinScroll(TradeSkillDetailScrollFrameScrollBar)
+	F.ReskinScroll(TradeSkillListScrollFrameScrollBar)
+	F.ReskinScroll(TradeSkillGuildCraftersFrameScrollBar)
+	F.ReskinInput(TradeSkillInputBox, nil, 33)
+	F.ReskinInput(TradeSkillFrameSearchBox)
+	F.ReskinArrow(TradeSkillDecrementButton, "left")
+	F.ReskinArrow(TradeSkillIncrementButton, "right")
+	F.ReskinArrow(TradeSkillLinkButton, "right")
 end

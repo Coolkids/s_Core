@@ -1,8 +1,10 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_BlackMarketUI"] = function()
+		 
 
 		BlackMarketFrame:DisableDrawLayer("BACKGROUND")
 		BlackMarketFrame:DisableDrawLayer("BORDER")
@@ -14,7 +16,7 @@ DB.AuroraModules["Blizzard_BlackMarketUI"] = function()
 		BlackMarketFrame.HotDeal.Right:Hide()
 		select(4, BlackMarketFrame.HotDeal:GetRegions()):Hide()
 
-		S.CreateBG(BlackMarketFrame.HotDeal.Item)
+		F.CreateBG(BlackMarketFrame.HotDeal.Item)
 		BlackMarketFrame.HotDeal.Item.IconTexture:SetTexCoord(.08, .92, .08, .92)
 
 		local headers = {"ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid"}
@@ -25,18 +27,18 @@ DB.AuroraModules["Blizzard_BlackMarketUI"] = function()
 			header.Right:Hide()
 
 			local bg = CreateFrame("Frame", nil, header)
-			bg:Point("TOPLEFT", 2, 0)
-			bg:Point("BOTTOMRIGHT", -1, 0)
+			bg:SetPoint("TOPLEFT", 2, 0)
+			bg:SetPoint("BOTTOMRIGHT", -1, 0)
 			bg:SetFrameLevel(header:GetFrameLevel()-1)
-			S.CreateBD(bg, .25)
+			F.CreateBD(bg, .25)
 		end
 
-		S.SetBD(BlackMarketFrame)
-		S.CreateBD(BlackMarketFrame.HotDeal, .25)
-		S.Reskin(BlackMarketFrame.BidButton)
-		S.ReskinClose(BlackMarketFrame.CloseButton)
-		S.ReskinInput(BlackMarketBidPriceGold)
-		S.ReskinScroll(BlackMarketScrollFrameScrollBar)
+		F.SetBD(BlackMarketFrame)
+		F.CreateBD(BlackMarketFrame.HotDeal, .25)
+		F.Reskin(BlackMarketFrame.BidButton)
+		F.ReskinClose(BlackMarketFrame.CloseButton)
+		F.ReskinInput(BlackMarketBidPriceGold)
+		F.ReskinScroll(BlackMarketScrollFrameScrollBar)
 
 		hooksecurefunc("BlackMarketScrollFrame_Update", function()
 			local buttons = BlackMarketScrollFrame.buttons
@@ -51,31 +53,31 @@ DB.AuroraModules["Blizzard_BlackMarketUI"] = function()
 
 					bu.Item:SetNormalTexture("")
 					bu.Item:SetPushedTexture("")
-					S.CreateBG(bu.Item)
+					F.CreateBG(bu.Item)
 
 					local bg = CreateFrame("Frame", nil, bu)
 					bg:SetPoint("TOPLEFT")
-					bg:Point("BOTTOMRIGHT", 0, 5)
+					bg:SetPoint("BOTTOMRIGHT", 0, 5)
 					bg:SetFrameLevel(bu:GetFrameLevel()-1)
-					S.CreateBD(bg, 0)
+					F.CreateBD(bg, 0)
 
 					local tex = bu:CreateTexture(nil, "BACKGROUND")
 					tex:SetPoint("TOPLEFT")
-					tex:Point("BOTTOMRIGHT", 0, 5)
+					tex:SetPoint("BOTTOMRIGHT", 0, 5)
 					tex:SetTexture(0, 0, 0, .25)
 
-					bu:SetHighlightTexture(DB.media.backdrop)
+					bu:SetHighlightTexture(C.media.backdrop)
 					local hl = bu:GetHighlightTexture()
 					hl:SetVertexColor(r, g, b, .2)
-					hl.SetAlpha = S.dummy
+					hl.SetAlpha = F.dummy
 					hl:ClearAllPoints()
-					hl:Point("TOPLEFT", 0, -1)
-					hl:Point("BOTTOMRIGHT", -1, 6)
+					hl:SetPoint("TOPLEFT", 0, -1)
+					hl:SetPoint("BOTTOMRIGHT", -1, 6)
 
 					bu.Selection:ClearAllPoints()
-					bu.Selection:Point("TOPLEFT", 0, -1)
-					bu.Selection:Point("BOTTOMRIGHT", -1, 6)
-					bu.Selection:SetTexture(DB.media.backdrop)
+					bu.Selection:SetPoint("TOPLEFT", 0, -1)
+					bu.Selection:SetPoint("BOTTOMRIGHT", -1, 6)
+					bu.Selection:SetTexture(C.media.backdrop)
 					bu.Selection:SetVertexColor(r, g, b, .1)
 
 					bu.reskinned = true

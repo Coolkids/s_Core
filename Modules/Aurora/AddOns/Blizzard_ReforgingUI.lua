@@ -1,7 +1,8 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_ReforgingUI"] = function()
 	for i = 15, 25 do
 		select(i, ReforgingFrame:GetRegions()):Hide()
@@ -20,11 +21,11 @@ DB.AuroraModules["Blizzard_ReforgingUI"] = function()
 	ReforgingFrame.ItemButton.TextFrame:Hide()
 	ReforgingFrame.ItemButton.TextGrabber:Hide()
 
-	S.CreateBD(ReforgingFrame.ItemButton, .25)
+	F.CreateBD(ReforgingFrame.ItemButton, .25)
 	ReforgingFrame.ItemButton:SetHighlightTexture("")
 	ReforgingFrame.ItemButton:SetPushedTexture("")
-	ReforgingFrame.ItemButton.IconTexture:Point("TOPLEFT", 1, -1)
-	ReforgingFrame.ItemButton.IconTexture:Point("BOTTOMRIGHT", -1, 1)
+	ReforgingFrame.ItemButton.IconTexture:SetPoint("TOPLEFT", 1, -1)
+	ReforgingFrame.ItemButton.IconTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 
 	ReforgingFrame.ItemButton:HookScript("OnEnter", function(self)
 		self:SetBackdropBorderColor(1, .56, .85)
@@ -35,9 +36,9 @@ DB.AuroraModules["Blizzard_ReforgingUI"] = function()
 
 	local bg = CreateFrame("Frame", nil, ReforgingFrame.ItemButton)
 	bg:SetSize(341, 50)
-	bg:Point("LEFT", ReforgingFrame.ItemButton, "RIGHT", -1, 0)
+	bg:SetPoint("LEFT", ReforgingFrame.ItemButton, "RIGHT", -1, 0)
 	bg:SetFrameLevel(ReforgingFrame.ItemButton:GetFrameLevel()-1)
-	S.CreateBD(bg, .25)
+	F.CreateBD(bg, .25)
 
 	ReforgingFrame.RestoreMessage:SetTextColor(.9, .9, .9)
 
@@ -50,9 +51,9 @@ DB.AuroraModules["Blizzard_ReforgingUI"] = function()
 		end
 	end)
 
-	ReforgingFrameRestoreButton:Point("LEFT", ReforgingFrameMoneyFrame, "RIGHT", 0, 1)
+	ReforgingFrameRestoreButton:SetPoint("LEFT", ReforgingFrameMoneyFrame, "RIGHT", 0, 1)
 
-	S.ReskinPortraitFrame(ReforgingFrame)
-	S.Reskin(ReforgingFrameRestoreButton)
-	S.Reskin(ReforgingFrameReforgeButton)
+	F.ReskinPortraitFrame(ReforgingFrame)
+	F.Reskin(ReforgingFrameRestoreButton)
+	F.Reskin(ReforgingFrameReforgeButton)
 end

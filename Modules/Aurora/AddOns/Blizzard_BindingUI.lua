@@ -1,30 +1,31 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_BindingUI"] = function()
-		S.SetBD(KeyBindingFrame, 2, 0, -38, 10)
+		F.SetBD(KeyBindingFrame, 2, 0, -38, 10)
 		KeyBindingFrame:DisableDrawLayer("BACKGROUND")
 		KeyBindingFrameOutputText:SetDrawLayer("OVERLAY")
 		KeyBindingFrameHeader:SetTexture("")
-		S.Reskin(KeyBindingFrameDefaultButton)
-		S.Reskin(KeyBindingFrameUnbindButton)
-		S.Reskin(KeyBindingFrameOkayButton)
-		S.Reskin(KeyBindingFrameCancelButton)
+		F.Reskin(KeyBindingFrameDefaultButton)
+		F.Reskin(KeyBindingFrameUnbindButton)
+		F.Reskin(KeyBindingFrameOkayButton)
+		F.Reskin(KeyBindingFrameCancelButton)
 		KeyBindingFrameOkayButton:ClearAllPoints()
-		KeyBindingFrameOkayButton:Point("RIGHT", KeyBindingFrameCancelButton, "LEFT", -1, 0)
+		KeyBindingFrameOkayButton:SetPoint("RIGHT", KeyBindingFrameCancelButton, "LEFT", -1, 0)
 		KeyBindingFrameUnbindButton:ClearAllPoints()
-		KeyBindingFrameUnbindButton:Point("RIGHT", KeyBindingFrameOkayButton, "LEFT", -1, 0)
+		KeyBindingFrameUnbindButton:SetPoint("RIGHT", KeyBindingFrameOkayButton, "LEFT", -1, 0)
 
 		for i = 1, KEY_BINDINGS_DISPLAYED do
 			local button1 = _G["KeyBindingFrameBinding"..i.."Key1Button"]
 			local button2 = _G["KeyBindingFrameBinding"..i.."Key2Button"]
 
-			button2:Point("LEFT", button1, "RIGHT", 1, 0)
-			S.Reskin(button1)
-			S.Reskin(button2)
+			button2:SetPoint("LEFT", button1, "RIGHT", 1, 0)
+			F.Reskin(button1)
+			F.Reskin(button2)
 		end
 
-		S.ReskinScroll(KeyBindingFrameScrollFrameScrollBar)
-		S.ReskinCheck(KeyBindingFrameCharacterButton)
+		F.ReskinScroll(KeyBindingFrameScrollFrameScrollBar)
+		F.ReskinCheck(KeyBindingFrameCharacterButton)
 end

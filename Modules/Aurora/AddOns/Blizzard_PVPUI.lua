@@ -1,8 +1,11 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_PVPUI"] = function()
+	 
+
 	local PVPUIFrame = PVPUIFrame
 	local PVPQueueFrame = PVPQueueFrame
 	local HonorFrame = HonorFrame
@@ -18,7 +21,7 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 	select(24, PVPUIFrame:GetRegions()):Hide()
 	select(25, PVPUIFrame:GetRegions()):Hide()
 
-	PVPUIFrameTab2:Point("LEFT", PVPUIFrameTab1, "RIGHT", -15, 0)
+	PVPUIFrameTab2:SetPoint("LEFT", PVPUIFrameTab1, "RIGHT", -15, 0)
 
 	-- Category buttons
 
@@ -29,25 +32,25 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 
 		bu.Ring:Hide()
 
-		S.Reskin(bu, true)
+		F.Reskin(bu, true)
 
 		bu.Background:SetAllPoints()
 		bu.Background:SetTexture(r, g, b, .2)
 		bu.Background:Hide()
-		
+
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:SetPoint("LEFT", bu, "LEFT")
 		icon:SetDrawLayer("OVERLAY")
-		icon.bg = S.CreateBG(icon)
+		icon.bg = F.CreateBG(icon)
 		icon.bg:SetDrawLayer("ARTWORK")
 
 		if cu then
-			cu:Size(16, 16)
-			cu:Point("TOPLEFT", bu.Name, "BOTTOMLEFT", 0, -8)
-			bu.CurrencyAmount:Point("LEFT", cu, "RIGHT", 4, 0)
+			cu:SetSize(16, 16)
+			cu:SetPoint("TOPLEFT", bu.Name, "BOTTOMLEFT", 0, -8)
+			bu.CurrencyAmount:SetPoint("LEFT", cu, "RIGHT", 4, 0)
 
 			cu:SetTexCoord(.08, .92, .08, .92)
-			cu.bg = S.CreateBG(cu)
+			cu.bg = F.CreateBG(cu)
 			cu.bg:SetDrawLayer("BACKGROUND", 1)
 		end
 	end
@@ -86,30 +89,25 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 	BonusFrame.WorldPVPHeader:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 
-	--BonusFrame.DiceButton:SetNormalTexture("")
-	--BonusFrame.DiceButton:SetPushedTexture("")
-	S.Reskin(BonusFrame.DiceButton)
+	F.Reskin(BonusFrame.DiceButton)
 
 	for _, bu in pairs({BonusFrame.RandomBGButton, BonusFrame.CallToArmsButton, BonusFrame.WorldPVP1Button, BonusFrame.WorldPVP2Button}) do
-		S.Reskin(bu, true)
+		F.Reskin(bu, true)
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints()
 	end
 
-	BonusFrame.CallToArmsButton:Point("TOP", BonusFrame.RandomBGButton, "BOTTOM", 0, -1)
-	BonusFrame.WorldPVP2Button:Point("TOP", BonusFrame.WorldPVP1Button, "BOTTOM", 0, -1)
-
-	BonusFrame.BattlegroundReward1.Amount:Point("RIGHT", BonusFrame.BattlegroundReward1.Icon, "LEFT", -2, 0)
+	BonusFrame.BattlegroundReward1.Amount:SetPoint("RIGHT", BonusFrame.BattlegroundReward1.Icon, "LEFT", -2, 0)
 	BonusFrame.BattlegroundReward1.Icon:SetTexCoord(.08, .92, .08, .92)
-	BonusFrame.BattlegroundReward1.Icon:Size(16, 16)
-	S.CreateBG(BonusFrame.BattlegroundReward1.Icon)
-	BonusFrame.BattlegroundReward2.Amount:Point("RIGHT", BonusFrame.BattlegroundReward2.Icon, "LEFT", -2, 0)
+	BonusFrame.BattlegroundReward1.Icon:SetSize(16, 16)
+	F.CreateBG(BonusFrame.BattlegroundReward1.Icon)
+	BonusFrame.BattlegroundReward2.Amount:SetPoint("RIGHT", BonusFrame.BattlegroundReward2.Icon, "LEFT", -2, 0)
 	BonusFrame.BattlegroundReward2.Icon:SetTexCoord(.08, .92, .08, .92)
-	BonusFrame.BattlegroundReward2.Icon:Size(16, 16)
-	S.CreateBG(BonusFrame.BattlegroundReward2.Icon)
-	
+	BonusFrame.BattlegroundReward2.Icon:SetSize(16, 16)
+	F.CreateBG(BonusFrame.BattlegroundReward2.Icon)
+
 	hooksecurefunc("HonorFrameBonusFrame_Update", function()
 		local canQueue, bgName, battleGroundID, hasWon, winHonorAmount, winConquestAmount = GetHolidayBGInfo()
 		local rewardIndex = 0
@@ -124,7 +122,68 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 			frame.Icon:SetTexture("Interface\\Icons\\PVPCurrency-Honor-"..englishFaction)
 		end
 	end)
-	
+
+	IncludedBattlegroundsDropDown:SetPoint("TOPRIGHT", BonusFrame.DiceButton, 40, 26)
+
+	-- Role buttons
+
+	local RoleInset = HonorFrame.RoleInset
+
+	RoleInset:DisableDrawLayer("BACKGROUND")
+	RoleInset:DisableDrawLayer("BORDER")
+
+	for _, roleButton in pairs({RoleInset.HealerIcon, RoleInset.TankIcon, RoleInset.DPSIcon}) do
+		roleButton.cover:SetTexture(C.media.roleIcons)
+		roleButton:SetNormalTexture(C.media.roleIcons)
+
+		roleButton.checkButton:SetFrameLevel(roleButton:GetFrameLevel() + 2)
+
+		for i = 1, 2 do
+			local left = roleButton:CreateTexture()
+			left:SetDrawLayer("OVERLAY", i)
+			left:SetWidth(1)
+			left:SetTexture(C.media.backdrop)
+			left:SetVertexColor(0, 0, 0)
+			left:SetPoint("TOPLEFT", roleButton, 6, -4)
+			left:SetPoint("BOTTOMLEFT", roleButton, 6, 7)
+			roleButton["leftLine"..i] = left
+
+			local right = roleButton:CreateTexture()
+			right:SetDrawLayer("OVERLAY", i)
+			right:SetWidth(1)
+			right:SetTexture(C.media.backdrop)
+			right:SetVertexColor(0, 0, 0)
+			right:SetPoint("TOPRIGHT", roleButton, -6, -4)
+			right:SetPoint("BOTTOMRIGHT", roleButton, -6, 7)
+			roleButton["rightLine"..i] = right
+
+			local top = roleButton:CreateTexture()
+			top:SetDrawLayer("OVERLAY", i)
+			top:SetHeight(1)
+			top:SetTexture(C.media.backdrop)
+			top:SetVertexColor(0, 0, 0)
+			top:SetPoint("TOPLEFT", roleButton, 6, -4)
+			top:SetPoint("TOPRIGHT", roleButton, -6, -4)
+			roleButton["topLine"..i] = top
+
+			local bottom = roleButton:CreateTexture()
+			bottom:SetDrawLayer("OVERLAY", i)
+			bottom:SetHeight(1)
+			bottom:SetTexture(C.media.backdrop)
+			bottom:SetVertexColor(0, 0, 0)
+			bottom:SetPoint("BOTTOMLEFT", roleButton, 6, 7)
+			bottom:SetPoint("BOTTOMRIGHT", roleButton, -6, 7)
+			roleButton["bottomLine"..i] = bottom
+		end
+
+		roleButton.leftLine2:Hide()
+		roleButton.rightLine2:Hide()
+		roleButton.topLine2:Hide()
+		roleButton.bottomLine2:Hide()
+
+		F.ReskinCheck(roleButton.checkButton)
+	end
+
 	-- Honor frame specific
 
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
@@ -135,33 +194,25 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 		bu:SetHighlightTexture("")
 
 		local bg = CreateFrame("Frame", nil, bu)
-		bg:Point("TOPLEFT", 2, 0)
-		bg:Point("BOTTOMRIGHT", 0, 2)
-		S.CreateBD(bg, 0)
+		bg:SetPoint("TOPLEFT", 2, 0)
+		bg:SetPoint("BOTTOMRIGHT", -1, 2)
+		F.CreateBD(bg, 0)
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
 
-		bu.tex = S.CreateGradient(bu)
+		bu.tex = F.CreateGradient(bu)
 		bu.tex:SetDrawLayer("BACKGROUND")
-		bu.tex:Point("TOPLEFT", 3, -1)
-		bu.tex:Point("BOTTOMRIGHT", -1, 3)
+		bu.tex:SetPoint("TOPLEFT", bg, 1, -1)
+		bu.tex:SetPoint("BOTTOMRIGHT", bg, -1, 1)
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetTexture(r, g, b, .2)
-		bu.SelectedTexture:Point("TOPLEFT", 2, 0)
-		bu.SelectedTexture:Point("BOTTOMRIGHT", 0, 2)
+		bu.SelectedTexture:SetAllPoints(bu.tex)
 
 		bu.Icon:SetTexCoord(.08, .92, .08, .92)
-		bu.Icon.bg = S.CreateBG(bu.Icon)
+		bu.Icon.bg = F.CreateBG(bu.Icon)
 		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
-		bu.Icon:Point("TOPLEFT", 5, -3)
+		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 	end
-
-	-- if scroll frames aren't bugged then they are terribly implemented
-	local bu1 = HonorFrame.SpecificFrame.buttons[1]
-	bu1.tex:Point("TOPLEFT", 3, 0)
-	bu1.tex:Point("BOTTOMRIGHT", -1, 3)
-	bu1.Icon:Point("TOPLEFT", 4, -2)
-	bu1.SelectedTexture:Point("BOTTOMRIGHT", 0, 3)
 
 	-- Conquest Frame
 
@@ -178,19 +229,31 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 	ConquestFrame.ShadowOverlay:Hide()
 
 	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.Arena5v5, ConquestFrame.RatedBG}) do
-		S.Reskin(bu, true)
+		F.Reskin(bu, true)
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints()
 	end
 
-	ConquestFrame.Arena3v3:Point("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
-	ConquestFrame.Arena5v5:Point("TOP", ConquestFrame.Arena3v3, "BOTTOM", 0, -1)
+	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
+	ConquestFrame.Arena5v5:SetPoint("TOP", ConquestFrame.Arena3v3, "BOTTOM", 0, -1)
 
-	local classColour = DB.MyClassColor
+	local classColour = C.classcolours[select(2, UnitClass("player"))]
 	ConquestFrame.RatedBG.TeamNameText:SetText(UnitName("player"))
 	ConquestFrame.RatedBG.TeamNameText:SetTextColor(classColour.r, classColour.g, classColour.b)
+
+	ConquestFrame.ArenaReward.Amount:SetPoint("RIGHT", ConquestFrame.ArenaReward.Icon, "LEFT", -2, 0)
+	ConquestFrame.ArenaReward.Icon:SetTexCoord(.08, .92, .08, .92)
+	ConquestFrame.ArenaReward.Icon:SetSize(16, 16)
+	F.CreateBG(ConquestFrame.ArenaReward.Icon)
+	ConquestFrame.RatedBGReward.Amount:SetPoint("RIGHT", ConquestFrame.RatedBGReward.Icon, "LEFT", -2, 0)
+	ConquestFrame.RatedBGReward.Icon:SetTexCoord(.08, .92, .08, .92)
+	ConquestFrame.RatedBGReward.Icon:SetSize(16, 16)
+	F.CreateBG(ConquestFrame.RatedBGReward.Icon)
+
+	ConquestFrame.ArenaReward.Icon:SetTexture("Interface\\Icons\\PVPCurrency-Honor-"..englishFaction)
+	ConquestFrame.RatedBGReward.Icon:SetTexture("Interface\\Icons\\PVPCurrency-Conquest-"..englishFaction)
 
 	for i = 1, 4 do
 		select(i, ConquestBar:GetRegions()):Hide()
@@ -199,12 +262,12 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 
 	ConquestBar.shadow:Hide()
 
-	ConquestBar.progress:SetTexture(DB.media.backdrop)
+	ConquestBar.progress:SetTexture(C.media.backdrop)
 	ConquestBar.progress:SetGradient("VERTICAL", .8, 0, 0, 1, 0, 0)
 
-	local bg = S.CreateBDFrame(ConquestBar, .25)
-	bg:Point("TOPLEFT", -1, -2)
-	bg:Point("BOTTOMRIGHT", 1, 2)
+	local bg = F.CreateBDFrame(ConquestBar, .25)
+	bg:SetPoint("TOPLEFT", -1, -2)
+	bg:SetPoint("BOTTOMRIGHT", 1, 2)
 
 	-- War games
 
@@ -240,25 +303,25 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 		bu:SetHighlightTexture("")
 
 		local bg = CreateFrame("Frame", nil, bu)
-		bg:Point("TOPLEFT", 2, 0)
-		bg:Point("BOTTOMRIGHT", -1, 2)
-		S.CreateBD(bg, 0)
+		bg:SetPoint("TOPLEFT", 2, 0)
+		bg:SetPoint("BOTTOMRIGHT", -1, 2)
+		F.CreateBD(bg, 0)
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
 
-		local tex = S.CreateGradient(bu)
+		local tex = F.CreateGradient(bu)
 		tex:SetDrawLayer("BACKGROUND")
-		tex:Point("TOPLEFT", 3, -1)
-		tex:Point("BOTTOMRIGHT", -2, 3)
+		tex:SetPoint("TOPLEFT", 3, -1)
+		tex:SetPoint("BOTTOMRIGHT", -2, 3)
 
 		SelectedTexture:SetDrawLayer("BACKGROUND")
 		SelectedTexture:SetTexture(r, g, b, .2)
-		SelectedTexture:Point("TOPLEFT", 2, 0)
-		SelectedTexture:Point("BOTTOMRIGHT", -1, 2)
+		SelectedTexture:SetPoint("TOPLEFT", 2, 0)
+		SelectedTexture:SetPoint("BOTTOMRIGHT", -1, 2)
 
 		bu.Icon:SetTexCoord(.08, .92, .08, .92)
-		bu.Icon.bg = S.CreateBG(bu.Icon)
+		bu.Icon.bg = F.CreateBG(bu.Icon)
 		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
-		bu.Icon:Point("TOPLEFT", 5, -3)
+		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 
 		local header = button.Header
 
@@ -267,24 +330,24 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 		header:SetPushedTexture("")
 
 		local headerBg = CreateFrame("Frame", nil, header)
-		headerBg:Size(13, 13)
-		headerBg:Point("LEFT", 4, 0)
+		headerBg:SetSize(13, 13)
+		headerBg:SetPoint("LEFT", 4, 0)
 		headerBg:SetFrameLevel(header:GetFrameLevel()-1)
-		S.CreateBD(headerBg, 0)
+		F.CreateBD(headerBg, 0)
 
-		local headerTex = S.CreateGradient(header)
+		local headerTex = F.CreateGradient(header)
 		headerTex:SetAllPoints(headerBg)
 
 		local minus = header:CreateTexture(nil, "OVERLAY")
-		minus:Size(7, 1)
+		minus:SetSize(7, 1)
 		minus:SetPoint("CENTER", headerBg)
-		minus:SetTexture(DB.media.backdrop)
+		minus:SetTexture(C.media.backdrop)
 		minus:SetVertexColor(1, 1, 1)
 
 		local plus = header:CreateTexture(nil, "OVERLAY")
-		plus:Size(1, 7)
+		plus:SetSize(1, 7)
 		plus:SetPoint("CENTER", headerBg)
-		plus:SetTexture(DB.media.backdrop)
+		plus:SetTexture(C.media.backdrop)
 		plus:SetVertexColor(1, 1, 1)
 		header.plus = plus
 
@@ -312,13 +375,13 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 		local bu = PVPArenaTeamsFrame["Team"..i]
 
 		bu.Flag.FlagGrabber:Hide()
-		bu.Flag:Point("TOPLEFT", 10, -1)
+		bu.Flag:SetPoint("TOPLEFT", 10, -1)
 
 		bu.Background:SetTexture(r, g, b, .2)
 		bu.Background:SetAllPoints()
 		bu.Background:Hide()
-		
-		S.Reskin(bu, true)
+
+		F.Reskin(bu, true)
 	end
 
 	hooksecurefunc("PVPArenaTeamsFrame_SelectButton", function(button)
@@ -350,10 +413,10 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 		header:SetHighlightTexture("")
 
 		local bg = CreateFrame("Frame", nil, header)
-		bg:Point("TOPLEFT", 2, 0)
-		bg:Point("BOTTOMRIGHT", -1, 0)
+		bg:SetPoint("TOPLEFT", 2, 0)
+		bg:SetPoint("BOTTOMRIGHT", -1, 0)
 		bg:SetFrameLevel(header:GetFrameLevel()-1)
-		S.CreateBD(bg, .25)
+		F.CreateBD(bg, .25)
 
 		header.bg = bg
 
@@ -372,7 +435,7 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 
 			if button:IsEnabled() then
 				local name, rank, level, class, online = GetArenaTeamRosterInfo(frame.teamIndex, i);
-				local color = ConvertRGBtoColorString(DB.classcolours[class])
+				local color = ConvertRGBtoColorString(C.classcolours[class])
 				if online then
 					button.NameText:SetText(color..name..FONT_COLOR_CODE_CLOSE)
 				else
@@ -411,8 +474,8 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 			end
 			for i=1, #team do
 				if (team[i].online) then
-					local color = DB.classcolours[team[i].class]
-					info.text = color..team[i].name..FONT_COLOR_CODE_CLOSE;
+					local color = C.classcolours[team[i].class]
+					info.text = ConvertRGBtoColorString(color)..team[i].name..FONT_COLOR_CODE_CLOSE;
 					info.func = function (menu, name) InviteToGroup(name); end
 					info.arg1 = team[i].name;
 					info.disabled = nil;
@@ -439,24 +502,24 @@ DB.AuroraModules["Blizzard_PVPUI"] = function()
 		end
 	end
 
-	ArenaTeamFrame.Flag:Point("TOPLEFT", 25, -3)
+	ArenaTeamFrame.Flag:SetPoint("TOPLEFT", 25, -3)
 
-	S.CreateBD(TopInset, .25)
-	S.ReskinArrow(ArenaTeamFrame.weeklyToggleRight, "RIGHT")
-	S.ReskinArrow(ArenaTeamFrame.weeklyToggleLeft, "LEFT")
+	F.CreateBD(TopInset, .25)
+	F.ReskinArrow(ArenaTeamFrame.weeklyToggleRight, "RIGHT")
+	F.ReskinArrow(ArenaTeamFrame.weeklyToggleLeft, "LEFT")
 
 	-- Main style
 
-	S.ReskinPortraitFrame(PVPUIFrame)
-	S.ReskinTab(PVPUIFrame.Tab1)
-	S.ReskinTab(PVPUIFrame.Tab2)
-	S.Reskin(HonorFrame.SoloQueueButton)
-	S.Reskin(HonorFrame.GroupQueueButton)
-	S.Reskin(ConquestFrame.JoinButton)
-	S.Reskin(WarGameStartButton)
-	S.Reskin(ArenaTeamFrame.AddMemberButton)
-	S.ReskinDropDown(HonorFrameTypeDropDown)
-	S.ReskinScroll(HonorFrameSpecificFrameScrollBar)
-	S.ReskinScroll(WarGamesFrameScrollFrameScrollBar)
-	S.ReskinScroll(WarGamesFrameInfoScrollFrameScrollBar)
+	F.ReskinPortraitFrame(PVPUIFrame)
+	F.ReskinTab(PVPUIFrame.Tab1)
+	F.ReskinTab(PVPUIFrame.Tab2)
+	F.Reskin(HonorFrame.SoloQueueButton)
+	F.Reskin(HonorFrame.GroupQueueButton)
+	F.Reskin(ConquestFrame.JoinButton)
+	F.Reskin(WarGameStartButton)
+	F.Reskin(ArenaTeamFrame.AddMemberButton)
+	F.ReskinDropDown(HonorFrameTypeDropDown)
+	F.ReskinScroll(HonorFrameSpecificFrameScrollBar)
+	F.ReskinScroll(WarGamesFrameScrollFrameScrollBar)
+	F.ReskinScroll(WarGamesFrameInfoScrollFrameScrollBar)
 end

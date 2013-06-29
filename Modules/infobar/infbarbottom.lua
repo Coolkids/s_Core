@@ -14,12 +14,24 @@ local function BuildClock()
 	local week,killmsg, nokillmsg
 	if (GetLocale() == "zhTW" or GetLocale() == "zhCN") then
 		week = {"星期天","星期一","星期二","星期三","星期四","星期五","星期六"}
-		killmsg = "本周|cff228B22已经击杀|r怒之傻"
-		nokillmsg = "本周还|cffFF0000没有击杀|r怒之傻"
+		killsoa = "本周|cff228B22已经击杀|r怒之煞" 
+		nokillsoa = "本周还|cffFF0000没有击杀|r怒之煞" 
+		killGalleon = "本周|cff228B22已经击杀|r炮舰" 
+		nokillGalleon = "本周还|cffFF0000没有击杀|r炮舰" 
+		killOondasta = "本周|cff228B22已经击杀|r乌达斯塔" 
+		nokillOondasta = "本周还|cffFF0000没有击杀|r乌达斯塔" 
+		killNalak = "本周|cff228B22已经击杀|r暴风领主纳拉克" 
+		nokillNalak = "本周还|cffFF0000没有击杀|r暴风领主纳拉克" 
 	else
 		week = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"}
-		killmsg = "You|cff228B22killed|r SOA in this week"
-		nokillmsg = "You |cffFF0000no kill|r SOA in this week"
+		killsoa = "本周|cff228B22已经击杀|r怒之煞" 
+		nokillsoa = "本周还|cffFF0000没有击杀|r怒之煞" 
+		killGalleon = "本周|cff228B22已经击杀|r炮舰" 
+		nokillGalleon = "本周还|cffFF0000没有击杀|r炮舰" 
+		killOondasta = "本周|cff228B22已经击杀|r乌达斯塔" 
+		nokillOondasta = "本周还|cffFF0000没有击杀|r乌达斯塔" 
+		killNalak = "本周|cff228B22已经击杀|r暴风领主纳拉克" 
+		nokillNalak = "本周还|cffFF0000没有击杀|r暴风领主纳拉克" 
 	end
 	
 	Clock:SetScript("OnEnter", function(self)
@@ -56,15 +68,39 @@ local function BuildClock()
 		end
 		--怒之煞
 		
-		if UnitLevel("player") > 89 then
-			GameTooltip:AddLine(" ")
-			local isCD = IsQuestFlaggedCompleted(32099)
-			if isCD then
-				GameTooltip:AddLine(killmsg, 0.75, 0.9, 1)
-			else
-				GameTooltip:AddLine(nokillmsg, 0.75, 0.9, 1)
-			end
-		end
+		if UnitLevel("player") > 89 then 
+		  GameTooltip:AddLine(" ") 
+		  local isCD = IsQuestFlaggedCompleted(32099) 
+		  if isCD then 
+			 GameTooltip:AddLine(killsoa, 0.75, 0.9, 1) 
+		  else 
+			 GameTooltip:AddLine(nokillsoa, 0.75, 0.9, 1) 
+		  end 
+	   end 
+	   if UnitLevel("player") > 89 then 
+		  local isCD = IsQuestFlaggedCompleted(32098) 
+		  if isCD then 
+			 GameTooltip:AddLine(killGalleon, 0.75, 0.9, 1) 
+		  else 
+			 GameTooltip:AddLine(nokillGalleon, 0.75, 0.9, 1) 
+		  end 
+	   end 
+	   if UnitLevel("player") > 89 then 
+		  local isCD = IsQuestFlaggedCompleted(32519) 
+		  if isCD then 
+			 GameTooltip:AddLine(killOondasta, 0.75, 0.9, 1) 
+		  else 
+			 GameTooltip:AddLine(nokillOondasta, 0.75, 0.9, 1) 
+		  end 
+	   end 
+	   if UnitLevel("player") > 89 then 
+		  local isCD = IsQuestFlaggedCompleted(32518) 
+		  if isCD then 
+			 GameTooltip:AddLine(killNalak, 0.75, 0.9, 1) 
+		  else 
+			 GameTooltip:AddLine(nokillNalak, 0.75, 0.9, 1) 
+		  end 
+	   end 
 		GameTooltip:Show()
 	end)
 	Clock:SetScript("OnLeave", function(self) GameTooltip:Hide() end)

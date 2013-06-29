@@ -1,15 +1,16 @@
 local S, L, DB, _, C = unpack(select(2, ...))
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-
+local F = S
+local C = DB
 DB.AuroraModules["Blizzard_DebugTools"] = function()
 		ScriptErrorsFrame:SetScale(UIParent:GetScale())
-		ScriptErrorsFrame:Size(386, 274)
+		ScriptErrorsFrame:SetSize(386, 274)
 		ScriptErrorsFrame:DisableDrawLayer("OVERLAY")
 		ScriptErrorsFrameTitleBG:Hide()
 		ScriptErrorsFrameDialogBG:Hide()
-		S.CreateBD(ScriptErrorsFrame)
-		S.CreateSD(ScriptErrorsFrame)
+		F.CreateBD(ScriptErrorsFrame)
+		F.CreateSD(ScriptErrorsFrame)
 
 		FrameStackTooltip:SetScale(UIParent:GetScale())
 		FrameStackTooltip:SetBackdrop(nil)
@@ -18,11 +19,11 @@ DB.AuroraModules["Blizzard_DebugTools"] = function()
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT")
 		bg:SetFrameLevel(FrameStackTooltip:GetFrameLevel()-1)
-		S.CreateBD(bg, .6)
+		F.CreateBD(bg, .6)
 
-		S.ReskinClose(ScriptErrorsFrameClose)
-		S.ReskinScroll(ScriptErrorsFrameScrollFrameScrollBar)
-		S.Reskin(select(4, ScriptErrorsFrame:GetChildren()))
-		S.Reskin(select(5, ScriptErrorsFrame:GetChildren()))
-		S.Reskin(select(6, ScriptErrorsFrame:GetChildren()))
+		F.ReskinClose(ScriptErrorsFrameClose)
+		F.ReskinScroll(ScriptErrorsFrameScrollFrameScrollBar)
+		F.Reskin(select(4, ScriptErrorsFrame:GetChildren()))
+		F.Reskin(select(5, ScriptErrorsFrame:GetChildren()))
+		F.Reskin(select(6, ScriptErrorsFrame:GetChildren()))
 end
