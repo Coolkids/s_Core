@@ -3235,7 +3235,7 @@ function Module:ADDON_LOADED(event, addon)
 		function PaperDollFrame_SetLevel()
 			local primaryTalentTree = GetSpecialization()
 			local classDisplayName, class = UnitClass("player")
-			local classColor = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or DB.classcolours[class]
+			local classColor = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or DB.MyClassColor
 			local classColorString = format("ff%.2x%.2x%.2x", classColor.r * 255, classColor.g * 255, classColor.b * 255)
 			local specName
 
