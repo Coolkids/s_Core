@@ -1,8 +1,7 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_ItemSocketingUI"] = function()
 	ItemSocketingFrame:DisableDrawLayer("BORDER")
 	ItemSocketingFrame:DisableDrawLayer("ARTWORK")
@@ -29,15 +28,15 @@ DB.AuroraModules["Blizzard_ItemSocketingUI"] = function()
 		local bg = CreateFrame("Frame", nil, bu)
 		bg:SetAllPoints(bu)
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
-		F.CreateBD(bg, .25)
+		S.CreateBD(bg, .25)
 
 		bu.glow = CreateFrame("Frame", nil, bu)
 		bu.glow:SetBackdrop({
-			edgeFile = C.media.glow,
+			edgeFile = DB.media.glow,
 			edgeSize = 4,
 		})
-		bu.glow:SetPoint("TOPLEFT", -4, 4)
-		bu.glow:SetPoint("BOTTOMRIGHT", 4, -4)
+		bu.glow:Point("TOPLEFT", -4, 4)
+		bu.glow:Point("BOTTOMRIGHT", 4, -4)
 	end
 
 	hooksecurefunc("ItemSocketingFrame_Update", function()
@@ -49,16 +48,16 @@ DB.AuroraModules["Blizzard_ItemSocketingUI"] = function()
 
 		local num = GetNumSockets()
 		if num == 3 then
-			ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", -75, 39)
+			ItemSocketingSocket1:Point("BOTTOM", ItemSocketingFrame, "BOTTOM", -75, 39)
 		elseif num == 2 then
-			ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", -35, 39)
+			ItemSocketingSocket1:Point("BOTTOM", ItemSocketingFrame, "BOTTOM", -35, 39)
 		else
-			ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", 0, 39)
+			ItemSocketingSocket1:Point("BOTTOM", ItemSocketingFrame, "BOTTOM", 0, 39)
 		end
 	end)
 
-	F.ReskinPortraitFrame(ItemSocketingFrame, true)
-	F.CreateBD(ItemSocketingScrollFrame, .25)
-	F.Reskin(ItemSocketingSocketButton)
-	F.ReskinScroll(ItemSocketingScrollFrameScrollBar)
+	S.ReskinPortraitFrame(ItemSocketingFrame, true)
+	S.CreateBD(ItemSocketingScrollFrame, .25)
+	S.Reskin(ItemSocketingSocketButton)
+	S.ReskinScroll(ItemSocketingScrollFrameScrollBar)
 end

@@ -1,11 +1,10 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_VoidStorageUI"] = function()
-	F.SetBD(VoidStorageFrame, 20, 0, 0, 20)
-	F.CreateBD(VoidStoragePurchaseFrame)
+	S.SetBD(VoidStorageFrame, 20, 0, 0, 20)
+	S.CreateBD(VoidStoragePurchaseFrame)
 
 	VoidStorageBorderFrame:DisableDrawLayer("BORDER")
 	VoidStorageBorderFrame:DisableDrawLayer("BACKGROUND")
@@ -45,16 +44,16 @@ DB.AuroraModules["Blizzard_VoidStorageUI"] = function()
 		_G["VoidStorageWithdrawButton"..i.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
 
 		local bg1 = CreateFrame("Frame", nil, bu1)
-		bg1:SetPoint("TOPLEFT", -1, 1)
-		bg1:SetPoint("BOTTOMRIGHT", 1, -1)
+		bg1:Point("TOPLEFT", -1, 1)
+		bg1:Point("BOTTOMRIGHT", 1, -1)
 		bg1:SetFrameLevel(bu1:GetFrameLevel()-1)
-		F.CreateBD(bg1, .25)
+		S.CreateBD(bg1, .25)
 
 		local bg2 = CreateFrame("Frame", nil, bu2)
-		bg2:SetPoint("TOPLEFT", -1, 1)
-		bg2:SetPoint("BOTTOMRIGHT", 1, -1)
+		bg2:Point("TOPLEFT", -1, 1)
+		bg2:Point("BOTTOMRIGHT", 1, -1)
 		bg2:SetFrameLevel(bu2:GetFrameLevel()-1)
-		F.CreateBD(bg2, .25)
+		S.CreateBD(bg2, .25)
 	end
 
 	for i = 1, 80 do
@@ -66,9 +65,9 @@ DB.AuroraModules["Blizzard_VoidStorageUI"] = function()
 		_G["VoidStorageStorageButton"..i.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
 	end
 
-	F.Reskin(VoidStoragePurchaseButton)
-	F.Reskin(VoidStorageHelpBoxButton)
-	F.Reskin(VoidStorageTransferButton)
-	F.ReskinClose(VoidStorageBorderFrame:GetChildren(), nil)
-	F.ReskinInput(VoidItemSearchBox)
+	S.Reskin(VoidStoragePurchaseButton)
+	S.Reskin(VoidStorageHelpBoxButton)
+	S.Reskin(VoidStorageTransferButton)
+	S.ReskinClose(VoidStorageBorderFrame:GetChildren(), nil)
+	S.ReskinInput(VoidItemSearchBox)
 end

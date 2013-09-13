@@ -2,11 +2,10 @@ local S, L, DB, _, C = unpack(select(2, ...))
 
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 
 tinsert(DB.AuroraModules["SunUI"], function()
-	
+	local r, g, b = DB.r, DB.g, DB.b
+
 	local function colourMinimize(f)
 		if f:IsEnabled() then
 			f.minimize:SetVertexColor(r, g, b)
@@ -32,32 +31,32 @@ tinsert(DB.AuroraModules["SunUI"], function()
 		bu:SetNormalTexture("")
 		bu:SetHighlightTexture("")
 		bu:SetPushedTexture("")
-		F.CreateBG(bu)
+		S.CreateBG(bu)
 
-		silver:SetPoint("LEFT", gold, "RIGHT", 1, 0)
-		copper:SetPoint("LEFT", silver, "RIGHT", 1, 0)
+		silver:Point("LEFT", gold, "RIGHT", 1, 0)
+		copper:Point("LEFT", silver, "RIGHT", 1, 0)
 
-		F.CreateBD(frame)
-		F.CreateSD(frame)
+		S.CreateBD(frame)
+		S.CreateSD(frame)
 
 		for j = 1, 3 do
-			F.Reskin(frame["button"..j])
+			S.Reskin(frame["button"..j])
 		end
 
-		F.ReskinClose(close)
+		S.ReskinClose(close)
 
 		close.minimize = close:CreateTexture(nil, "OVERLAY")
 		close.minimize:SetSize(9, 1)
 		close.minimize:SetPoint("CENTER")
-		close.minimize:SetTexture(C.media.backdrop)
+		close.minimize:SetTexture(DB.media.backdrop)
 		close.minimize:SetVertexColor(1, 1, 1)
 		close:HookScript("OnEnter", colourMinimize)
 		close:HookScript("OnLeave", clearMinimize)
 
-		F.ReskinInput(_G["StaticPopup"..i.."EditBox"], 20)
-		F.ReskinInput(gold)
-		F.ReskinInput(silver)
-		F.ReskinInput(copper)
+		S.ReskinInput(_G["StaticPopup"..i.."EditBox"], 20)
+		S.ReskinInput(gold)
+		S.ReskinInput(silver)
+		S.ReskinInput(copper)
 	end
 
 	hooksecurefunc("StaticPopup_Show", function(which, text_arg1, text_arg2, data)

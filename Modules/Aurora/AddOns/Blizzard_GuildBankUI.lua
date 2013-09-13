@@ -1,8 +1,7 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_GuildBankUI"] = function()
 	GuildBankFrame:DisableDrawLayer("BACKGROUND")
 	GuildBankFrame:DisableDrawLayer("BORDER")
@@ -25,38 +24,38 @@ DB.AuroraModules["Blizzard_GuildBankUI"] = function()
 		select(i, GuildBankInfoScrollFrame:GetRegions()):Hide()
 	end
 
-	F.SetBD(GuildBankFrame)
-	F.Reskin(GuildBankFrameWithdrawButton)
-	F.Reskin(GuildBankFrameDepositButton)
-	F.Reskin(GuildBankFramePurchaseButton)
-	F.Reskin(GuildBankPopupOkayButton)
-	F.Reskin(GuildBankPopupCancelButton)
-	F.Reskin(GuildBankInfoSaveButton)
-	F.ReskinClose(GuildBankFrame.CloseButton)
-	F.ReskinScroll(GuildBankTransactionsScrollFrameScrollBar)
-	F.ReskinScroll(GuildBankInfoScrollFrameScrollBar)
-	F.ReskinScroll(GuildBankPopupScrollFrameScrollBar)
-	F.ReskinInput(GuildItemSearchBox)
+	S.SetBD(GuildBankFrame)
+	S.Reskin(GuildBankFrameWithdrawButton)
+	S.Reskin(GuildBankFrameDepositButton)
+	S.Reskin(GuildBankFramePurchaseButton)
+	S.Reskin(GuildBankPopupOkayButton)
+	S.Reskin(GuildBankPopupCancelButton)
+	S.Reskin(GuildBankInfoSaveButton)
+	S.ReskinClose(GuildBankFrame.CloseButton)
+	S.ReskinScroll(GuildBankTransactionsScrollFrameScrollBar)
+	S.ReskinScroll(GuildBankInfoScrollFrameScrollBar)
+	S.ReskinScroll(GuildBankPopupScrollFrameScrollBar)
+	S.ReskinInput(GuildItemSearchBox)
 
 	for i = 1, 4 do
 		local tab = _G["GuildBankFrameTab"..i]
-		F.ReskinTab(tab)
+		S.ReskinTab(tab)
 
 		if i ~= 1 then
-			tab:SetPoint("LEFT", _G["GuildBankFrameTab"..i-1], "RIGHT", -15, 0)
+			tab:Point("LEFT", _G["GuildBankFrameTab"..i-1], "RIGHT", -15, 0)
 		end
 	end
 
 	local bd = CreateFrame("Frame", nil, GuildBankPopupFrame)
 	bd:SetPoint("TOPLEFT")
-	bd:SetPoint("BOTTOMRIGHT", -28, 26)
+	bd:Point("BOTTOMRIGHT", -28, 26)
 	bd:SetFrameLevel(GuildBankPopupFrame:GetFrameLevel()-1)
-	F.CreateBD(bd)
-	F.CreateBD(GuildBankPopupEditBox, .25)
+	S.CreateBD(bd)
+	S.CreateBD(GuildBankPopupEditBox, .25)
 
-	GuildBankPopupFrame:SetPoint("TOPLEFT", GuildBankFrame, "TOPRIGHT", 2, -30)
+	GuildBankPopupFrame:Point("TOPLEFT", GuildBankFrame, "TOPRIGHT", 2, -30)
 
-	GuildBankFrameWithdrawButton:SetPoint("RIGHT", GuildBankFrameDepositButton, "LEFT", -1, 0)
+	GuildBankFrameWithdrawButton:Point("RIGHT", GuildBankFrameDepositButton, "LEFT", -1, 0)
 
 	for i = 1, NUM_GUILDBANK_COLUMNS do
 		_G["GuildBankColumn"..i]:GetRegions():Hide()
@@ -66,7 +65,7 @@ DB.AuroraModules["Blizzard_GuildBankUI"] = function()
 			bu:SetPushedTexture("")
 
 			bu.icon:SetTexCoord(.08, .92, .08, .92)
-			bu.bg = F.CreateBG(bu)
+			bu.bg = S.CreateBG(bu)
 		end
 	end
 
@@ -100,12 +99,12 @@ DB.AuroraModules["Blizzard_GuildBankUI"] = function()
 		local ic = _G["GuildBankTab"..i.."ButtonIconTexture"]
 		local nt = _G["GuildBankTab"..i.."ButtonNormalTexture"]
 
-		bu:SetCheckedTexture(C.media.checked)
-		F.CreateBG(bu)
-		F.CreateSD(bu, 5, 0, 0, 0, 1, 1)
+		bu:SetCheckedTexture(DB.media.checked)
+		S.CreateBG(bu)
+		S.CreateSD(bu, 5, 0, 0, 0, 1, 1)
 
 		local a1, p, a2, x, y = bu:GetPoint()
-		bu:SetPoint(a1, p, a2, x + 11, y)
+		bu:Point(a1, p, a2, x + 11, y)
 
 		ic:SetTexCoord(.08, .92, .08, .92)
 		tb:GetRegions():Hide()
@@ -115,11 +114,11 @@ DB.AuroraModules["Blizzard_GuildBankUI"] = function()
 	for i = 1, NUM_GUILDBANK_ICONS_PER_ROW * NUM_GUILDBANK_ICON_ROWS do
 		local bu = _G["GuildBankPopupButton"..i]
 
-		bu:SetCheckedTexture(C.media.checked)
+		bu:SetCheckedTexture(DB.media.checked)
 		select(2, bu:GetRegions()):Hide()
 
 		_G["GuildBankPopupButton"..i.."Icon"]:SetTexCoord(.08, .92, .08, .92)
 
-		F.CreateBG(_G["GuildBankPopupButton"..i.."Icon"])
+		S.CreateBG(_G["GuildBankPopupButton"..i.."Icon"])
 	end
 end

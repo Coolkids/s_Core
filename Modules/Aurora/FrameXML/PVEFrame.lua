@@ -2,7 +2,9 @@ local S, L, DB, _, C = unpack(select(2, ...))
 
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local function SkinFrame()
+
+tinsert(DB.AuroraModules["SunUI"], function()
+
 	PVEFrame:DisableDrawLayer("ARTWORK")
 	PVEFrameLeftInset:DisableDrawLayer("BORDER")
 	PVEFrameBlueBg:Hide()
@@ -14,10 +16,10 @@ local function SkinFrame()
 	PVEFrameTab2:Point("LEFT", PVEFrameTab1, "RIGHT", -15, 0)
 
 	GroupFinderFrameGroupButton1.icon:SetTexture("Interface\\Icons\\INV_Helmet_08")
-	GroupFinderFrameGroupButton2.icon:SetTexture("Interface\\Icons\\inv_helmet_06")
-	GroupFinderFrameGroupButton3.icon:SetTexture("Interface\\Icons\\Icon_Scenarios")
+	GroupFinderFrameGroupButton2.icon:SetTexture("Interface\\Icons\\Icon_Scenarios")
+	GroupFinderFrameGroupButton3.icon:SetTexture("Interface\\Icons\\inv_helmet_06")
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local bu = GroupFinderFrame["groupButton"..i]
 
 		bu.ring:Hide()
@@ -36,7 +38,7 @@ local function SkinFrame()
 
 	hooksecurefunc("GroupFinderFrame_SelectGroupButton", function(index)
 		local self = GroupFinderFrame
-		for i = 1, 3 do
+		for i = 1, 4 do
 			local button = self["groupButton"..i]
 			if i == index then
 				button.bg:Show()
@@ -49,7 +51,4 @@ local function SkinFrame()
 	S.ReskinPortraitFrame(PVEFrame)
 	S.ReskinTab(PVEFrameTab1)
 	S.ReskinTab(PVEFrameTab2)
-end
-
-
-tinsert(DB.AuroraModules["SunUI"], SkinFrame)
+end)

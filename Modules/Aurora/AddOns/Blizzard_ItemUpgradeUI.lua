@@ -1,8 +1,7 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
 	local ItemUpgradeFrame = ItemUpgradeFrame
 	local ItemButton = ItemUpgradeFrame.ItemButton
@@ -20,17 +19,17 @@ DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
 	ItemButton.TextFrame:Hide()
 	ItemButton.TextGrabber:Hide()
 
-	F.CreateBD(ItemButton, .25)
+	S.CreateBD(ItemButton, .25)
 	ItemButton:SetHighlightTexture("")
 	ItemButton:SetPushedTexture("")
-	ItemButton.IconTexture:SetPoint("TOPLEFT", 1, -1)
-	ItemButton.IconTexture:SetPoint("BOTTOMRIGHT", -1, 1)
+	ItemButton.IconTexture:Point("TOPLEFT", 1, -1)
+	ItemButton.IconTexture:Point("BOTTOMRIGHT", -1, 1)
 
 	local bg = CreateFrame("Frame", nil, ItemButton)
 	bg:SetSize(341, 50)
-	bg:SetPoint("LEFT", ItemButton, "RIGHT", -1, 0)
+	bg:Point("LEFT", ItemButton, "RIGHT", -1, 0)
 	bg:SetFrameLevel(ItemButton:GetFrameLevel()-1)
-	F.CreateBD(bg, .25)
+	S.CreateBD(bg, .25)
 
 	ItemButton:HookScript("OnEnter", function(self)
 		self:SetBackdropBorderColor(1, .56, .85)
@@ -40,7 +39,7 @@ DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
 	end)
 
 	ItemButton.Cost.Icon:SetTexCoord(.08, .92, .08, .92)
-	ItemButton.Cost.Icon.bg = F.CreateBG(ItemButton.Cost.Icon)
+	ItemButton.Cost.Icon.bg = S.CreateBG(ItemButton.Cost.Icon)
 
 	hooksecurefunc("ItemUpgradeFrame_Update", function()
 		if GetItemUpgradeItemInfo() then
@@ -53,15 +52,15 @@ DB.AuroraModules["Blizzard_ItemUpgradeUI"] = function()
 	end)
 
 	local currency = ItemUpgradeFrameMoneyFrame.Currency
-	currency.icon:SetPoint("LEFT", currency.count, "RIGHT", 1, 0)
+	currency.icon:Point("LEFT", currency.count, "RIGHT", 1, 0)
 	currency.icon:SetTexCoord(.08, .92, .08, .92)
-	F.CreateBG(currency.icon)
+	S.CreateBG(currency.icon)
 
 	local bg = CreateFrame("Frame", nil, ItemUpgradeFrame)
 	bg:SetAllPoints(ItemUpgradeFrame)
 	bg:SetFrameLevel(ItemUpgradeFrame:GetFrameLevel()-1)
-	F.CreateBD(bg)
+	S.CreateBD(bg)
 
-	F.ReskinPortraitFrame(ItemUpgradeFrame)
-	F.Reskin(ItemUpgradeFrameUpgradeButton)
+	S.ReskinPortraitFrame(ItemUpgradeFrame)
+	S.Reskin(ItemUpgradeFrameUpgradeButton)
 end

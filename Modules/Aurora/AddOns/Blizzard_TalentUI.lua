@@ -1,11 +1,8 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_TalentUI"] = function()
-	 
-
 	PlayerTalentFrameTalents:DisableDrawLayer("BORDER")
 	PlayerTalentFrameTalentsBg:Hide()
 	PlayerTalentFrameActiveSpecTabHighlight:SetTexture("")
@@ -23,7 +20,7 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 		select(i, PlayerTalentFrameSpecializationSpellScrollFrameScrollChild:GetRegions()):Hide()
 	end
 
-	F.CreateBG(PlayerTalentFrameTalentsClearInfoFrame)
+	S.CreateBG(PlayerTalentFrameTalentsClearInfoFrame)
 	PlayerTalentFrameTalentsClearInfoFrameIcon:SetTexCoord(.08, .92, .08, .92)
 
 	PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.Seperator:SetTexture(1, 1, 1)
@@ -49,15 +46,15 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 
 	for i = 1, NUM_TALENT_FRAME_TABS do
 		local tab = _G["PlayerTalentFrameTab"..i]
-		F.ReskinTab(tab)
+		S.ReskinTab(tab)
 	end
 
 	PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.ring:Hide()
 	PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.specIcon:SetTexCoord(.08, .92, .08, .92)
-	F.CreateBG(PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.specIcon)
+	S.CreateBG(PlayerTalentFrameSpecializationSpellScrollFrameScrollChild.specIcon)
 	PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.ring:Hide()
 	PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.specIcon:SetTexCoord(.08, .92, .08, .92)
-	F.CreateBG(PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.specIcon)
+	S.CreateBG(PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.specIcon)
 
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
 		local playerTalentSpec = GetSpecialization(nil, self.isPet, PlayerSpecTab2:GetChecked() and 2 or 1)
@@ -84,7 +81,7 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 				frame.reskinned = true
 				frame.ring:Hide()
 				frame.icon:SetTexCoord(.08, .92, .08, .92)
-				F.CreateBG(frame.icon)
+				S.CreateBG(frame.icon)
 			end
 			index = index + 1
 		end
@@ -115,14 +112,14 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 
 			bu.bg:SetAlpha(0)
 			bu.ring:Hide()
-			bu.learnedTex:SetPoint("TOPLEFT", 1, -1)
-			bu.learnedTex:SetPoint("BOTTOMRIGHT", -1, 1)
+			bu.learnedTex:Point("TOPLEFT", 1, -1)
+			bu.learnedTex:Point("BOTTOMRIGHT", -1, 1)
 			_G[name..i.."Glow"]:SetTexture("")
 
-			F.Reskin(bu, true)
+			S.Reskin(bu, true)
 
 			bu.selectedTex:SetTexture("")
-			bu.learnedTex:SetTexture(C.media.backdrop)
+			bu.learnedTex:SetTexture(DB.media.backdrop)
 			bu.learnedTex:SetVertexColor(r, g, b, .2)
 			bu.learnedTex:SetDrawLayer("BACKGROUND")
 
@@ -130,16 +127,16 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 			bu.specIcon:SetSize(58, 58)
 			bu.specIcon:SetPoint("LEFT", bu, "LEFT")
 			bu.specIcon:SetDrawLayer("OVERLAY")
-			local bg = F.CreateBG(bu.specIcon)
+			local bg = S.CreateBG(bu.specIcon)
 			bg:SetDrawLayer("BORDER")
 
 			bu.glowTex = CreateFrame("Frame", nil, bu)
 			bu.glowTex:SetBackdrop({
-				edgeFile = C.media.glow,
+				edgeFile = DB.media.glow,
 				edgeSize = 5,
 			})
-			bu.glowTex:SetPoint("TOPLEFT", -6, 5)
-			bu.glowTex:SetPoint("BOTTOMRIGHT", 5, -5)
+			bu.glowTex:Point("TOPLEFT", -6, 5)
+			bu.glowTex:Point("BOTTOMRIGHT", 5, -5)
 			bu.glowTex:SetBackdropBorderColor(r, g, b)
 			bu.glowTex:SetFrameLevel(bu:GetFrameLevel()-1)
 			bu.glowTex:Hide()
@@ -167,13 +164,13 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 
 			ic:SetDrawLayer("ARTWORK")
 			ic:SetTexCoord(.08, .92, .08, .92)
-			F.CreateBG(ic)
+			S.CreateBG(ic)
 
 			bu.bg = CreateFrame("Frame", nil, bu)
-			bu.bg:SetPoint("TOPLEFT", 10, 0)
+			bu.bg:Point("TOPLEFT", 10, 0)
 			bu.bg:SetPoint("BOTTOMRIGHT")
 			bu.bg:SetFrameLevel(bu:GetFrameLevel()-1)
-			F.CreateBD(bu.bg, .25)
+			S.CreateBD(bu.bg, .25)
 		end
 	end
 
@@ -199,32 +196,32 @@ DB.AuroraModules["Blizzard_TalentUI"] = function()
 		local tab = _G["PlayerSpecTab"..i]
 		_G["PlayerSpecTab"..i.."Background"]:Hide()
 
-		tab:SetCheckedTexture(C.media.checked)
+		tab:SetCheckedTexture(DB.media.checked)
 
 		local bg = CreateFrame("Frame", nil, tab)
-		bg:SetPoint("TOPLEFT", -1, 1)
-		bg:SetPoint("BOTTOMRIGHT", 1, -1)
+		bg:Point("TOPLEFT", -1, 1)
+		bg:Point("BOTTOMRIGHT", 1, -1)
 		bg:SetFrameLevel(tab:GetFrameLevel()-1)
-		F.CreateBD(bg)
+		S.CreateBD(bg)
 
-		F.CreateSD(tab, 5, 0, 0, 0, 1, 1)
+		S.CreateSD(tab, 5, 0, 0, 0, 1, 1)
 
 		select(2, tab:GetRegions()):SetTexCoord(.08, .92, .08, .92)
 	end
 
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecs", function()
-		PlayerSpecTab1:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPRIGHT", 11, -36)
+		PlayerSpecTab1:Point("TOPLEFT", PlayerTalentFrame, "TOPRIGHT", 11, -36)
 		PlayerSpecTab2:SetPoint("TOP", PlayerSpecTab1, "BOTTOM")
 	end)
 
 	PlayerTalentFrameTalentsTutorialButton.Ring:Hide()
-	PlayerTalentFrameTalentsTutorialButton:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
+	PlayerTalentFrameTalentsTutorialButton:Point("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
 	PlayerTalentFrameSpecializationTutorialButton.Ring:Hide()
-	PlayerTalentFrameSpecializationTutorialButton:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
+	PlayerTalentFrameSpecializationTutorialButton:Point("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
 
-	F.ReskinPortraitFrame(PlayerTalentFrame, true)
-	F.Reskin(PlayerTalentFrameSpecializationLearnButton)
-	F.Reskin(PlayerTalentFrameTalentsLearnButton)
-	F.Reskin(PlayerTalentFrameActivateButton)
-	F.Reskin(PlayerTalentFramePetSpecializationLearnButton)
+	S.ReskinPortraitFrame(PlayerTalentFrame, true)
+	S.Reskin(PlayerTalentFrameSpecializationLearnButton)
+	S.Reskin(PlayerTalentFrameTalentsLearnButton)
+	S.Reskin(PlayerTalentFrameActivateButton)
+	S.Reskin(PlayerTalentFramePetSpecializationLearnButton)
 end

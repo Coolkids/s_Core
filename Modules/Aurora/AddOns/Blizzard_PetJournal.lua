@@ -1,11 +1,8 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_PetJournal"] = function()
-	 
-
 	local PetJournal = PetJournal
 	local MountJournal = MountJournal
 
@@ -33,34 +30,34 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 	PetJournalFilterButtonMiddle:Hide()
 	PetJournalTutorialButton.Ring:Hide()
 
-	F.CreateBD(PetJournalParent)
-	F.CreateSD(PetJournalParent)
-	F.CreateBD(MountJournal.MountCount, .25)
-	F.CreateBD(PetJournal.PetCount, .25)
-	F.CreateBD(MountJournal.MountDisplay.ModelFrame, .25)
+	S.CreateBD(PetJournalParent)
+	S.CreateSD(PetJournalParent)
+	S.CreateBD(MountJournal.MountCount, .25)
+	S.CreateBD(PetJournal.PetCount, .25)
+	S.CreateBD(MountJournal.MountDisplay.ModelFrame, .25)
 
-	F.Reskin(MountJournalMountButton)
-	F.Reskin(PetJournalSummonButton)
-	F.Reskin(PetJournalFindBattle)
-	F.Reskin(PetJournalFilterButton)
-	F.ReskinTab(PetJournalParentTab1)
-	F.ReskinTab(PetJournalParentTab2)
-	F.ReskinClose(PetJournalParentCloseButton)
-	F.ReskinScroll(MountJournalListScrollFrameScrollBar)
-	F.ReskinScroll(PetJournalListScrollFrameScrollBar)
-	F.ReskinInput(MountJournalSearchBox)
-	F.ReskinInput(PetJournalSearchBox)
-	F.ReskinArrow(MountJournal.MountDisplay.ModelFrame.RotateLeftButton, "left")
-	F.ReskinArrow(MountJournal.MountDisplay.ModelFrame.RotateRightButton, "right")
+	S.Reskin(MountJournalMountButton)
+	S.Reskin(PetJournalSummonButton)
+	S.Reskin(PetJournalFindBattle)
+	S.Reskin(PetJournalFilterButton)
+	S.ReskinTab(PetJournalParentTab1)
+	S.ReskinTab(PetJournalParentTab2)
+	S.ReskinClose(PetJournalParentCloseButton)
+	S.ReskinScroll(MountJournalListScrollFrameScrollBar)
+	S.ReskinScroll(PetJournalListScrollFrameScrollBar)
+	S.ReskinInput(MountJournalSearchBox)
+	S.ReskinInput(PetJournalSearchBox)
+	S.ReskinArrow(MountJournal.MountDisplay.ModelFrame.RotateLeftButton, "left")
+	S.ReskinArrow(MountJournal.MountDisplay.ModelFrame.RotateRightButton, "right")
 
-	PetJournalTutorialButton:SetPoint("TOPLEFT", PetJournal, "TOPLEFT", -14, 14)
+	PetJournalTutorialButton:Point("TOPLEFT", PetJournal, "TOPLEFT", -14, 14)
 
-	PetJournalParentTab2:SetPoint("LEFT", PetJournalParentTab1, "RIGHT", -15, 0)
+	PetJournalParentTab2:Point("LEFT", PetJournalParentTab1, "RIGHT", -15, 0)
 
 	PetJournalHealPetButtonBorder:Hide()
 	PetJournalHealPetButtonIconTexture:SetTexCoord(.08, .92, .08, .92)
 	PetJournal.HealPetButton:SetPushedTexture("")
-	F.CreateBG(PetJournal.HealPetButton)
+	S.CreateBG(PetJournal.HealPetButton)
 
 	local scrollFrames = {MountJournal.ListScrollFrame.buttons, PetJournal.listScroll.buttons}
 	for _, scrollFrame in pairs(scrollFrames) do
@@ -70,28 +67,28 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 			bu:GetRegions():Hide()
 			bu:SetHighlightTexture("")
 
-			bu.selectedTexture:SetPoint("TOPLEFT", 0, -1)
-			bu.selectedTexture:SetPoint("BOTTOMRIGHT", 0, 1)
-			bu.selectedTexture:SetTexture(C.media.backdrop)
+			bu.selectedTexture:Point("TOPLEFT", 0, -1)
+			bu.selectedTexture:Point("BOTTOMRIGHT", 0, 1)
+			bu.selectedTexture:SetTexture(DB.media.backdrop)
 			bu.selectedTexture:SetVertexColor(r, g, b, .2)
 
 			local bg = CreateFrame("Frame", nil, bu)
-			bg:SetPoint("TOPLEFT", 0, -1)
-			bg:SetPoint("BOTTOMRIGHT", 0, 1)
+			bg:Point("TOPLEFT", 0, -1)
+			bg:Point("BOTTOMRIGHT", 0, 1)
 			bg:SetFrameLevel(bu:GetFrameLevel()-1)
-			F.CreateBD(bg, .25)
+			S.CreateBD(bg, .25)
 			bu.bg = bg
 
 			bu.icon:SetTexCoord(.08, .92, .08, .92)
 			bu.icon:SetDrawLayer("OVERLAY")
-			bu.icon.bg = F.CreateBG(bu.icon)
+			bu.icon.bg = S.CreateBG(bu.icon)
 
 			bu.name:SetParent(bg)
 
 			if bu.DragButton then
-				bu.DragButton.ActiveTexture:SetTexture(C.media.checked)
+				bu.DragButton.ActiveTexture:SetTexture(DB.media.checked)
 			else
-				bu.dragButton.ActiveTexture:SetTexture(C.media.checked)
+				bu.dragButton.ActiveTexture:SetTexture(DB.media.checked)
 				bu.dragButton.levelBG:SetAlpha(0)
 				bu.dragButton.level:SetFontObject(GameFontNormal)
 				bu.dragButton.level:SetTextColor(1, 1, 1)
@@ -116,26 +113,26 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 	end
 
 	local bu1 = MountJournal.ListScrollFrame.buttons[1]
-	bu1.bg:SetPoint("TOPLEFT", 0, -1)
-	bu1.bg:SetPoint("BOTTOMRIGHT", -1, 1)
-	bu1.selectedTexture:SetPoint("TOPLEFT", 0, -1)
-	bu1.selectedTexture:SetPoint("BOTTOMRIGHT", -1, 1)
+	bu1.bg:Point("TOPLEFT", 0, -1)
+	bu1.bg:Point("BOTTOMRIGHT", -1, 1)
+	bu1.selectedTexture:Point("TOPLEFT", 0, -1)
+	bu1.selectedTexture:Point("BOTTOMRIGHT", -1, 1)
 
 	hooksecurefunc("MountJournal_UpdateMountList", updateScroll)
 	hooksecurefunc(MountJournalListScrollFrame, "update", updateScroll)
 
-	if C.shouldStyleTooltips then
+	if DB.shouldStyleTooltips then
 		for _, f in pairs({PetJournalPrimaryAbilityTooltip, PetJournalSecondaryAbilityTooltip}) do
 			f:DisableDrawLayer("BACKGROUND")
 			local bg = CreateFrame("Frame", nil, f)
 			bg:SetAllPoints()
 			bg:SetFrameLevel(0)
-			F.CreateBD(bg)
+			S.CreateBD(bg)
 		end
 	end
 
 	PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)
-	PetJournalLoadoutBorderSlotHeaderText:SetPoint("CENTER", PetJournalLoadoutBorderTop, "TOP", 0, 4)
+	PetJournalLoadoutBorderSlotHeaderText:Point("CENTER", PetJournalLoadoutBorderTop, "TOP", 0, 4)
 
 	local card = PetJournalPetCard
 
@@ -148,30 +145,30 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 	card.PetInfo.level:SetTextColor(1, 1, 1)
 
 	card.PetInfo.icon:SetTexCoord(.08, .92, .08, .92)
-	card.PetInfo.icon.bg = F.CreateBG(card.PetInfo.icon)
+	card.PetInfo.icon.bg = S.CreateBG(card.PetInfo.icon)
 
-	F.CreateBD(card, .25)
+	S.CreateBD(card, .25)
 
 	for i = 2, 12 do
 		select(i, card.xpBar:GetRegions()):Hide()
 	end
 
-	card.xpBar:SetStatusBarTexture(C.media.backdrop)
-	F.CreateBDFrame(card.xpBar, .25)
+	card.xpBar:SetStatusBarTexture(DB.media.backdrop)
+	S.CreateBDFrame(card.xpBar, .25)
 
 	PetJournalPetCardHealthFramehealthStatusBarLeft:Hide()
 	PetJournalPetCardHealthFramehealthStatusBarRight:Hide()
 	PetJournalPetCardHealthFramehealthStatusBarMiddle:Hide()
 	PetJournalPetCardHealthFramehealthStatusBarBGMiddle:Hide()
 
-	card.HealthFrame.healthBar:SetStatusBarTexture(C.media.backdrop)
-	F.CreateBDFrame(card.HealthFrame.healthBar, .25)
+	card.HealthFrame.healthBar:SetStatusBarTexture(DB.media.backdrop)
+	S.CreateBDFrame(card.HealthFrame.healthBar, .25)
 
 	for i = 1, 6 do
 		local bu = card["spell"..i]
 
 		bu.icon:SetTexCoord(.08, .92, .08, .92)
-		F.CreateBG(bu.icon)
+		S.CreateBG(bu.icon)
 	end
 
 	hooksecurefunc("PetJournal_UpdatePetCard", function(self)
@@ -201,43 +198,43 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 		bu.level:SetTextColor(1, 1, 1)
 
 		bu.icon:SetTexCoord(.08, .92, .08, .92)
-		bu.icon.bg = F.CreateBDFrame(bu.icon, .25)
+		bu.icon.bg = S.CreateBDFrame(bu.icon, .25)
 
-		bu.setButton:GetRegions():SetPoint("TOPLEFT", bu.icon, -5, 5)
-		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
+		bu.setButton:GetRegions():Point("TOPLEFT", bu.icon, -5, 5)
+		bu.setButton:GetRegions():Point("BOTTOMRIGHT", bu.icon, 5, -5)
 
-		F.CreateBD(bu, .25)
+		S.CreateBD(bu, .25)
 
 		for i = 2, 12 do
 			select(i, bu.xpBar:GetRegions()):Hide()
 		end
 
-		bu.xpBar:SetStatusBarTexture(C.media.backdrop)
-		F.CreateBDFrame(bu.xpBar, .25)
+		bu.xpBar:SetStatusBarTexture(DB.media.backdrop)
+		S.CreateBDFrame(bu.xpBar, .25)
 
 		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarLeft"]:Hide()
 		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarRight"]:Hide()
 		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarMiddle"]:Hide()
 		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarBGMiddle"]:Hide()
 
-		bu.healthFrame.healthBar:SetStatusBarTexture(C.media.backdrop)
-		F.CreateBDFrame(bu.healthFrame.healthBar, .25)
+		bu.healthFrame.healthBar:SetStatusBarTexture(DB.media.backdrop)
+		S.CreateBDFrame(bu.healthFrame.healthBar, .25)
 
 		for j = 1, 3 do
 			local spell = bu["spell"..j]
 
 			spell:SetPushedTexture("")
 
-			spell.selected:SetTexture(C.media.checked)
+			spell.selected:SetTexture(DB.media.checked)
 
 			spell:GetRegions():Hide()
 
-			spell.FlyoutArrow:SetTexture(C.media.arrowDown)
+			spell.FlyoutArrow:SetTexture(DB.media.arrowDown)
 			spell.FlyoutArrow:SetSize(8, 8)
 			spell.FlyoutArrow:SetTexCoord(0, 1, 0, 1)
 
 			spell.icon:SetTexCoord(.08, .92, .08, .92)
-			F.CreateBG(spell.icon)
+			S.CreateBG(spell.icon)
 		end
 	end
 
@@ -258,12 +255,12 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 	for i = 1, 2 do
 		local bu = PetJournal.SpellSelect["Spell"..i]
 
-		bu:SetCheckedTexture(C.media.checked)
+		bu:SetCheckedTexture(DB.media.checked)
 		bu:SetPushedTexture("")
 
 		bu.icon:SetDrawLayer("ARTWORK")
 		bu.icon:SetTexCoord(.08, .92, .08, .92)
-		F.CreateBG(bu.icon)
+		S.CreateBG(bu.icon)
 	end
 
 	local function ColourPetQuality()
@@ -293,8 +290,8 @@ DB.AuroraModules["Blizzard_PetJournal"] = function()
 		end
 	end
 
-	PetJournal.listScroll.buttons[1].selectedTexture:SetPoint("TOPLEFT", 0, -1)
-	PetJournal.listScroll.buttons[1].selectedTexture:SetPoint("BOTTOMRIGHT", -1, 1)
+	PetJournal.listScroll.buttons[1].selectedTexture:Point("TOPLEFT", 0, -1)
+	PetJournal.listScroll.buttons[1].selectedTexture:Point("BOTTOMRIGHT", -1, 1)
 
 	hooksecurefunc("PetJournal_UpdatePetList", ColourPetQuality)
 	hooksecurefunc(PetJournalListScrollFrame, "update", ColourPetQuality)

@@ -1,8 +1,7 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_QuestChoice"] = function()
 	local QuestChoiceFrame = QuestChoiceFrame
 
@@ -21,19 +20,19 @@ DB.AuroraModules["Blizzard_QuestChoice"] = function()
 
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:SetDrawLayer("BACKGROUND", 1)
-		F.CreateBG(icon)
+		S.CreateBG(icon)
 
 		for j = 1, 3 do
 			local cu = currencies["Currency"..j]
 
 			cu.Icon:SetTexCoord(.08, .92, .08, .92)
-			F.CreateBG(cu.Icon)
+			S.CreateBG(cu.Icon)
 		end
 	end
 
-	F.CreateBD(QuestChoiceFrame)
-	F.CreateSD(QuestChoiceFrame)
-	F.Reskin(QuestChoiceFrame.Option1.OptionButton)
-	F.Reskin(QuestChoiceFrame.Option2.OptionButton)
-	F.ReskinClose(QuestChoiceFrame.CloseButton)
+	S.CreateBD(QuestChoiceFrame)
+	S.CreateSD(QuestChoiceFrame)
+	S.Reskin(QuestChoiceFrame.Option1.OptionButton)
+	S.Reskin(QuestChoiceFrame.Option2.OptionButton)
+	S.ReskinClose(QuestChoiceFrame.CloseButton)
 end

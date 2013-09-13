@@ -1,8 +1,7 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_MacroUI"] = function()
 	select(18, MacroFrame:GetRegions()):Hide()
 	MacroHorizontalBarLeft:Hide()
@@ -11,8 +10,8 @@ DB.AuroraModules["Blizzard_MacroUI"] = function()
 	for i = 1, 6 do
 		select(i, MacroFrameTab1:GetRegions()):Hide()
 		select(i, MacroFrameTab2:GetRegions()):Hide()
-		select(i, MacroFrameTab1:GetRegions()).Show = F.dummy
-		select(i, MacroFrameTab2:GetRegions()).Show = F.dummy
+		select(i, MacroFrameTab1:GetRegions()).Show = S.dummy
+		select(i, MacroFrameTab2:GetRegions()).Show = S.dummy
 	end
 	for i = 1, 5 do
 		select(i, MacroPopupFrame:GetRegions()):Hide()
@@ -28,58 +27,58 @@ DB.AuroraModules["Blizzard_MacroUI"] = function()
 	MacroButtonScrollFrameTop:Hide()
 	MacroButtonScrollFrameBottom:Hide()
 
-	MacroFrameSelectedMacroButton:SetPoint("TOPLEFT", MacroFrameSelectedMacroBackground, "TOPLEFT", 12, -16)
-	MacroFrameSelectedMacroButtonIcon:SetPoint("TOPLEFT", 1, -1)
-	MacroFrameSelectedMacroButtonIcon:SetPoint("BOTTOMRIGHT", -1, 1)
+	MacroFrameSelectedMacroButton:Point("TOPLEFT", MacroFrameSelectedMacroBackground, "TOPLEFT", 12, -16)
+	MacroFrameSelectedMacroButtonIcon:Point("TOPLEFT", 1, -1)
+	MacroFrameSelectedMacroButtonIcon:Point("BOTTOMRIGHT", -1, 1)
 	MacroFrameSelectedMacroButtonIcon:SetTexCoord(.08, .92, .08, .92)
 
-	MacroPopupFrame:SetPoint("TOPLEFT", MacroFrame, "TOPRIGHT", 1, 0)
+	MacroPopupFrame:Point("TOPLEFT", MacroFrame, "TOPRIGHT", 1, 0)
 
 	MacroNewButton:ClearAllPoints()
-	MacroNewButton:SetPoint("RIGHT", MacroExitButton, "LEFT", -1, 0)
+	MacroNewButton:Point("RIGHT", MacroExitButton, "LEFT", -1, 0)
 
 	for i = 1, MAX_ACCOUNT_MACROS do
 		local bu = _G["MacroButton"..i]
 		local ic = _G["MacroButton"..i.."Icon"]
 
-		bu:SetCheckedTexture(C.media.checked)
+		bu:SetCheckedTexture(DB.media.checked)
 		select(2, bu:GetRegions()):Hide()
 
-		ic:SetPoint("TOPLEFT", 1, -1)
-		ic:SetPoint("BOTTOMRIGHT", -1, 1)
+		ic:Point("TOPLEFT", 1, -1)
+		ic:Point("BOTTOMRIGHT", -1, 1)
 		ic:SetTexCoord(.08, .92, .08, .92)
 
-		F.CreateBD(bu, .25)
+		S.CreateBD(bu, .25)
 	end
 
 	for i = 1, NUM_MACRO_ICONS_SHOWN do
 		local bu = _G["MacroPopupButton"..i]
 		local ic = _G["MacroPopupButton"..i.."Icon"]
 
-		bu:SetCheckedTexture(C.media.checked)
+		bu:SetCheckedTexture(DB.media.checked)
 		select(2, bu:GetRegions()):Hide()
 
-		ic:SetPoint("TOPLEFT", 1, -1)
-		ic:SetPoint("BOTTOMRIGHT", -1, 1)
+		ic:Point("TOPLEFT", 1, -1)
+		ic:Point("BOTTOMRIGHT", -1, 1)
 		ic:SetTexCoord(.08, .92, .08, .92)
 
-		F.CreateBD(bu, .25)
+		S.CreateBD(bu, .25)
 	end
 
-	F.ReskinPortraitFrame(MacroFrame, true)
-	F.CreateBD(MacroFrameScrollFrame, .25)
-	F.CreateBD(MacroPopupFrame)
-	F.CreateBD(MacroPopupEditBox, .25)
-	F.CreateBD(MacroFrameSelectedMacroButton, .25)
-	F.Reskin(MacroDeleteButton)
-	F.Reskin(MacroNewButton)
-	F.Reskin(MacroExitButton)
-	F.Reskin(MacroEditButton)
-	F.Reskin(MacroPopupOkayButton)
-	F.Reskin(MacroPopupCancelButton)
-	F.Reskin(MacroSaveButton)
-	F.Reskin(MacroCancelButton)
-	F.ReskinScroll(MacroButtonScrollFrameScrollBar)
-	F.ReskinScroll(MacroFrameScrollFrameScrollBar)
-	F.ReskinScroll(MacroPopupScrollFrameScrollBar)
+	S.ReskinPortraitFrame(MacroFrame, true)
+	S.CreateBD(MacroFrameScrollFrame, .25)
+	S.CreateBD(MacroPopupFrame)
+	S.CreateBD(MacroPopupEditBox, .25)
+	S.CreateBD(MacroFrameSelectedMacroButton, .25)
+	S.Reskin(MacroDeleteButton)
+	S.Reskin(MacroNewButton)
+	S.Reskin(MacroExitButton)
+	S.Reskin(MacroEditButton)
+	S.Reskin(MacroPopupOkayButton)
+	S.Reskin(MacroPopupCancelButton)
+	S.Reskin(MacroSaveButton)
+	S.Reskin(MacroCancelButton)
+	S.ReskinScroll(MacroButtonScrollFrameScrollBar)
+	S.ReskinScroll(MacroFrameScrollFrameScrollBar)
+	S.ReskinScroll(MacroPopupScrollFrameScrollBar)
 end

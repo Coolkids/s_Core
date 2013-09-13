@@ -11,7 +11,9 @@ DB.media = {
 	["glow"] = "Interface\\AddOns\\SunUI\\media\\glowTex",
 	["gradient"] = "Interface\\AddOns\\SunUI\\media\\gradient",
 	["roleIcons"] = "Interface\\Addons\\SunUI\\media\\UI-LFG-ICON-ROLES",
+	["font"] = DB.Font,
 }
+
 DB.AuroraConfig = {
 	["alpha"] = 0.5,
 	["bags"] = true,

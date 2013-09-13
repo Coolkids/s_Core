@@ -1,10 +1,9 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_ItemAlterationUI"] = function()
-	F.SetBD(TransmogrifyFrame)
+	S.SetBD(TransmogrifyFrame)
 	TransmogrifyArtFrame:DisableDrawLayer("BACKGROUND")
 	TransmogrifyArtFrame:DisableDrawLayer("BORDER")
 	TransmogrifyArtFramePortraitFrame:Hide()
@@ -31,16 +30,16 @@ DB.AuroraModules["Blizzard_ItemAlterationUI"] = function()
 			_G["TransmogrifyFrame"..slots[i].."SlotGrabber"]:Hide()
 
 			ic:SetTexCoord(.08, .92, .08, .92)
-			F.CreateBD(slot, 0)
+			S.CreateBD(slot, 0)
 		end
 	end
 
 	TransmogrifyConfirmationPopup:SetScale(UIParent:GetScale())
 
-	F.CreateBD(TransmogrifyConfirmationPopup)
-	F.CreateSD(TransmogrifyConfirmationPopup)
-	F.Reskin(TransmogrifyConfirmationPopup.Button1)
-	F.Reskin(TransmogrifyConfirmationPopup.Button2)
+	S.CreateBD(TransmogrifyConfirmationPopup)
+	S.CreateSD(TransmogrifyConfirmationPopup)
+	S.Reskin(TransmogrifyConfirmationPopup.Button1)
+	S.Reskin(TransmogrifyConfirmationPopup.Button2)
 
 	for i = 1, 2 do
 		local f = TransmogrifyConfirmationPopup["ItemFrame"..i]
@@ -49,11 +48,11 @@ DB.AuroraModules["Blizzard_ItemAlterationUI"] = function()
 		f:SetPushedTexture("")
 
 		f.icon:SetTexCoord(.08, .92, .08, .92)
-		F.CreateBG(f)
+		S.CreateBG(f)
 
 		select(8, f:GetRegions()):Hide()
 	end
 
-	F.Reskin(TransmogrifyApplyButton)
-	F.ReskinClose(TransmogrifyArtFrameCloseButton)
+	S.Reskin(TransmogrifyApplyButton)
+	S.ReskinClose(TransmogrifyArtFrameCloseButton)
 end

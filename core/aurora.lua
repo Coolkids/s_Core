@@ -141,8 +141,8 @@ S.Reskin = function(f, noGlow)
 			edgeFile = media.glow,
 			edgeSize = 5,
 		})
-		f.glow:Point("TOPLEFT", -6, 6)
-		f.glow:Point("BOTTOMRIGHT", 6, -6)
+		f.glow:Point("TOPLEFT", -5, 5)
+		f.glow:Point("BOTTOMRIGHT", 5, -5)
 		f.glow:SetBackdropBorderColor(r, g, b)
 		f.glow:SetAlpha(0)
 

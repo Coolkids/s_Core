@@ -1,13 +1,9 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_InspectUI"] = function()
 		InspectModelFrame:DisableDrawLayer("OVERLAY")
-		InspectPVPTeam1:DisableDrawLayer("BACKGROUND")
-		InspectPVPTeam2:DisableDrawLayer("BACKGROUND")
-		InspectPVPTeam3:DisableDrawLayer("BACKGROUND")
 
 		InspectTalentFrame:GetRegions():Hide()
 		select(2, InspectTalentFrame:GetRegions()):Hide()
@@ -15,8 +11,6 @@ DB.AuroraModules["Blizzard_InspectUI"] = function()
 		for i = 1, 5 do
 			select(i, InspectModelFrame:GetRegions()):Hide()
 		end
-		InspectPVPFrameBG:SetAlpha(0)
-		InspectPVPFrameBottom:SetAlpha(0)
 		select(9, InspectMainHandSlot:GetRegions()):Hide()
 
 		local slots = {
@@ -47,12 +41,12 @@ DB.AuroraModules["Blizzard_InspectUI"] = function()
 				bu.icon:SetDrawLayer("ARTWORK")
 				bu.icon:SetTexCoord(.08, .92, .08, .92)
 
-				F.CreateBG(bu.icon)
+				S.CreateBG(bu.icon)
 			end
 		end
 
 		InspectTalentFrame.InspectSpec.specIcon:SetTexCoord(.08, .92, .08, .92)
-		F.CreateBG(InspectTalentFrame.InspectSpec.specIcon)
+		S.CreateBG(InspectTalentFrame.InspectSpec.specIcon)
 
 		local function updateIcon(self)
 			local spec = nil
@@ -103,16 +97,16 @@ DB.AuroraModules["Blizzard_InspectUI"] = function()
 
 			glyph.glyph:SetDrawLayer("ARTWORK")
 			glyph.glyph:SetTexCoord(.08, .92, .08, .92)
-			F.CreateBDFrame(glyph.glyph)
+			S.CreateBDFrame(glyph.glyph)
 		end
 
 		for i = 1, 4 do
 			local tab = _G["InspectFrameTab"..i]
-			F.ReskinTab(tab)
+			S.ReskinTab(tab)
 			if i ~= 1 then
-				tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
+				tab:Point("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
 			end
 		end
 
-		F.ReskinPortraitFrame(InspectFrame, true)
+		S.ReskinPortraitFrame(InspectFrame, true)
 end

@@ -2,22 +2,20 @@ local S, L, DB, _, C = unpack(select(2, ...))
 
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 
 tinsert(DB.AuroraModules["SunUI"], function()
 	LFGDungeonReadyDialogBackground:Hide()
 	LFGDungeonReadyDialogBottomArt:Hide()
 	LFGDungeonReadyDialogFiligree:Hide()
 
-	LFGDungeonReadyDialogRoleIconTexture:SetTexture(C.media.roleIcons)
-	LFGDungeonReadyDialogRoleIconLeaderIcon:SetTexture(C.media.roleIcons)
+	LFGDungeonReadyDialogRoleIconTexture:SetTexture(DB.media.roleIcons)
+	LFGDungeonReadyDialogRoleIconLeaderIcon:SetTexture(DB.media.roleIcons)
 	LFGDungeonReadyDialogRoleIconLeaderIcon:SetTexCoord(0, 0.296875, 0.015625, 0.2875)
 
-	local leaderBg = F.CreateBG(LFGDungeonReadyDialogRoleIconLeaderIcon)
+	local leaderBg = S.CreateBG(LFGDungeonReadyDialogRoleIconLeaderIcon)
 	leaderBg:SetDrawLayer("ARTWORK", 2)
-	leaderBg:SetPoint("TOPLEFT", LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
-	leaderBg:SetPoint("BOTTOMRIGHT", LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
+	leaderBg:Point("TOPLEFT", LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
+	leaderBg:Point("BOTTOMRIGHT", LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
 
 	hooksecurefunc("LFGDungeonReadyPopup_Update", function()
 		leaderBg:SetShown(LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
@@ -26,31 +24,31 @@ tinsert(DB.AuroraModules["SunUI"], function()
 	do
 		local left = LFGDungeonReadyDialogRoleIcon:CreateTexture(nil, "OVERLAY")
 		left:SetWidth(1)
-		left:SetTexture(C.media.backdrop)
+		left:SetTexture(DB.media.backdrop)
 		left:SetVertexColor(0, 0, 0)
-		left:SetPoint("TOPLEFT", 9, -7)
-		left:SetPoint("BOTTOMLEFT", 9, 10)
+		left:Point("TOPLEFT", 9, -7)
+		left:Point("BOTTOMLEFT", 9, 10)
 
 		local right = LFGDungeonReadyDialogRoleIcon:CreateTexture(nil, "OVERLAY")
 		right:SetWidth(1)
-		right:SetTexture(C.media.backdrop)
+		right:SetTexture(DB.media.backdrop)
 		right:SetVertexColor(0, 0, 0)
-		right:SetPoint("TOPRIGHT", -8, -7)
-		right:SetPoint("BOTTOMRIGHT", -8, 10)
+		right:Point("TOPRIGHT", -8, -7)
+		right:Point("BOTTOMRIGHT", -8, 10)
 
 		local top = LFGDungeonReadyDialogRoleIcon:CreateTexture(nil, "OVERLAY")
 		top:SetHeight(1)
-		top:SetTexture(C.media.backdrop)
+		top:SetTexture(DB.media.backdrop)
 		top:SetVertexColor(0, 0, 0)
-		top:SetPoint("TOPLEFT", 9, -7)
-		top:SetPoint("TOPRIGHT", -8, -7)
+		top:Point("TOPLEFT", 9, -7)
+		top:Point("TOPRIGHT", -8, -7)
 
 		local bottom = LFGDungeonReadyDialogRoleIcon:CreateTexture(nil, "OVERLAY")
 		bottom:SetHeight(1)
-		bottom:SetTexture(C.media.backdrop)
+		bottom:SetTexture(DB.media.backdrop)
 		bottom:SetVertexColor(0, 0, 0)
-		bottom:SetPoint("BOTTOMLEFT", 9, 10)
-		bottom:SetPoint("BOTTOMRIGHT", -8, 10)
+		bottom:Point("BOTTOMLEFT", 9, 10)
+		bottom:Point("BOTTOMRIGHT", -8, 10)
 	end
 
 	hooksecurefunc("LFGDungeonReadyDialogReward_SetMisc", function(button)
@@ -61,8 +59,8 @@ tinsert(DB.AuroraModules["SunUI"], function()
 
 			border:SetTexture(0, 0, 0)
 			border:SetDrawLayer("BACKGROUND")
-			border:SetPoint("TOPLEFT", button.texture, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", button.texture, 1, -1)
+			border:Point("TOPLEFT", button.texture, -1, 1)
+			border:Point("BOTTOMRIGHT", button.texture, 1, -1)
 
 			button.styled = true
 		end
@@ -78,8 +76,8 @@ tinsert(DB.AuroraModules["SunUI"], function()
 
 			border:SetTexture(0, 0, 0)
 			border:SetDrawLayer("BACKGROUND")
-			border:SetPoint("TOPLEFT", button.texture, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", button.texture, 1, -1)
+			border:Point("TOPLEFT", button.texture, -1, 1)
+			border:Point("BOTTOMRIGHT", button.texture, 1, -1)
 
 			button.styled = true
 		end
@@ -95,28 +93,28 @@ tinsert(DB.AuroraModules["SunUI"], function()
 		end
 	end)
 
-	F.CreateBD(LFGDungeonReadyDialog)
-	LFGDungeonReadyDialog.SetBackdrop = F.dummy
-	F.CreateSD(LFGDungeonReadyDialog)
-	F.CreateBD(LFGInvitePopup)
-	F.CreateSD(LFGInvitePopup)
-	F.CreateBD(LFGDungeonReadyStatus)
-	F.CreateSD(LFGDungeonReadyStatus)
+	S.CreateBD(LFGDungeonReadyDialog)
+	LFGDungeonReadyDialog.SetBackdrop = S.dummy
+	S.CreateSD(LFGDungeonReadyDialog)
+	S.CreateBD(LFGInvitePopup)
+	S.CreateSD(LFGInvitePopup)
+	S.CreateBD(LFGDungeonReadyStatus)
+	S.CreateSD(LFGDungeonReadyStatus)
 
-	F.Reskin(LFGDungeonReadyDialogEnterDungeonButton)
-	F.Reskin(LFGDungeonReadyDialogLeaveQueueButton)
-	F.Reskin(LFGInvitePopupAcceptButton)
-	F.Reskin(LFGInvitePopupDeclineButton)
-	F.ReskinClose(LFGDungeonReadyDialogCloseButton)
-	F.ReskinClose(LFGDungeonReadyStatusCloseButton)
+	S.Reskin(LFGDungeonReadyDialogEnterDungeonButton)
+	S.Reskin(LFGDungeonReadyDialogLeaveQueueButton)
+	S.Reskin(LFGInvitePopupAcceptButton)
+	S.Reskin(LFGInvitePopupDeclineButton)
+	S.ReskinClose(LFGDungeonReadyDialogCloseButton)
+	S.ReskinClose(LFGDungeonReadyStatusCloseButton)
 
 	for _, roleButton in pairs({LFDQueueFrameRoleButtonTank, LFDQueueFrameRoleButtonHealer, LFDQueueFrameRoleButtonDPS, LFDQueueFrameRoleButtonLeader, LFRQueueFrameRoleButtonTank, LFRQueueFrameRoleButtonHealer, LFRQueueFrameRoleButtonDPS, RaidFinderQueueFrameRoleButtonTank, RaidFinderQueueFrameRoleButtonHealer, RaidFinderQueueFrameRoleButtonDPS, RaidFinderQueueFrameRoleButtonLeader}) do
 		if roleButton.background then
 			roleButton.background:SetTexture("")
 		end
 
-		roleButton.cover:SetTexture(C.media.roleIcons)
-		roleButton:SetNormalTexture(C.media.roleIcons)
+		roleButton.cover:SetTexture(DB.media.roleIcons)
+		roleButton:SetNormalTexture(DB.media.roleIcons)
 
 		roleButton.checkButton:SetFrameLevel(roleButton:GetFrameLevel() + 2)
 
@@ -124,37 +122,37 @@ tinsert(DB.AuroraModules["SunUI"], function()
 			local left = roleButton:CreateTexture()
 			left:SetDrawLayer("OVERLAY", i)
 			left:SetWidth(1)
-			left:SetTexture(C.media.backdrop)
+			left:SetTexture(DB.media.backdrop)
 			left:SetVertexColor(0, 0, 0)
-			left:SetPoint("TOPLEFT", roleButton, 6, -5)
-			left:SetPoint("BOTTOMLEFT", roleButton, 6, 7)
+			left:Point("TOPLEFT", roleButton, 6, -5)
+			left:Point("BOTTOMLEFT", roleButton, 6, 7)
 			roleButton["leftLine"..i] = left
 
 			local right = roleButton:CreateTexture()
 			right:SetDrawLayer("OVERLAY", i)
 			right:SetWidth(1)
-			right:SetTexture(C.media.backdrop)
+			right:SetTexture(DB.media.backdrop)
 			right:SetVertexColor(0, 0, 0)
-			right:SetPoint("TOPRIGHT", roleButton, -6, -5)
-			right:SetPoint("BOTTOMRIGHT", roleButton, -6, 7)
+			right:Point("TOPRIGHT", roleButton, -6, -5)
+			right:Point("BOTTOMRIGHT", roleButton, -6, 7)
 			roleButton["rightLine"..i] = right
 
 			local top = roleButton:CreateTexture()
 			top:SetDrawLayer("OVERLAY", i)
 			top:SetHeight(1)
-			top:SetTexture(C.media.backdrop)
+			top:SetTexture(DB.media.backdrop)
 			top:SetVertexColor(0, 0, 0)
-			top:SetPoint("TOPLEFT", roleButton, 6, -5)
-			top:SetPoint("TOPRIGHT", roleButton, -6, -5)
+			top:Point("TOPLEFT", roleButton, 6, -5)
+			top:Point("TOPRIGHT", roleButton, -6, -5)
 			roleButton["topLine"..i] = top
 
 			local bottom = roleButton:CreateTexture()
 			bottom:SetDrawLayer("OVERLAY", i)
 			bottom:SetHeight(1)
-			bottom:SetTexture(C.media.backdrop)
+			bottom:SetTexture(DB.media.backdrop)
 			bottom:SetVertexColor(0, 0, 0)
-			bottom:SetPoint("BOTTOMLEFT", roleButton, 6, 7)
-			bottom:SetPoint("BOTTOMRIGHT", roleButton, -6, 7)
+			bottom:Point("BOTTOMLEFT", roleButton, 6, 7)
+			bottom:Point("BOTTOMRIGHT", roleButton, -6, 7)
 			roleButton["bottomLine"..i] = bottom
 		end
 
@@ -171,53 +169,53 @@ tinsert(DB.AuroraModules["SunUI"], function()
 
 			icon.border:SetTexture(0, 0, 0)
 			icon.border:SetDrawLayer("BACKGROUND")
-			icon.border:SetPoint("TOPLEFT", icon.texture, -1, 1)
-			icon.border:SetPoint("BOTTOMRIGHT", icon.texture, 1, -1)
+			icon.border:Point("TOPLEFT", icon.texture, -1, 1)
+			icon.border:Point("BOTTOMRIGHT", icon.texture, 1, -1)
 
-			icon:SetPoint("BOTTOMRIGHT", 3, -3)
+			icon:Point("BOTTOMRIGHT", 3, -3)
 			icon:SetSize(14, 14)
 			icon.texture:SetSize(14, 14)
 			icon.texture:SetTexCoord(.12, .88, .12, .88)
 		end
 
-		F.ReskinCheck(roleButton.checkButton)
+		S.ReskinCheck(roleButton.checkButton)
 	end
 
 	for _, roleButton in pairs({LFDRoleCheckPopupRoleButtonTank, LFDRoleCheckPopupRoleButtonHealer, LFDRoleCheckPopupRoleButtonDPS, LFGInvitePopupRoleButtonTank, LFGInvitePopupRoleButtonHealer, LFGInvitePopupRoleButtonDPS}) do
-		roleButton.cover:SetTexture(C.media.roleIcons)
-		roleButton:SetNormalTexture(C.media.roleIcons)
+		roleButton.cover:SetTexture(DB.media.roleIcons)
+		roleButton:SetNormalTexture(DB.media.roleIcons)
 
 		roleButton.checkButton:SetFrameLevel(roleButton:GetFrameLevel() + 2)
 
 		local left = roleButton:CreateTexture(nil, "OVERLAY")
 		left:SetWidth(1)
-		left:SetTexture(C.media.backdrop)
+		left:SetTexture(DB.media.backdrop)
 		left:SetVertexColor(0, 0, 0)
-		left:SetPoint("TOPLEFT", roleButton, 9, -7)
-		left:SetPoint("BOTTOMLEFT", roleButton, 9, 11)
+		left:Point("TOPLEFT", roleButton, 9, -7)
+		left:Point("BOTTOMLEFT", roleButton, 9, 11)
 
 		local right = roleButton:CreateTexture(nil, "OVERLAY")
 		right:SetWidth(1)
-		right:SetTexture(C.media.backdrop)
+		right:SetTexture(DB.media.backdrop)
 		right:SetVertexColor(0, 0, 0)
 		right:SetPoint("TOPRIGHT", roleButton, -9, -7)
 		right:SetPoint("BOTTOMRIGHT", roleButton, -9, 11)
 
 		local top = roleButton:CreateTexture(nil, "OVERLAY")
 		top:SetHeight(1)
-		top:SetTexture(C.media.backdrop)
+		top:SetTexture(DB.media.backdrop)
 		top:SetVertexColor(0, 0, 0)
 		top:SetPoint("TOPLEFT", roleButton, 9, -7)
 		top:SetPoint("TOPRIGHT", roleButton, -9, -7)
 
 		local bottom = roleButton:CreateTexture(nil, "OVERLAY")
 		bottom:SetHeight(1)
-		bottom:SetTexture(C.media.backdrop)
+		bottom:SetTexture(DB.media.backdrop)
 		bottom:SetVertexColor(0, 0, 0)
-		bottom:SetPoint("BOTTOMLEFT", roleButton, 9, 11)
-		bottom:SetPoint("BOTTOMRIGHT", roleButton, -9, 11)
+		bottom:Point("BOTTOMLEFT", roleButton, 9, 11)
+		bottom:Point("BOTTOMRIGHT", roleButton, -9, 11)
 
-		F.ReskinCheck(roleButton.checkButton)
+		S.ReskinCheck(roleButton.checkButton)
 	end
 
 	do
@@ -228,36 +226,36 @@ tinsert(DB.AuroraModules["SunUI"], function()
 		end
 
 		for _, roleButton in pairs(roleButtons) do
-			roleButton.texture:SetTexture(C.media.roleIcons)
+			roleButton.texture:SetTexture(DB.media.roleIcons)
 			roleButton.statusIcon:SetDrawLayer("OVERLAY", 2)
 
 			local left = roleButton:CreateTexture(nil, "OVERLAY")
 			left:SetWidth(1)
-			left:SetTexture(C.media.backdrop)
+			left:SetTexture(DB.media.backdrop)
 			left:SetVertexColor(0, 0, 0)
-			left:SetPoint("TOPLEFT", 7, -6)
-			left:SetPoint("BOTTOMLEFT", 7, 8)
+			left:Point("TOPLEFT", 7, -6)
+			left:Point("BOTTOMLEFT", 7, 8)
 
 			local right = roleButton:CreateTexture(nil, "OVERLAY")
 			right:SetWidth(1)
-			right:SetTexture(C.media.backdrop)
+			right:SetTexture(DB.media.backdrop)
 			right:SetVertexColor(0, 0, 0)
-			right:SetPoint("TOPRIGHT", -7, -6)
-			right:SetPoint("BOTTOMRIGHT", -7, 8)
+			right:Point("TOPRIGHT", -7, -6)
+			right:Point("BOTTOMRIGHT", -7, 8)
 
 			local top = roleButton:CreateTexture(nil, "OVERLAY")
 			top:SetHeight(1)
-			top:SetTexture(C.media.backdrop)
+			top:SetTexture(DB.media.backdrop)
 			top:SetVertexColor(0, 0, 0)
-			top:SetPoint("TOPLEFT", 7, -6)
-			top:SetPoint("TOPRIGHT", -7, -6)
+			top:Point("TOPLEFT", 7, -6)
+			top:Point("TOPRIGHT", -7, -6)
 
 			local bottom = roleButton:CreateTexture(nil, "OVERLAY")
 			bottom:SetHeight(1)
-			bottom:SetTexture(C.media.backdrop)
+			bottom:SetTexture(DB.media.backdrop)
 			bottom:SetVertexColor(0, 0, 0)
-			bottom:SetPoint("BOTTOMLEFT", 7, 8)
-			bottom:SetPoint("BOTTOMRIGHT", -7, 8)
+			bottom:Point("BOTTOMLEFT", 7, 8)
+			bottom:Point("BOTTOMRIGHT", -7, 8)
 		end
 	end
 

@@ -2,8 +2,6 @@ local S, L, DB, _, C = unpack(select(2, ...))
 
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 
 tinsert(DB.AuroraModules["SunUI"], function()
 	LFDQueueFrameRandomScrollFrameScrollBackgroundTopLeft:Hide()
@@ -22,7 +20,7 @@ tinsert(DB.AuroraModules["SunUI"], function()
 				local count = _G["LFDQueueFrameRandomScrollFrameChildFrameItem"..i.."Count"]
 				local na = _G["LFDQueueFrameRandomScrollFrameChildFrameItem"..i.."NameFrame"]
 
-				F.CreateBG(icon)
+				S.CreateBG(icon)
 				icon:SetTexCoord(.08, .92, .08, .92)
 				icon:SetDrawLayer("OVERLAY")
 				count:SetDrawLayer("OVERLAY")
@@ -31,9 +29,9 @@ tinsert(DB.AuroraModules["SunUI"], function()
 				cta:SetAlpha(0)
 
 				button.bg2 = CreateFrame("Frame", nil, button)
-				button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
+				button.bg2:Point("TOPLEFT", na, "TOPLEFT", 10, 0)
 				button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT")
-				F.CreateBD(button.bg2, 0)
+				S.CreateBD(button.bg2, 0)
 
 				button.styled = true
 			end
@@ -42,8 +40,8 @@ tinsert(DB.AuroraModules["SunUI"], function()
 
 	hooksecurefunc("LFGDungeonListButton_SetDungeon", function(button, dungeonID)
 		if not button.expandOrCollapseButton.plus then
-			F.ReskinCheck(button.enableButton)
-			F.ReskinExpandOrCollapse(button.expandOrCollapseButton)
+			S.ReskinCheck(button.enableButton)
+			S.ReskinExpandOrCollapse(button.expandOrCollapseButton)
 		end
 		if LFGCollapseList[dungeonID] then
 			button.expandOrCollapseButton.plus:Show()
@@ -59,12 +57,12 @@ tinsert(DB.AuroraModules["SunUI"], function()
 	bonusValor.Icon:SetTexCoord(.08, .92, .08, .92)
 	bonusValor.Icon:SetPoint("CENTER", bonusValor.Border, -3, 0)
 	bonusValor.Icon:SetSize(24, 24)
-	bonusValor.BonusText:SetPoint("LEFT", bonusValor.Border, "RIGHT", -5, -1)
-	F.CreateBG(bonusValor.Icon)
+	bonusValor.BonusText:Point("LEFT", bonusValor.Border, "RIGHT", -5, -1)
+	S.CreateBG(bonusValor.Icon)
 
-	F.CreateBD(LFDRoleCheckPopup)
-	F.CreateSD(LFDRoleCheckPopup)
-	F.Reskin(LFDRoleCheckPopupAcceptButton)
-	F.Reskin(LFDRoleCheckPopupDeclineButton)
-	F.Reskin(LFDQueueFrameRandomScrollFrameChildFrame.bonusRepFrame.ChooseButton)
+	S.CreateBD(LFDRoleCheckPopup)
+	S.CreateSD(LFDRoleCheckPopup)
+	S.Reskin(LFDRoleCheckPopupAcceptButton)
+	S.Reskin(LFDRoleCheckPopupDeclineButton)
+	S.Reskin(LFDQueueFrameRandomScrollFrameChildFrame.bonusRepFrame.ChooseButton)
 end)

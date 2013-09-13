@@ -1,13 +1,10 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_GuildControlUI"] = function()
-	 
-
-	F.CreateBD(GuildControlUI)
-	F.CreateSD(GuildControlUI)
+	S.CreateBD(GuildControlUI)
+	S.CreateSD(GuildControlUI)
 
 	for i = 1, 9 do
 		select(i, GuildControlUI:GetRegions()):Hide()
@@ -34,11 +31,11 @@ DB.AuroraModules["Blizzard_GuildControlUI"] = function()
 				rank.downButton.icon:Hide()
 				rank.deleteButton.icon:Hide()
 
-				F.ReskinArrow(rank.upButton, "up")
-				F.ReskinArrow(rank.downButton, "down")
-				F.ReskinClose(rank.deleteButton)
+				S.ReskinArrow(rank.upButton, "up")
+				S.ReskinArrow(rank.downButton, "down")
+				S.ReskinClose(rank.deleteButton)
 
-				F.ReskinInput(rank.nameBox, 20)
+				S.ReskinInput(rank.nameBox, 20)
 
 				rank.styled = true
 			end
@@ -55,54 +52,54 @@ DB.AuroraModules["Blizzard_GuildControlUI"] = function()
 				_G[tab.."Bg"]:Hide()
 
 				ownedTab.tabIcon:SetTexCoord(.08, .92, .08, .92)
-				F.CreateBG(ownedTab.tabIcon)
+				S.CreateBG(ownedTab.tabIcon)
 
-				F.CreateBD(bu, .25)
-				F.Reskin(bu.buy.button)
-				F.ReskinInput(ownedTab.editBox)
+				S.CreateBD(bu, .25)
+				S.Reskin(bu.buy.button)
+				S.ReskinInput(ownedTab.editBox)
 
 				for _, ch in pairs({ownedTab.viewCB, ownedTab.depositCB, ownedTab.infoCB}) do
 					-- can't get a backdrop frame to appear behind the checked texture for some reason
 					ch:SetNormalTexture("")
 					ch:SetPushedTexture("")
-					ch:SetHighlightTexture(C.media.backdrop)
+					ch:SetHighlightTexture(DB.media.backdrop)
 
 					local hl = ch:GetHighlightTexture()
-					hl:SetPoint("TOPLEFT", 5, -5)
-					hl:SetPoint("BOTTOMRIGHT", -5, 5)
+					hl:Point("TOPLEFT", 5, -5)
+					hl:Point("BOTTOMRIGHT", -5, 5)
 					hl:SetVertexColor(r, g, b, .2)
 
 					local check = ch:GetCheckedTexture()
 					check:SetDesaturated(true)
 					check:SetVertexColor(r, g, b)
 
-					local tex = F.CreateGradient(ch)
-					tex:SetPoint("TOPLEFT", 5, -5)
-					tex:SetPoint("BOTTOMRIGHT", -5, 5)
+					local tex = S.CreateGradient(ch)
+					tex:Point("TOPLEFT", 5, -5)
+					tex:Point("BOTTOMRIGHT", -5, 5)
 
 					local left = ch:CreateTexture(nil, "BACKGROUND")
 					left:SetWidth(1)
 					left:SetTexture(0, 0, 0)
-					left:SetPoint("TOPLEFT", tex, -1, 1)
-					left:SetPoint("BOTTOMLEFT", tex, -1, -1)
+					left:Point("TOPLEFT", tex, -1, 1)
+					left:Point("BOTTOMLEFT", tex, -1, -1)
 
 					local right = ch:CreateTexture(nil, "BACKGROUND")
 					right:SetWidth(1)
 					right:SetTexture(0, 0, 0)
-					right:SetPoint("TOPRIGHT", tex, 1, 1)
-					right:SetPoint("BOTTOMRIGHT", tex, 1, -1)
+					right:Point("TOPRIGHT", tex, 1, 1)
+					right:Point("BOTTOMRIGHT", tex, 1, -1)
 
 					local top = ch:CreateTexture(nil, "BACKGROUND")
 					top:SetHeight(1)
 					top:SetTexture(0, 0, 0)
-					top:SetPoint("TOPLEFT", tex, -1, 1)
-					top:SetPoint("TOPRIGHT", tex, 1, 1)
+					top:Point("TOPLEFT", tex, -1, 1)
+					top:Point("TOPRIGHT", tex, 1, 1)
 
 					local bottom = ch:CreateTexture(nil, "BACKGROUND")
 					bottom:SetHeight(1)
 					bottom:SetTexture(0, 0, 0)
-					bottom:SetPoint("BOTTOMLEFT", tex, -1, -1)
-					bottom:SetPoint("BOTTOMRIGHT", tex, 1, -1)
+					bottom:Point("BOTTOMLEFT", tex, -1, -1)
+					bottom:Point("BOTTOMRIGHT", tex, 1, -1)
 				end
 
 				bu.styled = true
@@ -112,15 +109,15 @@ DB.AuroraModules["Blizzard_GuildControlUI"] = function()
 
 	for i = 1, 20 do
 		if i ~= 14 then
-			F.ReskinCheck(_G["GuildControlUIRankSettingsFrameCheckbox"..i])
+			S.ReskinCheck(_G["GuildControlUIRankSettingsFrameCheckbox"..i])
 		end
 	end
 
-	F.Reskin(GuildControlUIRankOrderFrameNewButton)
-	F.ReskinClose(GuildControlUICloseButton)
-	F.ReskinScroll(GuildControlUIRankBankFrameInsetScrollFrameScrollBar)
-	F.ReskinDropDown(GuildControlUINavigationDropDown)
-	F.ReskinDropDown(GuildControlUIRankSettingsFrameRankDropDown)
-	F.ReskinDropDown(GuildControlUIRankBankFrameRankDropDown)
-	F.ReskinInput(GuildControlUIRankSettingsFrameGoldBox, 20)
+	S.Reskin(GuildControlUIRankOrderFrameNewButton)
+	S.ReskinClose(GuildControlUICloseButton)
+	S.ReskinScroll(GuildControlUIRankBankFrameInsetScrollFrameScrollBar)
+	S.ReskinDropDown(GuildControlUINavigationDropDown)
+	S.ReskinDropDown(GuildControlUIRankSettingsFrameRankDropDown)
+	S.ReskinDropDown(GuildControlUIRankBankFrameRankDropDown)
+	S.ReskinInput(GuildControlUIRankSettingsFrameGoldBox, 20)
 end

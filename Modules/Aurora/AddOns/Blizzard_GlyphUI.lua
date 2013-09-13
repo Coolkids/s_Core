@@ -1,16 +1,13 @@
 local S, L, DB, _, C = unpack(select(2, ...))
+
 local r, g, b = DB.MyClassColor.r, DB.MyClassColor.g, DB.MyClassColor.b
 local AuroraConfig = DB.AuroraConfig
-local F = S
-local C = DB
 DB.AuroraModules["Blizzard_GlyphUI"] = function()
-	 
-
 	GlyphFrameBackground:Hide()
 	GlyphFrameSideInset:DisableDrawLayer("BACKGROUND")
 	GlyphFrameSideInset:DisableDrawLayer("BORDER")
 	GlyphFrame.specRing:SetTexture("")
-	F.CreateBG(GlyphFrameClearInfoFrame)
+	S.CreateBG(GlyphFrameClearInfoFrame)
 	GlyphFrameClearInfoFrameIcon:SetTexCoord(.08, .92, .08, .92)
 
 	for i = 1, 2 do
@@ -20,7 +17,7 @@ DB.AuroraModules["Blizzard_GlyphUI"] = function()
 
 	end
 
-	F.CreateBDFrame(GlyphFrame.specIcon, 0)
+	S.CreateBDFrame(GlyphFrame.specIcon, 0)
 	GlyphFrame.specIcon:SetTexCoord(.08, .92, .08, .92)
 
 	local function onUpdate(self)
@@ -39,7 +36,7 @@ DB.AuroraModules["Blizzard_GlyphUI"] = function()
 		glyph.glyph:SetTexCoord(.08, .92, .08, .92)
 		glyph.highlight:SetTexture("")
 
-		glyph.bg = F.CreateBDFrame(glyph.glyph, .25)
+		glyph.bg = S.CreateBDFrame(glyph.glyph, .25)
 
 		glyph:HookScript("OnUpdate", onUpdate)
 	end
@@ -69,10 +66,10 @@ DB.AuroraModules["Blizzard_GlyphUI"] = function()
 		local ic = _G["GlyphFrameScrollFrameButton"..i.."Icon"]
 
 		local bg = CreateFrame("Frame", nil, bu)
-		bg:SetPoint("TOPLEFT", 38, -2)
-		bg:SetPoint("BOTTOMRIGHT", 0, 2)
+		bg:Point("TOPLEFT", 38, -2)
+		bg:Point("BOTTOMRIGHT", 0, 2)
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
-		F.CreateBD(bg, .25)
+		S.CreateBD(bg, .25)
 
 		_G["GlyphFrameScrollFrameButton"..i.."Name"]:SetParent(bg)
 		_G["GlyphFrameScrollFrameButton"..i.."TypeName"]:SetParent(bg)
@@ -81,17 +78,17 @@ DB.AuroraModules["Blizzard_GlyphUI"] = function()
 		select(4, bu:GetRegions()):SetAlpha(0)
 
 		local check = select(2, bu:GetRegions())
-		check:SetPoint("TOPLEFT", 39, -3)
-		check:SetPoint("BOTTOMRIGHT", -1, 3)
-		check:SetTexture(C.media.backdrop)
+		check:Point("TOPLEFT", 39, -3)
+		check:Point("BOTTOMRIGHT", -1, 3)
+		check:SetTexture(DB.media.backdrop)
 		check:SetVertexColor(r, g, b, .2)
 
-		F.CreateBG(ic)
+		S.CreateBG(ic)
 
 		ic:SetTexCoord(.08, .92, .08, .92)
 	end
 
-	F.ReskinInput(GlyphFrameSearchBox)
-	F.ReskinScroll(GlyphFrameScrollFrameScrollBar)
-	F.ReskinDropDown(GlyphFrameFilterDropDown)
+	S.ReskinInput(GlyphFrameSearchBox)
+	S.ReskinScroll(GlyphFrameScrollFrameScrollBar)
+	S.ReskinDropDown(GlyphFrameFilterDropDown)
 end
