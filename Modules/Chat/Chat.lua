@@ -272,6 +272,15 @@ end
 for i = 1, 10 do
 	local tab = _G[format("%s%d%s", "ChatFrame", i, "Tab")]
 	tab:SetScript("OnDoubleClick", Copy)
+	tab:HookScript("OnEnter", function(self) 
+		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
+		GameTooltip:AddLine("双击聊天标签")
+		GameTooltip:AddLine("来复制聊天信息")
+		GameTooltip:Show()  
+	end)
+	tab:HookScript("OnLeave", function() 
+		GameTooltip:Hide()
+	end)
 end
 function Module:PLAYER_ENTERING_WORLD()
 	for i = 1, NUM_CHAT_WINDOWS do
