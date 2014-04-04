@@ -1,0 +1,105 @@
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local L = AceLocale:NewLocale("SunUI", "zhTW")
+if not L then return end
+
+--core 区域文字
+do
+L["一般"] = true
+L["设置"] = true
+L["启用"] = true
+L["SunUI"] = "|cff3f7bf5SunUI|r"
+L["布局选择"] = true
+L["请选择一个布局开始使用"] = true
+L["默认"] = true
+L["设置完成"] = true
+L["伤害输出"] = true
+L["治疗"] = true
+L["模式"] = true
+L["锁定"] = true
+L["版本"] = true
+L["UI缩放"] = true
+L["界面风格"] = true
+L["阴影"] = true
+L["1像素"] = true
+L["解锁锚点"] = true
+L["选择布局"] = true
+L["显示教程"] = true
+L["字体材质"] = true
+L["字体"] = true
+L["一般字体"] = true
+L["字体大小"] = true
+L["伤害字体"] = true
+L["像素字体"] = true
+L["冷却字体"] = true
+L["材质"] = true
+L["一般材质"] = true
+L["空白材质"] = true
+L["玻璃材质"] = true
+L["阴影边框"] = true
+L["颜色"] = true
+L["边框颜色"] = true
+L["背景颜色"] = true
+L["透明框架背景颜色"] = true
+L["恢复颜色"] = true
+L["改变参数需重载应用设置"] = true
+L["是否重置所有锚点"] = true
+L["插件美化"] = true
+L["锚点已解锁，拖动锚点移动位置，完成后点击锁定按钮。"] = true
+L["ALL"] = "全部"
+L["GENERAL"] = "标准界面"
+L["UNITFRAMES"] = "头像"
+L["MINITOOLS"] = "小工具"
+L["ACTIONBARS"] = "动作条"
+L["ARENA"] = true
+end
+
+--actionbar区域
+do
+L["动作条"] = true
+L["bar1布局"] = true
+L["bar2布局"] = true
+L["bar3布局"] = true
+L["bar4布局"] = true
+L["bar5布局"] = true
+L["请选择布局"] = true
+L["12x1布局"] = true
+L["6x2布局"] = true
+L["正常布局"] = true
+L["4方块布局"] = true
+L["隐藏快捷键显示"] = true
+L["隐藏宏名称显示"] = true
+L["冷却闪光"] = true
+L["按键绑定"] = true
+L["动作条按钮大小"] = true
+L["动作条间距大小"] = true
+L["动作条字体大小"] = true
+L["宏名字字体大小"] = true
+L["动作条缩放大小"] = true
+L["特殊按钮缩放大小"] = true
+L["宠物条缩放大小"] = true
+L["姿态栏缩放大小"] = true
+L["冷却闪光图标大小"] = true
+L["CD时透明度"] = true
+L["全部动作条渐隐"] = true
+L["Bar1渐隐"] = true
+L["Bar2渐隐"] = true
+L["Bar3渐隐"] = true
+L["Bar4渐隐"] = true
+L["Bar5渐隐"] = true
+L["姿态栏渐隐"] = true
+L["宠物渐隐"] = true
+L["Big1大小"] = true
+L["Big2大小"] = true
+L["Big3大小"] = true
+L["Big4大小"] = true
+L["主动作条锚点"] = true
+L["左下动作条锚点"] = true
+L["右下动作条锚点"] = true
+L["大动作条锚点"] = true
+L["右1动作条锚点"] = true
+L["右2动作条锚点"] = true
+L["特殊动作条锚点"] = true
+L["宠物动作条锚点"] = true
+L["姿态栏锚点"] = true
+L["冷却闪光锚点"] = true
+end

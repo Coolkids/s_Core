@@ -1,6 +1,6 @@
-﻿local S, L, DB, _, C = unpack(select(2, ...))
-local Module = LibStub("AceAddon-3.0"):GetAddon("SunUI"):NewModule("AutoHide", "AceEvent-3.0")
-local SunUIConfig = LibStub("AceAddon-3.0"):GetAddon("SunUI"):GetModule("SunUIConfig")
+﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+
+local AB = S:GetModule("ActionBar")
 local autohide = CreateFrame("Frame", "BarFade", UIParent)
 
 local function pending()
@@ -30,7 +30,8 @@ local function FadeInActionButton()
 	end
 end
 
-local function On_ADDON_LOADED(self, event, addon)
+function AB:ADDON_LOADED(event, addon)
+	--S:Debug(event,addon)
 	if addon == "Blizzard_MacroUI" then
 		self:UnregisterEvent("ADDON_LOADED")
 		MacroFrame:HookScript("OnShow", function(self, event)
@@ -44,7 +45,8 @@ local function On_ADDON_LOADED(self, event, addon)
 	end
 end
 
-function Module:UpdateAutoHide()
+function AB:UpdateAutoHide()
+	local C = self.db
 	if C["AllFade"] then 
 		if SunUIStanceBar then SunUIStanceBar:SetParent(BarFade) end
 		if SunUIPetBar then SunUIPetBar:SetParent(BarFade) end
@@ -101,9 +103,3 @@ function Module:UpdateAutoHide()
 		end
 	end)
 end
-	
-function Module:OnEnable()
-	C = SunUIConfig.db.profile.ActionBarDB
-	Module:UpdateAutoHide()
-	Module:RegisterEvent("ADDON_LOADED", On_ADDON_LOADED)
-end 

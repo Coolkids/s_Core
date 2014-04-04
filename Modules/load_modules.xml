@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="actionbar\load.xml"/>
+	<Include file="skins\load.xml"/>
+
+</Ui>
