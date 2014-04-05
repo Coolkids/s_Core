@@ -4,5 +4,6 @@
 	<Script file="FastError.lua"/>
 	<Script file="lowhealth.lua"/>
 	<Script file="OCES.lua"/>
+	<Script file="afklock.lua"/>
 	<Script file="notifications.lua"/>
 </Ui>

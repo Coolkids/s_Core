@@ -60,6 +60,14 @@ function MT:GetOptions()
 				self:UpdateLowHealthSet()
 			end,
 		},
+		afklock  = {
+			type = "toggle",
+			name = L["AFK界面"],
+			order = 14,
+			set = function(info, value) self.db.Disenchat = value
+				self:UpdateAFKSet()
+			end,
+		},
 	}
 	return options
 end
@@ -280,7 +288,7 @@ function MT:Initialize()
 	self:CreateHELM()
 	self:UpdateFastErrorSet()
 	self:UpdateLowHealthSet()
-	
+	self:UpdateAFKSet()
 	self:RegisterEvent("ADDON_LOADED")
 end
 

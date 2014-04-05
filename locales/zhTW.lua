@@ -252,6 +252,7 @@ do
 	L["快速分解"] = true
 	L["自动接受复活"] = true
 	L["低血量报警"] = true
+	L["AFK界面"] = true
 end
 --通知
 do
@@ -300,4 +301,11 @@ do
 	L["目标的目标"] = true
 	L["Boss"] = true
 	L["竞技场"] = true
+end
+--afk
+do
+	L["欢迎使用"] = true
+	L["您现在处于"] = true
+	L["状态"] = true
+	L["点我解锁"] = true
 end

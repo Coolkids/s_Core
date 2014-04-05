@@ -185,6 +185,7 @@ local sizes = {
 }
 
 local function CreatCopyFrame()
+	local A = S:GetModule("Skins")
 	frame = CreateFrame("Frame", "CopyFrame", UIParent)
 	frame:SetWidth(500)
 	frame:SetHeight(300)
@@ -197,7 +198,7 @@ local function CreatCopyFrame()
 	frame:SetScript("OnMouseDown", function(self) self:StartMoving() end)
 	frame:SetScript("OnMouseUp", function(self) self:StopMovingOrSizing() end)
 	frame:RegisterForDrag("LeftButton")
-	if not frame.style then 
+	if not frame.style then
 		A:SetBD(frame)
 		frame.style = true
 	end

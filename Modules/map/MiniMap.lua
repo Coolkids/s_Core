@@ -8,7 +8,7 @@ local function SkinMiniMap()
 	Minimap:ClearAllPoints()
 	Minimap:SetSize(120, 120)
 	Minimap:CreateShadow()
-	Minimap:SetPoint("TOPLEFT", "UIParent", "TOPLEFT", 5, -5)
+	Minimap:SetPoint("TOPLEFT", "UIParent", "TOPLEFT", 5, -15)
 	S:CreateMover(Minimap, "MinimapMover", L["小地图"], true, nil, "ALL,GENERAL")
 end
 local function CreateFlash()
@@ -258,6 +258,8 @@ function MAP:Initialize()
 	
 	self:initBigMap()
 	self:initFogClear()
+	self:initXPBar()
+	self:initCollector()
 end
 
 S:RegisterModule(MAP:GetName())

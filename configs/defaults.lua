@@ -117,6 +117,7 @@ P["MiniTools"]={
 	Disenchat = true,
 	Resurrect = true,
 	LowHealth = true,
+	afklock = true,
 }
 
 P["Notifications"]={

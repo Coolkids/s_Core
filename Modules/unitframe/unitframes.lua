@@ -72,7 +72,7 @@ end
 
 --[[ Tags ]]
 
-oUF.Tags.Methods['free:health'] = function(unit)
+oUF.Tags.Methods['sunuf:health'] = function(unit)
 	if(not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit)) then return end
 
 	local min, max = UnitHealth(unit), UnitHealthMax(unit)
@@ -83,22 +83,22 @@ oUF.Tags.Methods['free:health'] = function(unit)
 		return format("|cffffffff%s|r %.0f", siValue(min), (min/max)*100)
 	end
 end
-oUF.Tags.Events['free:health'] = oUF.Tags.Events.missinghp
+oUF.Tags.Events['sunuf:health'] = oUF.Tags.Events.missinghp
 
 -- boss health requires frequent updates to work
-oUF.Tags.Methods['free:bosshealth'] = function(unit)
-	local val = oUF.Tags.Methods['free:health'](unit)
+oUF.Tags.Methods['sunuf:bosshealth'] = function(unit)
+	local val = oUF.Tags.Methods['sunuf:health'](unit)
 	return val or ""
 end
-oUF.Tags.Events['free:bosshealth'] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_TARGETABLE_CHANGED"
+oUF.Tags.Events['sunuf:bosshealth'] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_TARGETABLE_CHANGED"
 
-oUF.Tags.Methods['free:maxhealth'] = function(unit)
+oUF.Tags.Methods['sunuf:maxhealth'] = function(unit)
 	if(not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit)) then return end
 
 	local max = UnitHealthMax(unit)
 	return max
 end
-oUF.Tags.Events['free:maxhealth'] = oUF.Tags.Events.missinghp
+oUF.Tags.Events['sunuf:maxhealth'] = oUF.Tags.Events.missinghp
 
 local function shortName(unit)
 	name = UnitName(unit)
@@ -107,7 +107,7 @@ local function shortName(unit)
 	return name
 end
 
-oUF.Tags.Methods['free:name'] = function(unit)
+oUF.Tags.Methods['sunuf:name'] = function(unit)
 	if not UnitIsConnected(unit) then
 		return "Off"
 	elseif UnitIsDead(unit) then
@@ -118,9 +118,9 @@ oUF.Tags.Methods['free:name'] = function(unit)
 		return shortName(unit)
 	end
 end
-oUF.Tags.Events['free:name'] = oUF.Tags.Events.missinghp
+oUF.Tags.Events['sunuf:name'] = oUF.Tags.Events.missinghp
 
-oUF.Tags.Methods['free:missinghealth'] = function(unit)
+oUF.Tags.Methods['sunuf:missinghealth'] = function(unit)
 	local min, max = UnitHealth(unit), UnitHealthMax(unit)
 
 	if not UnitIsConnected(unit) then
@@ -135,16 +135,16 @@ oUF.Tags.Methods['free:missinghealth'] = function(unit)
 		return shortName(unit)
 	end
 end
-oUF.Tags.Events['free:missinghealth'] = oUF.Tags.Events.missinghp
+oUF.Tags.Events['sunuf:missinghealth'] = oUF.Tags.Events.missinghp
 
-oUF.Tags.Methods['free:power'] = function(unit)
+oUF.Tags.Methods['sunuf:power'] = function(unit)
 	local min, max = UnitPower(unit), UnitPowerMax(unit)
 	local _, class = UnitClass(unit)
 	if(min == 0 or max == 0 or not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit)) then return end
 
 	return siValue(min)
 end
-oUF.Tags.Events['free:power'] = oUF.Tags.Events.missingpp
+oUF.Tags.Events['sunuf:power'] = oUF.Tags.Events.missingpp
 
 --[[ Update health ]]
 
@@ -546,8 +546,8 @@ local UnitSpecific = {
 		HealthPoints:SetPoint("BOTTOMLEFT", Health, "TOPLEFT", 0, 3)
 		self.MaxHealthPoints:SetPoint("BOTTOMRIGHT", Health, "TOPRIGHT", 0, 3)
 
-		self:Tag(HealthPoints, '[dead][offline][free:health]')
-		self:Tag(self.MaxHealthPoints, '[free:maxhealth]')
+		self:Tag(HealthPoints, '[dead][offline][sunuf:health]')
+		self:Tag(self.MaxHealthPoints, '[sunuf:maxhealth]')
 		Health.value = HealthPoints
 
 		local _, UnitPowerType = UnitPowerType("player")
@@ -556,7 +556,7 @@ local UnitSpecific = {
 			PowerPoints:SetPoint("LEFT", HealthPoints, "RIGHT", 2, 0)
 			PowerPoints:SetTextColor(.4, .7, 1)
 
-			self:Tag(PowerPoints, '[free:power]')
+			self:Tag(PowerPoints, '[sunuf:power]')
 			Power.value = PowerPoints
 		end
 
@@ -1134,13 +1134,13 @@ local UnitSpecific = {
 
 		HealthPoints:SetPoint("BOTTOMLEFT", Health, "TOPLEFT", 0, 2)
 
-		self:Tag(HealthPoints, '[dead][offline][free:health]%')
+		self:Tag(HealthPoints, '[dead][offline][sunuf:health]%')
 		Health.value = HealthPoints
 
 		local PowerPoints = S:CreateFS(Power, 10)
 		PowerPoints:SetPoint("BOTTOMLEFT", Health.value, "BOTTOMRIGHT", 3, 0)
 
-		self:Tag(PowerPoints, '[free:power]')
+		self:Tag(PowerPoints, '[sunuf:power]')
 
 		Power.value = PowerPoints
 
@@ -1294,7 +1294,7 @@ local UnitSpecific = {
 
 		local HealthPoints = S:CreateFS(Health, 10, "RIGHT")
 		HealthPoints:SetPoint("RIGHT", self, "TOPRIGHT", 0, 6)
-		self:Tag(HealthPoints, '[dead][free:bosshealth]')
+		self:Tag(HealthPoints, '[dead][sunuf:bosshealth]')
 
 		Health.value = HealthPoints
 
@@ -1402,7 +1402,7 @@ local UnitSpecific = {
 
 		local HealthPoints = S:CreateFS(Health, 10, "RIGHT")
 		HealthPoints:SetPoint("RIGHT", self, "TOPRIGHT", 0, 6)
-		self:Tag(HealthPoints, '[dead][free:health]')
+		self:Tag(HealthPoints, '[dead][sunuf:health]')
 
 		Health.value = HealthPoints
 
@@ -1479,12 +1479,12 @@ do
 
 		if C["layout"] == 2 then
 			Health:SetHeight(C["partyHeightHealer"] - C["powerHeight"] - 1)
-			self:Tag(Text, '[free:missinghealth]')
+			self:Tag(Text, '[sunuf:missinghealth]')
 
 		else
 			Health:SetHeight(C["partyHeight"] - C["powerHeight"] - 1)
 			if C["partyNameAlways"] then
-				self:Tag(Text, '[free:name]')
+				self:Tag(Text, '[sunuf:name]')
 			else
 				self:Tag(Text, '[dead][offline]')
 			end
