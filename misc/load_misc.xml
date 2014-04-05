@@ -1,0 +1,9 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="FriendsMenuXP\load.xml"/>
+    <Include file="TheBurningTrade\load.xml"/>
+	<Include file="minitools\load.xml"/>
+	<Include file="tools\load.xml"/>
+	<!--
+	
+	-->
+</Ui>

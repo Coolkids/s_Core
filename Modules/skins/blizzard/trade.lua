@@ -1,4 +1,4 @@
-local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local A = S:GetModule("Skins")
 
 local function LoadSkin()
@@ -79,7 +79,7 @@ local function LoadSkin()
 			local r, g, b
 			local _, _, quality, _, _, _, _, _, _, texture = GetItemInfo(link)
 
-			if R:IsItemUnusable(link) then
+			if S:IsItemUnusable(link) then
 				icontexture:SetVertexColor(RED_FONT_COLOS.r, RED_FONT_COLOS.g, RED_FONT_COLOS.b)
 			else
 				icontexture:SetVertexColor(1, 1, 1)
@@ -126,7 +126,7 @@ local function LoadSkin()
 			local r, g, b
 			local _, _, quality, _, _, _, _, _, _, texture = GetItemInfo(link)
 
-			if R:IsItemUnusable(link) then
+			if S:IsItemUnusable(link) then
 				icontexture:SetVertexColor(RED_FONT_COLOS.r, RED_FONT_COLOS.g, RED_FONT_COLOS.b)
 			else
 				icontexture:SetVertexColor(1, 1, 1)

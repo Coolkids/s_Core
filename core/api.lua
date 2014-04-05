@@ -38,12 +38,14 @@ local function CreateShadow(f, t, thickness)
 
     if t == "Background" then
         backdropr, backdropg, backdropb, backdropa = unpack(S["media"].backdropfadecolor)
-    else
+    elseif type(t) == "number" then
+		backdropa = t
+	else
         backdropa = 0
     end
 
 	local border = CreateFrame("Frame", nil, f)
-	border:SetFrameLevel(frameLevel)
+	border:SetFrameLevel(frameLevel-1)
 	border:SetOutside(f, 1, 1)
     border:SetTemplate("Border")
 	f.border = border

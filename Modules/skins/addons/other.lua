@@ -1,8 +1,8 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local A = S:GetModule("Skins")
 
-local function SkinOther()
-	Skin:UnregisterEvent("PLAYER_ENTERING_WORLD")
+local function SkinOther(self)
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	
 	if FriendsMenuXPSecure then
 		FriendsMenuXPSecureMenuBackdrop:StripTextures()
@@ -38,6 +38,10 @@ local function SkinOther()
 	if UnitPopupMenus then
 		UnitPopupMenus["PLAYER"] = {"WHISPER", "INSPECT", "ACHIEVEMENTS", "INVITE", "TRADE", "FOLLOW", "DUEL", "PET_BATTLE_PVP_DUEL", "RAID_TARGET_ICON", "RAF_SUMMON", "RAF_GRANT_LEVEL", "MOVE_PLAYER_FRAME", "MOVE_TARGET_FRAME", "CANCEL" };
 	end
+	--local MB = S:GetModule("MirrorBar")
+	--MB:PLAYER_ENTERING_WORLD()
 end
 
-A:RegisterSkin("SunUI", Skin)
+local STFrame = CreateFrame("Frame")
+STFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+STFrame:SetScript("OnEvent", SkinOther)

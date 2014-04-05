@@ -1,0 +1,8 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	
+	<Script file="config.lua"/>
+	<Script file="FastError.lua"/>
+	<Script file="lowhealth.lua"/>
+	<Script file="OCES.lua"/>
+	<Script file="notifications.lua"/>
+</Ui>

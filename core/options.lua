@@ -59,11 +59,11 @@ S.Options = {
 				ChoosLayout = {
 					order = 5,
 					type = "execute",
-					name = L["选择布局"],
-					desc = L["选择布局"],
+					name = L["技能监视"],
+					desc = L["技能监视"],
 					func = function()
 						AceConfigDialog["Close"](AceConfigDialog,"SunUI")
-						S:ChooseLayout()
+						AceConfigDialog["Open"](AceConfigDialog,"RayWatcherConfig")
 						GameTooltip_Hide()
 					end,
 				},

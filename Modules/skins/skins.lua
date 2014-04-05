@@ -24,6 +24,7 @@ A["media"] = {
 	["arrowDown"] = "Interface\\AddOns\\SunUI\\media\\arrow-down-active",
 	["arrowLeft"] = "Interface\\AddOns\\SunUI\\media\\arrow-left-active",
 	["arrowRight"] = "Interface\\AddOns\\SunUI\\media\\arrow-right-active",
+	["backdrop"] = "Interface\\ChatFrame\\ChatFrameBackground",
 }
 
 
@@ -420,8 +421,7 @@ function A:ReskinSlider(f)
 end
 
 function A:SetBD(f, x, y, x2, y2)
-	if not f then return end
-	local frameLevel = f:GetFrameLevel() > 1 and f:GetFrameLevel() - 1 or 1
+	if not f or f.setbd then return end
 	local bg = CreateFrame("Frame", nil, f)
 	if not x then
 		bg:SetPoint("TOPLEFT")
@@ -430,12 +430,10 @@ function A:SetBD(f, x, y, x2, y2)
 		bg:Point("TOPLEFT", x, y)
 		bg:Point("BOTTOMRIGHT", x2, y2)
 	end
-	bg:SetFrameLevel(frameLevel)
-	A:CreateBD(bg)
+	bg:SetFrameLevel(0)
+	A:CreateBD(bg, 0.5)
 	A:CreateSD(bg)
-	f:HookScript("OnShow", function()
-		bg:SetFrameLevel(frameLevel)
-	end)
+	f.setbd = true
 end
 
 function A:ReskinPortraitFrame(f, isButtonFrame)
@@ -579,4 +577,21 @@ function A:CreateShadow(p, f, t, thickness)
 	shadow:SetBackdropColor( backdropr, backdropg, backdropb, backdropa )
 	shadow:SetBackdropBorderColor( borderr, borderg, borderb )
 	p.shadow = shadow
+end
+
+function A:ReskinFrame(f)
+	if f.reskin == true then return end
+	f.glow = CreateFrame("Frame", nil, f)
+	f.glow:SetBackdrop({
+		edgeFile = S["media"].glow,
+		edgeSize = 5,
+	})
+	f.glow:SetPoint("TOPLEFT", -6, 6)
+	f.glow:SetPoint("BOTTOMRIGHT", 6, -6)
+	f.glow:SetBackdropBorderColor(r, g, b)
+	f.glow:SetAlpha(0)
+
+	f:HookScript("OnEnter", StartGlow)
+ 	f:HookScript("OnLeave", StopGlow)
+	f.reskin = true
 end

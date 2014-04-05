@@ -1,12 +1,12 @@
-local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local A = S:GetModule("Skins")
 
 local function LoadSkin()
 	local AlertFrameHolder = CreateFrame("Frame", "AlertFrameHolder", UIParent)
 	AlertFrameHolder:SetWidth(180)
 	AlertFrameHolder:SetHeight(20)
-	AlertFrameHolder:SetPoint("CENTER", UIParent, "CENTER", 0, 210)
-
+	AlertFrameHolder:SetPoint("RIGHT", "UIParent", "RIGHT", -220, -100)
+	S:CreateMover(AlertFrameHolder, "AlertFrameHolderMover", L["成就锚点"], true, nil, "ALL,GENERAL")
 	local POSITION, ANCHOR_POINT, YOFFSET = "TOP", "BOTTOM", -10
 
 	hooksecurefunc("AlertFrame_SetAchievementAnchors", function(anchorFrame)

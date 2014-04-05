@@ -1,3 +1,4 @@
+﻿
 local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local A = S:GetModule("Skins")
 
@@ -165,7 +166,7 @@ local function LoadSkin()
 				lootSlot:SetBackdropColor(0, 0, 0, 0)
 				lootSlot:StyleButton(true)
 			end
-			if R:IsItemUnusable(GetLootSlotLink(id)) or locked then
+			if S:IsItemUnusable(GetLootSlotLink(id)) or locked then
 				lootSlot.texture:SetVertexColor(RED_FONT_COLOS.r, RED_FONT_COLOS.g, RED_FONT_COLOS.b)
 			else
 				lootSlot.texture:SetVertexColor(1, 1, 1)
@@ -201,7 +202,7 @@ local function LoadSkin()
 				if numLootItems > 0 then
 					for i = 1, numLootItems do
 						UpdateLootSlot(self, i)
-                        if not R:TableIsEmpty(autoLootTable) then
+                        if not S:TableIsEmpty(autoLootTable) then
                             if GetLootSlotType(i) == 2 then
                                 LootSlot(i)
                             else
@@ -364,5 +365,5 @@ local function LoadSkin()
 	A:CreateBD(MissingLootFrame)
 	A:ReskinClose(MissingLootFramePassButton)
 end
-
-A:RegisterSkin("SunUI", LoadSkin)
+LoadSkin = nil
+--A:RegisterSkin("SunUI", LoadSkin)

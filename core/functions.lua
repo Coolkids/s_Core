@@ -14,7 +14,6 @@ S.HiddenFrame = CreateFrame("Frame")
 S.HiddenFrame:Hide()
 
 local AddonNotSupported = {}
-local BlackList = {"bigfoot", "duowan", "163ui"}
 local demoFrame
 
 local ItemUpgrade = setmetatable ({
@@ -154,110 +153,19 @@ function S:GetItemUpgradeLevel(iLink)
 	end
 end
 
-local function CreateWarningFrame()
-	for index in pairs(AddonNotSupported) do
-		S:Print(GetAddOnInfo(index))
-	end
-	local A = S:GetModule("Skins")
-	local frame = CreateFrame("Frame", "SunUIWarningFrame", UIParent)
-	A:SetBD(frame)
-	frame:Size(400, 400)
-	frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-	frame:EnableMouse(true)
-	frame:SetFrameStrata("DIALOG")
-
-	local titile = frame:CreateFontString(nil, "OVERLAY")
-	titile:Point("TOPLEFT", 0, -10)
-	titile:Point("TOPRIGHT", 0, -10)
-	titile:SetFont(S["media"].font, S["media"].fontsize + 2, S["media"].fontflag)
-	titile:SetText("可能影响正常使用的插件")
-
-	local scrollArea = CreateFrame("ScrollFrame", "SunUIWarningFrameScroll", frame, "UIPanelScrollFrameTemplate")
-	scrollArea:Point("TOPLEFT", frame, "TOPLEFT", 8, -40)
-	scrollArea:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -30, 50)
-
-	A:ReskinScroll(SunUIWarningFrameScroll)
-
-	local messageFrame = CreateFrame("EditBox", nil, frame)
-	messageFrame:SetFont(S["media"].font, S["media"].fontsize, S["media"].fontflag)
-	messageFrame:EnableMouse(false)
-	messageFrame:EnableKeyboard(false)
-	messageFrame:SetMultiLine(true)
-	messageFrame:SetMaxLetters(99999)
-	messageFrame:Size(400, 400)
-
-	scrollArea:SetScrollChild(messageFrame)
-
-	for i in pairs(AddonNotSupported) do
-		local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(i)
-		messageFrame:SetText(messageFrame:GetText().."\n"..name)
-	end
-
-	local button1 = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-	button1:Size(150, 30)
-	button1:Point("BOTTOMLEFT", 10, 10)
-	A:Reskin(button1)
-	button1:SetText("禁用这些")
-	button1:SetScript("OnClick", function()
-		for i = 1, GetNumAddOns() do
-			if AddonNotSupported[i] then
-				DisableAddOn(i)
-			end
-		end
-		ReloadUI()
-	end)
-
-	local button2 = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-	button2:Size(150, 30)
-	button2:Point("BOTTOMRIGHT", -10, 10)
-	A:Reskin(button2)
-	button2:SetText("无视请继续")
-	button2:SetScript("OnClick", function()
-		for i = 1, GetNumAddOns() do
-			if GetAddOnInfo(i) == "SunUI" then
-				DisableAddOn(i)
-			end
-		end
-		ReloadUI()
-	end)
-end
-
-local function CheckAddon()
-	for i = 1, GetNumAddOns() do
-		local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(i)
-		if enabled then
-			for _, word in pairs(BlackList) do
-				if (name and name:lower():find(word)) or (title and title:lower():find(word)) then
-					AddonNotSupported[i] = true
-				end
-			end
-		end
-	end
-	if S:TableIsEmpty(AddonNotSupported) then
-		return false
-	else
-		CreateWarningFrame()
-		return true
-	end
-end
-
 function S:InitializeModules()
-	--if CheckAddon() then
-		--return
-	--else
-		for i = 1, #self["RegisteredModules"] do
-			local module = self:GetModule(self["RegisteredModules"][i])
-			if (self.db[self["RegisteredModules"][i]] == nil or self.db[self["RegisteredModules"][i]].enable ~= false) and module.Initialize then
-				local _, catch = pcall(module.Initialize, module)
-				if catch and GetCVarBool("scriptErrors") == 1 then
-					if not IsAddOnLoaded("Blizzard_DebugTools") then
-						LoadAddOn("Blizzard_DebugTools")
-						ScriptErrorsFrame_OnError(catch, false)
-					end
+	for i = 1, #self["RegisteredModules"] do
+		local module = self:GetModule(self["RegisteredModules"][i])
+		if (self.db[self["RegisteredModules"][i]] == nil or self.db[self["RegisteredModules"][i]].enable ~= false) and module.Initialize then
+			local _, catch = pcall(module.Initialize, module)
+			if catch and GetCVarBool("scriptErrors") == 1 then
+				if not IsAddOnLoaded("Blizzard_DebugTools") then
+					LoadAddOn("Blizzard_DebugTools")
 				end
+				ScriptErrorsFrame_OnError(catch, false)
 			end
 		end
-	--end
+	end
 end
 
 function S:PLAYER_ENTERING_WORLD()
@@ -296,9 +204,9 @@ end
 
 function S:Initialize()
 	self:LoadMovers()
-
-	if not self.db.layoutchosen then
-		self:ChooseLayout()
+	--TODO 初始化安装地方
+	if not self.db.installed then
+		self:CreateInstallFrame()
 	end
 
 	self:CheckRole()
@@ -851,4 +759,25 @@ function S:FadeOutFrame(p, t, show)  --隐藏
 		fadeInfo.endAlpha = 0
 		UIFrameFade(_G[p], fadeInfo)
 	end 
+end
+
+function S:FormatTime(s)
+	local day, hour, minute = 86400, 3600, 60
+	if s >= day then
+		return format("%dd", floor(s/day + 0.5)), s % day
+	elseif s >= hour then
+		return format("%dh", floor(s/hour + 0.5)), s % hour
+	elseif s >= minute then
+		return format("%dm", floor(s/minute + 0.5)), s % minute
+	end
+	return format("%ds", s), (s * 100 - floor(s * 100))/100
+end
+
+function S:CreateFS(parent, fontSize, justify)
+    local f = parent:CreateFontString(nil, "OVERLAY")
+    f:FontTemplate(nil, fontSize)
+
+    if justify then f:SetJustifyH(justify) end
+
+    return f
 end

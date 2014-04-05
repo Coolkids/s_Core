@@ -84,6 +84,7 @@ function AddOn:OnInitialize()
 				order = 1
 			}
 			if v.Info then
+				--print("n::"..v:Info())
 				t.description = {
 					type = "description",
 					name = v:Info() .. "\n\n",

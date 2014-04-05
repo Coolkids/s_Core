@@ -11,7 +11,6 @@ local MoverTypes = {
 	"UNITFRAMES",
     "ACTIONBARS",
 	"MINITOOLS",
-    "ARENA",
 }
 
 local function SizeChanged(frame)

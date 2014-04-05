@@ -1,171 +1,248 @@
-local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
-local hooked = false
+﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+function S:CreateInstallFrame()
+	local A = S:GetModule("Skins")
+	local f
+	if not f then 
+		f = CreateFrame("Frame", "SunUI_InstallFrame", UIParent)
+		f:SetSize(400, 400)
+		f:SetPoint("CENTER")
+		f:SetFrameStrata("HIGH")
+		A:CreateBD(f)
+		A:CreateSD(f)
 
-local function ShowFinish(text, subtext)
-    local levelUpTexCoords = {
-        gLine = { 0.00195313, 0.81835938, 0.00195313, 0.01562500 },
-        tint = {1, 0.996, 0.745},
-        gLineDelay = 0,
-    }
-
-    local script = LevelUpDisplay:GetScript("OnShow")
-    LevelUpDisplay.type = LEVEL_UP_TYPE_SCENARIO
-    LevelUpDisplay:SetScript("OnShow", nil)
-    LevelUpDisplay:Show()
-
-    LevelUpDisplay.scenarioFrame.level:SetText(text)
-    LevelUpDisplay.scenarioFrame.name:SetText(subtext)
-    LevelUpDisplay.scenarioFrame.description:SetText("")
-    LevelUpDisplay:SetPoint("TOP", 0, -250)
-
-    LevelUpDisplay.gLine:SetTexCoord(unpack(levelUpTexCoords.gLine))
-    LevelUpDisplay.gLine2:SetTexCoord(unpack(levelUpTexCoords.gLine))
-    LevelUpDisplay.gLine:SetVertexColor(unpack(levelUpTexCoords.tint))
-    LevelUpDisplay.gLine2:SetVertexColor(unpack(levelUpTexCoords.tint))
-    LevelUpDisplay.levelFrame.levelText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-    LevelUpDisplay.gLine.grow.anim1:SetStartDelay(levelUpTexCoords.gLineDelay)
-    LevelUpDisplay.gLine2.grow.anim1:SetStartDelay(levelUpTexCoords.gLineDelay)
-    LevelUpDisplay.blackBg.grow.anim1:SetStartDelay(levelUpTexCoords.gLineDelay)
-
-    LevelUpDisplay.scenarioFrame.newStage:Play()
-    PlaySoundKitID(31749)
-
-    LevelUpDisplay:SetScript("OnShow", script)
-
-	--if not hooked then
-		--hooksecurefunc("LevelUpDisplay_BuildPetBattleWinnerList", function(self)
-			--if self.hooked then
-				--self.winnerSoundKitID = 31749
-				--self.hooked=nil
-			--end
-		--end)
-		--hooked = true
-	--end
-	--LevelUpDisplay.hooked=true
-	--LevelUpDisplay.type=TOAST_PET_BATTLE_WINNER
-	--LevelUpDisplay:Show()
-	--LevelUpDisplay.levelFrame.singleline:SetText(text)
-end
---设置布局
-function S:SetLayout(layout)
-	S.db.layout = layout
-	if layout == "healer" then
-		S:ResetMovers()
-		S.db.movers = {}
-		--[[S.db.movers.RayUF_playerMover = "BOTTOMRIGHTUIParentBOTTOM-190390"
-		S.db.movers.RayUF_targetMover = "BOTTOMLEFTUIParentBOTTOM190390"
-		S.db.movers.RayUF_petMover = "TOPLEFTRayUF_playerMoverBOTTOMLEFT0-60"
-		S.db.movers.RayUFRaid15_1Mover = "BOTTOMUIParentBOTTOM0180"
-		S.db.movers.RayUFRaid15_2Mover = "BOTTOMRayUFRaid15_1MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid15_3Mover = "BOTTOMRayUFRaid15_2MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid25_1Mover = "BOTTOMUIParentBOTTOM0150"
-		S.db.movers.RayUFRaid25_2Mover = "BOTTOMRayUFRaid25_1MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid25_3Mover = "BOTTOMRayUFRaid25_2MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid25_4Mover = "BOTTOMRayUFRaid25_3MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid25_5Mover = "BOTTOMRayUFRaid25_4MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid40_6Mover = "BOTTOMRayUFRaid25_5MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid40_7Mover = "BOTTOMRayUFRaid40_6MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.RayUFRaid40_8Mover = "BOTTOMRayUFRaid40_7MoverTOP0"..S.db.Raid.spacing
-		S.db.movers.PlayerCastBarMover = "BOTTOMUIParentBOTTOM0130"
-		S.db.movers.VengeanceBarMover = "BOTTOMUIParentBOTTOM0140"
-		S.db.movers.ActionBar1Mover = "BOTTOMUIParentBOTTOM"..(-3*S.db.ActionBar.buttonsize-3*S.db.ActionBar.buttonspacing).."50"
-		S.db.movers.ActionBar5Mover = "TOPRIGHTActionBar4MoverTOPLEFT"..-S.db.ActionBar.buttonspacing.."0"
-		S.db.movers.PetBarMover = "BOTTOMLEFTActionBar2MoverBOTTOMRIGHT"..S.db.ActionBar.buttonspacing.."0"
-		S.db.movers.AltPowerBarMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-36085"
-		S.db.Raid.horizontal = true
-		S.db.Raid.growth = "UP"
-		--]]
+		local sb = CreateFrame("StatusBar", nil, f)
+		sb:SetPoint("BOTTOM", f, "BOTTOM", 0, 60)
+		sb:SetSize(320, 20)
+		sb:SetStatusBarTexture(S["media"].normal)
+		sb:Hide()
 		
-	elseif layout == "dps" then
-		S:ResetMovers()
-		S.db.movers = {}
-		--[[
-		S.db.movers.ArenaHeaderMover = "TOPLEFTUIParentBOTTOM450460"
-		S.db.movers.BossHeaderMover = "TOPLEFTUIParentBOTTOM450460"
-		S.db.movers.RayUF_focusMover = "BOTTOMRIGHTRayUF_playerTOPLEFT-2050"
-		S.db.movers.RayUFRaid15_1Mover = "BOTTOMLEFTUIParentBOTTOMLEFT15235"
-		S.db.movers.RayUFRaid25_1Mover = "BOTTOMLEFTUIParentBOTTOMLEFT15235"
-		S.db.movers.RayUFRaid40_6Mover = "BOTTOMLEFTRayUFRaid25_1MoverTOPLEFT0"..S.db.Raid.spacing
-		S.db.movers.ActionBar5Mover = "TOPRIGHTActionBar4MoverTOPLEFT"..-S.db.ActionBar.buttonspacing.."0"
-		S.db.Raid.horizontal = false
-		S.db.Raid.growth = "RIGHT"
-		--]]
-	elseif layout == "default" then
-		S:ResetMovers()
-		S.db.Raid.horizontal = false
-		S.db.Raid.growth = "RIGHT"
+		local sbd = CreateFrame("Frame", nil, sb)
+		sbd:SetPoint("TOPLEFT", sb, -1, 1)
+		sbd:SetPoint("BOTTOMRIGHT", sb, 1, -1)
+		sbd:SetFrameLevel(sb:GetFrameLevel()-1)
+		A:CreateBD(sbd, .25)
+
+		local header = f:CreateFontString(nil, "OVERLAY")
+		header:SetFont(S["media"].font, 16, "THINOUTLINE")
+		header:SetPoint("TOP", f, "TOP", 0, -20)
+
+		local body = f:CreateFontString(nil, "OVERLAY")
+		body:SetJustifyH("LEFT")
+		body:SetFont(S["media"].font, 13, "THINOUTLINE")
+		body:SetWidth(f:GetWidth()-40)
+		body:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -60)
+
+		local credits = f:CreateFontString(nil, "OVERLAY")
+		credits:SetFont(S["media"].font, 9, "THINOUTLINE")
+		credits:SetText("SunUI by Coolkid @ 天空之牆 - TW")
+		credits:SetPoint("BOTTOM", f, "BOTTOM", 0, 4)
+
+		local sbt = sb:CreateFontString(nil, "OVERLAY")
+		sbt:SetFont(S["media"].font, 13, "THINOUTLINE")
+		sbt:SetPoint("CENTER", sb)
+
+		local option1 = CreateFrame("Button", "SunUI_Install_Option1", f, "UIPanelButtonTemplate")
+		option1:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 20, 20)
+		option1:SetSize(128, 25)
+		A:Reskin(option1)
+
+		local option2 = CreateFrame("Button", "SunUI_Install_Option2", f, "UIPanelButtonTemplate")
+		option2:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -20, 20)
+		option2:SetSize(128, 25)
+		A:Reskin(option2)
+		--SetUpChat
+		local function SetChat()
+			local channels = {"SAY","EMOTE","YELL","GUILD","OFFICER","GUILD_ACHIEVEMENT","ACHIEVEMENT","WHISPER","PARTY","PARTY_LEADER","RAID","RAID_LEADER","RAID_WARNING","INSTANCE_CHAT","INSTANCE_CHAT_LEADER","CHANNEL1","CHANNEL2","CHANNEL3","CHANNEL4","CHANNEL5","CHANNEL6","CHANNEL7",}
+				
+			for i, v in ipairs(channels) do
+				ToggleChatColorNamesByClassGroup(true, v)
+			end
+			
+			FCF_SetLocked(ChatFrame1, nil)
+			FCF_SetChatWindowFontSize(self, ChatFrame1, 15) 
+			ChatFrame1:ClearAllPoints()
+			ChatFrame1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 3, 33)
+			ChatFrame1:SetWidth(327)
+			ChatFrame1:SetHeight(122)
+			ChatFrame1:SetClampedToScreen(false)
+			for i = 1,10 do FCF_SetWindowAlpha(_G["ChatFrame"..i], 0) end
+			FCF_SavePositionAndDimensions(ChatFrame1)
+			FCF_SetLocked(ChatFrame1, 1)
+			
+		end
+		--SetUpDBM
+		local function SetDBM()
+			if not IsAddOnLoaded("DBM-Core") then return end
+			DBM_SavedOptions.Enabled = true
+			DBT_SavedOptions["DBM"].Scale = 1
+			DBT_SavedOptions["DBM"].HugeScale = 1
+			DBT_SavedOptions["DBM"].ExpandUpwards = false
+			DBT_SavedOptions["DBM"].BarXOffset = 0
+			DBT_SavedOptions["DBM"].BarYOffset = 18
+			DBT_SavedOptions["DBM"].IconLeft = true
+			DBT_SavedOptions["DBM"].IconRight = false	
+			DBT_SavedOptions["DBM"].Flash = false
+			DBT_SavedOptions["DBM"].FadeIn = true
+			DBM_SavedOptions["DisableCinematics"] = true
+			DBT_SavedOptions["DBM"].TimerX = 420
+			DBT_SavedOptions["DBM"].TimerY = -29
+			DBT_SavedOptions["DBM"].TimerPoint = "TOPLEFT"
+			DBT_SavedOptions["DBM"].StartColorR = S.myclasscolor.r
+			DBT_SavedOptions["DBM"].StartColorG = S.myclasscolor.g
+			DBT_SavedOptions["DBM"].StartColorB = S.myclasscolor.b
+			DBT_SavedOptions["DBM"].EndColorR = S.myclasscolor.r
+			DBT_SavedOptions["DBM"].EndColorG = S.myclasscolor.g
+			DBT_SavedOptions["DBM"].EndColorB = S.myclasscolor.b
+			DBT_SavedOptions["DBM"].Width = 130
+			DBT_SavedOptions["DBM"].Height = 20
+			DBT_SavedOptions["DBM"].HugeWidth = 155
+			DBT_SavedOptions["DBM"].HugeTimerPoint = "TOP"
+			DBT_SavedOptions["DBM"].HugeTimerX = -150
+			DBT_SavedOptions["DBM"].HugeTimerY = -207
+			DBM_SavedOptions["SpecialWarningFontColor"] = {
+				0.40,
+				0.78,
+				1,
+			}
+			DBM_SavedOptions["ShowWarningsInChat"] = false
+			DBM_SavedOptions["HideBossEmoteFrame"] = true
+		end
+		--按钮
+		local step4 = function()
+			sb:SetValue(4)
+			PlaySoundFile("Sound\\interface\\LevelUp.wav")
+			header:SetText(L["安装完毕"])
+			body:SetText(L["完毕信息"])
+			sbt:SetText("4/4")
+			option1:Hide()
+			option2:SetText(L["结束"])
+			option2:SetScript("OnClick", function()
+				self.db.installed = true
+				ReloadUI()
+			end)
+		end
+
+		local step3 = function()
+			sb:SetValue(3)
+			header:SetText(L["安装DBM设置"])
+			body:SetText(L["安装DBM设置信息"])
+			sbt:SetText("3/4")
+			option1:SetScript("OnClick", step4)
+			option2:SetScript("OnClick", function()
+				SetDBM()
+				step4()
+			end)
+		end
+
+		local step2 = function()
+			sb:SetValue(2)
+			header:SetText(L["聊天框设置"])
+			body:SetText(L["聊天框设置信息"])
+			sbt:SetText("2/4")
+			option1:SetScript("OnClick", step3)
+			option2:SetScript("OnClick", function()
+				SetChat()
+				step3()
+			end)
+		end
+
+		local step1 = function()
+			sb:SetMinMaxValues(0, 4)
+			sb:Show()
+			sb:SetValue(1)
+			sb:GetStatusBarTexture():SetGradient("VERTICAL", 0.20, .9, 0.12, 0.36, 1, 0.30)
+			header:SetText(L["核心数据"])
+			body:SetText(L["核心数据信息"])
+			sbt:SetText("1/4")
+			option1:Show()
+			option1:SetText(L["跳过"])
+			option2:SetText(L["下一步"])
+			option1:SetScript("OnClick", step2)
+			option2:SetScript("OnClick", function()
+				step2()
+			end)
+		end
+
+		local tut6 = function()
+			sb:SetValue(6)
+			header:SetText(L["教程6名字"])
+			body:SetText(L["教程6信息"])
+			sbt:SetText("6/6")
+			option1:Show()
+			option1:SetText(L["结束"])
+			option2:SetText(L["安装"])
+			option1:SetScript("OnClick", function()
+				UIFrameFade(f,{
+					mode = "OUT",
+					timeToFade = 0.5,
+					finishedFunc = function(f) f:Hide() end,
+					finishedArg1 = f,
+				})
+			end)
+			option2:SetScript("OnClick", step1)
+		end
+
+		local tut5 = function()
+			sb:SetValue(5)
+			header:SetText(L["教程5名字"])
+			body:SetText(L["教程5信息"])
+			sbt:SetText("5/6")
+			option2:SetScript("OnClick", tut6)
+		end
+
+		local tut4 = function()
+			sb:SetValue(4)
+			header:SetText(L["教程4名字"])
+			body:SetText(L["教程4信息"])
+			sbt:SetText("4/6")
+			option2:SetScript("OnClick", tut5)
+		end
+
+		local tut3 = function()
+			sb:SetValue(3)
+			header:SetText(L["教程3名字"])
+			body:SetText(L["教程3信息"])
+			sbt:SetText("3/6")
+			option2:SetScript("OnClick", tut4)
+		end
+
+		local tut2 = function()
+			sb:SetValue(2)
+			header:SetText(L["教程2名字"])
+			body:SetText(L["教程2信息"])
+			sbt:SetText("2/6")
+			option2:SetScript("OnClick", tut3)
+		end
+
+		local tut1 = function()
+			sb:SetMinMaxValues(0, 6)
+			sb:Show()
+			sb:SetValue(1)
+			sb:GetStatusBarTexture():SetGradient("VERTICAL", 0, 0.65, .9, .1, .9, 1)
+			header:SetText(L["教程1名字"])
+			body:SetText(L["教程1信息"])
+
+			sbt:SetText("1/6")
+			option1:Hide()
+			option2:SetText(L["下一步"])
+			option2:SetScript("OnClick", tut2)
+		end
+		
+		header:SetText(L["欢迎"])
+		body:SetText(L["欢迎信息"])
+
+		option1:SetText(L["教程"])
+		option2:SetText(L["安装SunUI"])
+
+		option1:SetScript("OnClick", tut1)
+		option2:SetScript("OnClick", step1)
+	else
+		f:Show()
 	end
-	StaticPopup_Show("CFG_RELOAD")
-	S:SetMoversPositions()
-    --for i = 1, 5 do
-        --S:GetModule("ActionBar"):UpdatePositionAndSize("bar"..i)
-    --end
 end
-
-function S:ChooseLayout()
-	if not SunUILayoutChooser then
-		local A = S:GetModule("Skins")
-		local f = CreateFrame("Frame", "SunUILayoutChooser", UIParent)
-		f:SetFrameStrata("TOOLTIP")
-		f:Size(500, 250)
-		f:Point("CENTER")
-		A:SetBD(f)
-
-		f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-		f.CloseButton:SetScript("OnClick", function()
-			S.db.layoutchosen = true
-			f:Hide()
-		end)
-		A:ReskinClose(f.CloseButton)
-
-		f.Title = f:CreateFontString(nil, "OVERLAY")
-		f.Title:FontTemplate(nil, 17, nil)
-		f.Title:Point("TOP", 0, -15)
-		f.Title:SetText(L["布局选择"])
-
-		f.Desc = f:CreateFontString(nil, "OVERLAY")
-		f.Desc:FontTemplate()
-		f.Desc:Point("TOPLEFT", 20, -80)
-		f.Desc:Width(f:GetWidth() - 40)
-		f.Desc:SetText(L["请选择一个布局开始使用"])
-
-		f.Option1 = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-		f.Option1:Size(120, 30)
-		f.Option1:Point("BOTTOM", 0, 30)
-		f.Option1:SetText(L["默认"])
-		f.Option1:SetScript("OnClick", function(self)
-			S.db.layoutchosen = true
-			S:SetLayout("default")
-			ShowFinish(L["设置完成"], self:GetText())
-			f:Hide()
-		end)
-		A:Reskin(f.Option1)
-
-		f.Option2 = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-		f.Option2:StripTextures()
-		f.Option2:Size(120, 30)
-		f.Option2:Point("RIGHT", f.Option1, "LEFT", -30, 0)
-		f.Option2:SetText(L["伤害输出"])
-		f.Option2:SetScript("OnClick", function(self)
-			S.db.layoutchosen = true
-			S:SetLayout("dps")
-			ShowFinish(L["设置完成"], self:GetText())
-			f:Hide()
-		end)
-		A:Reskin(f.Option2)
-
-		f.Option3 = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-		f.Option3:StripTextures()
-		f.Option3:Size(120, 30)
-		f.Option3:Point("LEFT", f.Option1, "RIGHT", 30, 0)
-		f.Option3:SetText(L["治疗"])
-		f.Option3:SetScript("OnClick", function(self)
-			S.db.layoutchosen = true
-			S:SetLayout("healer")
-			ShowFinish(L["设置完成"], self:GetText())
-			f:Hide()
-		end)
-		A:Reskin(f.Option3)
+SlashCmdList["SETSUNUI"] = function()
+	if not UnitAffectingCombat("player") then
+		CreateInstallFrame()
 	end
-	SunUILayoutChooser:Show()
 end
+SLASH_SETSUNUI1 = "/setsunui"

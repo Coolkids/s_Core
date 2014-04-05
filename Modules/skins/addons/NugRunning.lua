@@ -85,7 +85,7 @@ local function Skin()
 		f.SetColor = TimerBarSetColor
 		
 		local powertext = f.bar:CreateFontString()
-	   powertext:SetFont(S["media"].font, S["media"].fontsize, "THINOUTLINE")
+	    powertext:SetFont(S["media"].font, S["media"].fontsize, "THINOUTLINE")
 		powertext:SetPoint("BOTTOMLEFT", f.bar, "BOTTOMRIGHT",2,0)
 		powertext:SetShadowColor(0, 0, 0)
 		powertext:SetShadowOffset(1, -1)
@@ -162,6 +162,11 @@ local function Skin()
 		spark:SetHeight(m:GetWidth()*4)
 		spark:SetPoint("CENTER",m)
 		spark:SetBlendMode('ADD')
+		spark.mark = m
+		spark.CatchUp = function(self)
+			local markpoint = 
+			self:SetPoint(self.mark:GetPoint())
+		end
 		m.spark = spark
 		
 		local ag = spark:CreateAnimationGroup()
@@ -181,11 +186,6 @@ local function Skin()
 		return f
 	end
 	NugRunning.ConstructTimerBar = ConstructTimerBar
-	hooksecurefunc(NugRunning.TimerBar, "SetColor", function(self,r,g,b)
-		self.bar:SetStatusBarColor(r,g,b)
-		--local s = self.bar:GetStatusBarTexture()
-		--S.CreateTop(s, r, g, b)
-	end)
 
 	function NugRunning.TimerBar.SetPowerStatus(self, status, powerdiff)
 		if status == "HIGH" then
@@ -205,298 +205,189 @@ local function Skin()
 	end
 	function NugRunning:DoNameplates()
 
-	local next = next
-	local table_remove = table.remove
+		local next = next
+		local table_remove = table.remove
 
-	local makeicon = true
+		local makeicon = true
 
-	local Nplates
-	local plates = {}
+		local Nplates
+		local plates = {}
 
-	local oldTargetGUID
-	local guidmap = {}
+		local oldTargetGUID
+		local guidmap = {}
 
-	local function OnHide(frame)
-		local frame_guid = frame.guid
-		if frame_guid then
-			guidmap[frame_guid] = nil
-			frame.guid = nil
-			if frame_guid == oldTargetGUID then
-				oldTargetGUID = nil
-			end
-		end
-		for _, timer in ipairs(frame.timers) do
-			timer:Hide()
-		end
-	end
-
-	local function HookFrames(...)
-		for index=1,select("#", ...) do
-			local frame = select(index, ...)
-			local region = frame:GetRegions()
-			local fname = frame:GetName()
-			if  not plates[frame] and
-				fname and string.find(fname, "NamePlate")
-			then
-				local hp, cb = frame:GetChildren()
-				local threat, hpborder, overlay, oldname, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
-				local _, cbborder, cbshield, cbicon = cb:GetRegions()
-				frame.name = oldname
-				frame.timers = {}
-				-- frame.healthBar = healthBar
-				-- frame.castBar = castBar
-				plates[frame] = true
-				frame:HookScript("OnHide", OnHide)
-			end
-		end
-	end
-
-	NugRunningNameplates = CreateFrame("Frame")
-	NugRunningNameplates:SetScript('OnUpdate', function(self, elapsed)
-		if(WorldFrame:GetNumChildren() ~= Nplates) then
-			Nplates = WorldFrame:GetNumChildren()
-			HookFrames(WorldFrame:GetChildren())
-		end
-		if UnitExists("target") then
-			local targetGUID = UnitGUID("target")
-			for frame in pairs(plates) do
-				if frame:IsShown() and frame:GetAlpha() == 1 and
-					(UnitName("target") == frame.name:GetText()) and
-					targetGUID ~= oldTargetGUID then
-						guidmap[targetGUID] =  frame
-						frame.guid = targetGUID
-						oldTargetGUID = targetGUID
-						local guidTimers = NugRunning:GetTimersByDstGUID(targetGUID)
-						NugRunningNameplates:UpdateNPTimers(frame, guidTimers)
-						return
-						-- frame.name:SetText(targetGUID)
+		local function OnHide(frame)
+			local frame_guid = frame.guid
+			if frame_guid then
+				guidmap[frame_guid] = nil
+				frame.guid = nil
+				if frame_guid == oldTargetGUID then
+					oldTargetGUID = nil
 				end
 			end
-		else
-			oldTargetGUID = nil
-		end
-	end)
-
-	local MiniOnUpdate = function(self, time)
-		self._elapsed = self._elapsed + time
-		if self._elapsed < 0.02 then return end
-		self._elapsed = 0
-
-		local endTime = self.endTime
-		local beforeEnd = endTime - GetTime()
-
-		self:SetValue(beforeEnd + self.startTime)
-	end
-
-	local backdrop = {
-			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-			tile = true, tileSize = 0,
-			insets = {left = -1, right = -1, top = -1, bottom = -1},
-		}
-
-	function NugRunningNameplates:CreateNameplateTimer(frame)
-		local f = CreateFrame("StatusBar", nil, frame)
-		f:SetStatusBarTexture(S["media"].normal, "OVERLAY")
-		f:SetWidth(70)
-		local h = 7
-		f:SetHeight(h)
-
-		if makeicon then
-			local icon = f:CreateTexture("ARTWORK")
-			-- icon:SetTexCoord(.1, .9, .1, .9)
-			-- icon:SetHeight(h); icon:SetWidth(h)
-			icon:SetTexCoord(.1, .9, .1, .9)
-			icon:SetHeight(h*2); icon:SetWidth(2*h)
-			icon:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT",-5,0)
-			-- backdrop.insets.left = -h -1
-			local border = CreateFrame("Frame", nil, f)
-			border:SetFrameLevel(1)
-			border:SetPoint("TOPLEFT", icon, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", icon, 1, -1)
-			border:CreateBorder()
-			backdrop.insets.left = -(h*2) -1
-			f.icon = icon
-		end
-		f:CreateShadow("Background")
-		
-		local bg = f:CreateTexture("BACKGROUND", nil, -5)
-		bg:SetTexture(nil)
-		bg:SetAllPoints(f)
-		f.bg = bg
-
-		f._elapsed = 0
-		f:SetScript("OnUpdate", MiniOnUpdate)
-
-		if not next(frame.timers) then
-			f:SetPoint("BOTTOM", frame, "TOP", 0, 3)
-		else
-			local prev = frame.timers[#frame.timers]
-			f:SetPoint("BOTTOM", prev, "TOP", 0,h)
-		end
-		table.insert(frame.timers, f)
-		return f
-	end
-
-	function NugRunningNameplates:Update(targetTimers, guidTimers)
-		local tGUID = UnitGUID("target")
-		if tGUID then
-			guidTimers[tGUID] = targetTimers
-		end
-		for guid, np in pairs(guidmap) do
-			local nrunTimers = guidTimers[guid]
-			self:UpdateNPTimers(np, nrunTimers)
-		end
-	end
-
-	function NugRunningNameplates:UpdateNPTimers(np, nrunTimers)
-		if nrunTimers then
-			local i = 1
-			while i <= #nrunTimers do
-				local timer = nrunTimers[i]
-				if not timer.opts.nameplates or timer.isGhost then
-					table_remove(nrunTimers, i)
-				else
-					i = i + 1
-				end
-			end
-
-			local max = math.max(#nrunTimers, #np.timers)
-			for i=1, max do
-				local npt = np.timers[i]
-				local nrunt = nrunTimers[i]
-				if not npt then npt = self:CreateNameplateTimer(np) end
-				if not nrunt  then
-					npt:Hide()
-				else
-					npt.startTime = nrunt.startTime
-					npt.endTime = nrunt.endTime
-					npt:SetMinMaxValues(nrunt.bar:GetMinMaxValues())
-					local r,g,b = nrunt.bar:GetStatusBarColor()
-					npt:SetStatusBarColor(r,g,b)
-					npt.bg:SetVertexColor(r*.4,g*.4,b*.4)
-					if npt.icon then
-						npt.icon:SetTexture(nrunt.icon:GetTexture())
-					end
-					npt:Show()
-				end
-
-			end
-		else
-			for _, timer in ipairs(np.timers) do
+			for _, timer in ipairs(frame.timers) do
 				timer:Hide()
 			end
 		end
+
+		local function HookFrames(...)
+			for index=1,select("#", ...) do
+				local frame = select(index, ...)
+				local region = frame:GetRegions()
+				local fname = frame:GetName()
+				if  not plates[frame] and
+					fname and string.find(fname, "NamePlate")
+				then
+					local hp, cb = frame:GetChildren()
+					local threat, hpborder, overlay, oldname, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
+					local _, cbborder, cbshield, cbicon = cb:GetRegions()
+					frame.name = oldname
+					frame.timers = {}
+					-- frame.healthBar = healthBar
+					-- frame.castBar = castBar
+					plates[frame] = true
+					frame:HookScript("OnHide", OnHide)
+				end
+			end
+		end
+
+		NugRunningNameplates = CreateFrame("Frame")
+		NugRunningNameplates:SetScript('OnUpdate', function(self, elapsed)
+			if(WorldFrame:GetNumChildren() ~= Nplates) then
+				Nplates = WorldFrame:GetNumChildren()
+				HookFrames(WorldFrame:GetChildren())
+			end
+			if UnitExists("target") then
+				local targetGUID = UnitGUID("target")
+				for frame in pairs(plates) do
+					if frame:IsShown() and frame:GetAlpha() == 1 and
+						(UnitName("target") == frame.name:GetText()) and
+						targetGUID ~= oldTargetGUID then
+							guidmap[targetGUID] =  frame
+							frame.guid = targetGUID
+							oldTargetGUID = targetGUID
+							local guidTimers = NugRunning:GetTimersByDstGUID(targetGUID)
+							NugRunningNameplates:UpdateNPTimers(frame, guidTimers)
+							return
+							-- frame.name:SetText(targetGUID)
+					end
+				end
+			else
+				oldTargetGUID = nil
+			end
+		end)
+
+		local MiniOnUpdate = function(self, time)
+			self._elapsed = self._elapsed + time
+			if self._elapsed < 0.02 then return end
+			self._elapsed = 0
+
+			local endTime = self.endTime
+			local beforeEnd = endTime - GetTime()
+
+			self:SetValue(beforeEnd + self.startTime)
+		end
+
+		local backdrop = {
+				bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+				tile = true, tileSize = 0,
+				insets = {left = -1, right = -1, top = -1, bottom = -1},
+			}
+
+		function NugRunningNameplates:CreateNameplateTimer(frame)
+			local f = CreateFrame("StatusBar", nil, frame)
+			f:SetStatusBarTexture(S["media"].normal, "OVERLAY")
+			f:SetWidth(70)
+			local h = 7
+			f:SetHeight(h)
+
+			if makeicon then
+				local icon = f:CreateTexture("ARTWORK")
+				-- icon:SetTexCoord(.1, .9, .1, .9)
+				-- icon:SetHeight(h); icon:SetWidth(h)
+				icon:SetTexCoord(.1, .9, .1, .9)
+				icon:SetHeight(h*2); icon:SetWidth(2*h)
+				icon:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT",-5,0)
+				-- backdrop.insets.left = -h -1
+				local border = CreateFrame("Frame", nil, f)
+				border:SetFrameLevel(1)
+				border:SetPoint("TOPLEFT", icon, -1, 1)
+				border:SetPoint("BOTTOMRIGHT", icon, 1, -1)
+				border:CreateBorder()
+				backdrop.insets.left = -(h*2) -1
+				f.icon = icon
+			end
+			f:CreateShadow("Background")
+			
+			local bg = f:CreateTexture("BACKGROUND", nil, -5)
+			bg:SetTexture(nil)
+			bg:SetAllPoints(f)
+			f.bg = bg
+
+			f._elapsed = 0
+			f:SetScript("OnUpdate", MiniOnUpdate)
+
+			if not next(frame.timers) then
+				f:SetPoint("BOTTOM", frame, "TOP", 0, 3)
+			else
+				local prev = frame.timers[#frame.timers]
+				f:SetPoint("BOTTOM", prev, "TOP", 0,h)
+			end
+			table.insert(frame.timers, f)
+			return f
+		end
+
+		function NugRunningNameplates:Update(targetTimers, guidTimers)
+			local tGUID = UnitGUID("target")
+			if tGUID then
+				guidTimers[tGUID] = targetTimers
+			end
+			for guid, np in pairs(guidmap) do
+				local nrunTimers = guidTimers[guid]
+				self:UpdateNPTimers(np, nrunTimers)
+			end
+		end
+
+		function NugRunningNameplates:UpdateNPTimers(np, nrunTimers)
+			if nrunTimers then
+				local i = 1
+				while i <= #nrunTimers do
+					local timer = nrunTimers[i]
+					if not timer.opts.nameplates or timer.isGhost then
+						table_remove(nrunTimers, i)
+					else
+						i = i + 1
+					end
+				end
+
+				local max = math.max(#nrunTimers, #np.timers)
+				for i=1, max do
+					local npt = np.timers[i]
+					local nrunt = nrunTimers[i]
+					if not npt then npt = self:CreateNameplateTimer(np) end
+					if not nrunt  then
+						npt:Hide()
+					else
+						npt.startTime = nrunt.startTime
+						npt.endTime = nrunt.endTime
+						npt:SetMinMaxValues(nrunt.bar:GetMinMaxValues())
+						local r,g,b = nrunt.bar:GetStatusBarColor()
+						npt:SetStatusBarColor(r,g,b)
+						npt.bg:SetVertexColor(r*.4,g*.4,b*.4)
+						if npt.icon then
+							npt.icon:SetTexture(nrunt.icon:GetTexture())
+						end
+						npt:Show()
+					end
+
+				end
+			else
+				for _, timer in ipairs(np.timers) do
+					timer:Hide()
+				end
+			end
+		end
 	end
-	end
-
-	local helpers = NugRunning.helpers
-	local Spell, ModSpell = helpers.Spell, helpers.ModSpell
-	local Cooldown, ModCooldown = helpers.Cooldown, helpers.ModCooldown
-	local Activation, ModActivation = helpers.Activation, helpers.ModActivation
-	local EventTimer = helpers.EventTimer
-	local Talent = helpers.Talent
-	local Glyph = helpers.Glyph
-	local GetCP = helpers.GetCP
-	local _,class = UnitClass("player")
-	local colors = NugRunningConfig.colors
-
-	if class == "WARLOCK" then
-	-- ModSpell(348, { color = colors.WOO }) -- modifying Immolate color
-	-- Spell(348, {}) -- remove immolate
-	end
-
-	if class == "PRIEST" then
-		-- BUFFS
-		Spell( 139 ,{ name = GetSpellInfo(139), shinerefresh = true, color = colors.LGREEN, duration = 12, textfunc = function(timer) return timer.dstName end })
-		Spell( 17 ,{ name = GetSpellInfo(17), shinerefresh = true, duration = 15, color = colors.LRED, textfunc = function(timer) return timer.dstName end })  --, textfunc = function(timer) return timer.absorb end
-		Spell( 41635 ,{ name = GetSpellInfo(41635), shinerefresh = true, duration = 30, color = colors.RED, textfunc = function(timer) return timer.dstName end })
-		Spell( 47788 ,{ name = GetSpellInfo(47788), shine = true, duration = 10, color = colors.LBLUE, short = "Guardian" })
-		Spell( 33206 ,{ name = GetSpellInfo(33206),shine = true, duration = 8, color = colors.LBLUE })
-		Spell( 586 ,{ name = GetSpellInfo(586),duration = 10 })
-		Spell( 89485 ,{ name = GetSpellInfo(89485), shine = true, color = colors.LBLUE, timeless = true, duration = 0.1 })
-		Spell( 589 ,{ name = GetSpellInfo(589),duration = 18, overlay = {0,1.5, 0.2}, ghost = true, showpower = true, nameplates = true, priority = 9, color = colors.PURPLE, refreshed =true, short = "SW:Pain", textfunc = function(timer) return timer.dstName end })
-
-		EventTimer({ event = "SPELL_SUMMON", spellID = 123040, name = GetSpellInfo(123040), duration = 15, priority = -10, color = colors.BLACK })
-		EventTimer({ event = "SPELL_SUMMON", spellID = 34433, name = GetSpellInfo(34433), duration = 12, priority = -10, color = colors.BLACK })
-		Spell( 34914 ,{ name = GetSpellInfo(34914), overlay = {0, 1.5, 0.2}, recast_mark = 2.8, ghost = true, showpower = true, nameplates = true,  priority = 10, duration = 15, color = colors.RED, short = "VampTouch", hasted = true, textfunc = function(timer) return timer.dstName end })
-		Spell( 2944 ,{ name = GetSpellInfo(2944),duration = 6, priority = 8, nameplates = true, showpower = true, color = colors.WOO, short = "Plague", textfunc = function(timer) return timer.dstName end })
-		Spell( 47585 ,{ name = GetSpellInfo(47585),duration = 6, color = colors.PURPLE })
-		Spell( 59889,{ name = GetSpellInfo(59889), duration = 6 })
-		-- DEBUFFS
-		Spell( 109964 ,{ name = GetSpellInfo(109964), duration = 15, color = colors.PURPLE2 })
-		Spell( 114908 ,{ name = GetSpellInfo(114908), duration = 15, color = colors.PURPLE2 }) --shield effect
-
-		Spell( 87160 ,{ name = GetSpellInfo(87160), duration = 10, color = colors.LRED })
-		Spell( 87160 ,{ name = GetSpellInfo(87160), duration = 10, color = colors.LRED })
-		Spell( 114255,{ name = GetSpellInfo(114255), duration = 20, color = colors.LRED })
-		Spell( 112833,{ name = GetSpellInfo(112833), duration = 6, color = colors.CURSE })
-		Spell( 123266,{ name = GetSpellInfo(123266), duration = 10, color = colors.BLACK }) -- discipline
-		Spell( 123267,{ name = GetSpellInfo(123267), duration = 10, color = colors.BLACK }) -- holy
-		Spell( 124430,{ name = GetSpellInfo(124430), duration = 12, color = colors.BLACK }) -- shadow
-
-
-		Spell( 9484 ,{ name = GetSpellInfo(9484),duration = 50, pvpduration = 8, short = "Shackle" })
-		Spell( 15487 ,{ name = GetSpellInfo(15487),duration = 5, color = colors.PINK })
-
-		Spell( 113792 ,{ name = GetSpellInfo(113792),duration = 30, pvpduration = 8 })
-		Spell( 8122 ,{ name = GetSpellInfo(8122),duration = 8, multiTarget = true })
-
-		--Rapture
-		EventTimer({ event = "SPELL_ENERGIZE", spellID = 47755, name = GetSpellInfo(47755), color = colors.BLACK, duration = 12 })
-		--光圈
-		EventTimer({ event = "SPELL_CAST_START", spellID = 88685, name = GetSpellInfo(88685), duration = 31 })
-		Spell( 88684 ,{ name = GetSpellInfo(88684), duration = 6})
-
-		Cooldown( 8092, { name = GetSpellInfo(8092), recast_mark = 1.5, color = colors.CURSE, resetable = true, ghost = true })
-		Cooldown( 32379, { name = GetSpellInfo(32379), short = "SW:Death",  color = colors.PURPLE, resetable = true  })
-
-		EventTimer({ event = "SPELL_CAST_SUCCESS", spellID = 62618, name = GetSpellInfo(62618), duration = 10, color = colors.GOLD })
-		Spell( 88625 ,{ name = GetSpellInfo(88625), color = colors.LRED, short = "HW: Chastise", duration = 3 })
-
-		Cooldown( 47540 ,{ name = GetSpellInfo(47540), color = colors.CURSE })
-		Cooldown( 14914 ,{ name = "", recast_mark = 3, overlay = {0,3}, color = colors.PINK })
-		Spell( 81661 ,{ name = GetSpellInfo(81661),duration = 15, color = colors.ORANGE, stackcolor = {
-			[1] = {0.7,0,0},
-			[2] = {1,0.6,0.2},
-			[3] = {1,1,0.4},
-			[4] = {0.8,1,0.5},
-			[5] = {0.7,1,0.2},
-		} })
-	end
-
-	if class == "ROGUE" then
-		
-	end
-
-	if class == "WARRIOR" then
-		
-	end
-
-	if class == "MAGE" then
-		EventTimer({ event = "SPELL_SUMMON", spellID = 84714, name = GetSpellInfo(84714), duration = 10, color = colors.BLACK })
-		EventTimer({ event = "SPELL_SUMMON", spellID = 58833, name = GetSpellInfo(55342), duration = 30, color = colors.BLACK })
-	end
-
-	if class == "DRUID" then
-		
-	end
-
-	if class == "DEATHKNIGHT" then
-		
-	end
-
-	if class == "HUNTER" then
-		
-	end
-
-	if class == "SHAMAN" then
-		
-	end
-
-	if class == "PALADIN" then
-		
-	end
-
 end
 
 A:RegisterSkin("NugRunning", Skin)

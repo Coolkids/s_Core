@@ -3,32 +3,8 @@ if(select(2, UnitClass('player')) ~= 'PALADIN') then return end
 local parent, ns = ...
 local oUF = ns.oUF
 
-local SPELL_POWER_HOLY_POWER = SPELL_POWER_HOLY_POWER
-local MAX_HOLY_POWER = MAX_HOLY_POWER
-
-local Update = function(self, event, unit, powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= 'HOLY_POWER')) then return end
-
-	local hp = self.HolyPower
-	if(hp.PreUpdate) then hp:PreUpdate() end
-
-	local num = UnitPower('player', SPELL_POWER_HOLY_POWER)
-	local MAX_HOLY_POWER = UnitPowerMax('player', SPELL_POWER_HOLY_POWER);		
-	for i = 1, MAX_HOLY_POWER do
-		if(i <= num) then
-			hp[i]:Show()
-		else
-			hp[i]:Hide()
-		end
-	end
-
-	if(hp.PostUpdate) then
-		return hp:PostUpdate(num)
-	end
-end
-
 local Path = function(self, ...)
-	return (self.HolyPower.Override or Update) (self, ...)
+	return (self.HolyPower.Override) (self, ...)
 end
 
 local ForceUpdate = function(element)

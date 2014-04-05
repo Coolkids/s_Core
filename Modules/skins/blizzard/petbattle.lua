@@ -1,4 +1,4 @@
-local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local A = S:GetModule("Skins")
 
 local function LoadSkin()
@@ -306,7 +306,7 @@ end)
 	-- PET BATTLE ACTION BAR SETUP --
 	---------------------------------
 
-	local bar = CreateFrame("Frame", "RayUIPetBattleActionBar", f)
+	local bar = CreateFrame("Frame", "PetBattleActionBar", f)
 	bar:SetSize (52*6 + 7*10, 52 * 1 + 10*2)
 	bar:EnableMouse(true)
 	-- bar:CreateShadow("Background")
@@ -365,7 +365,7 @@ end)
 
 
 	local function SkinPetButton(self)
-		local r, g, b = unpack(RayUF.colors.class[S.myclass])
+		local r, g, b = S.myclasscolor.r, S.myclasscolor.g, S.myclasscolor.b
 		if not self.shadow then
 			self:CreateShadow()
 		end

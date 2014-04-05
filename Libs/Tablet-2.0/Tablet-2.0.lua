@@ -1066,8 +1066,8 @@ button_OnDragStop = wrap(button_OnDragStop, "button_OnDragStop")
 
 local num_buttons = 0
 local function NewLine(self)
-	local R, L = unpack(RayUI)
-	local S = R:GetModule("Skins")
+	local S, L = unpack(SunUI)
+	local A = S:GetModule("Skins")
 	if self.maxLines <= self.numLines then
 		self.maxLines = self.maxLines + 1
 		num_buttons = num_buttons + 1
@@ -1078,12 +1078,12 @@ local function NewLine(self)
 		local col1 = newstring(button)
 		testString = col1
 		local highlight = button:CreateTexture(nil, "BACKGROUND")
-		highlight:SetTexture("Interface\\AddOns\\RayUI\\libs\\Tablet-2.0\\Highlight")
+		highlight:SetTexture("Interface\\AddOns\\SunUI\\libs\\Tablet-2.0\\Highlight")
 		local r, g, b
 		if CUSTOM_CLASS_COLORS then 
-			r, g, b = CUSTOM_CLASS_COLORS[R.myclass].r, CUSTOM_CLASS_COLORS[R.myclass].g, CUSTOM_CLASS_COLORS[R.myclass].b
+			r, g, b = CUSTOM_CLASS_COLORS[S.myclass].r, CUSTOM_CLASS_COLORS[S.myclass].g, CUSTOM_CLASS_COLORS[S.myclass].b
 		else
-			r, g, b = S["media"].classcolours[R.myclass].r, S["media"].classcolours[R.myclass].g, S["media"].classcolours[R.myclass].b
+			r, g, b = S.myclasscolor.r, S.myclasscolor.g, S.myclasscolor.b
 		end
 		highlight:SetVertexColor(r, g, b, 1)
 		button.highlight = highlight
@@ -1195,8 +1195,8 @@ local overFrame = nil
 local detachedTooltips = {}
 local AcquireDetachedFrame, ReleaseDetachedFrame
 local function AcquireFrame(self, registration, data, detachedData)
-	local R, L = unpack(RayUI)
-	local S = R:GetModule("Skins")
+	local S, L = unpack(SunUI)
+	local A = S:GetModule("Skins")
 	if not detachedData then
 		detachedData = data
 	end
@@ -1236,10 +1236,10 @@ local function AcquireFrame(self, registration, data, detachedData)
 		tooltip.maxLines = 0
 		tooltip.buttons = {}
 		tooltip.transparency = tooltip.data and tooltip.data.transparency or 0.6
-		tooltip:SetBackdropColor(unpack(R["media"].backdropfadecolor))
-		tooltip.border:SetBackdropBorderColor(unpack(R["media"].bordercolor))
-		tooltip.shadow:SetBackdropBorderColor(unpack(R["media"].bordercolor))
-		S:CreateStripesThin(tooltip)
+		tooltip:SetBackdropColor(unpack(S["media"].backdropfadecolor))
+		tooltip.border:SetBackdropBorderColor(unpack(S["media"].bordercolor))
+		tooltip.shadow:SetBackdropBorderColor(unpack(S["media"].bordercolor))
+		A:CreateStripesThin(tooltip)
 		tooltip.stripesthin:SetInside(tooltip)
 
 		tooltip:SetScript("OnUpdate", function(this, elapsed)
@@ -1307,7 +1307,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 				'bottom', 1
 			)
 		))
-		slider:SetThumbTexture("Interface\\AddOns\\RayUI\\libs\\Tablet-2.0\\SliderButton")
+		slider:SetThumbTexture("Interface\\AddOns\\SunUI\\libs\\Tablet-2.0\\SliderButton")
 		slider:SetScript("OnEnter", tooltip:GetScript("OnEnter"))
 		slider:SetScript("OnLeave", tooltip:GetScript("OnLeave"))
 		slider.tablet = tooltip
@@ -1328,7 +1328,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 		sliderArrowTop:SetHeight(16)
 		sliderArrowTop.bg = sliderArrowTop:CreateTexture()
 		sliderArrowTop.bg:SetAllPoints()
-		sliderArrowTop.bg:SetTexture("Interface\\AddOns\\RayUI\\libs\\Tablet-2.0\\SliderArrow")
+		sliderArrowTop.bg:SetTexture("Interface\\AddOns\\SunUI\\libs\\Tablet-2.0\\SliderArrow")
 		tooltip.sliderArrowTop = sliderArrowTop
 		local sliderArrowBottom = CreateFrame("Frame", nil, tooltip)
 		sliderArrowBottom:SetPoint("BOTTOMRIGHT", tooltip, "BOTTOMRIGHT", -5, 5)
@@ -1336,7 +1336,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 		sliderArrowBottom:SetHeight(16)
 		sliderArrowBottom.bg = sliderArrowBottom:CreateTexture()
 		sliderArrowBottom.bg:SetAllPoints()
-		sliderArrowBottom.bg:SetTexture("Interface\\AddOns\\RayUI\\libs\\Tablet-2.0\\SliderArrow")
+		sliderArrowBottom.bg:SetTexture("Interface\\AddOns\\SunUI\\libs\\Tablet-2.0\\SliderArrow")
 		sliderArrowBottom.bg:SetTexCoord(0, 1, 1, 0)
 		tooltip.sliderArrowBottom = sliderArrowBottom
 
