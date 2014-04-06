@@ -117,8 +117,8 @@ local function CreateRollFrame()
 	
 	status.parent = frame
 	frame.status = status
-
-	status.spark = S:CreateMark(status)
+	local A = S:GetModule("Skins")
+	status.spark = A:CreateMark(status)
 	
 	
 			

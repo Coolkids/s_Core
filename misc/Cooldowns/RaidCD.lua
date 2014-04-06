@@ -205,13 +205,13 @@ local CreateBar = function()
 	bar:SetStatusBarTexture(S["media"].normal)
 	bar:SetMinMaxValues(0, 100)
 
-	S.CreateMark(bar)
-	bar.left = S.CreateFS(bar)
+	A:CreateMark(bar)
+	bar.left = S:CreateFS(bar)
 	bar.left:SetPoint("LEFT", 2, RCD.db.RaidCDHeight)
 	bar.left:SetJustifyH("LEFT")
 	bar.left:SetSize(RCD.db.RaidCDWidth*2/3, RCD.db.RaidCDHeight)
 
-	bar.right = S.CreateFS(bar)
+	bar.right = S:CreateFS(bar)
 	bar.right:SetPoint("RIGHT", 1, RCD.db.RaidCDHeight)
 	bar.right:SetJustifyH("RIGHT")
 

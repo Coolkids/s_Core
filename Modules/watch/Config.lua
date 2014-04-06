@@ -12,9 +12,9 @@
 ---------------------------------------------------------------------------------------------------
 
 local _, ns = ...
-local playerbuff1 = {"BOTTOM", UIParent, "BOTTOM",-253, 205} --name = "玩家buff",
-local targetdebuff1 = {"TOP", UIParent, "BOTTOM", 100, 275} --name = "目标debuff",
-local playercd1 = {"BOTTOM", UIParent, "BOTTOM", -38, 135}  --name = "玩家技能CD",
+local playerbuff1 = {"BOTTOM", UIParent, "BOTTOM",-273, 235} --name = "玩家buff",
+local targetdebuff1 = {"TOP", UIParent, "BOTTOM", 80, 275} --name = "目标debuff",
+local playercd1 = {"BOTTOM", UIParent, "BOTTOM", -64, 230}  --name = "玩家技能CD",
 --牧师专用设置
 local msright = {"CENTER", UIParent, "CENTER", 105, 120}   --name = "玩家右邊1",
 local msleft =  {"CENTER", UIParent, "CENTER", 105, 85}  --name = "玩家右邊2",
@@ -22,9 +22,9 @@ local msleft =  {"CENTER", UIParent, "CENTER", 105, 85}  --name = "玩家右邊2
 local alldebuff = {"TOP", UIParent, "TOP", 180, -157}  --name = "玩家Debuff",
 local pvpdebuff = {"TOP", UIParent, "TOP", 180, -111}  --name = "玩家PVPDebuff",
 local inbuff1 = {"CENTER", UIParent, "CENTER", 110, 165}  --name = "药水减伤等Buff",
-local enbuff = {"BOTTOM", UIParent, "BOTTOM",-253, 243}  --name = "玩家饰品附魔触发buff",
+local enbuff = {"BOTTOM", UIParent, "BOTTOM",-273, 273}  --name = "玩家饰品附魔触发buff",
 local imbuff = {"CENTER", UIParent, "CENTER", 110, 210}  --name = "玩家重要Buff",
-local cdpos = {"BOTTOM", UIParent, "BOTTOM",-253, 281}  --name = "玩家饰品附魔触发buff",
+local cdpos = {"BOTTOM", UIParent, "BOTTOM",-273, 313}  --name = "玩家饰品附魔触发buff",
 ns.watchers ={
 	["DRUID"] = {
 		{

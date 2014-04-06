@@ -162,7 +162,7 @@ local BarUpdate = function(self, elapsed)
 		StopTimer(self)
 		return
 	end
-	if not self.db.ClassCDIcon then
+	if not CCD.db.ClassCDIcon then
 		self:SetValue(100 - (curTime - self.startTime) / (self.endTime - self.startTime) * 100)
 		self.right:SetText(FormatTime(self.endTime - curTime))
 		else

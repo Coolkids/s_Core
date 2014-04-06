@@ -265,7 +265,7 @@ function AB:CreateExtrabarBar()
 	local bar = CreateFrame("Frame","SunUIExtraActionBar",UIParent, "SecureHandlerStateTemplate")
 	bar:SetSize(self.db.ButtonSize*2,self.db.ButtonSize*2)
 	bar:SetFrameStrata("MEDIUM")
-	bar:SetPoint("CENTER", "UIParent", "CENTER", 0, -135)
+	bar:SetPoint("CENTER", "UIParent", "CENTER", 0, -150)
 
 	ExtraActionBarFrame:SetParent(bar)
 	ExtraActionBarFrame:ClearAllPoints()
