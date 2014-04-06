@@ -13,13 +13,13 @@ local function UpdateRunePowerTimer(self, elapsed)
 	local timeLeft = self.expirationTime
 	if timeLeft > 0 then
 		self:SetValue(timeLeft)
-		if self.__parent.ExpColors then
-			if timeLeft < 10 then
-				self:SetStatusBarColor(unpack(self.__parent.ExpColors))
-			else
-				self:SetStatusBarColor(unpack(self.__parent.Colors))
-			end
+		
+		if timeLeft < 10 then
+			self:SetStatusBarColor(210/255, 100/255, 100/255)
+		else
+			self:SetStatusBarColor(1, 1, 125/255)
 		end
+		
 	else
 		self:SetScript("OnUpdate", nil)
 	end

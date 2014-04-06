@@ -24,30 +24,16 @@ local MBCF
 local function PositionAndStyle()
 	--MBCF.bg:SetTexture(0, 0, 0, 1)
 	MBCF:SetAlpha(0)
-	if select(3, Minimap:GetPoint()):upper():find("TOP") then
-		MBCF:SetSize(150, 25)
-		MBCF:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 2, 5)
-		--MBCF.bg:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0, 0, 0, .6)
-		for i =1, #buttons do
-			buttons[i]:ClearAllPoints()
-			buttons[i]:SetPoint("LEFT", MBCF, "LEFT", (i - 1) * 30, 0)
-			buttons[i]:SetScale(0.8)
-			buttons[i].ClearAllPoints = S.dummy
-			buttons[i].SetPoint = S.dummy
-			buttons[i].SetAllPoints = S.dummy
-		end
-	else
-		MBCF:SetSize(150, 25)
-		MBCF:SetPoint("BOTTOMLEFT", Minimap, "TOPLEFT", 2, -5)
-		--MBCF.bg:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0.6, 0, 0, 0, 0)
-		for i =1, #buttons do
-			buttons[i]:ClearAllPoints()
-			buttons[i]:SetPoint("LEFT", MBCF, "LEFT", (i - 1) * 30 , 0)
-			buttons[i]:SetScale(0.8)
-			buttons[i].ClearAllPoints = S.dummy
-			buttons[i].SetPoint = S.dummy
-			buttons[i].SetAllPoints = S.dummy
-		end
+	MBCF:SetSize(150, 25)
+	MBCF:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
+	--MBCF.bg:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, 0, 0, 0, .6)
+	for i =1, #buttons do
+		buttons[i]:ClearAllPoints()
+		buttons[i]:SetPoint("LEFT", MBCF, "LEFT", (i - 1) * 30, 0)
+		buttons[i]:SetScale(0.8)
+		buttons[i].ClearAllPoints = S.dummy
+		buttons[i].SetPoint = S.dummy
+		buttons[i].SetAllPoints = S.dummy
 	end
 end
 

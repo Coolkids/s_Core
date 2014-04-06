@@ -243,6 +243,51 @@ local function Difficultyflag()
 	rd:SetScript("OnEvent", diff)
 end
 
+--团队工具
+function MAP:CreateRaidTools()
+	local wm = CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
+	wm:SetParent(UIParent) 
+	wm:SetFrameLevel(3)
+	wm:ClearAllPoints() 
+	wm:SetPoint("TOPRIGHT", MiniMap, "TOPRIGHT", -5, -5)
+	wm:SetSize(15, 15)
+	
+	CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButtonLeft:SetAlpha(0) 
+	CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButtonMiddle:SetAlpha(0) 
+	CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButtonRight:SetAlpha(0) 
+	wm:RegisterEvent("PLAYER_ENTERING_WORLD") 
+	wm:RegisterEvent("GROUP_ROSTER_UPDATE") 
+	wm:HookScript("OnEvent", function(self) 
+		local raid =  IsInRaid()
+		if (raid and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player"))) or (GetNumSubgroupMembers() > 0 and not raid) then 
+			self:Show()
+		else 
+			self:Hide() 
+		end 
+	end) 
+
+	local wmmenuFrame = CreateFrame("Frame", "wmRightClickMenu", UIParent, "UIDropDownMenuTemplate") 
+	local wmmenuList = { 
+	{text = READY_CHECK, 
+	func = function() DoReadyCheck() end}, 
+	{text = ROLE_POLL, 
+	func = function() InitiateRolePoll() end}, 
+	{text = CONVERT_TO_RAID, 
+	func = function() ConvertToRaid() end}, 
+	{text = CONVERT_TO_PARTY, 
+	func = function() ConvertToParty() end}, 
+	} 
+
+	wm:SetScript('OnMouseUp', function(self, button) 
+		wm:StopMovingOrSizing() 
+		if (button=="RightButton") then 
+			EasyMenu(wmmenuList, wmmenuFrame, "cursor", -150, 0, "MENU", 2) 
+		end 
+	end)
+	local A = S:GetModule("Skins")
+	A:Reskin(wm)
+end 
+
 function MAP:Info()
 	return L["地图美化"]
 end
@@ -253,10 +298,9 @@ function MAP:Initialize()
 	HideMinimapButton()
 	MouseScroll()
 	RightClickMenu()
-	LocationInfo()
+	--LocationInfo()
 	Difficultyflag()
-	
-	self:initBigMap()
+	self:CreateRaidTools()
 	self:initFogClear()
 	self:initXPBar()
 	self:initCollector()

@@ -25,7 +25,7 @@ function AB:SetCoolDownFlashUpdate()
 	end)
 end
 function AB:UpdateSetCoolDownFlashUpdate()
-	if C["CooldownFlash"] then
+	if self.db.CooldownFlash then
 		self:SetCoolDownFlashUpdate()
 		lib:RegisterCallback("stop", function(id, class)
 			if filter[class]=="all" or filter[class][id] then return end
@@ -41,13 +41,12 @@ function AB:UpdateSetCoolDownFlashUpdate()
 	end
 end
 function AB:UpdateCoolDownFlashSize()
-	flash:SetSize(C["CooldownFlashSize"],C["CooldownFlashSize"])
+	flash:SetSize(self.db.CooldownFlashSize,self.db.CooldownFlashSize)
 end
 function AB:initCooldownFlash()
 	if (IsAddOnLoaded("ncCooldownFlash")) then
 		return 
 	end
-	C = self.db
 	flash = CreateFrame("Frame", nil, UIParent)
 	flash.icon = flash:CreateTexture(nil, "OVERLAY")
 	flash.icon:SetAllPoints(flash)

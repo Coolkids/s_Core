@@ -1,5 +1,5 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
-local C
+
 local TT = S:NewModule("Tooltip", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
 TT.modName = L["鼠标提示"]
 
@@ -237,7 +237,7 @@ local function On_OnTooltipSetUnit(self)
 			end
 			self:AddLine(TARGET..": "..text)
 		end
-		if C["HideTitles"] then
+		if self.db.HideTitles then
 			local name = self:GetUnit()
 			local title = UnitPVPName(unit)
 			if title then
@@ -252,9 +252,9 @@ end
 function TT:PLAYER_ENTERING_WORLD()
 	TT:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	for _, v in pairs(tooltips) do
-		v:SetScale(C["ScaleSize"])
+		v:SetScale(self.db.ScaleSize)
 		v:SetScript("OnShow", function(self)
-			if InCombatLockdown() and C["HideInCombat"] then self:Hide() end
+			if InCombatLockdown() and self.db.HideInCombat then self:Hide() end
 			if v.NumLines then
 				for index=1, v:NumLines() do
 					_G[v:GetName()..'TextLeft'..index]:SetShadowOffset(1, -1)
@@ -313,7 +313,7 @@ function TT:PLAYER_ENTERING_WORLD()
 	end)
 end
 local function On_SetDefaultAnchor(tooltip, parent)
-	if C["Cursor"] then
+	if self.db.Cursor then
 		tooltip:SetOwner(parent, "ANCHOR_CURSOR")
 	else
 		tooltip:SetOwner(parent, "ANCHOR_NONE")

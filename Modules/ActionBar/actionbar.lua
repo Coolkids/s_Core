@@ -262,9 +262,8 @@ function AB:blizzHider()
 end
 
 function AB:CreateExtrabarBar()
-	local C = self.db
 	local bar = CreateFrame("Frame","SunUIExtraActionBar",UIParent, "SecureHandlerStateTemplate")
-	bar:SetSize(C["ButtonSize"]*2,C["ButtonSize"]*2)
+	bar:SetSize(self.db.ButtonSize*2,self.db.ButtonSize*2)
 	bar:SetFrameStrata("MEDIUM")
 	bar:SetPoint("CENTER", "UIParent", "CENTER", 0, -135)
 
@@ -272,7 +271,7 @@ function AB:CreateExtrabarBar()
 	ExtraActionBarFrame:ClearAllPoints()
 	ExtraActionBarFrame:SetPoint("CENTER", 0, 0)
 	ExtraActionBarFrame.ignoreFramePositionManager = true
-	ExtraActionButton1:SetSize(C["ButtonSize"],C["ButtonSize"])
+	ExtraActionButton1:SetSize(self.db.ButtonSize,self.db.ButtonSize)
 	ExtraActionBarFrame:SetFrameLevel(3)
 	ExtraActionButton1Cooldown:SetPoint("TOPLEFT")
 	ExtraActionButton1Cooldown:SetPoint("BOTTOMRIGHT")
@@ -286,11 +285,10 @@ function AB:CreateExtrabarBar()
 end
 function AB:CreateOverrideBar()
 	local num = NUM_ACTIONBAR_BUTTONS
-	local C = self.db
 	--create the frame to hold the buttons
 	local bar = CreateFrame("Frame", "SunUI_OverrideBar", UIParent, "SecureHandlerStateTemplate")
-	bar:SetWidth(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
-	bar:SetHeight(C["ButtonSize"])
+	bar:SetWidth(self.db.ButtonSize*12+self.db.ButtonSpacing*11)
+	bar:SetHeight(self.db.ButtonSize)
 	bar:SetPoint("LEFT", "ActionBar1Mover", "LEFT")
 	--move the buttons into position and reparent them
 	OverrideActionBar:SetParent(bar)
@@ -307,13 +305,13 @@ function AB:CreateOverrideBar()
 			break
 		end
 		table.insert(self.buttonList, button) --add the button object to the list
-		button:SetSize(C["ButtonSize"], C["ButtonSize"])
+		button:SetSize(self.db.ButtonSize, self.db.ButtonSize)
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("BOTTOMLEFT", bar, 0, 0)
 		else
 			local previous = _G["OverrideActionBarButton"..i-1]
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
 	end
 	--show/hide the frame on a given state driver
@@ -322,10 +320,9 @@ function AB:CreateOverrideBar()
 end
 function AB:CreatePetBar()
 	local num = NUM_PET_ACTION_SLOTS
-	local C = self.db
     local bar = CreateFrame("Frame", "SunUIPetBar", UIParent, "SecureHandlerStateTemplate")
-    bar:SetWidth(C["ButtonSize"]*num+C["ButtonSpacing"]*(num-1))
-    bar:SetHeight(C["ButtonSize"])
+    bar:SetWidth(self.db.ButtonSize*num+self.db.ButtonSpacing*(num-1))
+    bar:SetHeight(self.db.ButtonSize)
 	PetActionBarFrame:SetParent(bar)
 	PetActionBarFrame:EnableMouse(false)
     bar:SetPoint("BOTTOMRIGHT", "MultiBarBottomRightButton12", "TOPRIGHT",  0,  4)
@@ -333,26 +330,26 @@ function AB:CreatePetBar()
 	
 	for i = 1, num do
 		button = _G["PetActionButton"..i]
-		button:SetSize(C["ButtonSize"], C["ButtonSize"])
+		button:SetSize(self.db.ButtonSize, self.db.ButtonSize)
 		button:ClearAllPoints()
 		table.insert(self.buttonList, button)
 		if i == 1 then
 			button:SetPoint("BOTTOMLEFT", bar, 0, 0)
 		else
 			local previous = _G["PetActionButton"..i-1]
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
 	end
 	RegisterStateDriver(bar, "visibility", "[petbattle][overridebar][vehicleui][possessbar,@vehicle,exists] hide; [@pet,exists] show; hide")
 	S:CreateMover(bar, "PetBarMover", L["宠物动作条锚点"], true, nil, "ALL,ACTIONBARS")
 end
 function AB:CreateStanceBar()
-	local C = self.db
+	
 	local num = NUM_STANCE_SLOTS
 	local num2 = NUM_POSSESS_SLOTS
     local bar = CreateFrame("Frame","SunUIStanceBar",UIParent, "SecureHandlerStateTemplate")
-    bar:SetWidth(C["ButtonSize"]*6+C["ButtonSpacing"]*(6-1))
-    bar:SetHeight(C["ButtonSize"])
+    bar:SetWidth(self.db.ButtonSize*6+self.db.ButtonSpacing*(6-1))
+    bar:SetHeight(self.db.ButtonSize)
 	bar:SetPoint("BOTTOMLEFT", "MultiBarBottomRightButton6", "TOPLEFT", 0, 4)
 
 	StanceBarFrame:SetParent(bar)
@@ -365,13 +362,13 @@ function AB:CreateStanceBar()
 	for i=1, num do
 		local button = _G["StanceButton"..i]
 		table.insert(self.buttonList, button)
-		button:SetSize(C["ButtonSize"], C["ButtonSize"])
+		button:SetSize(self.db.ButtonSize, self.db.ButtonSize)
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("BOTTOMLEFT", bar, 0,0)
 		else
 			local previous = _G["StanceButton"..i-1]      
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
     end
 	--POSSESS BAR
@@ -383,23 +380,23 @@ function AB:CreateStanceBar()
 	for i=1, num2 do
 		local button = _G["PossessButton"..i]
 		table.insert(self.buttonList, button) --add the button object to the list
-		button:SetSize(C["ButtonSize"], C["ButtonSize"])
+		button:SetSize(self.db.ButtonSize, self.db.ButtonSize)
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("BOTTOMLEFT", bar, 0, 0)
 		else
 			local previous = _G["PossessButton"..i-1]
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
 	end
 	RegisterStateDriver(bar, "visibility", "[petbattle][overridebar][vehicleui] hide; show")
 	S:CreateMover(bar, "StanceBarMover", L["姿态栏锚点"], true, nil, "ALL,ACTIONBARS")
 end
 function AB:CreateExitVehicle()
-	local C = self.db
+	
 	local bar = CreateFrame("Frame","ExitVehicle",UIParent, "SecureHandlerStateTemplate")
-	bar:SetHeight(C["ButtonSize"])
-	bar:SetWidth(C["ButtonSize"])
+	bar:SetHeight(self.db.ButtonSize)
+	bar:SetWidth(self.db.ButtonSize)
 	bar:SetScale(1.3)
 	bar:SetPoint("BOTTOM", "UIParent", "BOTTOM", 278, 66)
 
@@ -425,7 +422,7 @@ function AB:CreateExitVehicle()
 end
 
 function AB:UpdateBigButtonSize()
-	local C = self.db
+	
 	for i=1, 4 do
 		local button = _G["MultiBarLeftButton"..i]
 		button:SetSize(C["BigSize"..i], C["BigSize"..i])
@@ -503,7 +500,7 @@ local function HideLossCD()
 end
 
 function AB:UpdateSpace()
-	local C = self.db
+	
 	for i = 1, 12 do
 		local button = _G["ActionButton"..i]
 		button:ClearAllPoints()
@@ -511,11 +508,11 @@ function AB:UpdateSpace()
 			button:SetPoint("BOTTOMLEFT", SunUIActionBar1, 0,0)
 		else
 			local previous = _G["ActionButton"..i-1]
-			if C["Bar1Layout"] == 2 and i == 7 then
+			if self.db.Bar1Layout == 2 and i == 7 then
 				previous = _G["ActionButton1"]
-				button:SetPoint("BOTTOMLEFT", previous, "TOPLEFT", 0, C["ButtonSpacing"])
+				button:SetPoint("BOTTOMLEFT", previous, "TOPLEFT", 0, self.db.ButtonSpacing)
 			else
-				button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+				button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 			end
 		end
 	end
@@ -527,16 +524,16 @@ function AB:UpdateSpace()
 			button:SetPoint("BOTTOMLEFT", SunUIActionBar2, 0,0)
 		else
 			local previous = _G["MultiBarBottomLeftButton"..i-1]      
-			if C["Bar2Layout"] == 2 and i == 7 then
+			if self.db.Bar2Layout == 2 and i == 7 then
 				previous = _G["MultiBarBottomLeftButton1"]
-				button:SetPoint("BOTTOMLEFT", previous, "TOPLEFT", 0, C["ButtonSpacing"])
+				button:SetPoint("BOTTOMLEFT", previous, "TOPLEFT", 0, self.db.ButtonSpacing)
 			else
-				button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+				button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 			end
 		end
 	end
 		
-	if C["Bar3Layout"] == 1 then
+	if self.db.Bar3Layout == 1 then
 		for i=1, 12 do
 			local button = _G["MultiBarBottomRightButton"..i]
 			button:ClearAllPoints()
@@ -544,34 +541,34 @@ function AB:UpdateSpace()
 				button:SetPoint("BOTTOMLEFT", SunUIActionBar3, 0,0)
 			else
 				local previous = _G["MultiBarBottomRightButton"..i-1]     
-				button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0) 
+				button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0) 
 			end
 		end
-	elseif C["Bar3Layout"] == 2 then
+	elseif self.db.Bar3Layout == 2 then
 		for i = 1, 12 do
 		button = _G["MultiBarBottomRightButton"..i]
 		button:ClearAllPoints()
 			if i == 1 then
 				button:SetPoint("BOTTOMRIGHT", SunUIActionBar3, "BOTTOMRIGHT", 0, 0)
 			elseif i <= 3 then
-				button:SetPoint("RIGHT", _G["MultiBarBottomRightButton"..i-1], "LEFT", -C["ButtonSpacing"], 0)
+				button:SetPoint("RIGHT", _G["MultiBarBottomRightButton"..i-1], "LEFT", -self.db.ButtonSpacing, 0)
 			elseif i == 4 then
-				button:SetPoint("BOTTOMLEFT", _G["MultiBarBottomRightButton1"], "TOPLEFT", 0, C["ButtonSpacing"])
+				button:SetPoint("BOTTOMLEFT", _G["MultiBarBottomRightButton1"], "TOPLEFT", 0, self.db.ButtonSpacing)
 			elseif i <= 6 then
-				button:SetPoint("RIGHT", _G["MultiBarBottomRightButton"..i-1], "LEFT", -C["ButtonSpacing"], 0)	
+				button:SetPoint("RIGHT", _G["MultiBarBottomRightButton"..i-1], "LEFT", -self.db.ButtonSpacing, 0)	
 			elseif i == 7 then
 				button:SetPoint("BOTTOMLEFT", SunUIActionBar3_2, "BOTTOMLEFT", 0, 0)
 			elseif i <= 9 then
-				button:SetPoint("LEFT", _G["MultiBarBottomRightButton"..i-1], "RIGHT", C["ButtonSpacing"], 0)
+				button:SetPoint("LEFT", _G["MultiBarBottomRightButton"..i-1], "RIGHT", self.db.ButtonSpacing, 0)
 			elseif i == 10 then
-				button:SetPoint("BOTTOMLEFT", _G["MultiBarBottomRightButton7"], "TOPLEFT", 0, C["ButtonSpacing"])
+				button:SetPoint("BOTTOMLEFT", _G["MultiBarBottomRightButton7"], "TOPLEFT", 0, self.db.ButtonSpacing)
 			elseif i <= 12 then
-				button:SetPoint("LEFT", _G["MultiBarBottomRightButton"..i-1], "RIGHT", C["ButtonSpacing"], 0)	
+				button:SetPoint("LEFT", _G["MultiBarBottomRightButton"..i-1], "RIGHT", self.db.ButtonSpacing, 0)	
 			end
 		end
 	end
 		
-	if C["Bar4Layout"] == 1 then
+	if self.db.Bar4Layout == 1 then
 		for i=1, 12 do
 			local button = _G["MultiBarRightButton"..i]
 			button:ClearAllPoints()
@@ -579,10 +576,10 @@ function AB:UpdateSpace()
 					button:SetPoint("TOPLEFT", SunUIActionBar4, 0,0)
 				else
 					local previous = _G["MultiBarRightButton"..i-1]
-					button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
+					button:SetPoint("TOP", previous, "BOTTOM", 0, -self.db.ButtonSpacing)
 				end
 		end
-	elseif C["Bar4Layout"] == 2 then 
+	elseif self.db.Bar4Layout == 2 then 
 		for i=1, 12 do
 			local button = _G["MultiBarRightButton"..i]
 			button:ClearAllPoints()
@@ -592,16 +589,16 @@ function AB:UpdateSpace()
 					local previous = _G["MultiBarRightButton"..i-1]
 					if  i == 7 then
 					previous = _G["MultiBarRightButton1"]
-					button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -C["ButtonSpacing"])
+					button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -self.db.ButtonSpacing)
 					else
-					button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+					button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 					end
 				end
 		end
 	end
 	
-	if C["Big4Layout"] == 2 then
-		if C["Bar5Layout"] == 1 then 
+	if self.db.Big4Layout == 2 then
+		if self.db.Bar5Layout == 1 then 
 			for i=1, 12 do
 				local button = _G["MultiBarLeftButton"..i]
 				button:ClearAllPoints()
@@ -609,10 +606,10 @@ function AB:UpdateSpace()
 						button:SetPoint("TOPLEFT", bar, 0,0)
 					else
 						local previous = _G["MultiBarLeftButton"..i-1]
-						button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
+						button:SetPoint("TOP", previous, "BOTTOM", 0, -self.db.ButtonSpacing)
 					end
 			end
-		elseif C["Bar5Layout"] == 2 then 
+		elseif self.db.Bar5Layout == 2 then 
 			for i=1, 12 do
 				local button = _G["MultiBarLeftButton"..i]
 				button:ClearAllPoints()
@@ -622,9 +619,9 @@ function AB:UpdateSpace()
 					local previous = _G["MultiBarLeftButton"..i-1]
 					if  i == 7 then
 						previous = _G["MultiBarLeftButton1"]
-						button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -C["ButtonSpacing"])
+						button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -self.db.ButtonSpacing)
 					else
-						button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+						button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 					end
 				end
 			end
@@ -645,7 +642,7 @@ function AB:UpdateSpace()
 			button:SetPoint("BOTTOMLEFT", SunUI_OverrideBar, 0, 0)
 		else
 			local previous = _G["OverrideActionBarButton"..i-1]
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
 	end
 	
@@ -656,7 +653,7 @@ function AB:UpdateSpace()
 			button:SetPoint("BOTTOMLEFT", SunUIPetBar, 0, 0)
 		else
 			local previous = _G["PetActionButton"..i-1]
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
 	end
 	
@@ -667,7 +664,7 @@ function AB:UpdateSpace()
 			button:SetPoint("BOTTOMLEFT", SunUIStanceBar, 0,0)
 		else
 			local previous = _G["StanceButton"..i-1]      
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
     end
 	
@@ -678,7 +675,7 @@ function AB:UpdateSpace()
 			button:SetPoint("BOTTOMLEFT", SunUIStanceBar, 0, 0)
 		else
 			local previous = _G["PossessButton"..i-1]
-			button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+			button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 		end
 	end
 end

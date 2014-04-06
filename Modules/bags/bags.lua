@@ -1,7 +1,6 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 
 local B = S:NewModule("Bags", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
-local C
 B.modName = L["背包"]
 B.ProfessionColors = {
 	[0x0008] = {224/255, 187/255, 74/255}, -- Leatherworking
@@ -286,9 +285,9 @@ function B:Layout(isBank)
 	local A = S:GetModule("Skins")
 	local f = self:GetContainerFrame(isBank)
 	if not f then return end
-	local buttonSize = isBank and C["BankSize"] or C["BagSize"]
-	local buttonSpacing = C["Spacing"]
-	local containerWidth = isBank and C["BankWidth"] or C["BagWidth"]
+	local buttonSize = isBank and self.db.BankSize or self.db.BagSize
+	local buttonSpacing = self.db.Spacing
+	local containerWidth = isBank and self.db.BankWidth or self.db.BagWidth
 	local numContainerColumns = math.floor(containerWidth / (buttonSize + buttonSpacing))
 	local holderWidth = ((buttonSize + buttonSpacing) * numContainerColumns) - buttonSpacing
 	local numContainerRows = 0
@@ -807,7 +806,6 @@ function B:PLAYER_ENTERING_WORLD()
 end
 
 function B:Initialize()
-	C = self.db
 	self.BagFrames = {}
 	self.BagFrame = self:ContructContainerFrame("SunUI_Bags")
 	self:SecureHook("OpenAllBags", "OpenBags")

@@ -67,8 +67,7 @@ function FE:UpdateFastErrorSet()
 		self:initDate()
 		init = false
 	end
-	local C = self.db
-	if C["FastError"] then
+	if self.db.FastError then
 		UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
 		self:RegisterEvent("UI_ERROR_MESSAGE")
 	else

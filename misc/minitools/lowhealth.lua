@@ -45,8 +45,7 @@ function LH:PLAYER_DEAD()
 	self:UNIT_HEALTH(nil, "player")
 end
 function LH:UpdateLowHealthSet()
-	local C = self.db
-	if C["LowHealth"] then
+	if self.db.LowHealth then
 		LH:RegisterEvent("PLAYER_DEAD")
 		LH:RegisterEvent("UNIT_HEALTH")
 	else

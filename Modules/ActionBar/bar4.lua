@@ -3,48 +3,48 @@
 local AB = S:GetModule("ActionBar")
 
 function AB:CreateBar4()
-	local C = self.db
+	
 	local bar = CreateFrame("Frame","SunUIActionBar4",UIParent, "SecureHandlerStateTemplate")
-	if C["Bar4Layout"] == 2 then
-		bar:SetWidth(C["ButtonSize"]*6+C["ButtonSpacing"]*5)
-		bar:SetHeight(C["ButtonSize"]*2+C["ButtonSpacing"])
+	if self.db.Bar4Layout == 2 then
+		bar:SetWidth(self.db.ButtonSize*6+self.db.ButtonSpacing*5)
+		bar:SetHeight(self.db.ButtonSize*2+self.db.ButtonSpacing)
 	else  
-		bar:SetWidth(C["ButtonSize"])
-		bar:SetHeight(C["ButtonSize"]*12+C["ButtonSpacing"]*11)
+		bar:SetWidth(self.db.ButtonSize)
+		bar:SetHeight(self.db.ButtonSize*12+self.db.ButtonSpacing*11)
 	end
 	bar:SetPoint("RIGHT", "UIParent", "RIGHT", -10, 0)
 
 	MultiBarRight:SetParent(bar)
 	MultiBarRight:EnableMouse(false)
 
-	if C["Bar4Layout"] == 1 then
+	if self.db.Bar4Layout == 1 then
 		for i=1, 12 do
 			local button = _G["MultiBarRightButton"..i]
 			table.insert(AB.buttonList, button)
 			button:ClearAllPoints()
-			button:SetSize(C["ButtonSize"], C["ButtonSize"])
+			button:SetSize(self.db.ButtonSize, self.db.ButtonSize)
 				if i == 1 then
 					button:SetPoint("TOPLEFT", bar, 0,0)
 				else
 					local previous = _G["MultiBarRightButton"..i-1]
-					button:SetPoint("TOP", previous, "BOTTOM", 0, -C["ButtonSpacing"])
+					button:SetPoint("TOP", previous, "BOTTOM", 0, -self.db.ButtonSpacing)
 				end
 		end
-	elseif C["Bar4Layout"] == 2 then 
+	elseif self.db.Bar4Layout == 2 then 
 		for i=1, 12 do
 			local button = _G["MultiBarRightButton"..i]
 			table.insert(AB.buttonList, button)
 			button:ClearAllPoints()
-			button:SetSize(C["ButtonSize"], C["ButtonSize"])
+			button:SetSize(self.db.ButtonSize, self.db.ButtonSize)
 				if i == 1 then
 					button:SetPoint("TOPLEFT", bar, 0,0)	
 				else
 					local previous = _G["MultiBarRightButton"..i-1]
 					if  i == 7 then
 					previous = _G["MultiBarRightButton1"]
-					button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -C["ButtonSpacing"])
+					button:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, -self.db.ButtonSpacing)
 					else
-					button:SetPoint("LEFT", previous, "RIGHT", C["ButtonSpacing"], 0)
+					button:SetPoint("LEFT", previous, "RIGHT", self.db.ButtonSpacing, 0)
 					end
 				end
 		end

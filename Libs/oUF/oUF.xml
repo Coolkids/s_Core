@@ -52,6 +52,7 @@
 	</Button>
 
 	<!-- Pet Battle Hider Frame -->
+	<!--
 	<Frame name="oUF_PetBattleFrameHider" inherits="SecureHandlerStateTemplate" parent="UIParent" setAllPoints="true">
 		<Scripts>
 			<OnLoad>
@@ -59,7 +60,7 @@
 			</OnLoad>
 		</Scripts>
 	</Frame>
-
+	-->
 	<!--
 		Sub-object as a child of the parent unit frame:
 	<Button name="oUF_HeaderTargetTemplate" inherits="SecureUnitButtonTemplate" hidden="true" virtual="true">

@@ -155,3 +155,70 @@ P["UnitFrames"]={
 	num_arena_buffs = 8,
 	num_focus_debuffs = 4,
 }
+
+P["InfoBar"]={
+	infobar1 = true, 	
+		topback = true, 	
+		latency = true, 	
+		fps = true, 	
+		memory = true, 	
+		currenry = true, 	
+	infobar2 = true, 	
+		bottomback = true, 	
+		clock = true, 	
+		durability = true, 	
+		dungeonhelper = true, 	
+		specs = true, 	
+}
+
+P["BufferReminder"]={
+	ShowRaidBuff = true, 	
+		ShowOnlyInParty = true, 	
+		RaidBuffDirection = 1, 	
+	ShowClassBuff = true, 	
+		ClassBuffSize = 32,
+}
+
+P["Announce"]={
+	Open = true,
+	Interrupt = true,
+	Channel = true,
+	Mislead = true,
+	BaoM = true,
+	Give = true,
+	Resurrect = true,
+	Heal = true,
+}
+
+P["AutoEquipment"] = {
+	Enable = true,
+}
+P["ClassAT"] = {
+	Enable = true,
+	Size = 48,
+	EnableIgniteWatch = true,
+	IgniteWatchSize = 24,
+	EnableSpiritShellWatch = true,
+	SpiritShellWatchSize = 24,
+	ROPEnable = true,
+	ROPSize = 24,
+}
+
+P["ClassCD"] = {
+	ClassCDOpen = true,
+	ClassCDIcon = false,
+	ClassCDIconSize = 25,
+	ClassCDIconDirection = 1,
+	ClassCDHeight = 8,
+	ClassCDWidth = 100,
+	ClassCDDirection = 1,
+}
+P["RaidCD"] = {
+	RaidCD = true,
+	RaidCDWidth = 100,
+	RaidCDHeight = 8,
+	RaidCDDirection = 1,
+	RowNum = 10,
+	MaxNumber = 30,
+	RowDirection = "right",
+}

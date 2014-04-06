@@ -1,12 +1,12 @@
-local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
-local WM = S:GetModule("MAP")
+﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+local WM = S:NewModule("WorldMap", "AceEvent-3.0", "AceHook-3.0")
 local map_scale = 0.9								-- Mini World Map scale
 local isize = 20									-- group icons size
 local player, cursor
 local EJbuttonWidth, EJbuttonHeight = 30, 30
 local EJbuttonImageWidth, EJbuttonImageHeigth = 21.6, 21.6
 local ejbuttonscale = 1
-
+WM.modName = L["世界地图"]
 function WM:ResizeEJBossButton()
 	if WORLDMAP_SETTINGS.size == WORLDMAP_WINDOWED_SIZE then
 		local index = 1
@@ -359,7 +359,7 @@ function WM:FixSkin()
 	WorldMapZoneInfo:SetShadowOffset(1, -1)
 end
 
-function WM:initBigMap()
+function WM:Initialize()
 	self:SkinWorldMap()
 	WorldMapFrame:HookScript("OnShow", function() WM:FixSkin() end)
 	WorldMapFrame:HookScript("OnUpdate", function(self, elapsed) WM:OnUpdate(self, elapsed) end)
@@ -372,10 +372,15 @@ function WM:initBigMap()
 	self:RegisterEvent("WORLD_MAP_UPDATE")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
-	--fix ����ͼ�ı���
+	--fix 读地图的表情
 	hooksecurefunc("DoEmote", function(emote)
-	if emote == "READ" and UnitChannelInfo("player") then
-		CancelEmote()
-	end
-end)
+		if emote == "READ" and UnitChannelInfo("player") then
+			CancelEmote()
+		end
+	end)
 end 
+function WM:Info()
+	return L["世界地图"]
+end
+
+S:RegisterModule(WM:GetName())

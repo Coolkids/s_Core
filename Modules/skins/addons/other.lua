@@ -40,6 +40,8 @@ local function SkinOther(self)
 	end
 	--local MB = S:GetModule("MirrorBar")
 	--MB:PLAYER_ENTERING_WORLD()
+	_G["TimeManagerClockButton"]:Hide()
+	GameTimeFrame:Hide()
 end
 
 local STFrame = CreateFrame("Frame")

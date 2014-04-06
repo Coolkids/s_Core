@@ -268,7 +268,6 @@ addon.LOOT_CLOSED = function(self)
 	lb:Hide()
 end
 addon.LOOT_OPENED = function(self, event, autoloot)
-	print(123123)
 	self:Show()
 	UIFrameFadeIn(self, 0.3, 0, 1)
 	lb:Show()

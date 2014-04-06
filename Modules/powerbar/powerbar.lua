@@ -119,7 +119,7 @@ end
 function PB:CreateShadowOrbs()
 	if S.myclass ~= "PRIEST" then return end
 	ShadowOrbs = CreateFrame("Frame", nil, Holder)
-	ShadowOrbs:SetSize(C["Width"], C["Height"])
+	ShadowOrbs:SetSize(self.db.Width, self.db.Height)
 	ShadowOrbs:SetPoint("CENTER", Holder)
 	tinsert(mainframe, ShadowOrbs)
 	local maxShadowOrbs = UnitPowerMax('player', SPELL_POWER_SHADOW_ORBS)
@@ -127,7 +127,7 @@ function PB:CreateShadowOrbs()
 	for i = 1,maxShadowOrbs do
 		ShadowOrbs[i] = CreateFrame("StatusBar", nil, ShadowOrbs)
 		tinsert(threeframe, ShadowOrbs[i])
-		ShadowOrbs[i]:SetSize((C["Width"]-space*(maxShadowOrbs-1))/maxShadowOrbs, C["Height"])
+		ShadowOrbs[i]:SetSize((self.db.Width-space*(maxShadowOrbs-1))/maxShadowOrbs, self.db.Height)
 		ShadowOrbs[i]:SetStatusBarTexture(S["media"].normal)
 		ShadowOrbs[i]:SetStatusBarColor(.86,.22,1)
 		ShadowOrbs[i]:CreateShadow()
@@ -167,12 +167,12 @@ end
 function PB:CreateMonkBar()
 	if S.myclass ~= "MONK" then return end
 	local chibar = CreateFrame("Frame",nil,Holder)
-	chibar:SetSize(C["Width"], C["Height"])
+	chibar:SetSize(self.db.Width, self.db.Height)
 	chibar:SetPoint("CENTER", Holder)
 	tinsert(mainframe, chibar)
 	for i=1,5 do
 		chibar[i] = CreateFrame("StatusBar",nil,chibar)
-		chibar[i]:SetSize((C["Width"]-space*(5-1))/5, C["Height"])
+		chibar[i]:SetSize((self.db.Width-space*(5-1))/5, self.db.Height)
 		tinsert(fiveframe, chibar[i])
 		chibar[i]:SetStatusBarTexture(S["media"].normal)
 		chibar[i]:SetStatusBarColor(0.0, 1.00 , 0.59)
@@ -195,12 +195,12 @@ function PB:CreateMonkBar()
 				if chimax == 4 then
 					chibar[5]:Hide()
 					for i = 1,4 do
-						chibar[i]:SetWidth((C["Width"]-space*(4-1))/4)
+						chibar[i]:SetWidth((self.db.Width-space*(4-1))/4)
 					end
 				elseif chimax == 5 then
 					chibar[5]:Show()
 					for i = 1,5 do
-						chibar[i]:SetWidth((C["Width"]-space*(5-1))/5)
+						chibar[i]:SetWidth((self.db.Width-space*(5-1))/5)
 					end
 				end
 			end
@@ -219,12 +219,12 @@ function PB:CreateMonkBar()
 			if chimax == 4 then
 				chibar[5]:Hide()
 				for i = 1,4 do
-					chibar[i]:SetWidth((C["Width"]-space*(4-1))/4)
+					chibar[i]:SetWidth((self.db.Width-space*(4-1))/4)
 				end
 			elseif chimax == 5 then
 				chibar[5]:Show()
 				for i = 1,5 do
-					chibar[i]:SetWidth((C["Width"]-space*(5-1))/5)
+					chibar[i]:SetWidth((self.db.Width-space*(5-1))/5)
 				end
 			end
 		end
@@ -297,14 +297,14 @@ function PB:CreateQSDKPower()
 		count = 5
 	end
 	local bars = CreateFrame("Frame", nil, Holder)
-	bars:SetSize(C["Width"], C["Height"])
+	bars:SetSize(self.db.Width, self.db.Height)
 	bars:SetPoint("CENTER", Holder)
 	tinsert(mainframe, bars)
 	for i = 1, count do
 		bars[i] =CreateFrame("StatusBar", nil, bars)
 		bars[i]:SetStatusBarTexture(S["media"].normal)
 		bars[i]:GetStatusBarTexture():SetHorizTile(false)
-		bars[i]:SetSize((C["Width"]-space*(count-1))/count, C["Height"])
+		bars[i]:SetSize((self.db.Width-space*(count-1))/count, self.db.Height)
 		if count == 6 then tinsert(sixframe, bars[i]) else tinsert(sixframe, fiveframe[i]) end
 		
 		if (i == 1) then
@@ -344,13 +344,13 @@ function PB:CreateQSDKPower()
 						bars[4]:Hide()
 						bars[5]:Hide()
 						for i = 1,3 do
-							bars[i]:SetWidth((C["Width"]-space*(3-1))/3)
+							bars[i]:SetWidth((self.db.Width-space*(3-1))/3)
 						end
 					elseif maxnum == 5 then
 						bars[4]:Show()
 						bars[5]:Show()
 						for i = 1,5 do
-							bars[i]:SetWidth((C["Width"]-space*(5-1))/5)
+							bars[i]:SetWidth((self.db.Width-space*(5-1))/5)
 						end
 					end
 				end
@@ -370,13 +370,13 @@ function PB:CreateQSDKPower()
 					bars[4]:Hide()
 					bars[5]:Hide()
 					for i = 1,3 do
-						bars[i]:SetWidth((C["Width"]-space*(3-1))/3)
+						bars[i]:SetWidth((self.db.Width-space*(3-1))/3)
 					end
 				elseif maxnum == 5 then
 					bars[4]:Show()
 					bars[5]:Show()
 					for i = 1,5 do
-						bars[i]:SetWidth((C["Width"]-space*(5-1))/5)
+						bars[i]:SetWidth((self.db.Width-space*(5-1))/5)
 					end
 				end
 			end
@@ -393,14 +393,14 @@ end
 function PB:CreateCombatPoint()
 	if S.myclass ~= "ROGUE" and S.myclass ~= "DRUID" then return end
 	local CombatPointBar = CreateFrame("Frame", nil, Holder)
-	CombatPointBar:SetSize(C["Width"], C["Height"])
+	CombatPointBar:SetSize(self.db.Width, self.db.Height)
 	CombatPointBar:SetPoint("CENTER", Holder)
 	tinsert(mainframe, CombatPointBar)
 	for i = 1, 5 do
 		CombatPointBar[i] =CreateFrame("StatusBar", nil, CombatPointBar)
 		CombatPointBar[i]:SetStatusBarTexture(S["media"].normal)
 		CombatPointBar[i]:GetStatusBarTexture():SetHorizTile(false)
-		CombatPointBar[i]:SetSize((C["Width"]-space*4)/5, C["Height"])
+		CombatPointBar[i]:SetSize((self.db.Width-space*4)/5, self.db.Height)
 		tinsert(fiveframe, CombatPointBar[i])
 		if (i == 1) then
 			CombatPointBar[i]:SetPoint("LEFT", CombatPointBar, "LEFT")
@@ -455,13 +455,13 @@ function PB:CreateEclipse()
 	local showBar = false
 	local A = S:GetModule("Skins")
 	eb = CreateFrame('Frame', nil, Holder)
-	eb:SetSize(C["Width"], C["Height"])
+	eb:SetSize(self.db.Width, self.db.Height)
 	eb:SetPoint("CENTER", Holder)
 	eb:CreateShadow()
 	tinsert(mainframe, eb)
 	local lb = CreateFrame('StatusBar', nil, eb)
 	lb:SetPoint('LEFT', eb, 'LEFT')
-	lb:SetSize(C["Width"], C["Height"])
+	lb:SetSize(self.db.Width, self.db.Height)
 	tinsert(mainframe, lb)
 	S:SmoothBar(lb)
 	lb:SetStatusBarTexture(S["media"].normal)
@@ -471,7 +471,7 @@ function PB:CreateEclipse()
 	local sb = CreateFrame('StatusBar', nil, eb)
 	sb:SetPoint('LEFT', lb:GetStatusBarTexture(), 'RIGHT', 0, 0)
 	sb:SetPoint('TOPRIGHT', eb, 'TOPRIGHT', 0, 0)
-	sb:SetSize(C["Width"], C["Height"])
+	sb:SetSize(self.db.Width, self.db.Height)
 	sb:SetStatusBarTexture(S["media"].normal)
 	sb:SetStatusBarColor(0.9, 0.6, 0.3)
 	eb.SolarBar = sb
@@ -561,12 +561,12 @@ function PB:FuckWarlock()
 		[3] = {222/255, 95/255,  95/255, 1},
 	}
 	local bars = CreateFrame('Frame', nil, Holder)
-	bars:SetSize(C["Width"], C["Height"])
+	bars:SetSize(self.db.Width, self.db.Height)
 	bars:SetPoint("CENTER", Holder)
 	tinsert(mainframe, bars)
 	for i = 1, 4 do
 		bars[i] = CreateFrame("StatusBar", nil, bars)
-		bars[i]:SetSize((C["Width"]-space*(4-1))/4, C["Height"])
+		bars[i]:SetSize((self.db.Width-space*(4-1))/4, self.db.Height)
 		bars[i]:SetStatusBarTexture(S["media"].normal)
 		tinsert(fourframe, bars[i])
 		S:SmoothBar(bars[i])
@@ -690,12 +690,12 @@ end
 function PB:Mage()
 	if S.myclass ~= "MAGE" then return end
 	MageBars = CreateFrame("Frame", nil, Holder)
-	MageBars:SetSize(C["Width"], C["Height"])
+	MageBars:SetSize(self.db.Width, self.db.Height)
 	MageBars:SetPoint("CENTER", Holder)
 	tinsert(mainframe, MageBars)
 	for i = 1,4 do
 		MageBars[i] = CreateFrame("StatusBar", nil, MageBars)
-		MageBars[i]:SetSize((C["Width"]-space*(4-1))/4, C["Height"])
+		MageBars[i]:SetSize((self.db.Width-space*(4-1))/4, self.db.Height)
 		MageBars[i]:SetStatusBarTexture(S["media"].normal)
 		tinsert(fourframe, MageBars[i])
 		MageBars[i]:SetStatusBarColor(S.myclasscolor.r, S.myclasscolor.g, S.myclasscolor.b)
@@ -739,7 +739,7 @@ function PB:Shaman()
 	for i = 1, 4 do
 		bars[i] = CreateFrame("StatusBar", nil, Holder)
 		bars[i]:SetStatusBarTexture(S["media"].normal)
-		bars[i]:SetSize((C["Width"]-space*(4-1))/4, C["Height"])
+		bars[i]:SetSize((self.db.Width-space*(4-1))/4, self.db.Height)
 		bars[i]:GetStatusBarTexture():SetHorizTile(false)
 
 		bars[i]:CreateShadow(0.5)
@@ -826,7 +826,7 @@ end
 function PB:HealthPowerBar()
 	local A = S:GetModule("Skins")
 	healthbar = CreateFrame("Statusbar", nil, Holder)
-	healthbar:SetSize(C["Width"], C["Height"])
+	healthbar:SetSize(self.db.Width, self.db.Height)
 	healthbar:SetPoint("CENTER", Holder)
 	healthbar:SetStatusBarTexture(S["media"].normal)
 	healthbar:SetMinMaxValues(0, UnitHealthMax("player"))
@@ -849,7 +849,7 @@ function PB:HealthPowerBar()
 	healthbar.healthtext:SetTextColor(1, 0.22, 0.52)
 
 	healthbar.power = CreateFrame("Statusbar", nil, healthbar)
-	healthbar.power:SetSize(C["Width"], C["Height"])
+	healthbar.power:SetSize(self.db.Width, self.db.Height)
 	healthbar.power:SetStatusBarTexture(S["media"].normal)
 	healthbar.power:SetAllPoints(healthbar)
 	healthbar.power:SetStatusBarColor(0.1, 0.8, 0.1, 0)
@@ -871,7 +871,7 @@ function PB:HealthPowerBar()
 end
 
 function PB:UpdateHealthBar()
-	if C["HealthPower"] then 
+	if self.db.HealthPower then 
 		healthbar:Show() 
 		healthbar:SetScript("OnUpdate", function(self, elapsed)
 			self.elapsed = (self.elapsed or 0) + elapsed
@@ -885,13 +885,13 @@ function PB:UpdateHealthBar()
 				local maxnum = 0
 				self:SetValue(healthnum)
 				self.power:SetValue(powernum)
-				if C["HealthPowerPer"] then
+				if self.db.HealthPowerPer then
 					maxnum = UnitHealthMax("player")
 					self.healthtext:SetText(format("%.1f ", healthnum/maxnum*100).."%")
 				else
 					self.healthtext:SetText(S:ShortValue(healthnum))
 				end
-				if C["ManaPowerPer"] then
+				if self.db.ManaPowerPer then
 					maxnum = UnitPowerMax("player")
 					self.powertext:SetText(format("%.1f ", powernum/maxnum*100).."%")
 				else
@@ -908,27 +908,27 @@ end
 function PB:UpdateSize()
 	for k, v in ipairs(mainframe) do 
 		if v then 
-			v:SetSize(C["Width"], C["Height"])
+			v:SetSize(self.db.Width, self.db.Height)
 		end
 	end
 	for k, v in ipairs(threeframe) do 
 		if v then 
-			v:SetSize((C["Width"]-space*(3-1))/3, C["Height"])
+			v:SetSize((self.db.Width-space*(3-1))/3, self.db.Height)
 		end
 	end
 	for k, v in ipairs(fourframe) do 
 		if v then 
-			v:SetSize((C["Width"]-space*(4-1))/4, C["Height"])
+			v:SetSize((self.db.Width-space*(4-1))/4, self.db.Height)
 		end
 	end
 	for k, v in ipairs(fiveframe) do 
 		if v then 
-			v:SetSize((C["Width"]-space*(5-1))/5, C["Height"])
+			v:SetSize((self.db.Width-space*(5-1))/5, self.db.Height)
 		end
 	end
 	for k, v in ipairs(sixframe) do 
 		if v then 
-			v:SetSize((C["Width"]-space*(6-1))/6, C["Height"])
+			v:SetSize((self.db.Width-space*(6-1))/6, self.db.Height)
 		end
 	end
 end
@@ -940,7 +940,7 @@ function PB:PLAYER_REGEN_ENABLED()
 	S:FadeOutFrame(Holder, 1)
 end
 function PB:UpdateFade()
-	if C["Fade"] then
+	if self.db.Fade then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		self:RegisterEvent("PLAYER_REGEN_DISABLED")
 		self:PLAYER_REGEN_ENABLED()
@@ -983,9 +983,9 @@ function PB:ACTIVE_TALENT_GROUP_CHANGED()
 	end
 end
 function PB:Initialize()
-	C = self.db
-	if not C["Open"] then Holder = nil return end
-	Holder:SetSize(C["Width"], C["Height"])
+	
+	if not self.db.Open then Holder = nil return end
+	Holder:SetSize(self.db.Width, self.db.Height)
 	Holder:SetPoint("CENTER", "UIParent", "CENTER", 0, -120)
 	S:CreateMover(Holder, "PowerBarMover", L["PowerBar"], true, nil, "ALL,MINITOOLS")
 	self:CreateShadowOrbs()
@@ -998,7 +998,7 @@ function PB:Initialize()
 	self:Shaman()
 	self:HealthPowerBar()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-	if C["Fade"] then
+	if self.db.Fade then
 		self:RegisterEvent("PLAYER_ENTERING_WORLD", function()
 			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 			self:PLAYER_REGEN_ENABLED()

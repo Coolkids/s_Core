@@ -309,3 +309,98 @@ do
 	L["状态"] = true
 	L["点我解锁"] = true
 end
+--信息条
+do
+	L["您没有击杀任何野外boss"] = true
+	L["信息条"] = true
+	L["启动信息条1"] = true
+	L["顶部背景"] = true
+	L["延时"] = true
+	L["内存"] = true
+	L["金币"] = true
+	L["启动信息条2"] = true
+	L["底部背景"] = true
+	L["时钟"] = true
+	L["耐久"] = true
+	L["地城"] = true
+	L["天赋"] = true
+	L["信息条1"] = true
+	L["信息条2"] = true
+	L["目前"] = true
+	L["收入"] = true
+	L["花费"] = true
+	L["亏损"] = true
+	L["服务器"] = true
+	L["总计"] = true
+	L["延迟"] = true
+	L["本地延迟"] = true
+	L["世界延迟"] = true
+	L["带宽"] = true
+	L["下载"] = true
+	L["内存"] = true
+	L["总CPU使用"] = true
+	L["总内存使用"] = true
+	L["共释放内存"] = true
+end
+
+do
+	L["缺失Buff"] = true
+	L["Buff提醒"] = true
+	L["显示团队增益缺失提醒"] = true
+	L["只在队伍中显示"] = true
+	L["团队增益图标排列方式"] = true
+	L["团队增益图标排列方式"] = true
+	L["横排"] = true
+	L["竖排"] = true
+	L["显示职业增益缺失提醒"] = true
+	L["职业增益图标大小"] = true
+	L["Buff提醒"] = true
+	L["缺失Buff"] = true
+end
+--施法通知
+do
+	L["施法通告"] = true
+	L["只是通告自己施放的法术"] = true
+	L["启用打断通告"] = true
+	L["启用治疗大招通告"] = true
+	L["启用误导通告"] = true
+	L["启用保命技能通告"] = true
+	L["启用给出大招通告"] = true
+	L["包含天使,痛苦压制,保护等等"] = true
+	L["启用复活技能通告"] = true
+	L["启用团队减伤通告"] = true
+end
+--自动换装
+do
+	L["自动换装"] = true
+	L["选择主天赋装备"] = true
+	L["选择副天赋装备"] = true
+end
+--职业助手
+do
+	L["斩杀提示"] = true
+	L["职业助手"] = true
+	L["图标大小"] = true
+	L["燃火监视"] = true
+	L["精神护罩监视"] = true
+	L["力之符文监视"] = true
+	L["宠物计时"] = true
+end
+do
+	L["世界地图"] = true
+end
+
+do
+	L["内置CD监视"] = true
+	L["启用图标模式"] = true
+	L["计时条增长方向"] = true
+	L["向下"] = true
+	L["向上"] = true
+	
+	L["团队CD监视"] = true
+	L["换行数目"] = true
+	L["换行方向"] = true
+	L["向左"] = true
+	L["向右"] = true
+	L["上限"] = true
+end

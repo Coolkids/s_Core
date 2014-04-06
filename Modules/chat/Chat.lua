@@ -1,7 +1,7 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 
 local CT = S:NewModule("Chat", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
-local C
+
 CT.modName = L["聊天美化"]
 local tscol = "64C2F5"						-- Timestamp coloring
 local newAddMsg = {}
@@ -84,7 +84,7 @@ local function ApplyChatStyle(self)
 	_G[cf.."EditBoxLanguage"]:SetSize(_G[cf.."EditBox"]:GetHeight(),_G[cf.."EditBox"]:GetHeight())
 	_G[cf.."EditBoxLanguage"]:StripTextures()
 	A:CreateBD(_G[cf.."EditBoxLanguage"], 0.6)
-	if C["ChatEditBoxColor"] then
+	if self.db.ChatEditBoxColor then
 		hooksecurefunc("ChatEdit_UpdateHeader", function()
 			local type = _G[cf..'EditBox']:GetAttribute("chatType")
 			if ( type == "CHANNEL" ) then
@@ -312,21 +312,21 @@ function CT:Info()
 end
 function CT:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	C = self.db
-	if C["DNDFilter"] then  
+	
+	if self.db.DNDFilter then  
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL_JOIN", function(msg) return true end)
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL_LEAVE", function(msg) return true end)
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_AFK", function(msg) return true end)
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_DND", function(msg) return true end)
 	end
-	if C["TimeStamps"] then 
+	if self.db.TimeStamps then 
 		if GetCVar("showTimestamps") == "none" then  
 			SetCVar("showTimestamps", [[%H:%M:%S]])
 		end
 	else
 		SetCVar("showTimestamps", "none")
 	end
-	if C["ChatBackground"] then 
+	if self.db.ChatBackground then 
 		local A = S:GetModule("Skins")
 		for i = 1, NUM_CHAT_WINDOWS do
 			local cf = _G['ChatFrame'..i]

@@ -758,14 +758,14 @@ local function LoadSkin()
 
 	--实名好友弹窗位置
 	A:ReskinClose(BNToastFrameCloseButton)
-	BNToastFrame:HookScript("OnShow", function(self)
+	--[[BNToastFrame:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
 		if TempEnchant1:IsShown() or TempEnchant2:IsShown() then
 			self:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -3, -51)
 		else
 			self:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -3, -17)
 		end
-	end)
+	end)--]]
 
 	ChatConfigFrameDefaultButton:SetWidth(125)
 	ChatConfigFrameDefaultButton:SetPoint("TOPLEFT", ChatConfigCategoryFrame, "BOTTOMLEFT", 0, -4)

@@ -1,7 +1,7 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local AAQ = S:GetModule("Quest")
 local isRepeatableAuto = false --是否开启可重复交接任务自动交接（比如一包食材换徽记）
-local C
+
 completed_quests = {}
 incomplete_quests = {}
 	
@@ -158,7 +158,7 @@ function AAQ:CreateQuickSet()
 end
 
 function AAQ:UpdateAutoAccept()
-	if C["AutoQuest"] then
+	if self.db.AutoQuest then
 		AAQ:RegisterEvent("GOSSIP_SHOW", On_GOSSIP_SHOW)
 		AAQ:RegisterEvent("QUEST_COMPLETE", On_QUEST_COMPLETE)
 		AAQ:RegisterEvent("QUEST_DETAIL", On_QUEST_DETAIL)
@@ -177,7 +177,7 @@ function AAQ:UpdateAutoAccept()
 	end
 end
 function AAQ:initAutoAccept()
-	C = self.db
+	
 	self:UpdateAutoAccept()
 	self:CreateQuickSet()
 end

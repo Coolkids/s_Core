@@ -99,8 +99,8 @@ function AB:Style(button)
 	if not button.shadow then
 		if not totem then
 			if not flyout then
-				--button:SetWidth(C["ButtonSize"])
-				--button:SetHeight(C["ButtonSize"])
+				--button:SetWidth(self.db.ButtonSize)
+				--button:SetHeight(self.db.ButtonSize)
 			end
 
 			button:CreateShadow("Background")

@@ -1,7 +1,7 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 
 local Buff = S:NewModule("Buff", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
-local C
+
 Buff.modName = L["增益美化"]
 local holder = CreateFrame("Frame", "BuffFrameHolder", UIParent)
 local debuffholder = CreateFrame("Frame", "DeBuffFrameHolder", UIParent)
@@ -71,7 +71,7 @@ local function CreateBuffStyle(buff, t)
     local icon 		= _G[bn.."Icon"]
 	local duration 	= _G[bn.."Duration"]
 	local count 	= _G[bn.."Count"]
-	buff:SetSize(C["IconSize"],C["IconSize"])
+	buff:SetSize(self.db.IconSize,self.db.IconSize)
 	icon:SetTexCoord(.08, .92, .08, .92)
 
 	if icon and not buff.shadow then
@@ -108,26 +108,26 @@ function Buff:OverrideBuffAnchors()
 		buff.consolidated = nil
 		buff.parent = BuffFrame
 		buff:ClearAllPoints()
-		if ((index > 1) and (mod(index, C["IconPerRow"]) == 1)) then
+		if ((index > 1) and (mod(index, self.db.IconPerRow) == 1)) then
 			buff:SetPoint("TOP", aboveBuff, "BOTTOM", 0, -23)
 			aboveBuff = buff; 
 		elseif ( index == 1 ) then
 			local  mh, _, _, oh = GetWeaponEnchantInfo()
 			if (mh and oh) and not UnitHasVehicleUI("player") then
-				if C["BuffDirection"] == 1 then
+				if self.db.BuffDirection == 1 then
 					buff:SetPoint("RIGHT", TempEnchant2, "LEFT", -8, 0)
 				end
-				if C["BuffDirection"] == 2 then
+				if self.db.BuffDirection == 2 then
 					TempEnchant2:ClearAllPoints()
 					TempEnchant2:SetPoint("LEFT", TempEnchant1, "RIGHT", 8, 0)
 					buff:SetPoint("LEFT", TempEnchant2, "RIGHT", 8, 0)
 				end
 				aboveBuff = TempEnchant2
 			elseif ((mh and not oh) or (oh and not mh)) and not UnitHasVehicleUI("player") then
-				if C["BuffDirection"] == 1 then
+				if self.db.BuffDirection == 1 then
 					buff:SetPoint("RIGHT", TempEnchant1, "LEFT", -8, 0)
 				end
-				if C["BuffDirection"] == 2 then
+				if self.db.BuffDirection == 2 then
 					buff:SetPoint("LEFT", TempEnchant1, "RIGHT", 8, 0)
 				end
 				aboveBuff = TempEnchant1
@@ -137,10 +137,10 @@ function Buff:OverrideBuffAnchors()
 			end
 		else
 			--buff:SetPoint("RIGHT", previousBuff, "LEFT", -8, 0);
-			if C["BuffDirection"] == 1 then
+			if self.db.BuffDirection == 1 then
 				buff:SetPoint("RIGHT", previousBuff, "LEFT", -8, 0)
 			end
-			if C["BuffDirection"] == 2 then
+			if self.db.BuffDirection == 2 then
 				buff:SetPoint("LEFT", previousBuff, "RIGHT", 8, 0)
 			end
 		end
@@ -155,22 +155,22 @@ function Buff:OverrideDebuffAnchors(buttonName, i)
 	local border = _G[buffName.."Border"]
 	local buff = _G[buttonName..i];
 	local Pre = _G[buttonName..(i-1)]
-	local PreRow = _G[buttonName..(i-C["IconPerRow"])]
+	local PreRow = _G[buttonName..(i-self.db.IconPerRow)]
 	buff:ClearAllPoints()
 	if not buff.styled then CreateBuffStyle(buff) end
 
 	if i == 1 then
 		buff:SetPoint("CENTER", debuffholder)
 	else
-		if C["DebuffDirection"] == 1 then
-			if i%C["IconPerRow"] == 1 then
+		if self.db.DebuffDirection == 1 then
+			if i%self.db.IconPerRow == 1 then
 				buff:SetPoint("TOP", PreRow, "BOTTOM", 0, -23)
 			else
 				buff:SetPoint("RIGHT", Pre, "LEFT", -8, 0)
 			end
 		end
-		if C["DebuffDirection"] == 2 then
-			if i%C["IconPerRow"] == 1 then
+		if self.db.DebuffDirection == 2 then
+			if i%self.db.IconPerRow == 1 then
 				buff:SetPoint("TOP", PreRow, "BOTTOM", 0, -23)
 			else
 				buff:SetPoint("LEFT", Pre, "RIGHT", 8, 0)
@@ -190,7 +190,7 @@ local function OverrideTempEnchantAnchors()
 	for i=1, NUM_TEMP_ENCHANT_FRAMES do
 		local te = _G["TempEnchant"..i]
 		if te then
-			te:SetSize(C["IconSize"],C["IconSize"])
+			te:SetSize(self.db.IconSize,self.db.IconSize)
 			if (i == 1) then
 				te:SetPoint("CENTER", TemporaryEnchantFrame, "CENTER", 0, 0)
 			else
@@ -243,16 +243,16 @@ end
 function Buff:UpdateSet()
 	for i=1, BUFF_ACTUAL_DISPLAY do
 		local buff = _G["BuffButton"..i]
-		buff:SetSize(C["IconSize"],C["IconSize"])
+		buff:SetSize(self.db.IconSize,self.db.IconSize)
 		buff.styled = false
 	end
 	for i=1, DEBUFF_ACTUAL_DISPLAY do
 		local debuff = _G["DebuffButton"..i]
-		debuff:SetSize(C["IconSize"],C["IconSize"])
+		debuff:SetSize(self.db.IconSize,self.db.IconSize)
 		debuff.styled = false
 	end
-	holder:SetSize(C["IconSize"],C["IconSize"])
-	debuffholder:SetSize(C["IconSize"],C["IconSize"])
+	holder:SetSize(self.db.IconSize,self.db.IconSize)
+	debuffholder:SetSize(self.db.IconSize,self.db.IconSize)
 end
 function Buff:UpdateBuffDirection()
 	local previousBuff
@@ -262,26 +262,26 @@ function Buff:UpdateBuffDirection()
 		numBuffs = numBuffs + 1
 		index = numBuffs
 		buff:ClearAllPoints()
-		if ((index > 1) and (mod(index, C["IconPerRow"]) == 1)) then
+		if ((index > 1) and (mod(index, self.db.IconPerRow) == 1)) then
 			buff:SetPoint("TOP", aboveBuff, "BOTTOM", 0, -23)
 			aboveBuff = buff; 
 		elseif ( index == 1 ) then
 			local  mh, _, _, oh = GetWeaponEnchantInfo()
 			if (mh and oh) and not UnitHasVehicleUI("player") then
-				if C["BuffDirection"] == 1 then
+				if self.db.BuffDirection == 1 then
 					buff:SetPoint("RIGHT", TempEnchant2, "LEFT", -8, 0)
 				end
-				if C["BuffDirection"] == 2 then
+				if self.db.BuffDirection == 2 then
 					TempEnchant2:ClearAllPoints()
 					TempEnchant2:SetPoint("LEFT", TempEnchant1, "RIGHT", 8, 0)
 					buff:SetPoint("LEFT", TempEnchant2, "RIGHT", 8, 0)
 				end
 				aboveBuff = TempEnchant2
 			elseif ((mh and not oh) or (oh and not mh)) and not UnitHasVehicleUI("player") then
-				if C["BuffDirection"] == 1 then
+				if self.db.BuffDirection == 1 then
 					buff:SetPoint("RIGHT", TempEnchant1, "LEFT", -8, 0)
 				end
-				if C["BuffDirection"] == 2 then
+				if self.db.BuffDirection == 2 then
 					buff:SetPoint("LEFT", TempEnchant1, "RIGHT", 8, 0)
 				end
 				aboveBuff = TempEnchant1
@@ -290,10 +290,10 @@ function Buff:UpdateBuffDirection()
 				aboveBuff = buff
 			end
 		else
-			if C["BuffDirection"] == 1 then
+			if self.db.BuffDirection == 1 then
 				buff:SetPoint("RIGHT", previousBuff, "LEFT", -8, 0)
 			end
-			if C["BuffDirection"] == 2 then
+			if self.db.BuffDirection == 2 then
 				buff:SetPoint("LEFT", previousBuff, "RIGHT", 8, 0)
 			end
 		end
@@ -305,15 +305,15 @@ function Buff:UpdateDebuffDirection()
 		if i == 1 then
 			buff:SetPoint("CENTER", debuffholder)
 		else
-			if C["DebuffDirection"] == 1 then
-				if i%C["IconPerRow"] == 1 then
+			if self.db.DebuffDirection == 1 then
+				if i%self.db.IconPerRow == 1 then
 					buff:SetPoint("TOP", PreRow, "BOTTOM", 0, -23)
 				else
 					buff:SetPoint("RIGHT", Pre, "LEFT", -8, 0)
 				end
 			end
-			if C["DebuffDirection"] == 2 then
-				if i%C["IconPerRow"] == 1 then
+			if self.db.DebuffDirection == 2 then
+				if i%self.db.IconPerRow == 1 then
 					buff:SetPoint("TOP", PreRow, "BOTTOM", 0, -23)
 				else
 					buff:SetPoint("LEFT", Pre, "RIGHT", 8, 0)
@@ -328,12 +328,12 @@ function Buff:Info()
 end
 
 function Buff:Initialize()
-	C = self.db
+	
 	SetCVar("consolidateBuffs",0)
 	SetCVar("buffDurations", 1)
-	holder:SetSize(C["IconSize"],C["IconSize"])
+	holder:SetSize(self.db.IconSize,self.db.IconSize)
 	holder:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -5, -5)
-	debuffholder:SetSize(C["IconSize"],C["IconSize"])
+	debuffholder:SetSize(self.db.IconSize,self.db.IconSize)
 	debuffholder:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -5, -110)
 	S:CreateMover(holder, "BuffMover", L["Buff锚点"], true, nil, "ALL,GENERAL")
 	S:CreateMover(debuffholder, "DebuffMover", L["Debuff锚点"], true, nil, "ALL,GENERAL")

@@ -177,7 +177,7 @@ function MT:CreateHELM()
 	A:ReskinCheck(cloakcb)
 end
 function MT:banRaidMessage()
-	if C["HideRaidWarn"] then
+	if self.db.HideRaidWarn then
 		_G["RaidWarningFrame"]:ClearAllPoints()
 		_G["RaidWarningFrame"]:UnregisterAllEvents()
 		RaidWarningFrame.Show = function() end
@@ -207,7 +207,7 @@ function MT:RESURRECT_REQUEST()
 	end
 end
 function MT:MERCHANT_SHOW()
-	if C["AutoRepair"] then
+	if self.db.AutoRepair then
 		if CanMerchantRepair() then
 			local cost, possible = GetRepairAllCost()
 			if cost>0 then
@@ -233,7 +233,7 @@ function MT:MERCHANT_SHOW()
 			end
 		end
 	end
-	if C["AutoSell"] then
+	if self.db.AutoSell then
 		local c = 0
 		for b=0,4 do
 			for s=1,GetContainerNumSlots(b) do
@@ -260,7 +260,7 @@ function MT:MERCHANT_SHOW()
 end
 
 function MT:UpdateMTSet()
-	if C["Disenchat"] then
+	if self.db.Disenchat then
 		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", aotuClick)
 		self:RegisterEvent("CONFIRM_LOOT_ROLL", aotuClick)
 		self:RegisterEvent("LOOT_BIND_CONFIRM", aotuClick)
@@ -269,19 +269,18 @@ function MT:UpdateMTSet()
 		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
 		self:UnregisterEvent("LOOT_BIND_CONFIRM")
 	end
-	if C["Resurrect"] then
+	if self.db.Resurrect then
 		self:RegisterEvent("RESURRECT_REQUEST")
 	else
 		self:UnregisterEvent("RESURRECT_REQUEST")
 	end
-	if C["AutoRepair"] or C["AutoSell"] then
+	if self.db.AutoRepair or self.db.AutoSell then
 		self:RegisterEvent("MERCHANT_SHOW")
 	else
 		self:UnregisterEvent("MERCHANT_SHOW")
 	end
 end
 function MT:Initialize()
-	C = self.db
 	self:UpdateMTSet()
 	self:banRaidMessage()
 	self:FixBNFrame()

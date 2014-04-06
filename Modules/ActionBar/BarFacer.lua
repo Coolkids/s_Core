@@ -46,8 +46,8 @@ function AB:ADDON_LOADED(event, addon)
 end
 
 function AB:UpdateAutoHide()
-	local C = self.db
-	if C["AllFade"] then 
+	
+	if self.db.AllFade then 
 		if SunUIStanceBar then SunUIStanceBar:SetParent(BarFade) end
 		if SunUIPetBar then SunUIPetBar:SetParent(BarFade) end
 		if SunUIActionBar1  then SunUIActionBar1:SetParent(BarFade) end
@@ -61,18 +61,18 @@ function AB:UpdateAutoHide()
 		if SunUIMultiBarLeft3 then SunUIMultiBarLeft3:SetParent(BarFade) end
 		if SunUIMultiBarLeft4 then SunUIMultiBarLeft4:SetParent(BarFade) end
 	else
-		if SunUIStanceBar and C["StanceBarFade"] then SunUIStanceBar:SetParent(BarFade) end
-		if SunUIPetBar and C["PetBarFade"] then SunUIPetBar:SetParent(BarFade) end
-		if SunUIActionBar1 and C["Bar1Fade"] then SunUIActionBar1:SetParent(BarFade) end
-		if SunUIActionBar2 and C["Bar2Fade"] then SunUIActionBar2:SetParent(BarFade) end
-		if SunUIActionBar3 and C["Bar3Fade"] then SunUIActionBar3:SetParent(BarFade) end
-		if SunUIActionBar3_2 and C["Bar3Fade"] then SunUIActionBar3_2:SetParent(BarFade) end
-		if SunUIActionBar4 and C["Bar4Fade"] then SunUIActionBar4:SetParent(BarFade) end
-		if SunUIActionBar5 and C["Bar5Fade"] then SunUIActionBar5:SetParent(BarFade) end
-		if SunUIMultiBarLeft1 and C["Bar5Fade"] then SunUIMultiBarLeft1:SetParent(BarFade) end
-		if SunUIMultiBarLeft2 and C["Bar5Fade"] then SunUIMultiBarLeft2:SetParent(BarFade) end
-		if SunUIMultiBarLeft3 and C["Bar5Fade"] then SunUIMultiBarLeft3:SetParent(BarFade) end
-		if SunUIMultiBarLeft4 and C["Bar5Fade"] then SunUIMultiBarLeft4:SetParent(BarFade) end
+		if SunUIStanceBar and self.db.StanceBarFade then SunUIStanceBar:SetParent(BarFade) end
+		if SunUIPetBar and self.db.PetBarFade then SunUIPetBar:SetParent(BarFade) end
+		if SunUIActionBar1 and self.db.Bar1Fade then SunUIActionBar1:SetParent(BarFade) end
+		if SunUIActionBar2 and self.db.Bar2Fade then SunUIActionBar2:SetParent(BarFade) end
+		if SunUIActionBar3 and self.db.Bar3Fade then SunUIActionBar3:SetParent(BarFade) end
+		if SunUIActionBar3_2 and self.db.Bar3Fade then SunUIActionBar3_2:SetParent(BarFade) end
+		if SunUIActionBar4 and self.db.Bar4Fade then SunUIActionBar4:SetParent(BarFade) end
+		if SunUIActionBar5 and self.db.Bar5Fade then SunUIActionBar5:SetParent(BarFade) end
+		if SunUIMultiBarLeft1 and self.db.Bar5Fade then SunUIMultiBarLeft1:SetParent(BarFade) end
+		if SunUIMultiBarLeft2 and self.db.Bar5Fade then SunUIMultiBarLeft2:SetParent(BarFade) end
+		if SunUIMultiBarLeft3 and self.db.Bar5Fade then SunUIMultiBarLeft3:SetParent(BarFade) end
+		if SunUIMultiBarLeft4 and self.db.Bar5Fade then SunUIMultiBarLeft4:SetParent(BarFade) end
 	end
 
 	autohide:RegisterEvent("PLAYER_REGEN_ENABLED")
