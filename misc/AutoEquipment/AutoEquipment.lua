@@ -6,7 +6,6 @@ function A:Equipment()
 	local equipmenttotal = GetNumEquipmentSets()
 	for i = 1, equipmenttotal do
 		self.equipments[i] = GetEquipmentSetInfo(i)
-		--print(self.equipments[i])
 	end
 end
 function A:UpdataSet()

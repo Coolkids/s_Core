@@ -64,7 +64,7 @@ function A:Info()
 	return L["自动换装"]
 end
 function A:Initialize()
-	self:UpdataSet()
+	self:init()
 end
 
 S:RegisterModule(A:GetName())
