@@ -71,7 +71,7 @@ local function CreateBuffStyle(buff, t)
     local icon 		= _G[bn.."Icon"]
 	local duration 	= _G[bn.."Duration"]
 	local count 	= _G[bn.."Count"]
-	buff:SetSize(self.db.IconSize,self.db.IconSize)
+	buff:SetSize(Buff.db.IconSize,Buff.db.IconSize)
 	icon:SetTexCoord(.08, .92, .08, .92)
 
 	if icon and not buff.shadow then
@@ -190,7 +190,7 @@ local function OverrideTempEnchantAnchors()
 	for i=1, NUM_TEMP_ENCHANT_FRAMES do
 		local te = _G["TempEnchant"..i]
 		if te then
-			te:SetSize(self.db.IconSize,self.db.IconSize)
+			te:SetSize(Buff.db.IconSize,Buff.db.IconSize)
 			if (i == 1) then
 				te:SetPoint("CENTER", TemporaryEnchantFrame, "CENTER", 0, 0)
 			else

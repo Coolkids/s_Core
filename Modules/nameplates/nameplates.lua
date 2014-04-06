@@ -385,8 +385,8 @@ end
 local function CreateAuraIcon(parent)
 	local button = CreateFrame("Frame",nil,parent)
 	button:SetScript("OnHide", function(self) UpdateAuraAnchors(self:GetParent()) end)
-	button:SetWidth(self.db.IconSize)
-	button:SetHeight(self.db.IconSize)
+	button:SetWidth(N.db.IconSize)
+	button:SetHeight(N.db.IconSize)
 
 	--[[button.shadow = CreateFrame("Frame", nil, button)
 	button.shadow:SetFrameLevel(0)
@@ -497,10 +497,10 @@ end
 
 --Filter auras on nameplate, and determine if we need to update them or not.
 local function OnAura(frame, unit)
-	if not frame.icons or not frame.unit or not self.db.Showdebuff then return end  --
+	if not frame.icons or not frame.unit or not N.db.Showdebuff then return end  --
 	local i = 1
 	for index = 1,40 do
-		if i > self.db.HPWidth / self.db.IconSize then return end
+		if i > N.db.HPWidth / N.db.IconSize then return end
 		local match
 		local name,_,_,_,_,duration,_,caster,_,_,spellid = UnitAura(frame.unit,index,"HARMFUL")
 		
@@ -511,7 +511,7 @@ local function OnAura(frame, unit)
 			if not frame.icons[i] then frame.icons[i] = CreateAuraIcon(frame) end
 			local icon = frame.icons[i]
 			if i == 1 then icon:SetPoint("RIGHT",frame.icons,"RIGHT") end
-			if i ~= 1 and i <= self.db.HPWidth / self.db.IconSize then icon:SetPoint("RIGHT", frame.icons[i-1], "LEFT", -2, 0) end
+			if i ~= 1 and i <= N.db.HPWidth / N.db.IconSize then icon:SetPoint("RIGHT", frame.icons[i-1], "LEFT", -2, 0) end
 			i = i + 1
 			UpdateAuraIcon(icon, frame.unit, index, "HARMFUL")
 		end
@@ -523,7 +523,7 @@ local function UpdateObjects(frame)
 	local frame = frame:GetParent()
 	Color(frame)
 	frame.hp:ClearAllPoints()
-	frame.hp:SetSize(self.db.HPWidth, self.db.HPHeight)	
+	frame.hp:SetSize(N.db.HPWidth, N.db.HPHeight)	
 	frame.hp:SetPoint('CENTER', frame)
 	frame.hp:GetStatusBarTexture():SetHorizTile(true)
 	local name = frame.oldname:GetText()
@@ -551,8 +551,8 @@ local function UpdateObjects(frame)
 	if not frame.icons then
 		frame.icons = CreateFrame("Frame",nil,frame)
 		frame.icons:SetPoint("BOTTOMRIGHT",frame.hp,"TOPRIGHT", 0, 8)
-		frame.icons:SetWidth(self.db.IconSize + self.db.HPWidth)
-		frame.icons:SetHeight(self.db.IconSize)
+		frame.icons:SetWidth(N.db.IconSize + N.db.HPWidth)
+		frame.icons:SetHeight(N.db.IconSize)
 		frame.icons:SetFrameLevel(frame.hp:GetFrameLevel()+2)
 		
 		frame:RegisterEvent("UNIT_AURA")
@@ -564,7 +564,7 @@ end
 local function UpdateCastbar(frame)
     frame.border:ClearAllPoints()
     frame.border:SetPoint("TOP",frame:GetParent().hp,"BOTTOM", 0,-5)
-	frame.border:SetSize(self.db.HPWidth, self.db.CastBarHeight)
+	frame.border:SetSize(N.db.HPWidth, N.db.CastBarHeight)
     frame:SetPoint("RIGHT",frame.border,0,0)
     frame:SetPoint("TOP",frame.border,0,0)
     frame:SetPoint("BOTTOM",frame.border,0,0)
@@ -640,7 +640,7 @@ local function SkinObjects(frame, nameFrame)
 	help:SetAllPoints(newhp)
 	help:SetFrameLevel(newhp:GetFrameLevel()+1)
 	newhp.pct = help:CreateFontString(nil, "OVERLAY")
-	newhp.pct:SetFont(S["media"].font, self.db.Fontsize, "THINOUTLINE")
+	newhp.pct:SetFont(S["media"].font, N.db.Fontsize, "THINOUTLINE")
 	newhp.pct:SetPoint('BOTTOMRIGHT', newhp, 'TOPRIGHT', 0, -4)
 	local offset = UIParent:GetScale() / cb:GetEffectiveScale()
 	if not cb.border then 
@@ -654,7 +654,7 @@ local function SkinObjects(frame, nameFrame)
 	A:CreateMark(cb)
 	cbicon:ClearAllPoints()
 	cbicon:SetPoint("TOPRIGHT", newhp, "TOPLEFT", -5, 0)		
-	cbicon:SetSize(self.db.CastBarIconSize, self.db.CastBarIconSize)
+	cbicon:SetSize(N.db.CastBarIconSize, N.db.CastBarIconSize)
 	cbicon:SetTexCoord(.07, .93, .07, .93)
 	A:CreateShadow(cb, cbicon)
 	
@@ -671,7 +671,7 @@ local function SkinObjects(frame, nameFrame)
 
 	local name = help:CreateFontString(nil, 'OVERLAY', 2)
 	name:SetPoint('BOTTOMLEFT', newhp, 'TOPLEFT', 0, -4)
-	name:SetFont(S["media"].font, self.db.Fontsize, "THINOUTLINE")
+	name:SetFont(S["media"].font, N.db.Fontsize, "THINOUTLINE")
 	frame.oldname = oldname
 	frame.name = name
 	
@@ -705,7 +705,7 @@ local function SkinObjects(frame, nameFrame)
 	
 	raidicon:ClearAllPoints()
 	raidicon:SetPoint("BOTTOM", name, "TOP", 0, 0)
-	raidicon:SetSize(self.db.CastBarIconSize+4, self.db.CastBarIconSize+4)	
+	raidicon:SetSize(N.db.CastBarIconSize+4, N.db.CastBarIconSize+4)	
 
 	frame.oldglow = threat
 	threat:SetTexture(nil)

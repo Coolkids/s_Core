@@ -79,7 +79,7 @@ function A:COMBAT_LOG_EVENT_UNFILTERED(_, _, ...)
 	local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16 = ...
 	--if arg5 == UnitName("player") then print(arg2, GetSpellLink(arg12)) end
 	--打断
-	if arg2 == "SPELL_INTERRUPT" and arg5 == UnitName("player") and self.db.Interruptthen
+	if arg2 == "SPELL_INTERRUPT" and arg5 == UnitName("player") and self.db.Interrupt then
 		local channel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or IsInRaid() and "RAID" or IsInGroup() and "PARTY"
 		if channel then
 			SendChatMessage(GetSpellLink(arg12).."→"..arg9..GetSpellLink(arg15), channel)

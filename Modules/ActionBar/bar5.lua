@@ -30,7 +30,7 @@ function AB:CreateBar5()
 		for i=1, 4 do
 			local button = _G["MultiBarLeftButton"..i]
 			button:ClearAllPoints()
-			button:SetSize(C["BigSize"..i], C["BigSize"..i])
+			button:SetSize(self.db["BigSize"..i], self.db["BigSize"..i])
 			if i == 1 then
 				button:SetAllPoints(bar51)
 			elseif i == 2 then
@@ -40,7 +40,7 @@ function AB:CreateBar5()
 			else
 				button:SetAllPoints(bar54)
 			end
-			if C["BigSize"..i] < 10 then
+			if self.db["BigSize"..i] < 10 then
 				button:ClearAllPoints()
 				button:Kill()
 			end

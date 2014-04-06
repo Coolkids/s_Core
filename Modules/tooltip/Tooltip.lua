@@ -237,7 +237,7 @@ local function On_OnTooltipSetUnit(self)
 			end
 			self:AddLine(TARGET..": "..text)
 		end
-		if self.db.HideTitles then
+		if TT.db.HideTitles then
 			local name = self:GetUnit()
 			local title = UnitPVPName(unit)
 			if title then
@@ -252,9 +252,9 @@ end
 function TT:PLAYER_ENTERING_WORLD()
 	TT:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	for _, v in pairs(tooltips) do
-		v:SetScale(self.db.ScaleSize)
+		v:SetScale(TT.db.ScaleSize)
 		v:SetScript("OnShow", function(self)
-			if InCombatLockdown() and self.db.HideInCombat then self:Hide() end
+			if InCombatLockdown() and TT.db.HideInCombat then self:Hide() end
 			if v.NumLines then
 				for index=1, v:NumLines() do
 					_G[v:GetName()..'TextLeft'..index]:SetShadowOffset(1, -1)
@@ -313,7 +313,7 @@ function TT:PLAYER_ENTERING_WORLD()
 	end)
 end
 local function On_SetDefaultAnchor(tooltip, parent)
-	if self.db.Cursor then
+	if TT.db.Cursor then
 		tooltip:SetOwner(parent, "ANCHOR_CURSOR")
 	else
 		tooltip:SetOwner(parent, "ANCHOR_NONE")

@@ -84,7 +84,7 @@ local function ApplyChatStyle(self)
 	_G[cf.."EditBoxLanguage"]:SetSize(_G[cf.."EditBox"]:GetHeight(),_G[cf.."EditBox"]:GetHeight())
 	_G[cf.."EditBoxLanguage"]:StripTextures()
 	A:CreateBD(_G[cf.."EditBoxLanguage"], 0.6)
-	if self.db.ChatEditBoxColor then
+	if CT.db.ChatEditBoxColor then
 		hooksecurefunc("ChatEdit_UpdateHeader", function()
 			local type = _G[cf..'EditBox']:GetAttribute("chatType")
 			if ( type == "CHANNEL" ) then

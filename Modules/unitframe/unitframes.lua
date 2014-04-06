@@ -174,7 +174,7 @@ local PostUpdateHealth = function(Health, unit, min, max)
 		Health.value:SetTextColor(unpack(reaction))
 	end
 
-	if self.db.layout == 2 and not self.db.healerClasscolours then
+	if UF.db.layout == 2 and not UF.db.healerClasscolours then
 		if offline or UnitIsDead(unit) or UnitIsGhost(unit) then
 			self.Healthdef:Hide()
 		else
@@ -285,13 +285,13 @@ local Shared = function(self, unit, isSingle)
 	Health:SetPoint("TOP")
 	Health:SetPoint("LEFT")
 	Health:SetPoint("RIGHT")
-	Health:SetPoint("BOTTOM", 0, 1 + self.db.powerHeight)
+	Health:SetPoint("BOTTOM", 0, 1 + UF.db.powerHeight)
 
 	self.Health = Health
 
 	--[[ Gradient ]]
 
-	if self.db.layout == 2 and not self.db.healerClasscolours then
+	if UF.db.layout == 2 and not UF.db.healerClasscolours then
 		local gradient = Health:CreateTexture(nil, "BACKGROUND")
 		gradient:SetPoint("TOPLEFT")
 		gradient:SetPoint("BOTTOMRIGHT")
@@ -307,7 +307,7 @@ local Shared = function(self, unit, isSingle)
 
 	--[[ Health deficit colour ]]
 
-	if self.db.layout == 2 and not self.db.healerClasscolours then
+	if UF.db.layout == 2 and not UF.db.healerClasscolours then
 		local Healthdef = CreateFrame("StatusBar", nil, self)
 		Healthdef:SetFrameStrata("LOW")
 		Healthdef:SetAllPoints(Health)
@@ -328,7 +328,7 @@ local Shared = function(self, unit, isSingle)
 	Power.frequentUpdates = true
 	S:SmoothBar(Power)
 
-	Power:SetHeight(self.db.powerHeight)
+	Power:SetHeight(UF.db.powerHeight)
 
 	Power:SetPoint("LEFT")
 	Power:SetPoint("RIGHT")
@@ -344,14 +344,14 @@ local Shared = function(self, unit, isSingle)
 	Powertex:SetVertexColor(0, 0, 0)
 
 	Power.bg = Power:CreateTexture(nil, "BACKGROUND")
-	Power.bg:SetHeight(self.db.powerHeight)
+	Power.bg:SetHeight(UF.db.powerHeight)
 	Power.bg:SetPoint("LEFT")
 	Power.bg:SetPoint("RIGHT")
 	Power.bg:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
 	Power.bg:SetVertexColor(0, 0, 0, .5)
 
 	-- Colour power by power type for dps/tank layout. Because this is brighter, make the background darker for contrast.
-	if self.db.layout == 1 or self.db.healerClasscolours then
+	if UF.db.layout == 1 or UF.db.healerClasscolours then
 		Power.colorPower = true
 		Power.bg:SetVertexColor(0, 0, 0, .25)
 	end
@@ -360,8 +360,8 @@ local Shared = function(self, unit, isSingle)
 
 	if unit == "player" or unit == "pet" then
 		local AltPowerBar = CreateFrame("StatusBar", nil, self)
-		AltPowerBar:SetWidth(self.db.playerWidth)
-		AltPowerBar:SetHeight(self.db.altPowerHeight)
+		AltPowerBar:SetWidth(UF.db.playerWidth)
+		AltPowerBar:SetHeight(UF.db.altPowerHeight)
 		AltPowerBar:SetStatusBarTexture(S["media"].normal)
 		AltPowerBar:SetPoint("BOTTOM", oUF_SunUFPlayer, 0, -2)
 
@@ -436,7 +436,7 @@ local Shared = function(self, unit, isSingle)
 
 	-- [[ Heal prediction ]]
 
-	if self.db.layout == 2 then
+	if UF.db.layout == 2 then
 		local mhpb = self:CreateTexture()
 		mhpb:SetTexture(S["media"].normal)
 		mhpb:SetVertexColor(0, .5, 1)
@@ -453,7 +453,7 @@ local Shared = function(self, unit, isSingle)
 			frequentUpdates = true,
 		}
 
-		if self.db.absorb then
+		if UF.db.absorb then
 			local absorbBar = self:CreateTexture()
 			absorbBar:SetTexture(S["media"].normal)
 			absorbBar:SetVertexColor(.8, .34, .8)
@@ -485,19 +485,19 @@ local Shared = function(self, unit, isSingle)
 
 	if(isSingle) then
 		if unit == "player" then
-			self:SetSize(self.db.playerWidth, self.db.playerHeight)
+			self:SetSize(UF.db.playerWidth, UF.db.playerHeight)
 		elseif unit == "target" then
-			self:SetSize(self.db.targetWidth, self.db.targetHeight)
+			self:SetSize(UF.db.targetWidth, UF.db.targetHeight)
 		elseif unit == "targettarget" then
-			self:SetSize(self.db.targettargetWidth, self.db.targettargetHeight)
+			self:SetSize(UF.db.targettargetWidth, UF.db.targettargetHeight)
 		elseif unit:find("arena%d") then
-			self:SetSize(self.db.arenaWidth, self.db.arenaHeight)
+			self:SetSize(UF.db.arenaWidth, UF.db.arenaHeight)
 		elseif unit == "focus" then
-			self:SetSize(self.db.focusWidth, self.db.focusHeight)
+			self:SetSize(UF.db.focusWidth, UF.db.focusHeight)
 		elseif unit == "pet" then
-			self:SetSize(self.db.petWidth, self.db.petHeight)
+			self:SetSize(UF.db.petWidth, UF.db.petHeight)
 		elseif unit and unit:find("boss%d") then
-			self:SetSize(self.db.bossWidth, self.db.bossHeight)
+			self:SetSize(UF.db.bossWidth, UF.db.bossHeight)
 		end
 	end
 
@@ -522,7 +522,7 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		Health:SetHeight(self.db.petHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.petHeight - UF.db.powerHeight - 1)
 
 		Castbar:SetAllPoints(Health)
 		Castbar.Width = self:GetWidth()
@@ -538,7 +538,7 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		Health:SetHeight(self.db.playerHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.playerHeight - UF.db.powerHeight - 1)
 
 		local HealthPoints = S:CreateFS(Health, 10, "LEFT")
 		self.MaxHealthPoints = S:CreateFS(Health, 10, "RIGHT")
@@ -578,7 +578,7 @@ local UnitSpecific = {
 		self.Iconbg:Point("BOTTOMRIGHT", 1, -1)
 		self.Iconbg:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
 
-		if self.db.castbarSeparate and (class == "MAGE" or class == "PRIEST" or class == "WARLOCK" or not self.db.castbarSeparateOnlyCasters) then
+		if UF.db.castbarSeparate and (class == "MAGE" or class == "PRIEST" or class == "WARLOCK" or not UF.db.castbarSeparateOnlyCasters) then
 			Castbar:SetStatusBarTexture(S["media"].normal)
 			Castbar:SetStatusBarColor(S.myclasscolor.r, S.myclasscolor.g, S.myclasscolor.b)
 			Castbar:SetWidth(self:GetWidth())
@@ -639,8 +639,8 @@ local UnitSpecific = {
 		Debuffs['spacing-y'] = 3
 
 		Debuffs:SetHeight(60)
-		Debuffs:SetWidth(self.db.playerWidth)
-		Debuffs.num = self.db.num_player_debuffs
+		Debuffs:SetWidth(UF.db.playerWidth)
+		Debuffs.num = UF.db.num_player_debuffs
 		Debuffs.size = 26
 
 		self.Debuffs = Debuffs
@@ -649,7 +649,7 @@ local UnitSpecific = {
 		
 		if class == "DEATHKNIGHT" and PB.db.Open == false then
 			local runes = CreateFrame("Frame", nil, self)
-			runes:SetWidth(self.db.playerWidth)
+			runes:SetWidth(UF.db.playerWidth)
 			runes:SetHeight(2)
 			runes:SetPoint("BOTTOMRIGHT", Debuffs, "TOPRIGHT", 0, 3)
 
@@ -679,10 +679,10 @@ local UnitSpecific = {
 
 				if i == 1 then
 					runes[i]:SetPoint("LEFT", runes)
-					runes[i]:SetWidth(self.db.playerWidth/6)
+					runes[i]:SetWidth(UF.db.playerWidth/6)
 				else
 					runes[i]:SetPoint("LEFT", runes[i-1], "RIGHT", 1, 0)
-					runes[i]:SetWidth((self.db.playerWidth/6)-1)
+					runes[i]:SetWidth((UF.db.playerWidth/6)-1)
 				end
 			end
 
@@ -700,13 +700,13 @@ local UnitSpecific = {
 						offset = 2
 					end
 					if self.AltPowerBar:IsShown() then
-						self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(7 + offset + self.db.altPowerHeight))
+						self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(7 + offset + UF.db.altPowerHeight))
 					else
 						self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(6 + offset))
 					end
 				else
 					if self.AltPowerBar:IsShown() then
-						self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(4 + self.db.altPowerHeight))
+						self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(4 + UF.db.altPowerHeight))
 					else
 						self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -3)
 					end
@@ -716,7 +716,7 @@ local UnitSpecific = {
 			DruidMana = CreateFrame("StatusBar", nil, self)
 			DruidMana:SetStatusBarTexture("Interface\\ChatFrame\\ChatFrameBackground")
 			DruidMana:SetStatusBarColor(0, 0.76, 1)
-			DruidMana:SetSize(self.db.playerWidth, 1)
+			DruidMana:SetSize(UF.db.playerWidth, 1)
 			DruidMana:SetPoint("BOTTOMRIGHT", Debuffs, "TOPRIGHT", 0, 3)
 
 			A:CreateBDFrame(DruidMana, .25)
@@ -726,7 +726,7 @@ local UnitSpecific = {
 			DruidMana.PostUpdate = moveDebuffAnchors
 
 			eclipseBar = CreateFrame("Frame", nil, self)
-			eclipseBar:SetWidth(self.db.playerWidth)
+			eclipseBar:SetWidth(UF.db.playerWidth)
 			eclipseBar:SetHeight(2)
 			eclipseBar:SetPoint("BOTTOMRIGHT", Debuffs, "TOPRIGHT", 0, 3)
 
@@ -815,7 +815,7 @@ local UnitSpecific = {
 			self.AltPowerBar:HookScript("OnHide", moveDebuffAnchors)
 		elseif class == "MAGE" then
 			local rp = CreateFrame("Frame", nil, self)
-			rp:SetSize(self.db.playerWidth, 2)
+			rp:SetSize(UF.db.playerWidth, 2)
 			rp:SetPoint("BOTTOMRIGHT", Debuffs, "TOPRIGHT", 0, 3)
 
 			for i = 1, 2 do
@@ -827,10 +827,10 @@ local UnitSpecific = {
 
 				if i == 1 then
 					rp[i]:SetPoint("LEFT", rp)
-					rp[i]:SetWidth(self.db.playerWidth/2)
+					rp[i]:SetWidth(UF.db.playerWidth/2)
 				else
 					rp[i]:SetPoint("LEFT", rp[i-1], "RIGHT", 1, 0)
-					rp[i]:SetWidth((self.db.playerWidth/2)-1)
+					rp[i]:SetWidth((UF.db.playerWidth/2)-1)
 				end
 			end
 
@@ -897,7 +897,7 @@ local UnitSpecific = {
 			-- Brewmaster stagger bar
 
 			local staggerBar = CreateFrame("StatusBar", nil, self)
-			staggerBar:SetSize(self.db.playerWidth, 2)
+			staggerBar:SetSize(UF.db.playerWidth, 2)
 			staggerBar:SetPoint("BOTTOMRIGHT", Debuffs, "TOPRIGHT", 0, 3)
 			staggerBar:SetStatusBarTexture(S["media"].normal)
 			A:CreateBDFrame(staggerBar)
@@ -992,7 +992,7 @@ local UnitSpecific = {
 			glow.Override = UpdateOrbs
 		elseif class == "WARLOCK" and PB.db.Open == false then
 			local bars = CreateFrame("Frame", nil, self)
-			bars:SetWidth(self.db.playerWidth)
+			bars:SetWidth(UF.db.playerWidth)
 			bars:SetHeight(2)
 			bars:SetPoint("BOTTOMRIGHT", Debuffs, "TOPRIGHT", 0, 3)
 
@@ -1009,10 +1009,10 @@ local UnitSpecific = {
 
 				if i == 1 then
 					bars[i]:SetPoint("LEFT", bars)
-					bars[i]:SetWidth(self.db.playerWidth/4)
+					bars[i]:SetWidth(UF.db.playerWidth/4)
 				else
 					bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", 1, 0)
-					bars[i]:SetWidth((self.db.playerWidth/4)-1)
+					bars[i]:SetWidth((UF.db.playerWidth/4)-1)
 				end
 			end
 
@@ -1023,13 +1023,13 @@ local UnitSpecific = {
 		local function moveDebuffAnchors()
 			if self.SpecialPowerBar and self.SpecialPowerBar:IsShown() then
 				if self.AltPowerBar:IsShown() then
-					Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(9 + self.db.altPowerHeight))
+					Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(9 + UF.db.altPowerHeight))
 				else
 					Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -8)
 				end
 			else
 				if self.AltPowerBar:IsShown() then
-					Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(4 + self.db.altPowerHeight))
+					Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -(4 + UF.db.altPowerHeight))
 				else
 					Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -3)
 				end
@@ -1045,7 +1045,7 @@ local UnitSpecific = {
 		moveDebuffAnchors()
 
 		local CounterBar = CreateFrame("StatusBar", nil, self)
-		CounterBar:SetWidth(self.db.playerWidth)
+		CounterBar:SetWidth(UF.db.playerWidth)
 		CounterBar:SetHeight(16)
 		CounterBar:SetStatusBarTexture(S["media"].normal)
 		CounterBar:SetPoint("TOP", UIParent, "TOP", 0, -100)
@@ -1128,7 +1128,7 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		Health:SetHeight(self.db.targetHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.targetHeight - UF.db.powerHeight - 1)
 
 		local HealthPoints = S:CreateFS(Health, 10, "LEFT")
 
@@ -1145,7 +1145,7 @@ local UnitSpecific = {
 		Power.value = PowerPoints
 
 		local tt = CreateFrame("Frame", nil, self)
-		tt:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, 7 + S["media"].fontsize + (self.db.targettarget and 10 or 0))
+		tt:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, 7 + S["media"].fontsize + (UF.db.targettarget and 10 or 0))
 		tt:SetWidth(110)
 		tt:SetHeight(12)
 
@@ -1204,10 +1204,10 @@ local UnitSpecific = {
 		Auras["growth-y"] = "DOWN"
 		Auras['spacing-x'] = 3
 		Auras['spacing-y'] = 3
-		Auras.numDebuffs = self.db.num_target_debuffs
-		Auras.numBuffs = self.db.num_target_buffs
+		Auras.numDebuffs = UF.db.num_target_debuffs
+		Auras.numBuffs = UF.db.num_target_buffs
 		Auras:SetHeight(500)
-		Auras:SetWidth(self.db.targetWidth)
+		Auras:SetWidth(UF.db.targetWidth)
 		Auras.size = 26
 		Auras.gap = true
 
@@ -1243,7 +1243,7 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		Health:SetHeight(self.db.focusHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.focusHeight - UF.db.powerHeight - 1)
 
 		Castbar:SetAllPoints(Health)
 		Castbar.Width = self:GetWidth()
@@ -1257,9 +1257,9 @@ local UnitSpecific = {
 		Debuffs["growth-y"] = "UP"
 		Debuffs["spacing-x"] = 3
 		Debuffs:SetHeight(22)
-		Debuffs:SetWidth(self.db.focusWidth)
+		Debuffs:SetWidth(UF.db.focusWidth)
 		Debuffs.size = 22
-		Debuffs.num = self.db.num_focus_debuffs
+		Debuffs.num = UF.db.num_focus_debuffs
 		self.Debuffs = Debuffs
 
 		Debuffs.PostUpdateIcon = PostUpdateIcon
@@ -1272,7 +1272,7 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		Health:SetHeight(self.db.targettargetHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.targettargetHeight - UF.db.powerHeight - 1)
 
 		Castbar:SetAllPoints(Health)
 		Castbar.Width = self:GetWidth()
@@ -1287,10 +1287,10 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		self:SetAttribute('initial-height', self.db.bossHeight)
-		self:SetAttribute('initial-width', self.db.bossWidth)
+		self:SetAttribute('initial-height', UF.db.bossHeight)
+		self:SetAttribute('initial-width', UF.db.bossWidth)
 
-		Health:SetHeight(self.db.bossHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.bossHeight - UF.db.powerHeight - 1)
 
 		local HealthPoints = S:CreateFS(Health, 10, "RIGHT")
 		HealthPoints:SetPoint("RIGHT", self, "TOPRIGHT", 0, 6)
@@ -1300,15 +1300,15 @@ local UnitSpecific = {
 
 		local Name = S:CreateFS(self, 10, "LEFT")
 		Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 2)
-		Name:SetWidth((self.db.bossWidth / 2) + 10)
+		Name:SetWidth((UF.db.bossWidth / 2) + 10)
 		Name:SetHeight(8)
 
 		self:Tag(Name, '[name]')
 		self.Name = Name
 
 		local AltPowerBar = CreateFrame("StatusBar", nil, self)
-		AltPowerBar:SetWidth(self.db.bossWidth)
-		AltPowerBar:SetHeight(self.db.altPowerHeight)
+		AltPowerBar:SetWidth(UF.db.bossWidth)
+		AltPowerBar:SetHeight(UF.db.altPowerHeight)
 		AltPowerBar:SetStatusBarTexture(S["media"].normal)
 		AltPowerBar:SetPoint("BOTTOM", 0, -2)
 
@@ -1369,8 +1369,8 @@ local UnitSpecific = {
 		Buffs['spacing-y'] = 3
 
 		Buffs:SetHeight(22)
-		Buffs:SetWidth(self.db.bossWidth - 24)
-		Buffs.num = self.db.num_boss_buffs
+		Buffs:SetWidth(UF.db.bossWidth - 24)
+		Buffs.num = UF.db.num_boss_buffs
 		Buffs.size = 26
 
 		self.Buffs = Buffs
@@ -1378,16 +1378,16 @@ local UnitSpecific = {
 		Buffs.PostUpdateIcon = PostUpdateIcon
 
 		AltPowerBar:HookScript("OnShow", function()
-			Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -(5 + self.db.altPowerHeight))
+			Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -(5 + UF.db.altPowerHeight))
 		end)
 
 		AltPowerBar:HookScript("OnHide", function()
-			Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -(3 + self.db.altPowerHeight))
+			Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -(3 + UF.db.altPowerHeight))
 		end)
 	end,
 
 	arena = function(self, ...)
-		if not self.db.enableArena then return end
+		if not UF.db.enableArena then return end
 
 		Shared(self, ...)
 
@@ -1395,10 +1395,10 @@ local UnitSpecific = {
 		local Castbar = self.Castbar
 		local Spark = Castbar.Spark
 
-		self:SetAttribute('initial-height', self.db.arenaHeight)
-		self:SetAttribute('initial-width', self.db.arenaWidth)
+		self:SetAttribute('initial-height', UF.db.arenaHeight)
+		self:SetAttribute('initial-width', UF.db.arenaWidth)
 
-		Health:SetHeight(self.db.arenaHeight - self.db.powerHeight - 1)
+		Health:SetHeight(UF.db.arenaHeight - UF.db.powerHeight - 1)
 
 		local HealthPoints = S:CreateFS(Health, 10, "RIGHT")
 		HealthPoints:SetPoint("RIGHT", self, "TOPRIGHT", 0, 6)
@@ -1448,8 +1448,8 @@ local UnitSpecific = {
 		Buffs['spacing-y'] = 3
 
 		Buffs:SetHeight(22)
-		Buffs:SetWidth(self.db.arenaWidth)
-		Buffs.num = self.db.num_arena_buffs
+		Buffs:SetWidth(UF.db.arenaWidth)
+		Buffs.num = UF.db.num_arena_buffs
 		Buffs.size = 26
 
 		self.Buffs = Buffs
@@ -1477,13 +1477,13 @@ do
 		Text:SetPoint("CENTER", 1, 0)
 		self.Text = Text
 
-		if self.db.layout == 2 then
-			Health:SetHeight(self.db.partyHeightHealer - self.db.powerHeight - 1)
+		if UF.db.layout == 2 then
+			Health:SetHeight(UF.db.partyHeightHealer - UF.db.powerHeight - 1)
 			self:Tag(Text, '[sunuf:missinghealth]')
 
 		else
-			Health:SetHeight(self.db.partyHeight - self.db.powerHeight - 1)
-			if self.db.partyNameAlways then
+			Health:SetHeight(UF.db.partyHeight - UF.db.powerHeight - 1)
+			if UF.db.partyNameAlways then
 				self:Tag(Text, '[sunuf:name]')
 			else
 				self:Tag(Text, '[dead][offline]')
@@ -1539,10 +1539,10 @@ do
 
 		self.LFDRole = lfd
 
-		if self.db.layout == 2 then
+		if UF.db.layout == 2 then
 			local Debuffs = CreateFrame("Frame", nil, self)
 			Debuffs.initialAnchor = "CENTER"
-			Debuffs:SetPoint("BOTTOM", 0, self.db.powerHeight - 1)
+			Debuffs:SetPoint("BOTTOM", 0, UF.db.powerHeight - 1)
 			Debuffs["growth-x"] = "RIGHT"
 			Debuffs["spacing-x"] = 3
 
@@ -1635,7 +1635,7 @@ do
 		self.Threat = Threat
 		Threat.Override = UpdateThreat
 
-		if self.db.layout == 2 then
+		if UF.db.layout == 2 then
 			local select = CreateFrame("Frame", nil, self)
 			select:RegisterEvent("PLAYER_TARGET_CHANGED")
 			select:SetScript("OnEvent", updateNameColourAlt)
@@ -1688,7 +1688,7 @@ function UF:initLayout()
 		pet = spawnHelper(self, 'pet', "BOTTOMLEFT", player, "TOPLEFT", 0, S["media"].fontsize + 7)
 		S:CreateMover(pet, "PetFrameMover", L["宠物"], true, nil, "ALL,UNITFRAMES")
 		
-		if self.db.targettarget then
+		if UF.db.targettarget then
 			local tot = spawnHelper(self, 'targettarget', "BOTTOM", target, "TOP", 0, S["media"].fontsize + 7)
 			S:CreateMover(tot, "ToTFrameMover", L["目标的目标"], true, nil, "ALL,UNITFRAMES")
 		end
@@ -1698,7 +1698,7 @@ function UF:initLayout()
 			S:CreateMover(boss, "Boss"..n.."FrameMover", L["Boss"]..n, true, nil, "ALL,UNITFRAMES")
 		end
 
-		if self.db.enableArena then
+		if UF.db.enableArena then
 			for n = 1, 5 do
 				local are = spawnHelper(self, 'arena' .. n, 'LEFT', 50, -14 - (56 * n))
 				S:CreateMover(are, "Arena"..n.."FrameMover", L["竞技场"]..n, true, nil, "ALL,UNITFRAMES")

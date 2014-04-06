@@ -885,13 +885,13 @@ function PB:UpdateHealthBar()
 				local maxnum = 0
 				self:SetValue(healthnum)
 				self.power:SetValue(powernum)
-				if self.db.HealthPowerPer then
+				if PB.db.HealthPowerPer then
 					maxnum = UnitHealthMax("player")
 					self.healthtext:SetText(format("%.1f ", healthnum/maxnum*100).."%")
 				else
 					self.healthtext:SetText(S:ShortValue(healthnum))
 				end
-				if self.db.ManaPowerPer then
+				if PB.db.ManaPowerPer then
 					maxnum = UnitPowerMax("player")
 					self.powertext:SetText(format("%.1f ", powernum/maxnum*100).."%")
 				else
