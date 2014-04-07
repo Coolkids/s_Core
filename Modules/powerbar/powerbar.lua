@@ -29,9 +29,7 @@ local ShadowOrbs
 local eb
 local MageBars
 PB.modName = L["PowerBar"]
-function PB:Info()
-	return L["PowerBar"]
-end
+
 function PB:GetOptions()
 	local options = {
 		group1 = {

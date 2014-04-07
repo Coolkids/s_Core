@@ -289,10 +289,6 @@ function MAP:CreateRaidTools()
 	A:Reskin(wm, false, true)
 end 
 
-function MAP:Info()
-	return L["地图美化"]
-end
-
 function MAP:Initialize()
 	SkinMiniMap()
 	CreateFlash()

@@ -48,7 +48,7 @@ function A:GetOptions()
 					end,
 				},
 				IgniteWatchSize = {
-					type = "range", order = 2, disabled = function(info) return (not self.db.EnableIgniteWatch) and S.myclass ~= "MAGE" end,
+					type = "range", order = 2, disabled = function(info) return (not self.db.EnableIgniteWatch) or S.myclass ~= "MAGE" end,
 					name = L["图标大小"],
 					min = 20, max = 100, step = 1,
 					set = function(info, value) 
@@ -75,7 +75,7 @@ function A:GetOptions()
 					end,
 				},
 				SpiritShellWatchSize = {
-					type = "range", order = 2, disabled = function(info) return (not self.db.EnableSpiritShellWatch) and S.myclass ~= "PRIEST" end,
+					type = "range", order = 2, disabled = function(info) return (not self.db.EnableSpiritShellWatch) or S.myclass ~= "PRIEST" end,
 					name = L["图标大小"],
 					min = 20, max = 100, step = 1,
 					set = function(info, value) 
@@ -90,9 +90,6 @@ function A:GetOptions()
 	return options
 end
 
-function A:Info()
-	return L["职业助手"]
-end
 function A:Initialize()
 	local CT = S:GetModule("ClassTools")
 	CT:Init()

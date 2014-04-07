@@ -535,10 +535,6 @@ function A:Initialize()
 	A:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function A:Info()
-	return L["插件美化"]
-end
-
 S:RegisterModule(A:GetName())
 
 function A:CreateMark(f, orientation)
