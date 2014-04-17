@@ -66,6 +66,16 @@ function MT:GetOptions()
 				self:UpdateAFKSet()
 			end,
 		},
+		combat = {
+			type = "toggle",
+			name = COMBAT_TEXT_SHOW_COMBAT_STATE_TEXT,
+			order = 15,
+			set = function(info, value) self.db.combat = value
+				self:UpdateCombatSet()
+			end,
+		},
+		
+		
 	}
 	return options
 end
@@ -286,6 +296,7 @@ function MT:Initialize()
 	self:UpdateFastErrorSet()
 	self:UpdateLowHealthSet()
 	self:UpdateAFKSet()
+	self:initCombatDate()
 	self:RegisterEvent("ADDON_LOADED")
 end
 
