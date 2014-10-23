@@ -67,6 +67,15 @@ S.ItemUpgrade = setmetatable ({
 	[507] = 24, 
 },{__index=function() return 0 end})
 
+S.DiffIDToString = setmetatable ({
+	[1] = "",[2] = "H",[3] = "",[4] = "",[5] = "H",
+	[6]  = "H",[7] = "LFR",[8] = "C",[9] = "",[10] = "",
+	[11] = "HC",[12] = "C",[13] = "",[14] = "F/N",[15] = "H",
+	[16] = "M",
+	
+},{__index=function() return "" end})
+
+
 function S.dummy()
 	return
 end
