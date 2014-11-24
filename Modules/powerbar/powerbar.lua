@@ -1,15 +1,11 @@
 local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 
 local PB = S:NewModule("PowerBar", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
-local powercolor = {}
 local space = (S.myclass == "DEATHKNIGHT" or S.myclass == "SHAMAN") and 3 or 6
-local Holder = CreateFrame("Statusbar", nil, UIParent)
-local mainframe = {}
-local threeframe = {}
-local fourframe = {}
-local fiveframe = {}
-local sixframe = {}
-local healthbar
+local Holder, ShadowOrbs, eb, MageBars, healthbar
+local powercolor, mainframe = {}, {}
+local threeframe, fourframe, fiveframe, sixframe = {}, {}, {}, {}
+PB.modName = L["PowerBar"]
 PB.order = 13
 for power, color in next, PowerBarColor do
 	if (type(power) == "string") then
@@ -26,16 +22,6 @@ for power, color in next, PowerBarColor do
 		end
 	end
 end
-
-local ShadowOrbs,eb,MageBars
-if S.myclass == "PRIEST" then
-	ShadowOrbs = CreateFrame("Frame", nil, Holder)
-elseif S.myclass == "DRUID" then
-	eb = CreateFrame("Frame", nil, Holder)
-elseif S.myclass == "MAGE" then
-	MageBars = CreateFrame("Frame", nil, Holder)
-end
-PB.modName = L["PowerBar"]
 
 function PB:GetOptions()
 	local options = {
@@ -133,6 +119,17 @@ function PB:GetOptions()
 	return options
 end
 
+function PB:initFrame()
+	Holder = CreateFrame("Statusbar", nil, UIParent)
+	if S.myclass == "PRIEST" then
+		ShadowOrbs = CreateFrame("Frame", nil, Holder)
+	elseif S.myclass == "DRUID" then
+		eb = CreateFrame("Frame", nil, Holder)
+	elseif S.myclass == "MAGE" then
+		MageBars = CreateFrame("Frame", nil, Holder)
+	end
+end
+
 function PB:CreateShadowOrbs()
 	if S.myclass ~= "PRIEST" then return end
 	ShadowOrbs:SetSize(self.db.Width, self.db.Height)
@@ -216,11 +213,11 @@ function PB:CreateMonkBar()
 	chibar:SetSize(self.db.Width, self.db.Height)
 	chibar:SetPoint("CENTER", Holder)
 	tinsert(mainframe, chibar)
-	local maxChi = 5
+	local maxChi = 6
 	for i=1,maxChi do
 		chibar[i] = CreateFrame("StatusBar",nil,chibar)
 		chibar[i]:SetSize((self.db.Width-space*(maxChi-1))/maxChi, self.db.Height)
-		tinsert(fiveframe, chibar[i])
+		tinsert(sixframe, chibar[i])
 		chibar[i]:SetStatusBarTexture(S["media"].normal)
 		chibar[i]:SetStatusBarColor(0.0, 1.00 , 0.59)
 		chibar[i]:CreateShadow()
@@ -239,19 +236,21 @@ function PB:CreateMonkBar()
 			local chinum = UnitPower("player",SPELL_POWER_CHI)
 			local chimax = UnitPowerMax("player",SPELL_POWER_CHI)
 			if chinum ~= chimax then
-				if chimax == 4 then
-					chibar[maxChi]:Hide()
-					for i = 1,4 do
-						chibar[i]:SetWidth((PB.db.Width-space*(4-1))/4)
+				if chimax ~= maxChi then
+					for i = 1,maxChi do
+						if i<=chimax then
+							chibar[i]:SetWidth((PB.db.Width-space*(chimax-1))/chimax)
+						else
+							chibar[i]:Hide()
+						end
 					end
-				elseif chimax == maxChi then
-					chibar[maxChi]:Show()
+				else
 					for i = 1,maxChi do
 						chibar[i]:SetWidth((PB.db.Width-space*(maxChi-1))/maxChi)
 					end
 				end
 			end
-			for i = 1,chimax do
+			for i = 1,maxChi do
 				if i <= chinum then
 					chibar[i]:Show()
 				else
@@ -263,19 +262,21 @@ function PB:CreateMonkBar()
 		local chinum = UnitPower("player",SPELL_POWER_CHI)
 		local chimax = UnitPowerMax("player",SPELL_POWER_CHI)
 		if chinum ~= chimax then
-			if chimax == 4 then
-				chibar[maxChi]:Hide()
-				for i = 1,4 do
-					chibar[i]:SetWidth((PB.db.Width-space*(4-1))/4)
+			if chimax ~= maxChi then
+				for i = 1,maxChi do
+					if i<=chimax then
+						chibar[i]:SetWidth((PB.db.Width-space*(chimax-1))/chimax)
+					else
+						chibar[i]:Hide()
+					end
 				end
-			elseif chimax == maxChi then
-				chibar[maxChi]:Show()
+			else
 				for i = 1,maxChi do
 					chibar[i]:SetWidth((PB.db.Width-space*(maxChi-1))/maxChi)
 				end
 			end
 		end
-		for i = 1,chimax do
+		for i = 1,maxChi do
 			if i <= chinum then
 				chibar[i]:Show()
 			else
@@ -354,7 +355,7 @@ function PB:CreateQSDKPower()
 		bars[i]:SetStatusBarTexture(S["media"].normal)
 		bars[i]:GetStatusBarTexture():SetHorizTile(false)
 		bars[i]:SetSize((self.db.Width-space*(count-1))/count, self.db.Height)
-		if count == 6 then tinsert(sixframe, bars[i]) else tinsert(sixframe, fiveframe[i]) end
+		if count == 6 then tinsert(sixframe, bars[i]) else tinsert(fiveframe, bars[i]) end
 		
 		if (i == 1) then
 			bars[i]:SetPoint("LEFT", bars, "LEFT")
@@ -493,6 +494,40 @@ function PB:CreateCombatPoint()
 			end
 		end
 	end)
+	------------------------------------------------------------------------------
+	-------from NGA - chuan45 33539090--------------------------------------------
+	------------------------------------------------------------------------------
+	if S.myclass ~= "ROGUE" then return end
+	local AnticipationBar = CreateFrame("Frame", nil, CombatPointBar)
+	AnticipationBar:SetAllPoints(CombatPointBar)
+	for i = 1, 5 do
+		AnticipationBar[i] =CreateFrame("StatusBar", nil, AnticipationBar)
+		AnticipationBar[i]:SetStatusBarTexture(S["media"].normal)
+		AnticipationBar[i]:GetStatusBarTexture():SetHorizTile(false)
+		AnticipationBar[i]:SetFrameLevel(CombatPointBar[i]:GetFrameLevel()+1)
+		AnticipationBar[i]:SetSize(((self.db.Width-2*4)/5)/1.2, self.db.Height/3)
+		AnticipationBar[i]:SetPoint("CENTER", CombatPointBar[i], 0, 0)
+		if i ~= 5 then 
+			AnticipationBar[i]:SetStatusBarColor(0.8, 0.2, 0.2)
+		else
+			AnticipationBar[i]:SetStatusBarColor(102/255, 204/255, 102/255)
+		end
+		AnticipationBar[i]:CreateShadow()
+		AnticipationBar[i]:Hide()
+	end
+	AnticipationBar:RegisterEvent("UNIT_AURA")
+	AnticipationBar:SetScript("OnEvent", function(self, event, unit)
+		if unit ~= "player" then return end
+		local count = select(4, UnitBuff("player", GetSpellInfo(115189))) or 0
+		for i = 1, 5 do
+			if i <= count then
+				self[i]:Show()
+			else
+				self[i]:Hide()
+			end
+		end
+	end)
+	-------------------------------------------------------------------------------
 end
 --鸟德
 function PB:CreateEclipse()
@@ -1081,7 +1116,7 @@ function PB:PLAYER_ENTERING_WORLD()
 	self:ACTIVE_TALENT_GROUP_CHANGED()
 end
 function PB:Initialize()
-	
+	self:initFrame()
 	if not self.db.Open then Holder = nil return end
 	Holder:SetSize(self.db.Width, self.db.Height)
 	Holder:SetPoint("CENTER", "UIParent", "CENTER", 0, -120)
