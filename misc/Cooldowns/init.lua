@@ -1,18 +1,26 @@
 ﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 S.CooldownsMod = {}
+
 S.CooldownsMod.ClassCD = {
+	-- talent
+	-- type = "talent" 
+	-- talent = the location of the talent(from 1 to 18)
+	-- monk
+	
 	[121283] = {
 		desc = "",
 		type = "talent",
 		class = "MONK",
-		talent = 7,
+		tier = 3,
+		column = 1,
 		cd = 20,
 	}, -- Power Strike
 	[122281] = {
 		desc = "",
 		type = "talent",
 		class = "MONK",
-		talent = 13,
+		tier = 5,
+		column = 1,
 		cd = 15,
 	}, -- Healing Elixirs
 	-- shaman
@@ -20,7 +28,8 @@ S.CooldownsMod.ClassCD = {
 		desc = "",
 		type = "talent",
 		class = "SHAMAN",
-		talent = 1,
+		tier = 1,
+		column = 1,
 		cd = 30,
 		duration = 10,
 	}, -- Nature's Guardian
@@ -30,17 +39,20 @@ S.CooldownsMod.ClassCD = {
 		desc = "",
 		type = "talent",
 		class = "MAGE",
-		talent = 11,
+		tier = 4,
+		column = 2,
 		cd = 120,
 		duration = 6,
 	}, -- Cauterize
+	
 	
 	-- rogue
 	[45182] = {
 		desc = "",
 		type = "talent",
 		class = "ROGUE",
-		talent = 7,
+		tier = 3,
+		column = 1,
 		cd = 90,
 		duration = 3,
 	}, -- Cheated Death
@@ -50,7 +62,8 @@ S.CooldownsMod.ClassCD = {
 		desc = "",
 		type = "talent",
 		class = "PRIEST",
-		talent = 12,
+		tier = 4,
+		column = 3,
 		cd = 90,
 	}, -- Angelic Bulwark
 	
@@ -59,7 +72,8 @@ S.CooldownsMod.ClassCD = {
 		desc = "",
 		type = "talent",
 		class = "DEATHKNIGHT",
-		talent = 6,
+		tier = 2,
+		column = 3,
 		cd = 180,
 		duration = 3,
 	}, -- Purgatory	
@@ -68,33 +82,15 @@ S.CooldownsMod.ClassCD = {
 	-- type = "spec" 
 	-- spec = {the numbers of the spec(from 1 to 3(4 for druid))}
 	-- druid
-	[34299] = {
+	[68285] = {
 		desc = "",
 		type = "spec",
 		class = "DRUID",
-		spec = {2, 3},
+		spec = {2},
 		cd = 6,
 	}, -- Leader of the Pack
 	
-	-- hunter
-	[56453] = {
-		desc = "",
-		type = "spec",
-		class = "HUNTER",
-		spec = {3},
-		cd = 10,
-	}, -- Lock and Load
-	
-	-- priest
-	[47755] = {
-		desc = "",
-		type = "spec",
-		class = "PRIEST",
-		spec = {1},
-		cd = 12,
-	}, -- Rapture
-	
-	--dk
+	--[[--dk
 	[96171] = {
 		desc = "",
 		type = "spec",
@@ -102,8 +98,8 @@ S.CooldownsMod.ClassCD = {
 		spec = {1},
 		cd = 45,
 		duration = 8,
-	}, -- Will of the Necropolis	
-	
+	}, -- Will of the Necropolis
+	]]
 	--warlock
 	[104317] = {
 		desc = "",
@@ -112,19 +108,247 @@ S.CooldownsMod.ClassCD = {
 		spec = {2},
 		cd = 20,
 	}, --
-	[34936] = {
-		desc = "",
-		type = "spec",
-		class = "WARLOCK",
-		spec = {3},
-		cd = 8,
-	}, --
-	
+		
 
 	
 -- item
 	-- type = "item" 
 	-- item = {the item id}
+	-- WOD 6.0
+	[177063] = {
+		desc = "",
+		type = "item",
+		item = {113889},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Elementalist's Shielding Talisman
+	[177056] = {
+		desc = "",
+		type = "item",
+		item = {113893},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Blast Furnace Door
+	[177051] = {
+		desc = "",
+		type = "item",
+		item = {113931},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Darmac's Unstable Talisman
+	[177096] = {
+		desc = "",
+		type = "item",
+		item = {113983},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Forgemaster's Insignia
+	[177081] = {
+		desc = "",
+		type = "item",
+		item = {113984},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Blackiron Micro Crucible
+	[177067] = {
+		desc = "",
+		type = "item",
+		item = {113985},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Humming Blackiron Trigger
+	[177086] = {
+		desc = "",
+		type = "item",
+		item = {113986},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Auto-Repairing Autoclave
+	[177102] = {
+		desc = "",
+		type = "item",
+		item = {113987},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Battering Talisman
+	[177035] = {
+		desc = "",
+		type = "item",
+		item = {118114},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Meaty Dragonspine Trophy
+	[177060] = {
+		desc = "",
+		type = "item",
+		item = {119192},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Ironspike Chew Toy
+	[177042] = {
+		desc = "",
+		type = "item",
+		item = {119193},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Horn of Screaming Spirits
+	[177046] = {
+		desc = "",
+		type = "item",
+		item = {119194},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Goren Soul Repository
+	
+	[177053] = {
+		desc = "",
+		type = "item",
+		item = {113861},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Evergaze Arcane Eidolon
+	[177038] = {
+		desc = "",
+		type = "item",
+		item = {113612},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Scales of Doom
+	[177040] = {
+		desc = "",
+		type = "item",
+		item = {113645},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Tectus' Beating Heart
+	[165824] = {
+		desc = "",
+		type = "item",
+		item = {113663},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Petrified Flesh-Eating Spore
+	[176980] = {
+		desc = "",
+		type = "item",
+		item = {116315},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Furyheart Talisman
+	[176984] = {
+		desc = "",
+		type = "item",
+		item = {116314},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Blackheart Enforcer's Medallion
+	[176982] = {
+		desc = "",
+		type = "item",
+		item = {116318},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Stoneheart Idol
+	[176978] = {
+		desc = "",
+		type = "item",
+		item = {116291},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Immaculate Living Mushroom
+	[162915] = {
+		desc = "",
+		type = "item",
+		item = {112318},
+		cd = 115,
+		duration = 20,
+	}, -- Skull of War
+	[162913] = {
+		desc = "",
+		type = "item",
+		item = {112317},
+		cd = 115,
+		duration = 20,
+	}, -- Winged Hourglass
+	[162919] = {
+		desc = "",
+		type = "item",
+		item = {112320},
+		cd = 115,
+		duration = 20,
+	}, -- Sandman's Pouch
+	[162917] = {
+		desc = "",
+		type = "item",
+		item = {112319},
+		cd = 115,
+		duration = 20,
+	}, -- Knight's Badge
+	
+	[176974] = {
+		desc = "",
+		type = "item",
+		item = {116292},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Mote of the Mountain
+	
+	--WOD heroic
+	[165822] = {
+		desc = "",
+		type = "item",
+		item = {109999, 110014},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Witherbark's Branch, Spores of Alacrity
+	
+	[165832] = {
+		desc = "",
+		type = "item",
+		item = {110004},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Coagulated Genesaur Blood
+	[165833] = {
+		desc = "",
+		type = "item",
+		item = {110009},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Leaf of the Ancient Protectors
+	[165824] = {
+		desc = "",
+		type = "item",
+		item = {110019},
+		cd = 0,
+		ppm = 0.92,
+		duration = 10,
+	}, -- Xeri'tac's Unhatched Egg Sac
+	
 	-- MOP 5.4
 	-- Legendary cloak
 	[148010] = {
@@ -187,53 +411,53 @@ S.CooldownsMod.ClassCD = {
 		duration = 10,
 	}, -- Jina-Kang, Kindness of Chi-Ji
 	
-	-- SoO WH(Warforged Heroic)/ H/ WN/ N/ F(Flexible)/ LFR  
+	-- SoO 6.02ALL/ WH(Warforged Heroic)/ H/ WN/ N/ F(Flexible)/ LFR  
 	[148911] = {
 		desc = "",
 		type = "item",
-		item = {105607, 104611, 105358, 102304, 104860, 105109},
+		item = {112849, 105607, 104611, 105358, 102304, 104860, 105109},
 		cd = 115,
 		duration = 20,
 	}, -- Thok's Acid-Grooved Tooth
 	[146250] = {
 		desc = "",
 		type = "item",
-		item = {105609, 104613, 105360, 102305, 104862, 105111},
+		item = {112850, 105609, 104613, 105360, 102305, 104862, 105111},
 		cd = 115,
 		duration = 20,
 	}, -- Thok's Tail Tip
 	[146046] = {
 		desc = "",
 		type = "item",
-		item = {105422, 104426, 105173, 102293, 104675, 104924},
+		item = {112426, 105422, 104426, 105173, 102293, 104675, 104924},
 		cd = 115,
 		duration = 20,
 	}, -- Purified Bindings of Immerseus
 	[146308] = {
 		desc = "",
 		type = "item",
-		item = {105472, 104476, 105223, 102292, 104725, 104974},
+		item = {112947, 105472, 104476, 105223, 102292, 104725, 104974},
 		cd = 115,
 		duration = 20,
 	}, -- Assurance of Consequence
 	[146314] = {
 		desc = "",
 		type = "item",
-		item = {105474, 104478, 105225, 102299, 104727, 104976},
+		item = {112948, 105474, 104478, 105225, 102299, 104727, 104976},
 		cd = 115,
 		duration = 20,
 	}, -- Prismatic Prison of Pride
 	[146245] = {
 		desc = "",
 		type = "item",
-		item = {105491, 104495, 105242, 102298, 104744, 104993},
+		item = {112703, 105491, 104495, 105242, 102298, 104744, 104993},
 		cd = 55,
 		duration = 10,
 	}, -- Evil Eye of Galakras
 	[148903] = {
 		desc = "",
 		type = "item",
-		item = {105527, 104531, 105278, 102301, 104780, 105029},
+		item = {112754, 105527, 104531, 105278, 102301, 104780, 105029},
 		cd = 0,
 		ppm = 0.92,
 		duration = 10,
@@ -241,7 +465,7 @@ S.CooldownsMod.ClassCD = {
 	[148906] = {
 		desc = "",
 		type = "item",
-		item = {105540, 104544, 105291, 102300, 104793, 105042},
+		item = {112768, 105540, 104544, 105291, 102300, 104793, 105042},
 		cd = 0,
 		ppm = 0.92,
 		duration = 10,
@@ -249,7 +473,7 @@ S.CooldownsMod.ClassCD = {
 	[148908] = {
 		desc = "",
 		type = "item",
-		item = {105549, 104553, 105300, 102294, 104802, 105051},
+		item = {112778, 105549, 104553, 105300, 102294, 104802, 105051},
 		cd = 0,
 		ppm = 0.92,
 		duration = 10,
@@ -257,21 +481,21 @@ S.CooldownsMod.ClassCD = {
 	[148897] = {
 		desc = "",
 		type = "item",
-		item = {105572, 104576, 105323, 102303, 104825, 105074},
+		item = {112815, 105572, 104576, 105323, 102303, 104825, 105074},
 		cd = 85,
 		duration = 15,
 	}, -- Frenzied Crystal of Rage
 	[148896] = {
 		desc = "",
 		type = "item",
-		item = {105580, 104584, 105331, 102302, 104833, 105082},
+		item = {112825, 105580, 104584, 105331, 102302, 104833, 105082},
 		cd = 85,
 		duration = 15,
 	}, -- Sigil of Rampage
 	[146310] = {
 		desc = "",
 		type = "item",
-		item = {105612, 104616, 105363, 102311, 104865, 105114},
+		item = {112879, 105612, 104616, 105363, 102311, 104865, 105114},
 		cd = 0,
 		ppm = 1,
 		duration = 10,
@@ -279,7 +503,7 @@ S.CooldownsMod.ClassCD = {
 	[146317] = {
 		desc = "",
 		type = "item",
-		item = {105615, 104619, 105366, 102309, 104868, 105117},
+		item = {112877, 105615, 104619, 105366, 102309, 104868, 105117},
 		cd = 0,
 		ppm = 0.92,
 		modifier = 'haste',
@@ -288,7 +512,7 @@ S.CooldownsMod.ClassCD = {
 	[146285] = {
 		desc = "",
 		type = "item",
-		item = {105632, 104636, 105383, 102308, 104885, 105134},
+		item = {112913, 105632, 104636, 105383, 102308, 104885, 105134},
 		cd = 0,
 		ppm = 0.92,
 		duration = 10,
@@ -296,7 +520,7 @@ S.CooldownsMod.ClassCD = {
 	[146184] = {
 		desc = "",
 		type = "item",
-		item = {105648, 104652, 105399, 102310, 104901, 105150},
+		item = {112938, 105648, 104652, 105399, 102310, 104901, 105150},
 		cd = 0,
 		ppm = 0.92,
 		duration = 10,
@@ -304,7 +528,7 @@ S.CooldownsMod.ClassCD = {
 	[148899] = {
 		desc = "",
 		type = "item",
-		item = {105459, 104463, 105210, 102295, 104712, 104961},
+		item = {112503, 105459, 104463, 105210, 102295, 104712, 104961},
 		cd = 85,
 		duration = 15,
 	}, -- Fusion-Fire Core
@@ -565,25 +789,26 @@ S.CooldownsMod.ClassCD = {
 		duration = 20,
 	}, -- H
 	
-	-- pvp 522(H/L set) 496(H/L set) 496(H/L) 483 476 458
+	
+	-- pvp 660(H/L Tournoment set) 660(H/L set) 620(H/L set) 550(H/L set) 522(H/L set) 496(H/L set) 496(H/L) 483 476 458
 	[126707] = {
 		desc = "",
 		type = "item",
-		item = {100586,100200,100026,99777,94356,91104,84935,91457,84349},
+		item = {117730, 117931, 111223, 115750, 119927, 115150, 103347,102643,102840,103150,100586,100200,100026,99777,94356,91104,84935,91457,84349},
 		cd = 50,
 		duration = 20,
 	}, -- AGI
 	[126705] = {
 		desc = "",
 		type = "item",
-		item = {100712,100491,100152,99938,94482,91401,84941,91754,84489},
+		item = {117735, 117936, 111228, 115755, 119932, 115155, 103506,102766,102963,103309,100712,100491,100152,99938,94482,91401,84941,91754,84489},
 		cd = 50,
 		duration = 20,
 	}, -- SP
 	[126700] = {
 		desc = "",
 		type = "item",
-		item = {100505,100645,100085,99948,94415,91415,84937,91768,84495},
+		item = {117740, 117941, 111233, 115760, 119937, 115160, 103516,102699,102896,103319,100505,100645,100085,99948,94415,91415,84937,91768,84495},
 		cd = 50,
 		duration = 20,
 	}, -- STR
@@ -727,7 +952,7 @@ S.CooldownsMod.ClassCD = {
 	-- items = {all items of this set(including all difficulties)}
 	-- piece = the minimum pieces of the item set to get the bonus
 	
-	
+	--[[
 	[102545] = {
 		type = "itemset",
 		class = "DRUID",
@@ -735,7 +960,7 @@ S.CooldownsMod.ClassCD = {
 		piece = 4,
 		cd = 30,
 	}, -- Feral PVP 4P
-	
+	]]
 
 -- enchant
 	-- type = "enchant",
@@ -779,30 +1004,7 @@ S.CooldownsMod.ClassCD = {
 	}, -- Black Magic
 	
 	-- MOP
-	[125488] = {
-		desc = "",
-		type = "enchant",
-		enchant = {4893, 4116, 3728},
-		slot = 15,
-		cd = 60,
-		duration = 15
-	},	-- Darkglow Embroidery
-	[125489] = {
-		desc = "",
-		type = "enchant",
-		enchant = {4894, 3730, 4118},
-		slot = 15,
-		cd = 60,
-		duration = 15
-	}, -- Swordguard Embroidery
-	[125487] = {
-		desc = "",
-		type = "enchant",
-		enchant = {4892, 3722, 4115},
-		slot = 15,
-		cd = 55,
-		duration = 15
-	}, -- Lightweave Embroidery
+	
 	[104993] = {
 		desc = "",
 		type = "enchant",
@@ -849,6 +1051,61 @@ S.CooldownsMod.ClassCD = {
 		duration = 7,
 		cd = 0
 	}, -- River's Song
+	
+	-- WOD
+	
+	[159675] = {
+		desc = "",
+		type = "enchant",
+		enchant = {5337},
+		slot = 16,
+		ppm = 1.15,
+		duration = 20,
+		cd = 0
+	}, -- Mark of Warsong
+	[159234] = {
+		desc = "",
+		type = "enchant",
+		enchant = {5330},
+		slot = 16,
+		ppm = 2.5,
+		duration = 6,
+		cd = 0
+	}, -- Mark of the Thunderlord
+	[159676] = {
+		desc = "",
+		type = "enchant",
+		enchant = {5334},
+		slot = 16,
+		ppm = 3,
+		duration = 6,
+		cd = 0
+	}, -- Mark of the Frostwolf
+	[159678] = {
+		desc = "",
+		type = "enchant",
+		enchant = {5335},
+		slot = 16,
+		duration = 15,
+		cd = 40
+	}, -- Mark of Shadowmoon
+	[173322] = {
+		desc = "",
+		type = "enchant",
+		enchant = {5384},
+		slot = 16,
+		ppm = 2.3,
+		duration = 12,
+		cd = 0
+	}, -- Mark of Bleeding Hollow
+	[159679] = {
+		desc = "",
+		type = "enchant",
+		enchant = {5336},
+		slot = 16,
+		duration = 12,
+		cd = 40
+	}, -- Mark of Blackrock
 	
 	
 	
@@ -924,7 +1181,7 @@ S.CooldownsMod.ClassCD = {
 		class = "SHAMAN",
 		duration = 4,
 		ppm = 1.61
-	}
+	}, -- Courageous Primal Diamond -- Shaman
 }
 
 S.CooldownsMod.RaidCD = {
