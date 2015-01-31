@@ -256,22 +256,23 @@ local function Difficultyflag()
 	rd:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
 	rd:RegisterEvent("UPDATE_INSTANCE_INFO")
 	local rdt = rd:CreateFontString(nil, "OVERLAY")
-	rdt:FontTemplate(nil, 14, "THINOUTLINE")
+	rdt:FontTemplate(nil, 12, "THINOUTLINE")
 	rdt:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 3)
 	rd:SetAllPoints(rdt)
 	local function diff()
 		local text = ""
 		if not IsInInstance()  then rdt:SetText(text) return end
-		local _, instanceType, difficulty, _, maxPlayers, _, dynamic  = GetInstanceInfo()
+		local _, instanceType, difficulty, difficultyName, maxPlayers, _, dynamic  = GetInstanceInfo()
 	 	if (instanceType=='pvp') or (instanceType=='arena') then rdt:SetText(text) return end
 		
-		if instanceType == 'party' then
-			text = maxPlayers..S.DiffIDToString[difficulty]	
+		if difficultyName~=nil then text = difficultyName end
+		--[[if instanceType == 'party' then
+			text = difficultyName
 		elseif instanceType == 'raid' and dynamic then
-			text = maxPlayers..S.DiffIDToString[difficulty]	
+			text = difficultyName
 		else
-			text = maxPlayers
-		end
+			text = difficultyName
+		end]]
 		if GuildInstanceDifficulty:IsShown() then
 			rdt:SetTextColor(0.40, 0.78, 1)
 		else
