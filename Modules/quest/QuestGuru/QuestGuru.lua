@@ -2,10 +2,12 @@
 ---名字:QuestGuru  作者 Lazzy-Kilrogg 
 --------------------------------------------------------------
 
-local qgc = QuestGuru
-local QGC_LOADMSG = ""
-QuestGuruSettings = {} --CFFFF8A08  |c
+--QuestGuru = LibStub("AceAddon-3.0"):NewAddon("QuestGuru")
 
+local qgc = QuestGuru
+
+QuestGuruSettings = {} --CFFFF8A08  |c
+QuestGuruCollapsedHeaders = {}
 qgc.quests = {}
 
 BINDING_HEADER_QUESTGURU = "QuestGuru"
@@ -23,9 +25,8 @@ function qgc:OnEvent(event)
 --		qgc.showTooltips.text:SetText("Show Tooltips")
 --		qgc.showLevels:SetChecked(QuestGuruSettings.ShowLevels and true)
 --		qgc.showTooltips:SetChecked(QuestGuruSettings.ShowTooltips and true)
-		--QGC_FrameTitleText:SetFormattedText(TEXT(BINDING_HEADER_QUESTGURU).." v"..QUESTGURU_VERSION.." for "..QGC_NAME..", level "..QGC_LEVEL.." "..QGC_CLASS)
---		
 		QuestLogPopupDetailFrame:HookScript("OnShow",function() qgc:Hide() end)
+
 --		QGCRegistered = false;
 --		QGCRegistered = RegisterAddonMessagePrefix("QuestGuru");
 --		if	( QGCRegistered ) then
@@ -38,6 +39,7 @@ function qgc:OnEvent(event)
 		qgc:UpdateOverrides()
 	elseif event=="QUEST_DETAIL" then
 		qgc:Hide()
+		
 	else
 		local selected = GetQuestLogSelection()
 		if selected==0 then
@@ -116,7 +118,34 @@ function qgc:OnHide()
 end
 
 function qgc:UpdateLogList()
-	local numEntries,numQuests = GetNumQuestLogEntries()
+	qgc.update:Show()
+end
+
+function qgc:UpdateLog()
+	qgc.update:Hide() -- immediately stop the OnUpdate
+	-- gather quests into a working table (qgc.quests) to skip over collapsed headers
+	wipe(qgc.quests)
+	qgc.expanded = nil
+
+	local skipping -- will be true while skipping over collapsed headers
+	local numQuests = 0
+	for index=1,GetNumQuestLogEntries() do
+		local questTitle, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(index)
+		if isHeader then
+			skipping = QuestGuruCollapsedHeaders[questTitle]
+			if not skipping then
+				qgc.expanded = true
+			end
+		end
+		if not skipping or isHeader then
+			table.insert(qgc.quests,{index,questTitle,level,suggestedGroup,isHeader,skipping,isComplete,frequency,questID})
+		end
+		if not isHeader then
+			numQuests = numQuests + 1
+		end
+	end
+	
+	local numEntries = #qgc.quests --= GetNumQuestLogEntries()
 	local scrollFrame = qgc.scrollFrame
 	local offset = HybridScrollFrame_GetOffset(scrollFrame)
 	local buttons = scrollFrame.buttons
@@ -129,18 +158,19 @@ function qgc:UpdateLogList()
 		local button = buttons[i]
 		button.index = index
 		if ( index <= numEntries ) then
-			local questTitle, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(index)
+			local entry, questTitle, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = unpack(qgc.quests[index])
 
-			button.index = index
+			button.index = entry
 			button.questID = questID
 			button.isHeader = isHeader
 			button.isCollapsed = isCollapsed
-
+			button.questTitle = questTitle
+			
 			button.normalText:SetWidth(275)
 			local maxWidth = 275 -- we may shrink normalText to accomidate check and tag icons
 
 			local color = isHeader and QuestDifficultyColors["header"] or GetQuestDifficultyColor(level)
-			if not isHeader and selectedIndex==index then
+			if not isHeader and selectedIndex==entry then
 				button:SetNormalFontObject("GameFontHighlight")
 				button.selected:SetVertexColor(color.r,color.g,color.b)
 				button.selected:Show()
@@ -165,7 +195,7 @@ function qgc:UpdateLogList()
 				button:SetNormalTexture("")
 				button:SetHighlightTexture("")
 				-- if quest is tracked, show check and shorted max normalText width
-				if IsQuestWatched(index) then
+				if IsQuestWatched(entry) then
 					maxWidth = maxWidth - 16
 					button.check:Show()
 				else
@@ -211,7 +241,7 @@ function qgc:UpdateLogList()
 				-- If not a header see if any nearby group mates are on this quest
 				local partyMembersOnQuest = 0
 				for j=1,GetNumSubgroupMembers() do
-					if IsUnitOnQuest(index,"party"..j) then
+					if IsUnitOnQuest(entry,"party"..j) then
 						partyMembersOnQuest = partyMembersOnQuest + 1
 					end
 				end
@@ -242,6 +272,7 @@ function qgc:UpdateLogList()
 	else
 		qgc.scrollFrame:Show()
 		qgc.emptyLog:Hide()
+		qgc.scrollFrame.expandAll:SetNormalTexture(qgc.expanded and "Interface\\Buttons\\UI-MinusButton-Up" or "Interface\\Buttons\\UI-PlusButton-Up")
 	end
 
 	qgc:UpdateControlButtons()
@@ -254,11 +285,7 @@ end
 function qgc:ListEntryOnClick()
 	local index = self.index
 	if self.isHeader then
-		if self.isCollapsed then
-			ExpandQuestHeader(index)
-		else
-			CollapseQuestHeader(index)
-		end
+		QuestGuruCollapsedHeaders[self.questTitle] = not QuestGuruCollapsedHeaders[self.questTitle] or nil
 	else
 		if IsModifiedClick("CHATLINK") and ChatEdit_GetActiveWindow() then
 			local link = GetQuestLink(index)
@@ -411,6 +438,21 @@ function qgc:UpdateControlButtons()
 	end
 end
 
+function qgc:ExpandAllOnClick()
+if not qgc.expanded then
+	wipe(QuestGuruCollapsedHeaders)
+else
+	for i=1,GetNumQuestLogEntries() do
+		local questTitle,_,_,isHeader = GetQuestLogTitle(i)
+		if isHeader then
+			QuestGuruCollapsedHeaders[questTitle] = true
+		end
+	end
+end
+qgc:UpdateLogList()
+end
+
+
 --[[ map button ]]
 
 function qgc:ShowMap()
@@ -435,7 +477,7 @@ end
 
 function qgc:UpdateOverrides()
 	local key = GetBindingKey("QUESTGURU_TOGGLE")
-	if key and qgc.overridingKey then
+	if key then
 		ClearOverrideBindings(qgc)
 		qgc.overridingKey = nil
 	else -- there's no binding for addon, so override the default stuff

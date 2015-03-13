@@ -14,6 +14,38 @@ B.ProfessionColors = {
 	[0x010000] = {222/255, 13/255,  65/255} -- Cooking
 }
 
+B.INVTYPE = setmetatable({
+	["INVTYPE_2HWEAPON"] = INVTYPE_2HWEAPON,
+	["INVTYPE_AMMO"] = INVTYPE_AMMO,
+	["INVTYPE_BAG"] = INVTYPE_BAG,
+	["INVTYPE_BODY"] = INVTYPE_BODY,
+	["INVTYPE_CHEST"] = INVTYPE_CHEST,
+	["INVTYPE_CLOAK"] = INVTYPE_CLOAK,
+	["INVTYPE_FEET"] = INVTYPE_FEET,
+	["INVTYPE_FINGER"] = INVTYPE_FINGER,
+	["INVTYPE_HAND"] = INVTYPE_HAND,
+	["INVTYPE_HEAD"] = INVTYPE_HEAD,
+	["INVTYPE_HOLDABLE"] = INVTYPE_HOLDABLE,
+	["INVTYPE_LEGS"] = INVTYPE_LEGS,
+	["INVTYPE_NECK"] = INVTYPE_NECK,
+	["INVTYPE_QUIVER"] = INVTYPE_QUIVER,
+	["INVTYPE_RANGED"] = INVTYPE_RANGED,
+	["INVTYPE_RANGEDRIGHT"] = INVTYPE_RANGEDRIGHT,
+	["INVTYPE_RELIC"] = INVTYPE_RELIC,
+	["INVTYPE_ROBE"] = INVTYPE_ROBE,
+	["INVTYPE_SHIELD"] = INVTYPE_SHIELD,
+	["INVTYPE_SHOULDER"] = INVTYPE_SHOULDER,
+	["INVTYPE_TABARD"] = INVTYPE_TABARD,
+	["INVTYPE_THROWN"] = INVTYPE_THROWN,
+	["INVTYPE_TRINKET"] = INVTYPE_TRINKET,
+	["INVTYPE_WAIST"] = INVTYPE_WAIST,
+	["INVTYPE_WEAPON"] = INVTYPE_WEAPON,
+	["INVTYPE_WEAPONMAINHAND"] = INVTYPE_WEAPONMAINHAND,
+	["INVTYPE_WEAPONMAINHAND_PET"] = INVTYPE_WEAPONMAINHAND_PET,
+	["INVTYPE_WEAPONOFFHAND"] = INVTYPE_WEAPONOFFHAND,
+	["INVTYPE_WRIST"] = INVTYPE_WRIST,
+},{__index=function() return "" end})
+
 function B:GetOptions()
 	local options = {
 		BagSize = {
@@ -63,6 +95,11 @@ function B:GetOptions()
 				self.db.BankWidth = tonumber(value) 
 				self:Layout(true) 
 			end,
+		},
+		EquipType = {
+			type = "toggle",
+			name = L["物品类型及等级"],
+			order = 6,
 		},
 	}
 	return options
@@ -189,10 +226,10 @@ function B:UpdateSlot(bagID, slotID)
 		slot.questIcon:Hide();
 	end
 	slot.name, slot.rarity = nil, nil
+	
 	local start, duration, enable = GetContainerItemCooldown(bagID, slotID)
-	if slot.cooldown then 
-		CooldownFrame_SetTimer(slot.cooldown, start, duration, enable)
-	end
+	CooldownFrame_SetTimer(slot.cooldown, start, duration, enable)
+	
 	if ( duration > 0 and enable == 0 ) then
 		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4);
 	else
@@ -205,8 +242,8 @@ function B:UpdateSlot(bagID, slotID)
 		slot.shadow:Hide()
 	end
 	if (clink) then
-		local iType, _
-		slot.name, _, slot.rarity, _, _, iType = GetItemInfo(clink)
+		local iType, iLevel, iClass, iSubClass
+		slot.name, _, slot.rarity, iLevel, _, iClass, iSubClass, _, iType = GetItemInfo(clink)
 		if S:IsItemUnusable(clink) then
 			SetItemButtonTextureVertexColor(slot, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
 		else
@@ -231,20 +268,93 @@ function B:UpdateSlot(bagID, slotID)
 			slot:SetBackdropColor(0, 0, 0, 0, 0)
 			slot.border:SetBackdropBorderColor(0, 0, 0)
 		end
+		
+		--装备类型 + 等级
+		if B.db.EquipType then
+			if iType and not (questId and not isActive) and not (questId or isQuestItem) and B.INVTYPE[iType]~= "" then
+				slot.equiptype:Show()
+				if GetLocale() == "zhCN" or GetLocale() == "zhTW" then
+					local temptext, round
+					if iType:find("WEAPON") then
+						slot.equiptype:SetText(iSubClass)
+						temptext = iSubClass
+					else
+						slot.equiptype:SetText(B.INVTYPE[iType])
+						temptext = B.INVTYPE[iType]
+					end
+					round = temptext:len()
+					--S:Print("字数:", round)
+					if round == 0 then 
+						round = 1 
+					else
+						round = 2/(round/3)
+					end
+					if round > 1 then
+						round = 1
+					end
+					--S:Print("系数:", round, "倒数:", 1-round,"字号:", S["media"].fontsize * round)
+					slot.equiptype:SetFont(S["media"].font, (S["media"].fontsize - 1) * round, S["media"].fontflag)
+					--S:Print(iSubClass, B.INVTYPE[iType])
+				else
+					slot.equiptype:SetText("")
+					slot.equiptype:Hide()
+				end
+				if S:IsItemUnusable(clink) then
+					slot.equiptype:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+				elseif slot.rarity then
+					local r, g, b = GetItemQualityColor(slot.rarity)
+					slot.equiptype:SetTextColor(r, g, b)
+				end
+				if B.INVTYPE[iType] ~= "" then
+					slot.equiplevel:Show()
+					slot.equiplevel:SetText(iLevel)
+					local total, equipped = GetAverageItemLevel()
+					--local StatusColor = {{0.5, 0.5, 0.5}, {1, 1, 0}, {0.25, 0.75, 0.25}} --灰 黄 绿
+					local temp = iLevel - equipped
+					local r, g, b
+					if temp > 0 then
+						r, g, b = 0.25, 0.75, 0.25
+					elseif temp < -20 then
+						r, g, b = 0.5, 0.5, 0.5
+					elseif temp <=0 and temp >= -20 then
+						r, g, b = 1, 1, 0
+					end
+					slot.equiplevel:SetTextColor(r, g, b)
+				else
+					slot.equiptype:SetText("")
+					slot.equiptype:Hide()
+				end
+			else
+				slot.equiplevel:SetText("")
+				slot.equiplevel:Hide()
+				slot.equiptype:SetText("")
+				slot.equiptype:Hide()
+			end
+		else
+			slot.equiplevel:SetText("")
+			slot.equiplevel:Hide()
+			slot.equiptype:SetText("")
+			slot.equiptype:Hide()
+		end
+		
 	else
 		--slot.iconTexture:SetAllPoints()
 		--slot:StyleButton(true)
 		slot:SetBackdropColor(0, 0, 0, 0)
 		slot.border:SetBackdropBorderColor(0, 0, 0)
+		slot.equiplevel:SetText("")
+		slot.equiplevel:Hide()
+		slot.equiptype:SetText("")
+		slot.equiptype:Hide()
 	end
 	
-	if(C_NewItems.IsNewItem(bagID, slotID)) then
+	--[[if(C_NewItems.IsNewItem(bagID, slotID)) then
 		slot.shadow:Show()
 		S:Flash(slot.shadow, 1, true)
 	else
 		slot.shadow:Hide()
 		S:StopFlash(slot.shadow)
-	end
+	end]]
 	
 	SetItemButtonTexture(slot, texture)
 	SetItemButtonCount(slot, count)
@@ -271,9 +381,7 @@ function B:UpdateCooldowns()
 	for _, bagID in ipairs(self.BagIDs) do
 		for slotID = 1, GetContainerNumSlots(bagID) do
 			local start, duration, enable = GetContainerItemCooldown(bagID, slotID)
-			if bagID and slotID and self.Bags[bagID][slotID].cooldown then
-				CooldownFrame_SetTimer(self.Bags[bagID][slotID].cooldown, start, duration, enable)
-			end
+			CooldownFrame_SetTimer(self.Bags[bagID][slotID].cooldown, start, duration, enable)
 			if ( duration > 0 and enable == 0 ) then
 				SetItemButtonTextureVertexColor(self.Bags[bagID][slotID], 0.4, 0.4, 0.4);
 			else
@@ -451,6 +559,21 @@ function B:Layout(isBank)
 					f.Bags[bagID][slotID].Count:ClearAllPoints()
 					f.Bags[bagID][slotID].Count:SetPoint("BOTTOMRIGHT", 0, 2)
 					f.Bags[bagID][slotID].Count:SetFont(S["media"].font, S["media"].fontsize, "OUTLINE")
+					
+					if not f.Bags[bagID][slotID].equiptype then
+						f.Bags[bagID][slotID].equiptype = S:CreateFS(f.Bags[bagID][slotID])
+						f.Bags[bagID][slotID].equiptype:SetPoint("TOPRIGHT", 0, -2)
+						f.Bags[bagID][slotID].equiptype:SetJustifyH("RIGHT")
+						f.Bags[bagID][slotID].equiptype:SetFont(S["media"].font, S["media"].fontsize-1, "OUTLINE")
+					end
+					
+					if not f.Bags[bagID][slotID].equiplevel then
+						f.Bags[bagID][slotID].equiplevel = S:CreateFS(f.Bags[bagID][slotID])
+						f.Bags[bagID][slotID].equiplevel:SetPoint("BOTTOMRIGHT", 0, 2)
+						f.Bags[bagID][slotID].equiplevel:SetJustifyH("RIGHT")
+						f.Bags[bagID][slotID].equiplevel:SetFont(S["media"].font, S["media"].fontsize, "OUTLINE")
+					end
+					
 					if(f.Bags[bagID][slotID].questIcon) then
 						f.Bags[bagID][slotID].questIcon = _G[f.Bags[bagID][slotID]:GetName().."IconQuestTexture"]
 						f.Bags[bagID][slotID].questIcon:SetTexture(TEXTURE_ITEM_QUEST_BANG)
@@ -461,8 +584,13 @@ function B:Layout(isBank)
 					
 					f.Bags[bagID][slotID].iconTexture = _G[f.Bags[bagID][slotID]:GetName().."IconTexture"]
 					f.Bags[bagID][slotID].iconTexture:SetTexCoord(.08, .92, .08, .92)
-					
-					f.Bags[bagID][slotID].cooldown = _G[f.Bags[bagID][slotID]:GetName().."Cooldown"]
+					if _G[f.Bags[bagID][slotID]:GetName().."Cooldown"] then
+						f.Bags[bagID][slotID].cooldown = _G[f.Bags[bagID][slotID]:GetName().."Cooldown"]
+					else
+						f.Bags[bagID][slotID].cooldown = CreateFrame("Cooldown", f.Bags[bagID][slotID]:GetName().."Cooldown", _G[f.Bags[bagID][slotID]:GetName()])
+						f.Bags[bagID][slotID].cooldown:SetAllPoints()
+						f.Bags[bagID][slotID].cooldown:SetReverse(true)
+					end
 			
 					f.Bags[bagID][slotID].bagID = bagID
 					f.Bags[bagID][slotID].slotID = slotID
@@ -645,13 +773,13 @@ function B:UpdateReagentSlot(slotID)
 		slot:SetBackdropBorderColor(unpack(S["media"].bordercolor));
 	end
 
-	if(C_NewItems.IsNewItem(bagID, slotID)) then
+	--[[if(C_NewItems.IsNewItem(bagID, slotID)) then
 		slot.shadow:Show()
 		S:Flash(slot.shadow, 1, true)
 	else
 		slot.shadow:Hide()
 		S:StopFlash(slot.shadow)
-	end
+	end]]
 	
 	SetItemButtonTexture(slot, texture);
 	SetItemButtonCount(slot, count);

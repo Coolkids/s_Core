@@ -242,10 +242,10 @@ Launch:SetScript("OnEvent", function(self, event, addon)
 		detailBackground:SetPoint("TOPLEFT", TradeSkillDetailScrollFrame)
 		detailBackground:SetPoint("BOTTOMRIGHT", TradeSkillFrame, "BOTTOMRIGHT", -10, 29)
 		detailBackground:SetTexCoord(0, 0.2, 0, 1)  -- Mess with TexCoords so the texture does not look too compressed/stretched
-		detailBackground:SetTexture("Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated")
+		--detailBackground:SetTexture("Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated")
 		--detailBackground:SetTexture("Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment")
 		--detailBackground:SetTexture("Interface\\FrameGeneral\\UI-Background-Marble")
-
+		detailBackground:SetTexture(1, 1, 1, 0)
 
 		-- Scrollbar of the recipe list
 		TradeSkillListScrollFrame:ClearAllPoints()
@@ -479,6 +479,7 @@ Launch:SetScript("OnEvent", function(self, event, addon)
 
 			-- Cooldown
 			if (TradeSkillSkillCooldown:GetText()) then
+				TradeSkillSkillCooldown:ClearAllPoints()
 				TradeSkillSkillCooldown:SetPoint("TOPLEFT", anchorTo, "BOTTOMLEFT", anchorOffsetX, anchorOffsetY+5) -- +5 looks better
 
 				anchorTo = TradeSkillSkillCooldown
@@ -491,6 +492,7 @@ Launch:SetScript("OnEvent", function(self, event, addon)
 				TradeSkillDescription:Hide()
 			else
 				TradeSkillDescription:Show()
+				TradeSkillDescription:ClearAllPoints()
 				TradeSkillDescription:SetPoint("TOPLEFT", anchorTo, "BOTTOMLEFT", anchorOffsetX, anchorOffsetY)
 
 				anchorTo = TradeSkillDescription
@@ -500,6 +502,7 @@ Launch:SetScript("OnEvent", function(self, event, addon)
 
 			-- Requirements
 			if (TradeSkillRequirementText:GetText()) then
+				TradeSkillRequirementLabel:ClearAllPoints()
 				TradeSkillRequirementLabel:SetPoint("TOPLEFT", anchorTo, "BOTTOMLEFT", anchorOffsetX, anchorOffsetY)
 
 				anchorTo = TradeSkillRequirementText
@@ -508,6 +511,7 @@ Launch:SetScript("OnEvent", function(self, event, addon)
 			end
 
 			-- Reagents
+			TradeSkillReagentLabel:ClearAllPoints()
 			TradeSkillReagentLabel:SetPoint("TOPLEFT", anchorTo, "BOTTOMLEFT", anchorOffsetX, anchorOffsetY)
 		end
 

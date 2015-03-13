@@ -1,4 +1,4 @@
-﻿local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
+local S, L, P = unpack(select(2, ...)) --Import: Engine, Locales, ProfileDB, local
 local A = S:GetModule("Skins")
 
 local function LoadSkin()
@@ -81,46 +81,91 @@ local function LoadSkin()
 	StaticPopup4MoneyInputFrameCopper:SetPoint("LEFT", StaticPopup4MoneyInputFrameSilver, "RIGHT", 1, 0)
 	StackSplitFrame:GetRegions():Hide()
 
-	local buttons = {
-		"VideoOptionsFrameOkay",
-		"VideoOptionsFrameCancel",
-		"VideoOptionsFrameDefaults",
-		"VideoOptionsFrameApply",
-		"AudioOptionsFrameOkay",
-		"AudioOptionsFrameCancel",
-		"AudioOptionsFrameDefaults",
-		"InterfaceOptionsFrameDefaults",
-		"InterfaceOptionsFrameOkay",
-		"InterfaceOptionsFrameCancel",
-		"ChatConfigFrameOkayButton",
-		"ChatConfigFrameDefaultButton",
-		"StackSplitOkayButton",
-		"StackSplitCancelButton",
-		"GameMenuButtonHelp",
-		"GameMenuButtonStore",
-		"GameMenuButtonOptions",
-		"GameMenuButtonUIOptions",
-		"GameMenuButtonKeybindings",
-		"GameMenuButtonMacros",
-		"GameMenuButtonLogout",
-		"GameMenuButtonQuit",
-		"GameMenuButtonContinue",
-		"GameMenuButtonMacOptions",
-		"GameMenuButtonWhatsNew",
-		"GameMenuButtonAddons",
-		"ColorPickerOkayButton",
-		"ColorPickerCancelButton",
-		"GuildInviteFrameJoinButton",
-		"GuildInviteFrameDeclineButton",
-		"RolePollPopupAcceptButton",
-		"GhostFrame",
-		"InterfaceOptionsHelpPanelResetTutorials",
-		"SideDressUpModelResetButton"
-	}
+	local buttons = {"AudioOptionsFrameOkay", 
+		"AudioOptionsFrameCancel", 
+		"AudioOptionsFrameDefaults", 
+		"ChatConfigFrameOkayButton", 
+		"ChatConfigFrameDefaultButton", 
+		"DressUpFrameCancelButton", 
+		"DressUpFrameResetButton", 
+		"WhoFrameWhoButton", 
+		"WhoFrameAddFriendButton", 
+		"WhoFrameGroupInviteButton", 
+		"ChannelFrameNewButton", 
+		"RaidFrameRaidInfoButton", 
+		"RaidFrameConvertToRaidButton", 
+		"GearManagerDialogPopupOkay", 
+		"GearManagerDialogPopupCancel", 
+		"StackSplitOkayButton", 
+		"StackSplitCancelButton", 
+		"GameMenuButtonHelp", 
+		"GameMenuButtonWhatsNew", 
+		"GameMenuButtonStore", 
+		"GameMenuButtonOptions", 
+		"GameMenuButtonUIOptions", 
+		"GameMenuButtonKeybindings", 
+		"GameMenuButtonMacros", 
+		"GameMenuButtonAddons", 
+		"GameMenuButtonLogout", 
+		"GameMenuButtonQuit", 
+		"GameMenuButtonContinue", 
+		"LFDQueueFrameFindGroupButton", 
+		"AddFriendEntryFrameAcceptButton", 
+		"AddFriendEntryFrameCancelButton", 
+		"FriendsFriendsSendRequestButton", 
+		"FriendsFriendsCloseButton", 
+		"ColorPickerOkayButton", 
+		"ColorPickerCancelButton", 
+		"GuildInviteFrameJoinButton", 
+		"GuildInviteFrameDeclineButton", 
+		"FriendsFramePendingButton1AcceptButton", 
+		"FriendsFramePendingButton1DeclineButton", 
+		"RaidInfoExtendButton", 
+		"RaidInfoCancelButton", 
+		"PaperDollEquipmentManagerPaneEquipSet", 
+		"PaperDollEquipmentManagerPaneSaveSet", 
+		"HelpFrameAccountSecurityOpenTicket", 
+		"HelpFrameCharacterStuckStuck", 
+		"HelpFrameOpenTicketHelpTopIssues", 
+		"HelpFrameOpenTicketHelpOpenTicket", 
+		"ReadyCheckFrameYesButton", 
+		"ReadyCheckFrameNoButton", 
+		"HelpFrameTicketSubmit", 
+		"HelpFrameTicketCancel", 
+		"HelpFrameKnowledgebaseSearchButton", 
+		"GhostFrame", 
+		"HelpFrameGM_ResponseNeedMoreHelp", 
+		"HelpFrameGM_ResponseCancel", 
+		"GMChatOpenLog", 
+		"AddFriendInfoFrameContinueButton", 
+		"LFDQueueFramePartyBackfillBackfillButton", 
+		"LFDQueueFramePartyBackfillNoBackfillButton", 
+		"ChannelFrameDaughterFrameOkayButton", 
+		"ChannelFrameDaughterFrameCancelButton", 
+		"PendingListInfoFrameContinueButton", 
+		"LFDQueueFrameNoLFDWhileLFRLeaveQueueButton", 
+		"RaidFinderFrameFindRaidButton", 
+		"RaidFinderQueueFrameIneligibleFrameLeaveQueueButton", 
+		"SideDressUpModelResetButton", 
+		"RaidFinderQueueFramePartyBackfillBackfillButton", 
+		"RaidFinderQueueFramePartyBackfillNoBackfillButton", 
+		"ScrollOfResurrectionSelectionFrameAcceptButton", 
+		"ScrollOfResurrectionSelectionFrameCancelButton", 
+		"ScrollOfResurrectionFrameAcceptButton", 
+		"ScrollOfResurrectionFrameCancelButton", 
+		"HelpFrameReportBugSubmit", 
+		"HelpFrameSubmitSuggestionSubmit", 
+		"ReportPlayerNameDialogReportButton", 
+		"ReportPlayerNameDialogCancelButton", 
+		"ReportCheatingDialogReportButton", 
+		"ReportCheatingDialogCancelButton", 
+		"HelpFrameOpenTicketHelpItemRestoration"}
 
 	for i = 1, #buttons do
 		local button = _G[buttons[i]]
-		A:Reskin(button)
+		if button then
+			A:Reskin(button)
+		end
 	end
 
 	A:ReskinClose(RolePollPopupCloseButton)
@@ -417,12 +462,12 @@ local function LoadSkin()
 	AudioOptionsVoicePanelListeningTitle:SetPoint("BOTTOMLEFT", AudioOptionsVoicePanelListening, "TOPLEFT", 5, 2)
 
 	local dropdowns = {
-		"Graphics_DisplayModeDropDown",
-		"Graphics_ResolutionDropDown",
-		"Graphics_RefreshDropDown",
-		"Graphics_PrimaryMonitorDropDown",
-		"Graphics_MultiSampleDropDown",
-		"Graphics_VerticalSyncDropDown",
+		"Display_DisplayModeDropDown",
+		"Display_ResolutionDropDown",
+		"Display_RefreshDropDown",
+		"Display_PrimaryMonitorDropDown",
+		"Display_AntiAliasingDropDown",
+		"Display_VerticalSyncDropDown",
 		"Graphics_TextureResolutionDropDown",
 		"Graphics_FilteringDropDown",
 		"Graphics_ProjectedTexturesDropDown",
@@ -432,9 +477,12 @@ local function LoadSkin()
 		"Graphics_ParticleDensityDropDown",
 		"Graphics_ViewDistanceDropDown",
 		"Graphics_EnvironmentalDetailDropDown",
+		"Graphics_DepthEffectsDropDown",
 		"Graphics_GroundClutterDropDown",
 		"Graphics_SSAODropDown",
-		"Graphics_RefractionDropDown",
+		"Graphics_DepthEffectsDropDown",
+		"Graphics_LightingQualityDropDown",
+		"Graphics_OutlineModeDropDown",
 		"RaidGraphics_DisplayModeDropDown",
 		"RaidGraphics_ResolutionDropDown",
 		"RaidGraphics_RefreshDropDown",
@@ -456,11 +504,17 @@ local function LoadSkin()
 		"Advanced_BufferingDropDown",
 		"Advanced_LagDropDown",
 		"Advanced_HardwareCursorDropDown",
+		"Advanced_MultisampleAntiAliasingDropDown",
+		"Advanced_MultisampleAlphaTest",
+		"Advanced_PostProcessAntiAliasingDropDown",
+		"Advanced_ResampleQualityDropDown",
 		"AudioOptionsSoundPanelHardwareDropDown",
 		"AudioOptionsSoundPanelSoundChannelsDropDown",
 		"AudioOptionsVoicePanelInputDeviceDropDown",
 		"AudioOptionsVoicePanelChatModeDropDown",
 		"AudioOptionsVoicePanelOutputDeviceDropDown",
+		"InterfaceOptionsLanguagesPanelLocaleDropDown",
+		"InterfaceOptionsLanguagesPanelAudioLocaleDropDown",
 		"InterfaceOptionsStatusTextPanelDisplayDropDown"
 	}
 	for i = 1, #dropdowns do
@@ -478,12 +532,14 @@ local function LoadSkin()
 		"Advanced_UIScaleSlider",
 		"Advanced_MaxFPSSlider",
 		"Advanced_MaxFPSBKSlider",
+		"Advanced_RenderScaleSlider",
 		"Advanced_GammaSlider",
 		"AudioOptionsSoundPanelSoundQuality",
 		"AudioOptionsSoundPanelMasterVolume",
 		"AudioOptionsSoundPanelSoundVolume",
 		"AudioOptionsSoundPanelMusicVolume",
 		"AudioOptionsSoundPanelAmbienceVolume",
+		"AudioOptionsSoundPanelDialogVolume",
 		"AudioOptionsVoicePanelMicrophoneVolume",
 		"AudioOptionsVoicePanelSpeakerVolume",
 		"AudioOptionsVoicePanelSoundFade",
@@ -511,6 +567,7 @@ local function LoadSkin()
 		"AudioOptionsSoundPanelMusic",
 		"AudioOptionsSoundPanelLoopMusic",
 		"AudioOptionsSoundPanelAmbientSounds",
+		"AudioOptionsSoundPanelDialogSounds",
 		"AudioOptionsSoundPanelSoundInBG",
 		"AudioOptionsSoundPanelReverb",
 		"AudioOptionsSoundPanelHRTF",
@@ -584,6 +641,8 @@ local function LoadSkin()
 		"InterfaceOptionsSocialPanelChatHoverDelay",
 		"InterfaceOptionsSocialPanelGuildMemberAlert",
 		"InterfaceOptionsSocialPanelChatMouseScroll",
+		"InterfaceOptionsSocialPanelEnableTwitter",
+		"InterfaceOptionsSocialPanelWholeChatWindowClickable",
 		"InterfaceOptionsActionBarsPanelBottomLeft",
 		"InterfaceOptionsActionBarsPanelBottomRight",
 		"InterfaceOptionsActionBarsPanelRight",
@@ -692,6 +751,7 @@ local function LoadSkin()
 		"InterfaceOptionsMousePanelInvertMouse",
 		"InterfaceOptionsMousePanelClickToMove",
 		"InterfaceOptionsMousePanelWoWMouse",
+		"InterfaceOptionsMousePanelEnableMouseSpeed",
 		"InterfaceOptionsHelpPanelShowTutorials",
 		"InterfaceOptionsHelpPanelLoadingScreenTips",
 		"InterfaceOptionsHelpPanelEnhancedTooltips",
@@ -699,7 +759,9 @@ local function LoadSkin()
 		"InterfaceOptionsHelpPanelColorblindMode",
 		"InterfaceOptionsHelpPanelMovePad",
 		"InterfaceOptionsControlsPanelAutoOpenLootHistory",
-		"InterfaceOptionsCombatPanelLossOfControl"
+		"InterfaceOptionsCombatPanelLossOfControl",
+		"InterfaceOptionsAccessibilityPanelMovePad",
+		"InterfaceOptionsAccessibilityPanelColorblindMode"
 	}
 	for i = 1, #checkboxes do
 		A:ReskinCheck(_G[checkboxes[i]])
@@ -723,11 +785,13 @@ local function LoadSkin()
 		"InterfaceOptionsNamesPanelNPCNamesDropDown",
 		"InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown",
 		"InterfaceOptionsCombatTextPanelFCTDropDown",
+		"InterfaceOptionsCombatTextPanelTargetModeDropDown",
 		"CompactUnitFrameProfilesProfileSelector",
 		"CompactUnitFrameProfilesGeneralOptionsFrameSortByDropdown",
 		"CompactUnitFrameProfilesGeneralOptionsFrameHealthTextDropdown",
 		"InterfaceOptionsCameraPanelStyleDropDown",
 		"InterfaceOptionsMousePanelClickMoveStyleDropDown",
+		"InterfaceOptionsAccessibilityPanelColorFilterDropDown",
 		"Advanced_GraphicsAPIDropDown",
 		"InterfaceOptionsCombatPanelLossOfControlFullDropDown",
 		"InterfaceOptionsCombatPanelLossOfControlSilenceDropDown",
@@ -748,7 +812,8 @@ local function LoadSkin()
 		"InterfaceOptionsCameraPanelMaxDistanceSlider",
 		"InterfaceOptionsCameraPanelFollowSpeedSlider",
 		"InterfaceOptionsMousePanelMouseSensitivitySlider",
-		"InterfaceOptionsMousePanelMouseLookSpeedSlider"
+		"InterfaceOptionsMousePanelMouseLookSpeedSlider",
+		"InterfaceOptionsAccessibilityPanelColorblindStrengthSlider"
 	}
 	for i = 1, #sliders do
 		A:ReskinSlider(_G[sliders[i]])
@@ -821,52 +886,6 @@ local function LoadSkin()
 	hooksecurefunc("PanelTemplates_SelectTab", function(tab)
 		_G[tab:GetName().."Text"]:SetPoint("CENTER", tab, "CENTER")
 	end)
-
-	if IsMacClient() then
-		A:CreateBD(MacOptionsFrame)
-		MacOptionsFrameHeader:SetTexture("")
-		MacOptionsFrameHeader:ClearAllPoints()
-		MacOptionsFrameHeader:SetPoint("TOP", MacOptionsFrame, 0, 0)
-
-		A:CreateBD(MacOptionsFrameMovieRecording, .25)
-		A:CreateBD(MacOptionsITunesRemote, .25)
-
-		A:Reskin(MacOptionsButtonKeybindings)
-		A:Reskin(MacOptionsButtonCompress)
-		A:Reskin(MacOptionsFrameCancel)
-		A:Reskin(MacOptionsFrameOkay)
-		A:Reskin(MacOptionsFrameDefaults)
-
-		A:ReskinDropDown(MacOptionsFrameResolutionDropDown)
-		A:ReskinDropDown(MacOptionsFrameFramerateDropDown)
-		A:ReskinDropDown(MacOptionsFrameCodecDropDown)
-		for i = 1, 10 do
-			if _G["MacOptionsFrameCheckButton"..i] then
-				A:ReskinCheck(_G["MacOptionsFrameCheckButton"..i])
-			end
-		end
-		A:ReskinSlider(MacOptionsFrameQualitySlider)
-
-		MacOptionsButtonCompress:SetWidth(136)
-
-		MacOptionsFrameCancel:SetWidth(96)
-		MacOptionsFrameCancel:SetHeight(22)
-		MacOptionsFrameCancel:ClearAllPoints()
-		MacOptionsFrameCancel:SetPoint("LEFT", MacOptionsButtonKeybindings, "RIGHT", 107, 0)
-
-		MacOptionsFrameOkay:SetWidth(96)
-		MacOptionsFrameOkay:SetHeight(22)
-		MacOptionsFrameOkay:ClearAllPoints()
-		MacOptionsFrameOkay:SetPoint("LEFT", MacOptionsButtonKeybindings, "RIGHT", 5, 0)
-
-		MacOptionsButtonKeybindings:SetWidth(96)
-		MacOptionsButtonKeybindings:SetHeight(22)
-		MacOptionsButtonKeybindings:ClearAllPoints()
-		MacOptionsButtonKeybindings:SetPoint("LEFT", MacOptionsFrameDefaults, "RIGHT", 5, 0)
-
-		MacOptionsFrameDefaults:SetWidth(96)
-		MacOptionsFrameDefaults:SetHeight(22)
-	end
 
 	SideDressUpModel:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
