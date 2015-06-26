@@ -10,14 +10,8 @@ local function LoadSkin()
 	holder:SetSize(ObjectiveTrackerFrame:GetWidth(), ObjectiveTrackerFrame:GetHeight())
 	holder:SetPoint(ObjectiveTrackerFrame:GetPoint())
 	S:CreateMover(holder, "ObjectiveTrackerFrameMover", TRACK_QUEST, true, nil, "ALL,GENERAL")
-	ot._SetPoint = ot.SetPoint
 	hooksecurefunc(ot, "SetPoint", function(a, p, a2, x, y)
-		local aa, pa, a2a, xa, ya = ObjectiveTrackerFrameMover:GetPoint()
-		if (a~=aa and a2a~=a2 and x~=xa and y~=ya) and not isMove then
-			ot:ClearAllPoints()
-			ot:_SetPoint("TOPLEFT", holder, "TOPLEFT", 90, 0)
-            ot:SetHeight(638)
-		end
+		ot:SetAllPoints(ObjectiveTrackerFrameMover)
 	end)
 	
 	--移动载具
@@ -27,11 +21,7 @@ local function LoadSkin()
 	S:CreateMover(holder2, "VehicleSeatIndicatorMover", BINDING_HEADER_VEHICLE, true, nil, "ALL,GENERAL")
 	VehicleSeatIndicator._SetPoint = VehicleSeatIndicator.SetPoint
 	hooksecurefunc(VehicleSeatIndicator, "SetPoint", function(a, p, a2, x, y)
-		local aa, pa, a2a, xa, ya = VehicleSeatIndicatorMover:GetPoint()
-		if (a~=aa and a2a~=a2 and x~=xa and y~=ya) and not isMove2 then
-			VehicleSeatIndicator:ClearAllPoints()
-			VehicleSeatIndicator:_SetPoint("TOPLEFT", holder2, "TOPLEFT", 0, 0)
-		end
+		VehicleSeatIndicator:SetAllPoints(VehicleSeatIndicatorMover)
 	end)
 
 	-- [[ Header ]]
@@ -52,6 +42,7 @@ local function LoadSkin()
 	hooksecurefunc("ObjectiveTracker_Expand", function()
 		minimizeButton.plus:Hide()
 	end)
+
 	-- [[ Blocks and lines ]]
 
 	for _, headerName in pairs({"QuestHeader", "AchievementHeader", "ScenarioHeader"}) do
@@ -61,12 +52,12 @@ local function LoadSkin()
 		header.Text:FontTemplate(nil, nil, "OUTLINE")
 	end
 
-	do
+	--[[do
 		local header = BONUS_OBJECTIVE_TRACKER_MODULE.Header
-
 		header.Background:Hide()
 		header.Text:FontTemplate(nil, nil, "OUTLINE")
-	end
+	end]]
+	BONUS_OBJECTIVE_TRACKER_MODULE.Header.Background:Hide()
 
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetBlockHeader", function(_, block)
 		if not block.headerStyled then
@@ -159,52 +150,34 @@ local function LoadSkin()
 		if not progressBar.styled then
 			local bar = progressBar.Bar
 			local label = bar.Label
+			local icon = bar.Icon
 
-			bar.BorderLeft:Hide()
-			bar.BorderRight:Hide()
-			bar.BorderMid:Hide()
-			select(5, bar:GetRegions()):Hide()
+			bar.IconBG:Hide()
+			bar.BarBG:Hide()
+
+			icon:SetMask(nil)
+			icon:SetDrawLayer("BACKGROUND", 1)
+			icon:ClearAllPoints()
+			icon:SetPoint("RIGHT", 35, 2)
+			A:ReskinIcon(icon)
+
+			bar.BarFrame:Hide()
 
 			bar:SetStatusBarTexture(A["media"].backdrop)
 
 			label:ClearAllPoints()
-			label:SetPoint("CENTER", 0, -1)
+			label:SetPoint("CENTER")
 			label:FontTemplate(nil, nil, "OUTLINE")
 
 			local bg = A:CreateBDFrame(bar)
-			bg:SetPoint("TOPLEFT", -1, 0)
-			bg:SetPoint("BOTTOMRIGHT", 0, -3)
+			bg:SetPoint("TOPLEFT", -1, 1)
+			bg:SetPoint("BOTTOMRIGHT", 0, -2)
 
 			progressBar.styled = true
 		end
-	end)
-	--[[
-	hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddTimerBar", function(block, line, duration, startTime)
-		local timerBar = line.TimerBar
-		S:Print(line.TimerBar)
-		
-		if timerBar then
-			print(_G[timerBar:GetName().."Bar"])
-		end
-		
-		if timerBar.Bar and not timerBar.Bar.skinned then
-			timerBar.Bar:StripTextures()
-			timerBar.Bar:SetStatusBarTexture(A["media"].backdrop)
-			A:CreateMark(timerBar.Bar)
-			
-			timerBar.Bar.bg = CreateFrame("Frame", nil, timerBar.Bar)
-			timerBar.Bar.bg:SetPoint("TOPLEFT", timerBar.Bar, "TOPLEFT", -1, 1)
-			timerBar.Bar.bg:SetPoint("BOTTOMRIGHT", timerBar.Bar, "BOTTOMRIGHT", 1, -1)
-			timerBar.Bar.bg:SetFrameStrata(timerBar.Bar:GetFrameStrata())
-			timerBar.Bar.bg:SetFrameLevel(timerBar.Bar:GetFrameLevel() - 1)
-			timerBar.Bar.bg:SetBackdrop(backdrop)
-			timerBar.Bar.bg:SetBackdropColor(0, 0, 0, 0.5)
-			timerBar.Bar.bg:SetBackdropBorderColor(0, 0, 0, 1)
-			
-			timerBar.Bar.skinned = true
-		end
-	end)
-	]]
-end
 
+		progressBar.Bar:SetValue(50)
+	end)
+end
+A:RegisterSkin("SunUI", LoadSkin)
 A:RegisterSkin("SunUI", LoadSkin)
