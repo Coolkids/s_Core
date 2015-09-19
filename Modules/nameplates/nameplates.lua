@@ -546,7 +546,7 @@ end
 -- This is where we create most 'Static' objects for the nameplate
 local function SkinObjects(frame, nameFrame)
 	
-	local oldhp, cb = frame:GetChildren()
+	local oldhp, absorb, cb = frame:GetChildren()
 	local threat, hpborder, overlay, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
 	local oldname = nameFrame:GetRegions()
 	local _, cbborder, cbshield, cbicon, cbname, cbshadow = cb:GetRegions()
@@ -771,13 +771,15 @@ local function ShowHealth(frame, ...)
 	local d = (valueHealth / maxHealth) * 100
 
 	if N.db.health_value == true then
-		if N.db.health_value_config == 1 then
+		--[[if N.db.health_value_config == 1 then
 			frame.hp.value:SetText(S:ShortValue(valueHealth))
 		elseif N.db.health_value_config == 2 then
 			frame.hp.value:SetText((string.format("%d%%", math.floor(d))))
 		elseif N.db.health_value_config == 3 then
 			frame.hp.value:SetText(S:ShortValue(valueHealth).." - "..(string.format("%d%%", math.floor(d))))
-		end
+		end]]
+		--S:Print(GetTime(), valueHealth, maxHealth, (string.format("%d%%", math.floor(d))))
+		frame.hp.value:SetText((string.format("%d%%", math.floor(d))))
 	end
 
 	if GetUnitName("target") and frame:GetParent():GetAlpha() == 1 then
