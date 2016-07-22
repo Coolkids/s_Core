@@ -144,53 +144,51 @@ local PlateBlacklist = {
 	--DS
 	--["腐化之血"] = S.IsCoolkid(),
 }
+
 local DebuffWhiteList = {
 	-- Death Knight
-		[GetSpellInfo(47476)] = true, --strangulate
+		[S:GetSpell(47476)] = true, --strangulate
 	-- Druid
-		[GetSpellInfo(33786)] = true, --Cyclone
-		[GetSpellInfo(339)] = true, --Entangling Roots
-		[GetSpellInfo(78675)] = true, --Solar Beam
+		[S:GetSpell(33786)] = true, --Cyclone
+		[S:GetSpell(339)] = true, --Entangling Roots
+		[S:GetSpell(78675)] = true, --Solar Beam
 	-- Hunter
-		[GetSpellInfo(3355)] = true, --Freezing Trap Effect
+		[S:GetSpell(3355)] = true, --Freezing Trap Effect
 	-- Mage
-		[GetSpellInfo(31661)] = true, --Dragon's Breath
-		[GetSpellInfo(61305)] = true, --Polymorph
-		[GetSpellInfo(122)] = true, --Frost Nova
-		[GetSpellInfo(82691)] = true, --Ring of Frost
+		[S:GetSpell(31661)] = true, --Dragon's Breath
+		[S:GetSpell(61305)] = true, --Polymorph
+		[S:GetSpell(122)] = true, --Frost Nova
+		[S:GetSpell(82691)] = true, --Ring of Frost
 	-- Paladin
-		[GetSpellInfo(20066)] = true, --Repentance
-		[GetSpellInfo(10326)] = true, --Turn Evil
-		[GetSpellInfo(853)] = true, --Hammer of Justice
+		[S:GetSpell(20066)] = true, --Repentance
+		[S:GetSpell(853)] = true, --Hammer of Justice
 	-- Priest
-		[GetSpellInfo(605)] = true, --Mind Control
-		[GetSpellInfo(64044)] = true, --Psychic Horror
-		[GetSpellInfo(8122)] = true, --Psychic Scream
-		[GetSpellInfo(9484)] = true, --Shackle Undead
-		[GetSpellInfo(15487)] = true, --Silence
+		[S:GetSpell(605)] = true, --Mind Control
+		[S:GetSpell(64044)] = true, --Psychic Horror
+		[S:GetSpell(8122)] = true, --Psychic Scream
+		[S:GetSpell(9484)] = true, --Shackle Undead
+		[S:GetSpell(15487)] = true, --Silence
 	-- Rogue
-		[GetSpellInfo(2094)] = true, --Blind
-		[GetSpellInfo(1776)] = true, --Gouge
-		[GetSpellInfo(6770)] = true, --Sap
+		[S:GetSpell(2094)] = true, --Blind
+		[S:GetSpell(1776)] = true, --Gouge
+		[S:GetSpell(6770)] = true, --Sap
 	-- Shaman
-		[GetSpellInfo(51514)] = true, --Hex
-		[GetSpellInfo(3600)] = true, --Earthbind
-		[GetSpellInfo(8056)] = true, --Frost Shock
-		[GetSpellInfo(63685)] = true, --Freeze
+		[S:GetSpell(51514)] = true, --Hex
+		[S:GetSpell(3600)] = true, --Earthbind
 	-- Warlock
-		[GetSpellInfo(710)] = true, --Banish
-		[GetSpellInfo(6789)] = true, --Death Coil
-		[GetSpellInfo(5782)] = true, --Fear
-		[GetSpellInfo(5484)] = true, --Howl of Terror
-		[GetSpellInfo(6358)] = true, --Seduction
-		[GetSpellInfo(30283)] = true, --Shadowfury
+		[S:GetSpell(710)] = true, --Banish
+		[S:GetSpell(6789)] = true, --Death Coil
+		[S:GetSpell(5782)] = true, --Fear
+		[S:GetSpell(5484)] = true, --Howl of Terror
+		[S:GetSpell(6358)] = true, --Seduction
+		[S:GetSpell(30283)] = true, --Shadowfury
 	-- Racial
-		[GetSpellInfo(25046)] = true, --Arcane Torrent
-		[GetSpellInfo(20549)] = true, --War Stomp
+		[S:GetSpell(25046)] = true, --Arcane Torrent
+		[S:GetSpell(20549)] = true, --War Stomp
 	--PVE
 }
 local DebuffBlackList = {
-	[GetSpellInfo(15407)] = true,
+	[S:GetSpell(15407)] = true,
 }
 
 local function QueueObject(frame, object)
@@ -835,7 +833,7 @@ local function HookFrames(...)
 	for index = 1, select("#", ...) do
 		local frame = select(index, ...)
 
-		if frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d") then
+		if frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate") then
 			local child1, child2 = frame:GetChildren()
 			SkinObjects(child1, child2)
 			frame.isSkinned = true
