@@ -829,18 +829,20 @@ local function ForEachPlate(functionToRun, ...)
 end
 
 -- Check if the frames default overlay texture matches blizzards nameplates default overlay texture
+--[[
 local function HookFrames(...)
 	for index = 1, select("#", ...) do
 		local frame = select(index, ...)
 
 		if frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate") then
 			local child1, child2 = frame:GetChildren()
+			--S:Print(child2)
 			SkinObjects(child1, child2)
 			frame.isSkinned = true
 		end
 	end
 end
-
+--]]
 
 function N:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, ...)
 	if event == "SPELL_AURA_REMOVED" then
@@ -856,11 +858,23 @@ function N:Initialize()
 	if not self.db.enable then return end
 	noscalemult = S.mult * S.global.general.uiscale
 	local Frame = CreateFrame("Frame", nil, UIParent)
+	local index = 1
 	
 	Frame:SetScript("OnUpdate", function(self, elapsed)
 		if WorldFrame:GetNumChildren() ~= numChildren then
 			numChildren = WorldFrame:GetNumChildren()
-			HookFrames(WorldFrame:GetChildren())
+			for i = index, numChildren do
+				local frame = select(i, WorldFrame:GetChildren())
+				local name = frame:GetName()
+
+				if name and name:find("NamePlate") and not frame.isSkinned then
+          local child1, child2 = frame:GetChildren()
+          S:Print(child1,child2)
+					SkinObjects(child1, child2)
+					frame.isSkinned = true
+					index = i
+				end
+			end
 		end
 
 		if self.elapsed and self.elapsed > 0.2 then
